@@ -31,18 +31,11 @@
 <body>
   <div id="clock-container"></div>
 
-  <button id="fullscreen-btn" style="
-  position: fixed; 
-  bottom: 10px; right: 10px; 
-  padding: 6px 12px; 
-  font-size: 14px; 
-  background: rgba(255,255,255,0.2);
-  border: none; 
-  color: white; 
-  cursor: pointer;
-  border-radius: 4px;
-  z-index: 1000;
-">Fullscreen</button>
+ <button id="fullscreen-btn" title="Fullscreen" style="position: fixed; bottom: 10px; right: 10px; padding: 6px; background: rgba(255,255,255,0.2); border: none; color: white; cursor: pointer; border-radius: 4px; z-index: 1000;">
+  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="white" viewBox="0 0 24 24">
+    <path d="M4 4h6v2H6.414l3.293 3.293-1.414 1.414L5 7.414V10H4V4zm16 16h-6v-2h4.586l-3.293-3.293 1.414-1.414L19 16.586V14h1v6z"/>
+  </svg>
+</button>
 
 <p id="rights-text" style="text-align:center; font-size: 0.9em; color: #aaa; margin-top: 2em;">
   Orologio ispirato al progetto open source di <a href="https://github.com/sbb-design-systems/brand-elements" target="_blank" style="color: #ccc;">SBB</a>. Marchi e loghi appartengono ai rispettivi titolari.
@@ -91,6 +84,11 @@ fullscreenBtn.addEventListener('click', () => {
       rightsText.style.display = 'block';
       fullscreenBtn.textContent = 'Fullscreen';
     });
+  }
+});
+    document.addEventListener('keydown', e => {
+  if (e.key.toLowerCase() === 'f' && !['INPUT', 'TEXTAREA'].includes(document.activeElement.tagName)) {
+    fullscreenBtn.click();
   }
 });
 
