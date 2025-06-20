@@ -47,7 +47,17 @@ function sbbUhr(container, background = false, fps = false) {
 	}
 	c.wrapper = document.createElement("div");	//Build wrapper element, set attributes and inline style
 	c.wrapper.setAttribute("id", "sbb_uhr_wrapper");
-	c.wrapper.setAttribute("style", "display:block; position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); width:" + c.size + "px; height:" + c.size + "px; overflow:hidden; margin:0;");
+	c.wrapper.setAttribute("style", `
+  display: block;
+  position: absolute;
+  width: ${c.size}px;
+  height: ${c.size}px;
+  overflow: hidden;
+  top: 50%;
+  left: 50%;
+  margin: 0;
+  transform: translate(-50%, -50%);
+`);
 	c.face = c.wrapper.appendChild(c.createComponent("sbb_uhr_face", background ? c.svg.faceDark : c.svg.face));	//Build Face and Hands DOM Elements
 	c.hoursHand = c.wrapper.appendChild(c.wrapper.appendChild(c.createComponent("sbb_uhr_hours", c.svg.hours)));
 	c.minutesHand = c.wrapper.appendChild(c.createComponent("sbb_uhr_minutes", c.svg.minutes));
