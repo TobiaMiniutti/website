@@ -1,105 +1,132 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>SBB Clock</title>
-<style>
-  html, body {
-    margin: 0; padding: 0;
-    background: black;
-    height: 100%;
-    width: 100%;
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    color: white;
-  }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>SBB Clock</title>
+  <link rel="icon" type="image/png" href="favicon.png">
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      background: black;
+      height: 100%;
+      width: 100%;
+      overflow: hidden;
+      color: #aaa;
+      font-family: Arial, sans-serif;
+    }
 
-  #clock-container {
-    width: 90vw;
-    max-width: 400px;
-    height: auto;
-    aspect-ratio: 1 / 1;
-  }
+    #clock-container {
+      width: 100vw;
+      height: 100vh;
+    }
 
-  canvas {
-    width: 100%;
-    height: 100%;
-    display: block;
-  }
+    canvas {
+      display: block;
+      width: 100%;
+      height: 100%;
+    }
 
-  #rights-text {
-    font-size: 0.9em;
-    color: #aaa;
-    margin-top: 1em;
-    text-align: center;
-  }
-
-  #fullscreen-btn {
-    position: fixed;
-    bottom: 15px;
-    right: 15px;
-    background: rgba(255, 255, 255, 0.2);
-    border: none;
-    border-radius: 4px;
-    padding: 6px 10px;
-    color: white;
-    cursor: pointer;
-    font-size: 1em;
-    display: none; /* default nascosto */
-    z-index: 1000;
-  }
-
-  @media(min-width: 768px) {
     #fullscreen-btn {
-      display: block; /* solo su desktop */
+      position: fixed;
+      bottom: 10px;
+      right: 10px;
+      padding: 6px;
+      background: rgba(255,255,255,0.2);
+      border: none;
+      color: white;
+      cursor: pointer;
+      border-radius: 4px;
+      z-index: 1000;
     }
-  }
-</style>
 
-<div id="clock-container"></div>
-
-<button id="fullscreen-btn" title="Fullscreen">Fullscreen</button>
-
-<p id="rights-text">
-  Orologio ispirato al progetto open source di <a href="https://github.com/sbb-design-systems/brand-elements" target="_blank" style="color:#ccc;">SBB</a>. Marchi e loghi appartengono ai rispettivi titolari.
-</p>
-
-<script>
-  const fullscreenBtn = document.getElementById('fullscreen-btn');
-  const rightsText = document.getElementById('rights-text');
-  const clockContainer = document.getElementById('clock-container');
-
-  fullscreenBtn.addEventListener('click', () => {
-    if (!document.fullscreenElement) {
-      clockContainer.requestFullscreen().then(() => {
-        rightsText.style.display = 'none';
-        fullscreenBtn.textContent = 'Esci fullscreen';
-      });
-    } else {
-      document.exitFullscreen().then(() => {
-        rightsText.style.display = 'block';
-        fullscreenBtn.textContent = 'Fullscreen';
-      });
+    #rights-text {
+      text-align: center;
+      font-size: 0.9em;
+      color: #aaa;
+      margin: 1em 10px 10px 10px;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+      position: relative;
+      z-index: 10;
     }
-  });
 
-  document.addEventListener('fullscreenchange', () => {
-    if (!document.fullscreenElement) {
-      rightsText.style.display = 'block';
-      fullscreenBtn.textContent = 'Fullscreen';
-    } else {
-      rightsText.style.display = 'none';
-      fullscreenBtn.textContent = 'Esci fullscreen';
+    #rights-text a {
+      color: #ccc;
+      text-decoration: none;
     }
-  });
-</script>
 
+    #rights-text a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+
+  <div id="clock-container"></div>
+
+  <button id="fullscreen-btn" title="Fullscreen" aria-label="Toggle fullscreen">
+    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="white" viewBox="0 0 24 24">
+      <path d="M4 4h6v2H6.414l3.293 3.293-1.414 1.414L5 7.414V10H4V4zm16 16h-6v-2h4.586l-3.293-3.293 1.414-1.414L19 16.586V14h1v6z"/>
+    </svg>
+  </button>
+
+  <p id="rights-text">
+    Orologio ispirato al progetto open source di <a href="https://github.com/sbb-design-systems/brand-elements" target="_blank" rel="noopener noreferrer">SBB</a>. Marchi e loghi appartengono ai rispettivi titolari.
+  </p>
+
+  <script src="sbbUhr-1.3.js"></script>
+  <script>
+    async function getTimeOffset() {
+      try {
+        const res = await fetch('https://worldtimeapi.org/api/ip.txt');
+        const text = await res.text();
+        const line = text.split('\n').find(l => l.startsWith('datetime:'));
+        const datetime = line.split('datetime:')[1].trim();
+        const serverTime = new Date(datetime).getTime();
+        const localTime = Date.now();
+        return serverTime - localTime;
+      } catch (e) {
+        return 0; // fallback se offline
+      }
+    }
+
+    getTimeOffset().then(offset => {
+      if (typeof sbbUhr !== "undefined") {
+        sbbUhr.now = () => new Date(Date.now() + offset);
+        const clock = new sbbUhr('clock-container', true, 30);
+        clock.start();
+      } else {
+        console.error("sbbUhr non caricato");
+      }
+    });
+
+    const fullscreenBtn = document.getElementById('fullscreen-btn');
+    const clockContainer = document.getElementById('clock-container');
+    const rightsText = document.getElementById('rights-text');
+
+    fullscreenBtn.addEventListener('click', () => {
+      if (!document.fullscreenElement) {
+        clockContainer.requestFullscreen().then(() => {
+          rightsText.style.display = 'none';
+          fullscreenBtn.title = 'Esci fullscreen';
+        });
+      } else {
+        document.exitFullscreen().then(() => {
+          rightsText.style.display = 'block';
+          fullscreenBtn.title = 'Fullscreen';
+        });
+      }
+    });
+
+    document.addEventListener('keydown', e => {
+      if (e.key.toLowerCase() === 'f' && !['INPUT', 'TEXTAREA'].includes(document.activeElement.tagName)) {
+        fullscreenBtn.click();
+      }
+    });
+  </script>
 
 </body>
-</html>
-
 </html>
