@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>SBB Clock</title>
   <link rel="icon" type="image/png" href="favicon.png">
-  <script src="sbbUhr-1.3.js"></script>
   <style>
     html, body {
       margin: 0;
@@ -14,6 +13,8 @@
       height: 100%;
       width: 100%;
       overflow: hidden;
+      color: #aaa;
+      font-family: Arial, sans-serif;
     }
 
     #clock-container {
@@ -26,24 +27,58 @@
       width: 100%;
       height: 100%;
     }
+
+    #fullscreen-btn {
+      position: fixed;
+      bottom: 10px;
+      right: 10px;
+      padding: 6px;
+      background: rgba(255,255,255,0.2);
+      border: none;
+      color: white;
+      cursor: pointer;
+      border-radius: 4px;
+      z-index: 1000;
+    }
+
+    #rights-text {
+      text-align: center;
+      font-size: 0.9em;
+      color: #aaa;
+      margin: 1em 10px 10px 10px;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+      position: relative;
+      z-index: 10;
+    }
+
+    #rights-text a {
+      color: #ccc;
+      text-decoration: none;
+    }
+
+    #rights-text a:hover {
+      text-decoration: underline;
+    }
   </style>
 </head>
 <body>
+
   <div id="clock-container"></div>
 
- <button id="fullscreen-btn" title="Fullscreen" style="position: fixed; bottom: 10px; right: 10px; padding: 6px; background: rgba(255,255,255,0.2); border: none; color: white; cursor: pointer; border-radius: 4px; z-index: 1000;">
-  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="white" viewBox="0 0 24 24">
-    <path d="M4 4h6v2H6.414l3.293 3.293-1.414 1.414L5 7.414V10H4V4zm16 16h-6v-2h4.586l-3.293-3.293 1.414-1.414L19 16.586V14h1v6z"/>
-  </svg>
-</button>
+  <button id="fullscreen-btn" title="Fullscreen" aria-label="Toggle fullscreen">
+    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="white" viewBox="0 0 24 24">
+      <path d="M4 4h6v2H6.414l3.293 3.293-1.414 1.414L5 7.414V10H4V4zm16 16h-6v-2h4.586l-3.293-3.293 1.414-1.414L19 16.586V14h1v6z"/>
+    </svg>
+  </button>
 
-<p id="rights-text" style="text-align:center; font-size: 0.9em; color: #aaa; margin-top: 2em;">
-  Orologio ispirato al progetto open source di <a href="https://github.com/sbb-design-systems/brand-elements" target="_blank" style="color: #ccc;">SBB</a>. Marchi e loghi appartengono ai rispettivi titolari.
-</p>
+  <p id="rights-text">
+    Orologio ispirato al progetto open source di <a href="https://github.com/sbb-design-systems/brand-elements" target="_blank" rel="noopener noreferrer">SBB</a>. Marchi e loghi appartengono ai rispettivi titolari.
+  </p>
 
-
+  <script src="sbbUhr-1.3.js"></script>
   <script>
-    // Funzione compatibile che estrae l'orario UTC da API TXT
     async function getTimeOffset() {
       try {
         const res = await fetch('https://worldtimeapi.org/api/ip.txt');
@@ -59,7 +94,6 @@
     }
 
     getTimeOffset().then(offset => {
-      // Assegna nuova funzione d'orario a sbbUhr
       if (typeof sbbUhr !== "undefined") {
         sbbUhr.now = () => new Date(Date.now() + offset);
         const clock = new sbbUhr('clock-container', true, 30);
@@ -69,21 +103,6 @@
       }
     });
 
-    <body>
-  <div id="clock-container"></div>
-
-  <button id="fullscreen-btn" title="Fullscreen">
-    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="white" viewBox="0 0 24 24">
-      <path d="M4 4h6v2H6.414l3.293 3.293-1.414 1.414L5 7.414V10H4V4zm16 16h-6v-2h4.586l-3.293-3.293 1.414-1.414L19 16.586V14h1v6z"/>
-    </svg>
-  </button>
-
-  <p id="rights-text">
-    Orologio ispirato al progetto open source di <a href="https://github.com/sbb-design-systems/brand-elements" target="_blank" style="color: #ccc;">SBB</a>. Marchi e loghi appartengono ai rispettivi titolari.
-  </p>
-
-  <script>
-    // Qui metti lo script JS per il fullscreen
     const fullscreenBtn = document.getElementById('fullscreen-btn');
     const clockContainer = document.getElementById('clock-container');
     const rightsText = document.getElementById('rights-text');
@@ -109,25 +128,5 @@
     });
   </script>
 
-  <!-- qui metti lo script originale sbbUhr come già fai -->
-  <script src="sbbUhr-1.3.js"></script>
-  <script>
-    // il tuo codice che crea e avvia l'orologio
-  </script>
-</body>
-
-    });
-  }
-});
-    document.addEventListener('keydown', e => {
-  if (e.key.toLowerCase() === 'f' && !['INPUT', 'TEXTAREA'].includes(document.activeElement.tagName)) {
-    fullscreenBtn.click();
-  }
-});
-
-  </script>
-    <p style="text-align:center; font-size: 0.9em; color: #aaa; margin-top: 1em; position: fixed; bottom: 10px; width: 100%;">
-  Orologio ispirato al progetto open source di <a href="https://github.com/sbb-design-systems/brand-elements" target="_blank" style="color: #ccc;">SBB</a>. Marchi e loghi appartengono ai rispettivi titolari.
-</p>
 </body>
 </html>
