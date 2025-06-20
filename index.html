@@ -75,6 +75,25 @@
         console.error("sbbUhr non caricato");
       }
     });
+
+    const fullscreenBtn = document.getElementById('fullscreen-btn');
+const clockContainer = document.getElementById('clock-container');
+const rightsText = document.getElementById('rights-text');
+
+fullscreenBtn.addEventListener('click', () => {
+  if (!document.fullscreenElement) {
+    clockContainer.requestFullscreen().then(() => {
+      rightsText.style.display = 'none';
+      fullscreenBtn.textContent = 'Esci Fullscreen';
+    });
+  } else {
+    document.exitFullscreen().then(() => {
+      rightsText.style.display = 'block';
+      fullscreenBtn.textContent = 'Fullscreen';
+    });
+  }
+});
+
   </script>
     <p style="text-align:center; font-size: 0.9em; color: #aaa; margin-top: 1em; position: fixed; bottom: 10px; width: 100%;">
   Orologio ispirato al progetto open source di <a href="https://github.com/sbb-design-systems/brand-elements" target="_blank" style="color: #ccc;">SBB</a>. Marchi e loghi appartengono ai rispettivi titolari.
