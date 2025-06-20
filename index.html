@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>SBB Clock</title>
+  <title>SBB Clock - Sincronizzato</title>
   <script src="sbbUhr-1.3.js"></script>
   <style>
     html, body {
@@ -30,27 +30,32 @@
 <body>
   <div id="clock-container"></div>
 
-<script>
-  (function () {
+  <script>
+    // Funzione compatibile che estrae l'orario UTC da API TXT
     async function getTimeOffset() {
       try {
         const res = await fetch('https://worldtimeapi.org/api/ip.txt');
         const text = await res.text();
-        const lines = text.split('\n');
-        const datetimeLine = lines.find(line => line.startsWith('datetime:'));
-        const datetime = datetimeLine.split('datetime: ')[1].trim();
+        const line = text.split('\n').find(l => l.startsWith('datetime:'));
+        const datetime = line.split('datetime:')[1].trim();
         const serverTime = new Date(datetime).getTime();
         const localTime = Date.now();
         return serverTime - localTime;
       } catch (e) {
-        return 0; // fallback locale
+        return 0; // fallback se offline
       }
     }
 
     getTimeOffset().then(offset => {
-      sbbUhr.now = () => new Date(Date.now() + offset);
-      const clock = new sbbUhr('clock-container', true, 30);
-      clock.start();
+      // Assegna nuova funzione d'orario a sbbUhr
+      if (typeof sbbUhr !== "undefined") {
+        sbbUhr.now = () => new Date(Date.now() + offset);
+        const clock = new sbbUhr('clock-container', true, 30);
+        clock.start();
+      } else {
+        console.error("sbbUhr non caricato");
+      }
     });
-  })();
-</script>
+  </script>
+</body>
+</html>
