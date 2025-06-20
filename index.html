@@ -30,22 +30,23 @@
 <body>
   <div id="clock-container"></div>
 
-  <script>
-  async function getTimeOffset() {
-    try {
-      const res = await fetch('https://worldtimeapi.org/api/ip');
-      const data = await res.json();
-      const serverTime = new Date(data.datetime).getTime();
-      const localTime = new Date().getTime();
-      return serverTime - localTime; // scarto in millisecondi
-    } catch (e) {
-      return 0;
+<script>
+  (function () {
+    function getTimeOffset() {
+      return fetch('https://worldtimeapi.org/api/ip')
+        .then(res => res.json())
+        .then(data => {
+          const serverTime = new Date(data.datetime).getTime();
+          const localTime = new Date().getTime();
+          return serverTime - localTime;
+        })
+        .catch(() => 0); // fallback se offline
     }
-  }
 
-  getTimeOffset().then(offset => {
-    sbbUhr.now = () => new Date(Date.now() + offset); // override della funzione di orario interna
-    const clock = new sbbUhr('clock-container', true, 30);
-    clock.start();
-  });
+    getTimeOffset().then(offset => {
+      sbbUhr.now = () => new Date(Date.now() + offset);
+      const clock = new sbbUhr('clock-container', true, 30);
+      clock.start();
+    });
+  })();
 </script>
