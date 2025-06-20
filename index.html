@@ -31,6 +31,24 @@
 <body>
   <div id="clock-container"></div>
 
+  <button id="fullscreen-btn" style="
+  position: fixed; 
+  bottom: 10px; right: 10px; 
+  padding: 6px 12px; 
+  font-size: 14px; 
+  background: rgba(255,255,255,0.2);
+  border: none; 
+  color: white; 
+  cursor: pointer;
+  border-radius: 4px;
+  z-index: 1000;
+">Fullscreen</button>
+
+<p id="rights-text" style="text-align:center; font-size: 0.9em; color: #aaa; margin-top: 2em;">
+  Orologio ispirato al progetto open source di <a href="https://github.com/sbb-design-systems/brand-elements" target="_blank" style="color: #ccc;">SBB</a>. Marchi e loghi appartengono ai rispettivi titolari.
+</p>
+
+
   <script>
     // Funzione compatibile che estrae l'orario UTC da API TXT
     async function getTimeOffset() {
