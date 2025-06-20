@@ -1,160 +1,146 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>SBB Clock</title>
-  <link rel="icon" type="image/png" href="favicon.png">
-  <style>
-    html, body {
-      margin: 0;
-      padding: 0;
-      background: black;
-      height: 100%;
-      width: 100%;
-      overflow: hidden;
-      color: #aaa;
-      font-family: Arial, sans-serif;
-    }
-
-    #wrapper {
-      width: 100vw;
-      height: 100vh;
-      position: relative;
-    }
-
-    #clock-container {
-      width: 100%;
-      height: 100%;
-    }
-
-    canvas {
-      display: block;
-      width: 100%;
-      height: 100%;
-    }
-
-    #fullscreen-btn {
-      position: fixed;
-      bottom: 10px;
-      right: 10px;
-      padding: 6px;
-      background: rgba(255,255,255,0.2);
-      border: none;
-      color: white;
-      cursor: pointer;
-      border-radius: 4px;
-      z-index: 1000;
-    }
-
-    #rights-text {
-      text-align: center;
-      font-size: 0.9em;
-      color: #aaa;
-      margin: 1em 10px 10px 10px;
-      max-width: 600px;
-      margin-left: auto;
-      margin-right: auto;
-      position: relative;
-      z-index: 10;
-      transition: opacity 0.3s ease;
-    }
-
-    #rights-text.hidden {
-      opacity: 0;
-      pointer-events: none;
-      height: 0;
-      margin: 0;
-      overflow: hidden;
-    }
-
-    #rights-text a {
-      color: #ccc;
-      text-decoration: none;
-    }
-
-    #rights-text a:hover {
-      text-decoration: underline;
-    }
-  </style>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>SBB Clock</title>
+<style>
+  html, body {
+    margin: 0; padding: 0; background: black; height: 100%; width: 100%; overflow: hidden; color: #aaa; font-family: Arial, sans-serif;
+  }
+  #wrapper {
+    width: 100vw; height: 100vh; position: relative;
+  }
+  #clock-container {
+    width: 100%; height: 100%;
+  }
+  canvas {
+    display: block; width: 100%; height: 100%;
+  }
+  #fullscreen-btn {
+    position: fixed; bottom: 10px; right: 10px; padding: 8px 10px;
+    background: rgba(255,255,255,0.2); border: none; color: white;
+    cursor: pointer; border-radius: 4px; z-index: 1000;
+    font-size: 14px;
+  }
+  #rights-text {
+    text-align: center; font-size: 0.9em; color: #aaa; margin: 1em 10px 10px 10px;
+    max-width: 600px; margin-left: auto; margin-right: auto;
+    position: relative; z-index: 10;
+    transition: opacity 0.3s ease;
+  }
+  #rights-text.hidden {
+    opacity: 0; pointer-events: none; height: 0; margin: 0; overflow: hidden;
+  }
+  #rights-text a {
+    color: #ccc; text-decoration: none;
+  }
+  #rights-text a:hover {
+    text-decoration: underline;
+  }
+  /* Simulazione fullscreen iOS */
+  .ios-fullscreen {
+    position: fixed !important;
+    top: 0; left: 0; width: 100vw; height: 100vh;
+    z-index: 9999; background: black;
+  }
+</style>
 </head>
 <body>
 
-  <div id="wrapper">
-    <div id="clock-container"></div>
-  </div>
+<div id="wrapper">
+  <div id="clock-container"></div>
+</div>
 
-  <button id="fullscreen-btn" title="Fullscreen" aria-label="Toggle fullscreen">
-    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="white" viewBox="0 0 24 24">
-      <path d="M4 4h6v2H6.414l3.293 3.293-1.414 1.414L5 7.414V10H4V4zm16 16h-6v-2h4.586l-3.293-3.293 1.414-1.414L19 16.586V14h1v6z"/>
-    </svg>
-  </button>
+<button id="fullscreen-btn" title="Fullscreen" aria-label="Toggle fullscreen">Fullscreen</button>
 
-  <p id="rights-text">
-    Orologio ispirato al progetto open source di <a href="https://github.com/sbb-design-systems/brand-elements" target="_blank" rel="noopener noreferrer">SBB</a>. Marchi e loghi appartengono ai rispettivi titolari.
-  </p>
+<p id="rights-text">
+  Orologio ispirato al progetto open source di <a href="https://github.com/sbb-design-systems/brand-elements" target="_blank" rel="noopener noreferrer">SBB</a>. Marchi e loghi appartengono ai rispettivi titolari.
+</p>
 
-  <script src="sbbUhr-1.3.js"></script>
-  <script>
-    async function getTimeOffset() {
-      try {
-        const res = await fetch('https://worldtimeapi.org/api/ip.txt');
-        const text = await res.text();
-        const line = text.split('\n').find(l => l.startsWith('datetime:'));
-        const datetime = line.split('datetime:')[1].trim();
-        const serverTime = new Date(datetime).getTime();
-        const localTime = Date.now();
-        return serverTime - localTime;
-      } catch (e) {
-        return 0;
-      }
+<script src="sbbUhr-1.3.js"></script>
+<script>
+  async function getTimeOffset() {
+    try {
+      const res = await fetch('https://worldtimeapi.org/api/ip.txt');
+      const text = await res.text();
+      const line = text.split('\n').find(l => l.startsWith('datetime:'));
+      const datetime = line.split('datetime:')[1].trim();
+      const serverTime = new Date(datetime).getTime();
+      const localTime = Date.now();
+      return serverTime - localTime;
+    } catch (e) {
+      return 0;
     }
+  }
 
-    getTimeOffset().then(offset => {
-      if (typeof sbbUhr !== "undefined") {
-        sbbUhr.now = () => new Date(Date.now() + offset);
-        const clock = new sbbUhr('clock-container', true, 30);
-        clock.start();
-      } else {
-        console.error("sbbUhr non caricato");
-      }
-    });
-
-    const fullscreenBtn = document.getElementById('fullscreen-btn');
-    const wrapper = document.getElementById('wrapper');
-    const rightsText = document.getElementById('rights-text');
-
-    function updateRightsTextVisibility(isFullscreen) {
-      if (isFullscreen) {
-        rightsText.classList.add('hidden');
-        fullscreenBtn.title = 'Esci fullscreen';
-      } else {
-        rightsText.classList.remove('hidden');
-        fullscreenBtn.title = 'Fullscreen';
-      }
+  getTimeOffset().then(offset => {
+    if (typeof sbbUhr !== "undefined") {
+      sbbUhr.now = () => new Date(Date.now() + offset);
+      const clock = new sbbUhr('clock-container', true, 30);
+      clock.start();
+    } else {
+      console.error("sbbUhr non caricato");
     }
+  });
 
-    fullscreenBtn.addEventListener('click', () => {
-      if (!document.fullscreenElement) {
+  const fullscreenBtn = document.getElementById('fullscreen-btn');
+  const wrapper = document.getElementById('wrapper');
+  const rightsText = document.getElementById('rights-text');
+
+  function isIOS() {
+    return /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+  }
+
+  function updateRightsTextVisibility(isFullscreen) {
+    if (isFullscreen) {
+      rightsText.classList.add('hidden');
+      fullscreenBtn.textContent = 'Esci fullscreen';
+    } else {
+      rightsText.classList.remove('hidden');
+      fullscreenBtn.textContent = 'Fullscreen';
+    }
+  }
+
+  fullscreenBtn.addEventListener('click', () => {
+    if (!document.fullscreenElement) {
+      if (isIOS()) {
+        // iOS non supporta fullscreen API: simuliamo con CSS
+        wrapper.classList.add('ios-fullscreen');
+        updateRightsTextVisibility(true);
+      } else {
         wrapper.requestFullscreen()
           .then(() => updateRightsTextVisibility(true))
           .catch(() => alert('Fullscreen non supportato su questo dispositivo.'));
+      }
+    } else {
+      if (isIOS()) {
+        wrapper.classList.remove('ios-fullscreen');
+        updateRightsTextVisibility(false);
       } else {
         document.exitFullscreen()
           .then(() => updateRightsTextVisibility(false));
       }
-    });
+    }
+  });
 
-    document.addEventListener('fullscreenchange', () => {
-      updateRightsTextVisibility(!!document.fullscreenElement);
-    });
+  document.addEventListener('fullscreenchange', () => {
+    if (!document.fullscreenElement && !wrapper.classList.contains('ios-fullscreen')) {
+      updateRightsTextVisibility(false);
+    }
+  });
 
-    document.addEventListener('keydown', e => {
-      if (e.key.toLowerCase() === 'f' && !['INPUT', 'TEXTAREA'].includes(document.activeElement.tagName)) {
-        fullscreenBtn.click();
-      }
-    });
-  </script>
+  // Inizializza visibilità corretta della scritta
+  updateRightsTextVisibility(false);
+
+  document.addEventListener('keydown', e => {
+    if (e.key.toLowerCase() === 'f' && !['INPUT', 'TEXTAREA'].includes(document.activeElement.tagName)) {
+      fullscreenBtn.click();
+    }
+  });
+</script>
 
 </body>
+</html>
+
 </html>
