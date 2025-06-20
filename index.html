@@ -84,7 +84,7 @@ fullscreenBtn.addEventListener('click', () => {
   if (!document.fullscreenElement) {
     clockContainer.requestFullscreen().then(() => {
       rightsText.style.display = 'none';
-      fullscreenBtn.textContent = 'Esci Fullscreen';
+      fullscreenBtn.textContent = 'Fullscreen';
     });
   } else {
     document.exitFullscreen().then(() => {
