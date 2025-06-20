@@ -17,9 +17,15 @@
       font-family: Arial, sans-serif;
     }
 
-    #clock-container {
+    #wrapper {
       width: 100vw;
       height: 100vh;
+      position: relative;
+    }
+
+    #clock-container {
+      width: 100%;
+      height: 100%;
     }
 
     canvas {
@@ -51,6 +57,15 @@
       margin-right: auto;
       position: relative;
       z-index: 10;
+      transition: opacity 0.3s ease;
+    }
+
+    #rights-text.hidden {
+      opacity: 0;
+      pointer-events: none;
+      height: 0;
+      margin: 0;
+      overflow: hidden;
     }
 
     #rights-text a {
@@ -65,7 +80,9 @@
 </head>
 <body>
 
-  <div id="clock-container"></div>
+  <div id="wrapper">
+    <div id="clock-container"></div>
+  </div>
 
   <button id="fullscreen-btn" title="Fullscreen" aria-label="Toggle fullscreen">
     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="white" viewBox="0 0 24 24">
@@ -89,7 +106,7 @@
         const localTime = Date.now();
         return serverTime - localTime;
       } catch (e) {
-        return 0; // fallback se offline
+        return 0;
       }
     }
 
@@ -104,21 +121,32 @@
     });
 
     const fullscreenBtn = document.getElementById('fullscreen-btn');
-    const clockContainer = document.getElementById('clock-container');
+    const wrapper = document.getElementById('wrapper');
     const rightsText = document.getElementById('rights-text');
+
+    function updateRightsTextVisibility(isFullscreen) {
+      if (isFullscreen) {
+        rightsText.classList.add('hidden');
+        fullscreenBtn.title = 'Esci fullscreen';
+      } else {
+        rightsText.classList.remove('hidden');
+        fullscreenBtn.title = 'Fullscreen';
+      }
+    }
 
     fullscreenBtn.addEventListener('click', () => {
       if (!document.fullscreenElement) {
-        clockContainer.requestFullscreen().then(() => {
-          rightsText.style.display = 'none';
-          fullscreenBtn.title = 'Esci fullscreen';
-        });
+        wrapper.requestFullscreen()
+          .then(() => updateRightsTextVisibility(true))
+          .catch(() => alert('Fullscreen non supportato su questo dispositivo.'));
       } else {
-        document.exitFullscreen().then(() => {
-          rightsText.style.display = 'block';
-          fullscreenBtn.title = 'Fullscreen';
-        });
+        document.exitFullscreen()
+          .then(() => updateRightsTextVisibility(false));
       }
+    });
+
+    document.addEventListener('fullscreenchange', () => {
+      updateRightsTextVisibility(!!document.fullscreenElement);
     });
 
     document.addEventListener('keydown', e => {
