@@ -32,21 +32,31 @@
 
 <script>
   (function () {
-    function getTimeOffset() {
-      return fetch('https://worldtimeapi.org/api/ip')
-        .then(res => res.json())
-        .then(data => {
-          const serverTime = new Date(data.datetime).getTime();
-          const localTime = new Date().getTime();
-          return serverTime - localTime;
-        })
-        .catch(() => 0); // fallback se offline
+    let offset = 0;
+
+    function fetchWithTimeout(url, timeout = 2000) {
+      return Promise.race([
+        fetch(url).then(res => res.json()),
+        new Promise((_, reject) =>
+          setTimeout(() => reject(new Error('Timeout')), timeout)
+        )
+      ]);
     }
 
-    getTimeOffset().then(offset => {
-      sbbUhr.now = () => new Date(Date.now() + offset);
-      const clock = new sbbUhr('clock-container', true, 30);
-      clock.start();
-    });
-  })();
-</script>
+    async function getTimeOffset() {
+      try {
+        const data = await fetchWithTimeout('https://worldtimeapi.org/api/ip');
+        const serverTime = new Date(data.datetime).getTime();
+        const localTime = Date.now();
+        offset = serverTime - localTime;
+        console.log('Offset (ms):', offset);
+        return data.timezone;  // ritorna anche il fuso orario
+      } catch {
+        console.log('Fetch fallita, uso orario locale');
+        offset = 0;
+        return Intl.DateTimeFormat().resolvedOptions().timeZone; // fuso locale
+      }
+    }
+
+    getTimeOffset().then(timezone => {
+      // Override ora per sbbUhr, con offset corretto
