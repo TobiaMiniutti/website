@@ -11,16 +11,107 @@
       margin: 0;
       padding: 0;
       background: black;
-      color: white;
       height: 100%;
       width: 100%;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       overflow: hidden;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      color: white;
       display: flex;
       flex-direction: column;
       align-items: center;
+    }
+
+    body.fullscreen nav,
+    body.fullscreen #fullscreen-btn,
+    body.fullscreen #theme-toggle,
+    body.fullscreen #logo {
+      display: none;
+    }
+
+    nav {
+      background: #000;
+      width: 100%;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2em;
+      padding: 1em 6em;
       justify-content: center;
+      align-items: center;
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 1000;
+      box-sizing: border-box;
+      height: 60px;
+    }
+
+    nav a, .dropbtn {
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+      transition: color 0.3s;
+      cursor: pointer;
+    }
+
+    nav a:hover, .dropbtn:hover {
+      color: #ff4444;
+    }
+
+    .dropdown {
       position: relative;
+    }
+
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      background-color: #111;
+      min-width: 160px;
+      top: 100%;
+      left: 0;
+      z-index: 1001;
+      flex-direction: column;
+      border-radius: 4px;
+    }
+
+    .dropdown-content a {
+      padding: 0.5em 1em;
+      color: white;
+      text-decoration: none;
+    }
+
+    .dropdown-content a:hover {
+      background-color: #333;
+    }
+
+    .dropdown:hover .dropdown-content {
+      display: flex;
+    }
+
+    #fullscreen-btn, #theme-toggle {
+      position: fixed;
+      top: 15px;
+      background: none;
+      border: none;
+      color: white;
+      cursor: pointer;
+      z-index: 1002;
+      width: 30px;
+      height: 30px;
+      padding: 0;
+    }
+
+    #fullscreen-btn {
+      right: 20px;
+    }
+
+    #theme-toggle {
+      right: 70px;
+    }
+
+    #fullscreen-btn svg, #theme-toggle svg {
+      width: 24px;
+      height: 24px;
+      fill: white;
     }
 
     #logo {
@@ -33,134 +124,38 @@
       cursor: pointer;
     }
 
-    nav, #theme-toggle, #fullscreen-btn {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      background: #000;
-      height: 60px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: 2em;
-      padding: 0 2em;
-      box-sizing: border-box;
-      z-index: 1001;
-      color: white;
-    }
-
-    nav a, .dropbtn {
-      color: white;
-      text-decoration: none;
-      font-weight: bold;
-      cursor: pointer;
-      background: none;
-      border: none;
-      font-size: 1rem;
-      transition: color 0.3s;
-    }
-
-    nav a:hover, .dropbtn:hover {
-      color: #ff4444;
-    }
-
-    .dropdown {
-      position: relative;
-      user-select: none;
-    }
-
-    .dropdown-content {
-      display: none;
-      position: absolute;
-      background-color: #111;
-      min-width: 160px;
-      top: 100%;
-      left: 0;
-      z-index: 1003;
-      flex-direction: column;
-      border-radius: 4px;
-    }
-
-    .dropdown-content a {
-      padding: 0.5em 1em;
-      color: white;
-      text-decoration: none;
-      white-space: nowrap;
-    }
-
-    .dropdown-content a:hover {
-      background-color: #333;
-    }
-
-    @media (hover: hover) and (pointer: fine) {
-      .dropdown:hover .dropdown-content {
-        display: flex;
-      }
-    }
-
-    .dropdown.open .dropdown-content {
-      display: flex;
-    }
-
-    #theme-toggle, #fullscreen-btn {
-      position: fixed;
-      top: 15px;
-      width: 32px;
-      height: 32px;
-      padding: 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      background: none;
-      border: none;
-      z-index: 1004;
-      fill: white;
-      color: white;
-      transition: filter 0.3s;
-    }
-
-    #theme-toggle:hover, #fullscreen-btn:hover {
-      filter: brightness(1.3);
-    }
-
-    #theme-toggle {
-      right: 70px;
-    }
-
-    #fullscreen-btn {
-      right: 20px;
-    }
-
     #clock-container {
       width: 90vmin;
       height: 90vmin;
       max-width: 600px;
       max-height: 600px;
-      margin: auto;
+      margin: 70px auto 0 auto; /* distanzia da navbar */
       z-index: 1000;
     }
 
-    /* FULLSCREEN MODE */
-    body.fullscreen nav,
-    body.fullscreen #theme-toggle,
-    body.fullscreen #logo {
-      display: none;
+    canvas {
+      display: block;
+      width: 100%;
+      height: 100%;
     }
 
-    body.fullscreen #fullscreen-btn {
-      right: 20px;
-      top: 20px;
-      display: flex;
-      z-index: 1100;
-    }
-
-    body.fullscreen #clock-container {
-      width: 100vw;
-      height: 100vh;
-      max-width: none;
-      max-height: none;
+    @media (max-width: 768px) {
+      nav {
+        flex-direction: column;
+        align-items: center;
+        padding: 1em;
+        gap: 0.5em;
+      }
+      .dropdown-content {
+        position: relative;
+        width: 100%;
+        background-color: #111;
+        box-shadow: none;
+        border-radius: 4px;
+      }
+      .dropdown:hover .dropdown-content {
+        display: flex;
+      }
     }
   </style>
 </head>
@@ -170,9 +165,9 @@
   <nav>
     <a href="index.html">Home</a>
     <a href="clock.html">SBB Clock</a>
-    <div class="dropdown" id="dropdown-progetti">
-      <button class="dropbtn" aria-haspopup="true" aria-expanded="false">Progetti ▾</button>
-      <div class="dropdown-content" aria-label="submenu progetti">
+    <div class="dropdown">
+      <span class="dropbtn">Progetti ▾</span>
+      <div class="dropdown-content">
         <a href="clock.html">SBB Clock</a>
         <a href="#">Altro progetto</a>
       </div>
@@ -180,13 +175,13 @@
     <a href="diritti.html">Diritti</a>
   </nav>
 
-  <button id="theme-toggle" title="Toggle Theme" aria-label="Toggle Tema">
+  <button id="theme-toggle" title="Toggle Theme" type="button">
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
       <path d="M12 3a9 9 0 100 18 9 9 0 000-18zm0 2c.7 0 1.4.1 2 .3a7 7 0 010 13.4A9 9 0 0112 5z"/>
     </svg>
   </button>
 
-  <button id="fullscreen-btn" title="Fullscreen" aria-label="Schermo Intero" type="button">
+  <button id="fullscreen-btn" title="Fullscreen" type="button">
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
       <path d="M7 14H5v5h5v-2H7v-3zm12 3h-3v2h5v-5h-2v3zM7 7h3V5H5v5h2V7zm10 2h2V5h-5v2h3v2z"/>
     </svg>
@@ -195,53 +190,32 @@
   <div id="clock-container"></div>
 
   <script>
-    // Logo click torna a home
-    document.getElementById('logo').addEventListener('click', () => {
-      window.location.href = 'index.html';
-    });
-
-    // Dropdown toggle Progetti
-    const dropdown = document.getElementById('dropdown-progetti');
-    const button = dropdown.querySelector('.dropbtn');
-    button.addEventListener('click', (e) => {
-      e.preventDefault();
-      const isOpen = dropdown.classList.contains('open');
-      document.querySelectorAll('.dropdown.open').forEach(el => {
-        if (el !== dropdown) {
-          el.classList.remove('open');
-          el.querySelector('.dropbtn').setAttribute('aria-expanded', 'false');
-        }
-      });
-      if (isOpen) {
-        dropdown.classList.remove('open');
-        button.setAttribute('aria-expanded', 'false');
-      } else {
-        dropdown.classList.add('open');
-        button.setAttribute('aria-expanded', 'true');
+    async function getTimeOffset() {
+      try {
+        const res = await fetch('https://worldtimeapi.org/api/ip.txt');
+        const text = await res.text();
+        const line = text.split('\n').find(l => l.startsWith('datetime:'));
+        const datetime = line.split('datetime:')[1].trim();
+        const serverTime = new Date(datetime).getTime();
+        const localTime = Date.now();
+        return serverTime - localTime;
+      } catch (e) {
+        return 0;
       }
-    });
-    document.addEventListener('click', (e) => {
-      if (!dropdown.contains(e.target)) {
-        dropdown.classList.remove('open');
-        button.setAttribute('aria-expanded', 'false');
-      }
-    });
+    }
 
-    // Inizializza orologio SBB clock grande
-    window.addEventListener('load', () => {
+    getTimeOffset().then(offset => {
       if (typeof sbbUhr !== "undefined") {
-        try {
-          const clock = new sbbUhr('clock-container', true, 30);
-          clock.start();
-        } catch (err) {
-          console.error("Errore orologio:", err);
-        }
+        sbbUhr.now = () => new Date(Date.now() + offset);
+        const clock = new sbbUhr('clock-container', true, 30);
+        clock.start();
+      } else {
+        console.error("sbbUhr non caricato");
       }
     });
 
-    // Fullscreen toggle
-    const fullscreenBtn = document.getElementById('fullscreen-btn');
-    fullscreenBtn.addEventListener('click', () => {
+    document.getElementById('fullscreen-btn').addEventListener('click', (e) => {
+      e.preventDefault();
       if (!document.fullscreenElement) {
         document.documentElement.requestFullscreen();
       } else {
@@ -253,17 +227,30 @@
       document.body.classList.toggle('fullscreen', !!document.fullscreenElement);
     });
 
-    // Theme toggle button (nero / bianco)
-    const themeToggle = document.getElementById('theme-toggle');
-    themeToggle.addEventListener('click', () => {
-      if (document.body.style.background === 'white') {
-        document.body.style.background = 'black';
-        document.body.style.color = 'white';
-      } else {
-        document.body.style.background = 'white';
-        document.body.style.color = 'black';
+    document.addEventListener('keydown', (e) => {
+      if (e.key.toLowerCase() === 'f') {
+        if (!document.fullscreenElement) {
+          document.documentElement.requestFullscreen();
+        } else {
+          document.exitFullscreen();
+        }
       }
     });
+
+    document.getElementById('theme-toggle').addEventListener('click', () => {
+      document.body.style.background = document.body.style.background === 'white' ? 'black' : 'white';
+    });
+
+    document.getElementById('logo').addEventListener('click', () => {
+      window.location.href = 'index.html';
+    });
+
+    const miniClock = document.getElementById('mini-clock');
+    if (miniClock) {
+      miniClock.addEventListener('click', () => {
+        window.location.href = 'clock.html';
+      });
+    }
   </script>
 </body>
 </html>
