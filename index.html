@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
-  <link rel="manifest" href="manifest.json" />
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>SBB Clock</title>
+  <link rel="manifest" href="manifest.json" />
   <link rel="icon" type="image/png" href="favicon.png">
   <style>
     html, body {
@@ -21,7 +21,6 @@
     #clock-container {
       width: 100vw;
       height: 100vh;
-      transition: height 0.5s ease, width 0.5s ease;
     }
 
     canvas {
@@ -30,16 +29,7 @@
       height: 100%;
     }
 
-    .fade-blur {
-      transition: opacity 0.4s ease, filter 0.4s ease;
-    }
-
-    .hidden-blur {
-      opacity: 0;
-      filter: blur(6px);
-      pointer-events: none;
-    }
-
+    /* Bottone da Uiverse */
     .fullscreen-btn {
       width: 25px;
       height: 25px;
@@ -53,6 +43,7 @@
       position: fixed;
       bottom: 10px;
       right: 10px;
+      overflow: hidden;
       z-index: 1000;
     }
 
@@ -87,12 +78,13 @@
       text-align: center;
       font-size: 0.9em;
       color: #aaa;
-      margin: 1em 10px 10px 10px;
+      margin: 1em 10px;
       max-width: 600px;
       margin-left: auto;
       margin-right: auto;
       position: relative;
       z-index: 10;
+      transition: opacity 0.4s ease, filter 0.4s ease;
     }
 
     #rights-text a {
@@ -103,21 +95,29 @@
     #rights-text a:hover {
       text-decoration: underline;
     }
+
+    .hidden-blur {
+      opacity: 0;
+      filter: blur(6px);
+      pointer-events: none;
+    }
   </style>
 </head>
 <body>
 
   <div id="clock-container"></div>
 
-  <button id="fullscreen-btn" class="fullscreen-btn fade-blur" title="Fullscreen" aria-label="Toggle fullscreen">
-    <span class="tooltip">Fullscreen</span>
+  <button id="fullscreen-btn" class="fullscreen-btn" title="Fullscreen" aria-label="Toggle fullscreen">
+    <div class="tooltip">Fullscreen</div>
     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="white" viewBox="0 0 24 24">
       <path d="M4 4h6v2H6.414l3.293 3.293-1.414 1.414L5 7.414V10H4V4zm16 16h-6v-2h4.586l-3.293-3.293 1.414-1.414L19 16.586V14h1v6z"/>
     </svg>
   </button>
 
-  <p id="rights-text" class="fade-blur">
-    Orologio ispirato al progetto open source di <a href="https://github.com/sbb-design-systems/brand-elements" target="_blank" rel="noopener noreferrer">SBB</a>. Marchi e loghi appartengono ai rispettivi titolari.
+  <p id="rights-text">
+    Orologio ispirato al progetto open source di 
+    <a href="https://github.com/sbb-design-systems/brand-elements" target="_blank" rel="noopener noreferrer">SBB</a>. 
+    Marchi e loghi appartengono ai rispettivi titolari.
   </p>
 
   <script src="sbbUhr-1.3.js"></script>
@@ -141,8 +141,6 @@
         sbbUhr.now = () => new Date(Date.now() + offset);
         const clock = new sbbUhr('clock-container', true, 30);
         clock.start();
-      } else {
-        console.error("sbbUhr non caricato");
       }
     });
 
@@ -171,15 +169,12 @@
         toggleFullscreen();
       }
     });
-  </script>
 
-  <script>
     if ('serviceWorker' in navigator) {
       navigator.serviceWorker.register('sw.js')
         .then(() => console.log('Service Worker registrato'))
         .catch(err => console.error('Service Worker errore:', err));
     }
   </script>
-
 </body>
 </html>
