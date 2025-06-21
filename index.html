@@ -20,8 +20,10 @@
 
     #clock-container {
   width: 100vw;
-  height: calc(100vh - 60px); /* lascia spazio per la scritta */
+  height: calc(100vh - 60px);
+  transition: height 0.5s ease, width 0.5s ease;
 }
+
 
     canvas {
       display: block;
@@ -109,18 +111,20 @@
     const rightsText = document.getElementById('rights-text');
 
     fullscreenBtn.addEventListener('click', () => {
-      if (!document.fullscreenElement) {
-        clockContainer.requestFullscreen().then(() => {
-          rightsText.style.display = 'none';
-          fullscreenBtn.title = 'Esci fullscreen';
-        });
-      } else {
-        document.exitFullscreen().then(() => {
-          rightsText.style.display = 'block';
-          fullscreenBtn.title = 'Fullscreen';
-        });
-      }
+  if (!document.fullscreenElement) {
+    clockContainer.requestFullscreen().then(() => {
+      rightsText.style.display = 'none';
+      fullscreenBtn.title = 'Esci fullscreen';
+      clockContainer.classList.add('fullscreen');
     });
+  } else {
+    document.exitFullscreen().then(() => {
+      rightsText.style.display = 'block';
+      fullscreenBtn.title = 'Fullscreen';
+      clockContainer.classList.remove('fullscreen');
+    });
+  }
+});
 
     document.addEventListener('keydown', e => {
       if (e.key.toLowerCase() === 'f' && !['INPUT', 'TEXTAREA'].includes(document.activeElement.tagName)) {
