@@ -17,10 +17,12 @@
       font-family: sans-serif;
     }
     #clock-container {
-      width: 100vw;
-      height: 100vh;
-      position: relative;
-    }
+  width: 100vw;
+  height: calc(100vh - 3em); /* considera altezza barra nav */
+  position: relative;
+  top: 3em;
+}
+
     canvas, #sbb_uhr_wrapper > div img {
       display: block;
       width: 100%;
@@ -84,5 +86,45 @@
     <a href="clock.html">SBB Clock</a>
     <a href="diritti.html">Diritti</a>
   </nav>
+
+  <button id="fullscreen-btn" style="
+  position: fixed;
+  bottom: 1em;
+  right: 1em;
+  padding: 0.5em 1em;
+  background: white;
+  color: black;
+  border: none;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+  z-index: 1001;
+">
+  🔲 Fullscreen
+</button>
+
+<script>
+  const btn = document.getElementById("fullscreen-btn");
+  const el = document.documentElement;
+
+  btn.addEventListener("click", () => {
+    if (!document.fullscreenElement) {
+      el.requestFullscreen().catch(err => alert("Errore: " + err));
+    } else {
+      document.exitFullscreen();
+    }
+  });
+
+  document.addEventListener("keydown", e => {
+    if (e.key.toLowerCase() === "f") {
+      if (!document.fullscreenElement) {
+        el.requestFullscreen();
+      } else {
+        document.exitFullscreen();
+      }
+    }
+  });
+</script>
+
 </body>
 </html>
