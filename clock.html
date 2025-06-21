@@ -66,6 +66,7 @@
       text-decoration: none;
       font-weight: bold;
       transition: color 0.3s;
+      cursor: pointer;
     }
 
     nav a:hover, .dropbtn:hover {
@@ -155,11 +156,12 @@
       }
 
       .dropdown-content {
-        position: relative;
-        width: 100%;
+        position: static;
         background-color: #111;
         box-shadow: none;
         border-radius: 4px;
+        display: none;
+        width: 100%;
       }
 
       .dropdown:hover .dropdown-content {
@@ -176,7 +178,7 @@
     <a href="index.html">Home</a>
     <a href="clock.html">SBB Clock</a>
     <div class="dropdown">
-      <span class="dropbtn">Progetti ▾</span>
+      <div class="dropbtn">Progetti ▾</div>
       <div class="dropdown-content">
         <a href="clock.html">SBB Clock</a>
         <a href="#">Altro progetto</a>
