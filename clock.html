@@ -47,29 +47,22 @@
 
     nav {
       background: #111;
-      padding: 1em;
+      padding: 1em 160px;
       display: flex;
-      flex-direction: column;
-      align-items: flex-start;
-      gap: 0;
+      gap: 2em;
+      justify-content: center;
+      align-items: center;
+      height: 60px;
+      box-sizing: border-box;
+      z-index: 1001;
       position: fixed;
       top: 0;
       left: 0;
       right: 0;
-      z-index: 1001;
-      transform: translateY(-100%);
-      transition: transform 0.3s ease;
-    }
-
-    nav.open {
-      transform: translateY(0);
+      flex-wrap: wrap;
     }
 
     nav a, .dropbtn {
-      padding: 0.75em 1em;
-      width: 100%;
-      text-align: left;
-      border-top: 1px solid #333;
       color: white;
       text-decoration: none;
       font-weight: bold;
@@ -81,63 +74,35 @@
     }
 
     .dropdown {
-      width: 100%;
+      position: relative;
     }
 
     .dropdown-content {
       display: none;
-      flex-direction: column;
+      position: absolute;
       background-color: #1c1c1c;
-      width: 100%;
+      min-width: 160px;
+      top: 100%;
+      left: 0;
+      z-index: 1002;
+      flex-direction: column;
+      border-radius: 4px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.5);
+    }
+
+    .dropdown-content a {
+      padding: 0.5em 1em;
+      white-space: nowrap;
+      color: white;
+      text-decoration: none;
+    }
+
+    .dropdown-content a:hover {
+      background-color: #333;
     }
 
     .dropdown:hover .dropdown-content {
       display: flex;
-    }
-
-    .hamburger {
-      position: fixed;
-      top: 15px;
-      right: 15px;
-      width: 30px;
-      height: 25px;
-      z-index: 1003;
-      cursor: pointer;
-      display: block;
-    }
-
-    .hamburger span,
-    .hamburger span::before,
-    .hamburger span::after {
-      display: block;
-      position: absolute;
-      height: 3px;
-      width: 100%;
-      background: white;
-      border-radius: 3px;
-      transition: all 0.3s ease;
-    }
-
-    .hamburger span::before {
-      content: "";
-      top: -8px;
-    }
-
-    .hamburger span::after {
-      content: "";
-      top: 8px;
-    }
-
-    .hamburger.open span {
-      background: transparent;
-    }
-
-    .hamburger.open span::before {
-      transform: rotate(45deg) translate(5px, 5px);
-    }
-
-    .hamburger.open span::after {
-      transform: rotate(-45deg) translate(5px, -5px);
     }
 
     #fullscreen-btn, #theme-toggle {
@@ -186,13 +151,10 @@
   </style>
 </head>
 <body>
-  <div class="hamburger" id="hamburger">
-    <span></span>
-  </div>
   <img id="logo" src="favicon.png" alt="Logo Tobia Miniutti" />
   <div id="mini-clock"></div>
 
-  <nav id="nav">
+  <nav>
     <a href="index.html">Home</a>
     <a href="clock.html">SBB Clock</a>
     <div class="dropdown">
@@ -281,13 +243,6 @@
         window.location.href = 'clock.html';
       });
     }
-
-    const hamburger = document.getElementById('hamburger');
-    const nav = document.getElementById('nav');
-    hamburger.addEventListener('click', () => {
-      hamburger.classList.toggle('open');
-      nav.classList.toggle('open');
-    });
   </script>
 </body>
 </html>
