@@ -7,27 +7,49 @@
   <link rel="icon" type="image/png" href="favicon.png">
   <script src="sbbUhr-1.3.js"></script>
   <style>
-    body {
+    html, body {
       margin: 0;
+      padding: 0;
       background: black;
       color: white;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    }
-    nav {
-      background: #000;
+      height: 100%;
       width: 100%;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      overflow: hidden;
       display: flex;
-      flex-wrap: wrap;
-      gap: 2em;
-      padding: 1em 6em;
-      justify-content: center;
+      flex-direction: column;
       align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+
+    #logo {
+      position: fixed;
+      top: 10px;
+      left: 10px;
+      width: 40px;
+      height: 40px;
+      z-index: 1002;
+      cursor: pointer;
+    }
+
+    nav, #theme-toggle, #fullscreen-btn {
       position: fixed;
       top: 0;
       left: 0;
-      z-index: 1000;
+      right: 0;
+      background: #000;
+      height: 60px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 2em;
+      padding: 0 2em;
       box-sizing: border-box;
+      z-index: 1001;
+      color: white;
     }
+
     nav a, .dropbtn {
       color: white;
       text-decoration: none;
@@ -38,13 +60,16 @@
       font-size: 1rem;
       transition: color 0.3s;
     }
+
     nav a:hover, .dropbtn:hover {
       color: #ff4444;
     }
+
     .dropdown {
       position: relative;
       user-select: none;
     }
+
     .dropdown-content {
       display: none;
       position: absolute;
@@ -52,70 +77,90 @@
       min-width: 160px;
       top: 100%;
       left: 0;
-      z-index: 1001;
+      z-index: 1003;
       flex-direction: column;
       border-radius: 4px;
     }
+
     .dropdown-content a {
       padding: 0.5em 1em;
       color: white;
       text-decoration: none;
       white-space: nowrap;
     }
+
     .dropdown-content a:hover {
       background-color: #333;
     }
+
     @media (hover: hover) and (pointer: fine) {
       .dropdown:hover .dropdown-content {
         display: flex;
       }
     }
+
     .dropdown.open .dropdown-content {
       display: flex;
     }
-    #logo {
-      position: fixed;
-      top: 10px;
-      left: 10px;
-      width: 40px;
-      height: 40px;
-      z-index: 1002;
-      cursor: pointer;
-    }
-    #mini-clock {
-      position: fixed;
-      top: 10px;
-      right: 70px;
-      width: 50px;
-      height: 50px;
-      z-index: 1003;
-      cursor: pointer;
-    }
-    #fullscreen-btn, #theme-toggle {
+
+    #theme-toggle, #fullscreen-btn {
       position: fixed;
       top: 15px;
-      background: none;
-      border: none;
-      color: white;
-      cursor: pointer;
-      z-index: 1004;
       width: 32px;
       height: 32px;
       padding: 0;
       display: flex;
       align-items: center;
       justify-content: center;
+      cursor: pointer;
+      background: none;
+      border: none;
+      z-index: 1004;
+      fill: white;
+      color: white;
+      transition: filter 0.3s;
     }
+
+    #theme-toggle:hover, #fullscreen-btn:hover {
+      filter: brightness(1.3);
+    }
+
+    #theme-toggle {
+      right: 70px;
+    }
+
     #fullscreen-btn {
       right: 20px;
     }
-    #theme-toggle {
-      right: 120px;
+
+    #clock-container {
+      width: 90vmin;
+      height: 90vmin;
+      max-width: 600px;
+      max-height: 600px;
+      margin: auto;
+      z-index: 1000;
     }
-    #fullscreen-btn svg, #theme-toggle svg {
-      width: 24px;
-      height: 24px;
-      fill: white;
+
+    /* FULLSCREEN MODE */
+    body.fullscreen nav,
+    body.fullscreen #theme-toggle,
+    body.fullscreen #logo {
+      display: none;
+    }
+
+    body.fullscreen #fullscreen-btn {
+      right: 20px;
+      top: 20px;
+      display: flex;
+      z-index: 1100;
+    }
+
+    body.fullscreen #clock-container {
+      width: 100vw;
+      height: 100vh;
+      max-width: none;
+      max-height: none;
     }
   </style>
 </head>
@@ -135,8 +180,6 @@
     <a href="diritti.html">Diritti</a>
   </nav>
 
-  <div id="mini-clock"></div>
-
   <button id="theme-toggle" title="Toggle Theme" aria-label="Toggle Tema">
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
       <path d="M12 3a9 9 0 100 18 9 9 0 000-18zm0 2c.7 0 1.4.1 2 .3a7 7 0 010 13.4A9 9 0 0112 5z"/>
@@ -149,17 +192,12 @@
     </svg>
   </button>
 
-  <script src="sbbUhr-1.3.js"></script>
+  <div id="clock-container"></div>
+
   <script>
     // Logo click torna a home
     document.getElementById('logo').addEventListener('click', () => {
       window.location.href = 'index.html';
-    });
-
-    // Orologio cliccabile porta a clock.html
-    const miniClock = document.getElementById('mini-clock');
-    miniClock.addEventListener('click', () => {
-      window.location.href = 'clock.html';
     });
 
     // Dropdown toggle Progetti
@@ -189,11 +227,11 @@
       }
     });
 
-    // Inizializza orologio SBB mini-clock
+    // Inizializza orologio SBB clock grande
     window.addEventListener('load', () => {
       if (typeof sbbUhr !== "undefined") {
         try {
-          const clock = new sbbUhr('mini-clock', true, 10);
+          const clock = new sbbUhr('clock-container', true, 30);
           clock.start();
         } catch (err) {
           console.error("Errore orologio:", err);
@@ -201,7 +239,7 @@
       }
     });
 
-    // Fullscreen button
+    // Fullscreen toggle
     const fullscreenBtn = document.getElementById('fullscreen-btn');
     fullscreenBtn.addEventListener('click', () => {
       if (!document.fullscreenElement) {
@@ -209,6 +247,10 @@
       } else {
         document.exitFullscreen();
       }
+    });
+
+    document.addEventListener('fullscreenchange', () => {
+      document.body.classList.toggle('fullscreen', !!document.fullscreenElement);
     });
 
     // Theme toggle button (nero / bianco)
