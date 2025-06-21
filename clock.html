@@ -14,9 +14,14 @@
       height: 100%;
       width: 100%;
       overflow: hidden;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      color: white;
     }
 
-    body.fullscreen nav {
+    body.fullscreen nav,
+    body.fullscreen #fullscreen-btn,
+    body.fullscreen #theme-toggle,
+    body.fullscreen #logo {
       display: none;
     }
 
@@ -41,11 +46,10 @@
     }
 
     nav {
-      background: #000;
+      background: #111;
       padding: 1em 160px;
       display: flex;
-      gap: 1em;
-      font-family: sans-serif;
+      gap: 2em;
       justify-content: center;
       align-items: center;
       height: 60px;
@@ -70,27 +74,34 @@
     .dropdown-content {
       display: none;
       position: absolute;
-      background-color: #111;
+      background-color: #1c1c1c;
       min-width: 160px;
       top: 100%;
       left: 0;
       z-index: 1002;
       flex-direction: column;
+      border-radius: 4px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.5);
     }
 
     .dropdown-content a {
       padding: 0.5em 1em;
       white-space: nowrap;
+      color: white;
+      text-decoration: none;
+    }
+
+    .dropdown-content a:hover {
+      background-color: #333;
     }
 
     .dropdown:hover .dropdown-content {
       display: flex;
     }
 
-    #fullscreen-btn {
+    #fullscreen-btn, #theme-toggle {
       position: fixed;
       top: 1em;
-      right: 1em;
       background: none;
       border: none;
       color: white;
@@ -98,14 +109,18 @@
       z-index: 1002;
     }
 
-    #fullscreen-btn svg {
+    #fullscreen-btn {
+      right: 2.5em;
+    }
+
+    #theme-toggle {
+      right: 5.5em;
+    }
+
+    #fullscreen-btn svg, #theme-toggle svg {
       width: 24px;
       height: 24px;
       fill: white;
-    }
-
-    .fullscreen #fullscreen-btn {
-      display: none;
     }
 
     #logo {
@@ -129,11 +144,16 @@
       <div class="dropdown-content">
         <a href="clock.html">SBB Clock</a>
         <a href="#">Altro progetto</a>
-        <!-- Aggiungi altri link qui -->
       </div>
     </div>
     <a href="diritti.html">Diritti</a>
   </nav>
+
+  <button id="theme-toggle" title="Toggle Theme">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+      <path d="M12 3a9 9 0 100 18 9 9 0 000-18zm0 2c.7 0 1.4.1 2 .3a7 7 0 010 13.4A9 9 0 0112 5z"/>
+    </svg>
+  </button>
 
   <button id="fullscreen-btn" title="Fullscreen">
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
@@ -168,8 +188,7 @@
       }
     });
 
-    const btn = document.getElementById('fullscreen-btn');
-    btn.addEventListener('click', () => {
+    document.getElementById('fullscreen-btn').addEventListener('click', () => {
       if (!document.fullscreenElement) {
         document.documentElement.requestFullscreen();
       } else {
@@ -189,6 +208,12 @@
           document.exitFullscreen();
         }
       }
+    });
+
+    // Theme toggle
+    const themeToggle = document.getElementById('theme-toggle');
+    themeToggle.addEventListener('click', () => {
+      document.body.style.background = document.body.style.background === 'white' ? 'black' : 'white';
     });
   </script>
 </body>
