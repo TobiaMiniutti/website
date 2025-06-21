@@ -1,169 +1,93 @@
-<!DOCTYPE html>
-<html lang="it">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>SBB Clock</title>
-  <link rel="manifest" href="manifest.json" />
-  <link rel="icon" href="favicon.png" />
-  <style>
-    html, body {
-      margin: 0;
-      padding: 0;
-      background: black;
-      height: 100%;
-      width: 100%;
-      overflow: hidden;
-      color: #aaa;
-      font-family: Arial, sans-serif;
+<style>
+  html, body {
+    margin: 0; padding: 0;
+    background: black;
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: white;
+  }
+
+  #clock-container {
+    width: 90vw;
+    max-width: 400px;
+    height: auto;
+    aspect-ratio: 1 / 1;
+  }
+
+  canvas {
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
+
+  #rights-text {
+    font-size: 0.9em;
+    color: #aaa;
+    margin-top: 1em;
+    text-align: center;
+  }
+
+  #fullscreen-btn {
+    position: fixed;
+    bottom: 15px;
+    right: 15px;
+    background: rgba(255, 255, 255, 0.2);
+    border: none;
+    border-radius: 4px;
+    padding: 6px 10px;
+    color: white;
+    cursor: pointer;
+    font-size: 1em;
+    display: none; /* default nascosto */
+    z-index: 1000;
+  }
+
+  @media(min-width: 768px) {
+    #fullscreen-btn {
+      display: block; /* solo su desktop */
     }
+  }
+</style>
 
-    #clock-container {
-      width: 100vw;
-      height: 100vh;
+<div id="clock-container"></div>
+
+<button id="fullscreen-btn" title="Fullscreen">Fullscreen</button>
+
+<p id="rights-text">
+  Orologio ispirato al progetto open source di <a href="https://github.com/sbb-design-systems/brand-elements" target="_blank" style="color:#ccc;">SBB</a>. Marchi e loghi appartengono ai rispettivi titolari.
+</p>
+
+<script>
+  const fullscreenBtn = document.getElementById('fullscreen-btn');
+  const rightsText = document.getElementById('rights-text');
+  const clockContainer = document.getElementById('clock-container');
+
+  fullscreenBtn.addEventListener('click', () => {
+    if (!document.fullscreenElement) {
+      clockContainer.requestFullscreen().then(() => {
+        rightsText.style.display = 'none';
+        fullscreenBtn.textContent = 'Esci fullscreen';
+      });
+    } else {
+      document.exitFullscreen().then(() => {
+        rightsText.style.display = 'block';
+        fullscreenBtn.textContent = 'Fullscreen';
+      });
     }
+  });
 
-    canvas {
-      display: block;
-      width: 100%;
-      height: 100%;
+  document.addEventListener('fullscreenchange', () => {
+    if (!document.fullscreenElement) {
+      rightsText.style.display = 'block';
+      fullscreenBtn.textContent = 'Fullscreen';
+    } else {
+      rightsText.style.display = 'none';
+      fullscreenBtn.textContent = 'Esci fullscreen';
     }
-
-    .fullscreen-btn {
-      width: 25px;
-      height: 25px;
-      border: none;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: transparent;
-      cursor: pointer;
-      position: fixed;
-      bottom: 10px;
-      right: 10px;
-      overflow: hidden;
-      z-index: 1000;
-    }
-
-    .fullscreen-btn svg {
-      height: 100%;
-    }
-
-    .fullscreen-btn:hover {
-      width: 30px;
-      height: 30px;
-    }
-
-    .tooltip {
-      position: absolute;
-      top: -40px;
-      background-color: rgba(0, 0, 0, 0.75);
-      color: white;
-      padding: 5px 10px;
-      border-radius: 5px;
-      font-size: 0.8em;
-      opacity: 0;
-      transition: all 0.3s;
-    }
-
-    .fullscreen-btn:hover .tooltip {
-      transform: translateY(2.5px);
-      opacity: 1;
-    }
-
-    #rights-text {
-      text-align: center;
-      font-size: 0.9em;
-      color: #aaa;
-      margin: 1em 10px;
-      max-width: 600px;
-      margin-left: auto;
-      margin-right: auto;
-      position: relative;
-      z-index: 10;
-      display: block;
-    }
-
-    .hidden {
-      display: none !important;
-    }
-
-    #rights-text a {
-      color: #ccc;
-      text-decoration: none;
-    }
-
-    #rights-text a:hover {
-      text-decoration: underline;
-    }
-  </style>
-</head>
-<body>
-
-  <div id="clock-container"></div>
-
-  <button id="fullscreen-btn" class="fullscreen-btn" aria-label="Toggle fullscreen">
-    <div class="tooltip">Fullscreen</div>
-    <svg viewBox="0 0 24 24" fill="white">
-      <path d="M4 4h6v2H6.414l3.293 3.293-1.414 1.414L5 7.414V10H4V4zm16 16h-6v-2h4.586l-3.293-3.293
-      1.414-1.414L19 16.586V14h1v6z"/>
-    </svg>
-  </button>
-
-  <p id="rights-text">
-    Orologio ispirato al progetto open source di 
-    <a href="https://github.com/sbb-design-systems/brand-elements" target="_blank" rel="noopener noreferrer">SBB</a>.
-  </p>
-
-  <script src="sbbUhr-1.3.js"></script>
-  <script>
-    async function getTimeOffset() {
-      try {
-        const res = await fetch('https://worldtimeapi.org/api/ip.txt');
-        const txt = await res.text();
-        const line = txt.split('\n').find(l => l.startsWith('datetime:'));
-        const serverTime = new Date(line.split('datetime:')[1].trim()).getTime();
-        return serverTime - Date.now();
-      } catch {
-        return 0;
-      }
-    }
-
-    getTimeOffset().then(offset => {
-      if (typeof sbbUhr !== 'undefined') {
-        sbbUhr.now = () => new Date(Date.now() + offset);
-        const clock = new sbbUhr('clock-container', true, 30);
-        clock.start();
-      }
-    });
-
-    const btn = document.getElementById('fullscreen-btn');
-    const txt = document.getElementById('rights-text');
-    const clk = document.getElementById('clock-container');
-
-    function toggleFS() {
-      if (!document.fullscreenElement) {
-        clk.requestFullscreen().then(() => {
-          txt.classList.add('hidden');
-        });
-      } else {
-        document.exitFullscreen().then(() => {
-          txt.classList.remove('hidden');
-        });
-      }
-    }
-
-    btn.addEventListener('click', toggleFS);
-
-    document.addEventListener('keydown', e => {
-      if (e.key.toLowerCase() === 'f' && !['INPUT','TEXTAREA'].includes(document.activeElement.tagName)) {
-        toggleFS();
-      }
-    });
-
-    if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('sw.js').catch(console.error);
-    }
-  </script>
-</body>
-</html>
+  });
+</script>
