@@ -136,6 +136,17 @@
       width: 40px;
       height: 40px;
       z-index: 1002;
+      cursor: pointer;
+    }
+
+    #mini-clock {
+      position: fixed;
+      top: 5px;
+      right: 10px;
+      width: 50px;
+      height: 50px;
+      z-index: 1002;
+      cursor: pointer;
     }
 
     @media (max-width: 768px) {
@@ -160,6 +171,7 @@
 </head>
 <body>
   <img id="logo" src="favicon.png" alt="Logo Tobia Miniutti" />
+  <div id="mini-clock"></div>
 
   <nav>
     <a href="index.html">Home</a>
@@ -235,11 +247,22 @@
       }
     });
 
-    // Theme toggle
-    const themeToggle = document.getElementById('theme-toggle');
-    themeToggle.addEventListener('click', () => {
+    document.getElementById('theme-toggle').addEventListener('click', () => {
       document.body.style.background = document.body.style.background === 'white' ? 'black' : 'white';
     });
+
+    // Click sul logo per tornare alla home
+    document.getElementById('logo').addEventListener('click', () => {
+      window.location.href = 'index.html';
+    });
+
+    // Click sull'orologio per andare alla pagina clock (se esiste nella pagina)
+    const miniClock = document.getElementById('mini-clock');
+    if (miniClock) {
+      miniClock.addEventListener('click', () => {
+        window.location.href = 'clock.html';
+      });
+    }
   </script>
 </body>
 </html>
