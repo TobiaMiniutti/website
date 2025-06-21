@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Benvenuto - Tobia Miniutti</title>
-  <link rel="icon" type="image/png" href="favicon.png">
+  <link rel="icon" type="image/png" href="favicon.png" />
   <style>
     body {
       margin: 0;
@@ -24,15 +24,49 @@
       gap: 1em;
       padding: 1em;
       justify-content: center;
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 1000;
+      box-sizing: border-box;
     }
-    nav a {
+    nav a, .dropbtn {
       color: white;
       text-decoration: none;
       font-weight: bold;
+      cursor: pointer;
+    }
+    /* Dropdown */
+    .dropdown {
+      position: relative;
+      display: inline-block;
+    }
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      background-color: #111;
+      min-width: 160px;
+      box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.5);
+      z-index: 1001;
+      top: 100%;
+      left: 0;
+      border-radius: 4px;
+    }
+    .dropdown-content a {
+      color: white;
+      padding: 12px 16px;
+      text-decoration: none;
+      display: block;
+    }
+    .dropdown-content a:hover {
+      background-color: #333;
+    }
+    .dropdown:hover .dropdown-content {
+      display: block;
     }
     .content {
       max-width: 800px;
-      padding: 2em;
+      padding: 6em 2em 2em; /* spazio sotto nav fissata */
       text-align: center;
     }
   </style>
@@ -41,7 +75,14 @@
   <nav>
     <a href="index.html">Home</a>
     <a href="clock.html">SBB Clock</a>
-    <a href="diritti.html">Diritti</a>
+    <div class="dropdown">
+      <span class="dropbtn">Progetti ▼</span>
+      <div class="dropdown-content">
+        <a href="progetto1.html">Progetto 1</a>
+        <a href="progetto2.html">Progetto 2</a>
+        <!-- Aggiungi qui altri progetti -->
+      </div>
+    </div>
   </nav>
   <div class="content">
     <h1>Ciao</h1>
