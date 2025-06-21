@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Benvenuto - Tobia Miniutti</title>
+  <title>Benvenuto - Miniutti</title>
   <link rel="icon" type="image/png" href="favicon.png" />
   <script src="sbbUhr-1.3.js"></script>
   <style>
@@ -93,7 +93,7 @@
     }
     .content {
       max-width: 800px;
-      padding: 6em 2em 2em;
+      padding: 6em 2em 2em; /* padding-top originale */
       text-align: center;
       margin: auto;
       background-color: rgba(0,0,0,0.6);
@@ -113,6 +113,11 @@
       }
       .dropdown:hover .dropdown-content {
         display: flex;
+      }
+
+      /* Correzione: sposta il contenuto sotto il menu */
+      .content {
+        padding-top: calc(1em + 3.5em); /* 1em padding nav + altezza approssimativa nav */
       }
     }
   </style>
