@@ -74,7 +74,8 @@
       transition: 0.3s ease;
     }
 
-    nav a:hover {
+    nav a:hover,
+    .dropdown .dropbtn:hover {
       color: #e63946;
     }
 
@@ -140,7 +141,6 @@
 
     #mobile-menu-btn {
       right: 1em;
-      display: none;
     }
 
     #fullscreen-btn svg, #theme-toggle svg, #mobile-menu-btn svg {
@@ -188,9 +188,6 @@
       #mobile-menu-btn {
         display: block;
       }
-      #mobile-nav {
-        display: none;
-      }
       body.show-mobile-menu #mobile-nav {
         display: flex;
       }
@@ -216,8 +213,13 @@
   <div id="mobile-nav">
     <a href="index.html">Home</a>
     <a href="clock.html">SBB Clock</a>
-    <a href="clock.html">SBB Clock (Progetto)</a>
-    <a href="#">Altro progetto</a>
+    <div class="dropdown">
+      <button class="dropbtn">Progetti ▾</button>
+      <div class="dropdown-content">
+        <a href="clock.html">SBB Clock</a>
+        <a href="#">Altro progetto</a>
+      </div>
+    </div>
     <a href="diritti.html">Diritti</a>
   </div>
 
