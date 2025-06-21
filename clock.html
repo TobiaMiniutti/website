@@ -90,6 +90,12 @@
 
     .dropdown-content a {
       padding: 0.5em 1em;
+      color: white;
+      text-decoration: none;
+    }
+
+    .dropdown-content a:hover {
+      background-color: #333;
     }
 
     .dropdown:hover .dropdown-content {
@@ -143,18 +149,16 @@
     @media (max-width: 768px) {
       nav {
         flex-direction: column;
-        gap: 0.5em;
+        gap: 1em;
         padding: 1em;
       }
-
       .dropdown-content {
         position: static;
-        background-color: transparent;
-        box-shadow: none;
-        border-radius: 0;
-        display: none;
+        background-color: #111;
+        border-radius: 4px;
+        display: flex;
+        width: 100%;
       }
-
       .dropdown:hover .dropdown-content {
         display: flex;
       }
@@ -257,3 +261,4 @@
   </script>
 </body>
 </html>
+
