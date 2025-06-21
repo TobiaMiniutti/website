@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Diritti & Licenze</title>
   <link rel="icon" type="image/png" href="favicon.png">
   <style>
@@ -10,7 +10,7 @@
       margin: 0;
       background: #000;
       color: white;
-      font-family: sans-serif;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -21,8 +21,13 @@
       width: 100%;
       display: flex;
       gap: 1em;
-      padding: 1em;
+      padding: 1em 160px;
       justify-content: center;
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 1000;
+      box-sizing: border-box;
     }
     nav a {
       color: white;
@@ -31,40 +36,62 @@
     }
     .content {
       max-width: 900px;
-      padding: 2em;
+      padding: 7em 2em 3em;
       text-align: justify;
+    }
+    h1, h2 {
+      text-align: center;
+      color: #ff3131;
+    }
+    ul li {
+      margin-bottom: 0.5em;
+    }
+    a {
+      color: #4fc3f7;
+    }
+    #logo {
+      position: fixed;
+      top: 10px;
+      left: 10px;
+      width: 40px;
+      height: 40px;
+      z-index: 1001;
     }
   </style>
 </head>
 <body>
+  <img id="logo" src="favicon.png" alt="Logo Tobia Miniutti" />
   <nav>
     <a href="index.html">Home</a>
     <a href="clock.html">SBB Clock</a>
+    <div class="dropdown">
+      <a href="#">Progetti ▾</a>
+      <div class="dropdown-content">
+        <a href="clock.html">SBB Clock</a>
+        <a href="#">Altro progetto</a>
+      </div>
+    </div>
     <a href="diritti.html">Diritti</a>
   </nav>
+
   <div class="content">
-    <h1>Diritti, Licenze ed Esenzioni di Responsabilità</h1>
-    <p>Questo sito è stato creato a scopo personale e didattico da Tobia Miniutti. La riproduzione digitale dell'orologio delle Ferrovie Federali Svizzere (SBB) è realizzata partendo da materiale pubblicamente disponibile e sotto licenza aperta, con la massima cura nel rispetto dei diritti intellettuali e del marchio SBB.</p>
+    <h1>Informativa Legale, Licenze e Diritti</h1>
+    <p>Il presente sito web &egrave; un progetto personale a finalit&agrave; esclusivamente didattiche e non commerciali, sviluppato da Tobia Miniutti. Esso include una riproduzione digitale dell'orologio delle Ferrovie Federali Svizzere (SBB), basata su codice rilasciato con licenza open source e su elementi grafici ufficiali concessi al pubblico.</p>
 
-    <p>Il codice utilizzato per l'orologio è basato sul repository ufficiale disponibile su GitHub: <a href="https://github.com/sbb-design-systems/brand-elements/tree/main/digital-clock" target="_blank" style="color:lightblue">SBB Digital Clock su GitHub</a>, rilasciato sotto licenza <strong>Apache 2.0</strong>. Tale licenza consente l'uso, la modifica e la distribuzione del codice, anche a fini commerciali, a patto di mantenere i dovuti riferimenti e disclaimer.</p>
+    <p><strong>Licenza del Codice:</strong> Il software utilizzato per l'orologio &egrave; tratto dal repository <a href="https://github.com/sbb-design-systems/brand-elements/tree/main/digital-clock" target="_blank">SBB Digital Clock</a>, disponibile su GitHub e distribuito sotto licenza <strong>Apache License 2.0</strong>. Tale licenza permette l'utilizzo, la modifica e la redistribuzione del codice, anche per fini commerciali, nel rispetto delle condizioni specificate all'interno della licenza stessa.</p>
 
-    <p>Il design iconico dell'orologio SBB è un marchio registrato di SBB AG. Tutti i diritti sul design appartengono esclusivamente a SBB, come chiarito nella sezione ufficiale dedicata: <a href="https://digital.sbb.ch/en/foundation/brand/watch/" target="_blank" style="color:lightblue">Pagina ufficiale sull'orologio SBB</a>.</p>
+    <p><strong>Propriet&agrave; Intellettuale:</strong> Il design dell'orologio SBB &egrave; protetto da marchi registrati di SBB AG. I diritti relativi alla forma, al quadrante e al movimento della lancetta dei secondi appartengono esclusivamente a SBB. L'impiego di tali elementi avviene in conformit&agrave; alle linee guida ufficiali pubblicate al seguente link: <a href="https://digital.sbb.ch/en/foundation/brand/watch/" target="_blank">Brand Guidelines - SBB Clock</a>.</p>
 
-    <p>L'utilizzo di tale design in questo sito non intende in alcun modo violare o compromettere il valore del marchio. Al contrario, l'obiettivo è quello di valorizzare la cultura e l'identità svizzera attraverso un progetto tecnico e visivo non commerciale.</p>
-
-    <h2>Esenzione di responsabilità</h2>
-    <p>
-      L'autore di questo sito declina ogni responsabilità per eventuali violazioni involontarie di licenze, marchi o altri diritti di terze parti.
-      In particolare:
-    </p>
+    <h2>Esclusione di Responsabilit&agrave;</h2>
+    <p>L'autore del sito dichiara quanto segue:</p>
     <ul>
-      <li>Il sito non rappresenta un prodotto ufficiale delle SBB o di qualsiasi altro ente.</li>
-      <li>Nessun contenuto genera profitto o viene utilizzato in contesto commerciale.</li>
-      <li>Eventuali richieste di rimozione o modifica verranno accolte immediatamente e con collaborazione piena.</li>
+      <li>Il sito non rappresenta in alcun modo un'iniziativa ufficiale delle SBB, n&eacute; &egrave; affiliato ad esse.</li>
+      <li>Non vengono generati profitti o entrate di qualsiasi tipo tramite questo sito.</li>
+      <li>Qualora uno o pi&ugrave; contenuti presenti risultassero in contrasto con normative, licenze o diritti terzi, l'autore si impegna a rimuoverli o modificarli tempestivamente.</li>
+      <li>La pubblicazione avviene tramite la piattaforma GitHub Pages, senza utilizzo di cookie, tracciamenti o strumenti di profilazione.</li>
     </ul>
-    <p>Per qualsiasi segnalazione: tobia.miniutti[at]gmail.com</p>
 
-    <p>Questo sito è ospitato gratuitamente su GitHub Pages, senza tracciamento, pubblicità o analytics.</p>
+    <p><strong>Contatti:</strong> Per comunicazioni, rettifiche o segnalazioni di eventuali violazioni, &egrave; possibile scrivere a: tobia.miniutti[at]gmail.com</p>
   </div>
 </body>
 </html>
