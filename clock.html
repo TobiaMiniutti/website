@@ -125,13 +125,16 @@
     }
 
     #clock-container {
-      width: 90vmin;
-      height: 90vmin;
-      max-width: 600px;
-      max-height: 600px;
-      margin: 70px auto 0 auto; /* distanzia da navbar */
-      z-index: 1000;
-    }
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 90vmin;
+  height: 90vmin;
+  max-width: 600px;
+  max-height: 600px;
+  z-index: 1000;
+}
 
     canvas {
       display: block;
