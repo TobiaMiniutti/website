@@ -21,10 +21,8 @@
     body.fullscreen nav,
     body.fullscreen #fullscreen-btn,
     body.fullscreen #theme-toggle,
-    body.fullscreen #logo,
-    body.fullscreen #mobile-menu-btn,
-    body.fullscreen #mobile-nav {
-      display: none !important;
+    body.fullscreen #logo {
+      display: none;
     }
 
     #clock-container {
@@ -48,68 +46,54 @@
     }
 
     nav {
-      background: rgba(0, 0, 0, 0.85);
-      width: 100%;
+      background: #111;
+      padding: 1em 160px;
       display: flex;
+      gap: 2em;
       justify-content: center;
       align-items: center;
-      gap: 1em;
-      padding: 1em 160px;
+      height: 60px;
+      box-sizing: border-box;
+      z-index: 1001;
       position: fixed;
       top: 0;
       left: 0;
-      z-index: 1000;
-      box-sizing: border-box;
-      backdrop-filter: blur(4px);
+      right: 0;
+      flex-wrap: wrap;
     }
 
     nav a {
-      position: relative;
-      display: inline-block;
-      padding: 0.5em 1em;
-      font-size: 1rem;
-      font-weight: bold;
+      color: white;
       text-decoration: none;
-      color: #fff;
-      transition: 0.3s ease;
+      font-weight: bold;
+      transition: color 0.3s;
     }
 
-    nav a:hover,
-    .dropdown .dropbtn:hover {
-      color: #e63946;
+    nav a:hover {
+      color: #ff4444;
     }
 
     .dropdown {
       position: relative;
     }
 
-    .dropdown .dropbtn {
-      font-weight: bold;
-      background: none;
-      border: none;
-      color: white;
-      font-size: 1rem;
-      cursor: pointer;
-    }
-
     .dropdown-content {
       display: none;
       position: absolute;
-      background-color: rgba(0, 0, 0, 0.95);
-      min-width: 180px;
-      border-radius: 6px;
+      background-color: #1c1c1c;
+      min-width: 160px;
       top: 100%;
       left: 0;
-      z-index: 1001;
-      box-shadow: 0 8px 16px rgba(0,0,0,0.5);
-      overflow: hidden;
+      z-index: 1002;
       flex-direction: column;
+      border-radius: 4px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.5);
     }
 
     .dropdown-content a {
-      padding: 12px 16px;
-      display: block;
-      color: #fff;
+      padding: 0.5em 1em;
+      white-space: nowrap;
+      color: white;
       text-decoration: none;
     }
 
@@ -121,7 +105,7 @@
       display: flex;
     }
 
-    #fullscreen-btn, #theme-toggle, #mobile-menu-btn {
+    #fullscreen-btn, #theme-toggle {
       position: fixed;
       top: 1em;
       background: none;
@@ -139,11 +123,7 @@
       right: 5.5em;
     }
 
-    #mobile-menu-btn {
-      right: 1em;
-    }
-
-    #fullscreen-btn svg, #theme-toggle svg, #mobile-menu-btn svg {
+    #fullscreen-btn svg, #theme-toggle svg {
       width: 24px;
       height: 24px;
       fill: white;
@@ -156,52 +136,36 @@
       width: 40px;
       height: 40px;
       z-index: 1002;
-      cursor: pointer;
-    }
-
-    #mobile-nav {
-      display: none;
-      flex-direction: column;
-      background: #111;
-      position: fixed;
-      top: 60px;
-      left: 0;
-      width: 100%;
-      z-index: 1001;
-    }
-
-    #mobile-nav a {
-      padding: 1em;
-      border-top: 1px solid #222;
-      color: white;
-      text-decoration: none;
-    }
-
-    #mobile-nav a:hover {
-      background: #222;
     }
 
     @media (max-width: 768px) {
       nav {
-        display: none !important;
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 1em;
+        height: auto;
       }
-      #mobile-menu-btn {
+      .dropdown-content {
+        position: static;
+        background-color: transparent;
+        box-shadow: none;
+        border-radius: 0;
+        display: none;
+      }
+      .dropdown:hover .dropdown-content {
         display: block;
-      }
-      body.show-mobile-menu #mobile-nav {
-        display: flex;
       }
     }
   </style>
 </head>
 <body>
-  <a href="index.html"><img id="logo" src="favicon.png" alt="Logo Tobia Miniutti" /></a>
+  <img id="logo" src="favicon.png" alt="Logo Tobia Miniutti" />
 
   <nav>
     <a href="index.html">Home</a>
     <a href="clock.html">SBB Clock</a>
     <div class="dropdown">
-      <button class="dropbtn">Progetti ▾</button>
+      <a href="#">Progetti ▾</a>
       <div class="dropdown-content">
         <a href="clock.html">SBB Clock</a>
         <a href="#">Altro progetto</a>
@@ -209,25 +173,6 @@
     </div>
     <a href="diritti.html">Diritti</a>
   </nav>
-
-  <div id="mobile-nav">
-    <a href="index.html">Home</a>
-    <a href="clock.html">SBB Clock</a>
-    <div class="dropdown">
-      <button class="dropbtn">Progetti ▾</button>
-      <div class="dropdown-content">
-        <a href="clock.html">SBB Clock</a>
-        <a href="#">Altro progetto</a>
-      </div>
-    </div>
-    <a href="diritti.html">Diritti</a>
-  </div>
-
-  <button id="mobile-menu-btn" title="Menu Mobile">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-      <path d="M4 6h16M4 12h16M4 18h16"/>
-    </svg>
-  </button>
 
   <button id="theme-toggle" title="Toggle Theme">
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
@@ -290,12 +235,10 @@
       }
     });
 
-    document.getElementById('theme-toggle').addEventListener('click', () => {
+    // Theme toggle
+    const themeToggle = document.getElementById('theme-toggle');
+    themeToggle.addEventListener('click', () => {
       document.body.style.background = document.body.style.background === 'white' ? 'black' : 'white';
-    });
-
-    document.getElementById('mobile-menu-btn').addEventListener('click', () => {
-      document.body.classList.toggle('show-mobile-menu');
     });
   </script>
 </body>
