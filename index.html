@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Benvenuto - Miniutti</title>
+  <title>Home - Miniutti</title>
   <link rel="icon" type="image/png" href="favicon.png" />
   <script src="sbbUhr-1.3.js"></script>
   <style>
@@ -14,6 +14,7 @@
       color: #ffffff;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       min-height: 100vh;
+      box-sizing: border-box;
     }
     nav {
       background: rgba(0, 0, 0, 0.85);
@@ -26,6 +27,7 @@
       position: fixed;
       top: 0;
       left: 0;
+      height: 60px; /* altezza fissa */
       z-index: 1000;
       box-sizing: border-box;
       backdrop-filter: blur(4px);
@@ -93,16 +95,21 @@
     }
     .content {
       max-width: 800px;
-      padding: 6em 2em 2em; /* padding-top originale */
+      padding: 2em;
       text-align: center;
       margin: auto;
       background-color: rgba(0,0,0,0.6);
       border-radius: 8px;
+      padding-top: 80px; /* spazio per il menu fisso */
+      box-sizing: border-box;
     }
     @media (max-width: 768px) {
       nav {
         flex-direction: column;
-        padding: 1em;
+        padding: 0 1em;
+        height: auto; /* altezza automatica per il menu espanso */
+        gap: 0.5em;
+        position: fixed;
       }
       .dropdown-content {
         position: static;
@@ -115,9 +122,10 @@
         display: flex;
       }
 
-      /* Correzione: sposta il contenuto sotto il menu */
+      /* Spaziatura per contenuto sotto il menu fisso, 
+         consideriamo altezza menu espanso 120px */
       .content {
-        padding-top: calc(1em + 3.5em); /* 1em padding nav + altezza approssimativa nav */
+        padding-top: 130px !important;
       }
     }
   </style>
