@@ -5,46 +5,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>SBB Clock</title>
   <link rel="icon" type="image/png" href="favicon.png">
-  <script src="sbbUhr-1.3.js"></script>
   <style>
-    html, body {
+    body {
       margin: 0;
-      padding: 0;
       background: black;
-      height: 100%;
-      width: 100%;
-      overflow: hidden;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       color: white;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     }
-
-    body.fullscreen nav,
-    body.fullscreen #fullscreen-btn,
-    body.fullscreen #theme-toggle,
-    body.fullscreen #logo {
-      display: none;
-    }
-
-    #clock-container {
-      position: fixed;
-      top: 60px;
-      left: 0;
-      width: 100vw;
-      height: calc(100vh - 60px);
-      z-index: 1000;
-    }
-
-    body.fullscreen #clock-container {
-      top: 0;
-      height: 100vh;
-    }
-
-    canvas {
-      display: block;
-      width: 100%;
-      height: 100%;
-    }
-
     nav {
       background: #000;
       width: 100%;
@@ -60,23 +27,23 @@
       z-index: 1000;
       box-sizing: border-box;
     }
-
     nav a, .dropbtn {
       color: white;
       text-decoration: none;
       font-weight: bold;
-      transition: color 0.3s;
       cursor: pointer;
+      background: none;
+      border: none;
+      font-size: 1rem;
+      transition: color 0.3s;
     }
-
     nav a:hover, .dropbtn:hover {
       color: #ff4444;
     }
-
     .dropdown {
       position: relative;
+      user-select: none;
     }
-
     .dropdown-content {
       display: none;
       position: absolute;
@@ -88,45 +55,25 @@
       flex-direction: column;
       border-radius: 4px;
     }
-
     .dropdown-content a {
       padding: 0.5em 1em;
       color: white;
       text-decoration: none;
+      white-space: nowrap;
     }
-
     .dropdown-content a:hover {
       background-color: #333;
     }
-
-    .dropdown:hover .dropdown-content {
+    /* Desktop hover */
+    @media (hover: hover) and (pointer: fine) {
+      .dropdown:hover .dropdown-content {
+        display: flex;
+      }
+    }
+    /* Toggle open class for mobile */
+    .dropdown.open .dropdown-content {
       display: flex;
     }
-
-    #fullscreen-btn, #theme-toggle {
-      position: fixed;
-      top: 1em;
-      background: none;
-      border: none;
-      color: white;
-      cursor: pointer;
-      z-index: 1002;
-    }
-
-    #fullscreen-btn {
-      right: 2.5em;
-    }
-
-    #theme-toggle {
-      right: 5.5em;
-    }
-
-    #fullscreen-btn svg, #theme-toggle svg {
-      width: 24px;
-      height: 24px;
-      fill: white;
-    }
-
     #logo {
       position: fixed;
       top: 10px;
@@ -136,50 +83,17 @@
       z-index: 1002;
       cursor: pointer;
     }
-
-    #mini-clock {
-      position: fixed;
-      top: 5px;
-      right: 10px;
-      width: 50px;
-      height: 50px;
-      z-index: 1003;
-      cursor: pointer;
-    }
-
-    @media (max-width: 768px) {
-      nav {
-        flex-direction: column;
-        align-items: center;
-        padding: 1em;
-        gap: 0.5em;
-      }
-
-      .dropdown-content {
-        position: static;
-        background-color: #111;
-        box-shadow: none;
-        border-radius: 4px;
-        display: none;
-        width: 100%;
-      }
-
-      .dropdown:hover .dropdown-content {
-        display: flex;
-      }
-    }
   </style>
 </head>
 <body>
   <img id="logo" src="favicon.png" alt="Logo Tobia Miniutti" />
-  <div id="mini-clock"></div>
 
   <nav>
     <a href="index.html">Home</a>
     <a href="clock.html">SBB Clock</a>
-    <div class="dropdown">
-      <div class="dropbtn">Progetti ▾</div>
-      <div class="dropdown-content">
+    <div class="dropdown" id="dropdown-progetti">
+      <button class="dropbtn" aria-haspopup="true" aria-expanded="false">Progetti ▾</button>
+      <div class="dropdown-content" aria-label="submenu progetti">
         <a href="clock.html">SBB Clock</a>
         <a href="#">Altro progetto</a>
       </div>
@@ -187,82 +101,43 @@
     <a href="diritti.html">Diritti</a>
   </nav>
 
-  <button id="theme-toggle" title="Toggle Theme">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-      <path d="M12 3a9 9 0 100 18 9 9 0 000-18zm0 2c.7 0 1.4.1 2 .3a7 7 0 010 13.4A9 9 0 0112 5z"/>
-    </svg>
-  </button>
-
-  <button id="fullscreen-btn" title="Fullscreen" type="button">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-      <path d="M7 14H5v5h5v-2H7v-3zm12 3h-3v2h5v-5h-2v3zM7 7h3V5H5v5h2V7zm10 2h2V5h-5v2h3v2z"/>
-    </svg>
-  </button>
-
-  <div id="clock-container"></div>
-
   <script>
-    async function getTimeOffset() {
-      try {
-        const res = await fetch('https://worldtimeapi.org/api/ip.txt');
-        const text = await res.text();
-        const line = text.split('\n').find(l => l.startsWith('datetime:'));
-        const datetime = line.split('datetime:')[1].trim();
-        const serverTime = new Date(datetime).getTime();
-        const localTime = Date.now();
-        return serverTime - localTime;
-      } catch (e) {
-        return 0;
-      }
-    }
-
-    getTimeOffset().then(offset => {
-      if (typeof sbbUhr !== "undefined") {
-        sbbUhr.now = () => new Date(Date.now() + offset);
-        const clock = new sbbUhr('clock-container', true, 30);
-        clock.start();
-      } else {
-        console.error("sbbUhr non caricato");
-      }
-    });
-
-    document.getElementById('fullscreen-btn').addEventListener('click', (e) => {
-      e.preventDefault();
-      if (!document.fullscreenElement) {
-        document.documentElement.requestFullscreen();
-      } else {
-        document.exitFullscreen();
-      }
-    });
-
-    document.addEventListener('fullscreenchange', () => {
-      document.body.classList.toggle('fullscreen', !!document.fullscreenElement);
-    });
-
-    document.addEventListener('keydown', (e) => {
-      if (e.key.toLowerCase() === 'f') {
-        if (!document.fullscreenElement) {
-          document.documentElement.requestFullscreen();
-        } else {
-          document.exitFullscreen();
-        }
-      }
-    });
-
-    document.getElementById('theme-toggle').addEventListener('click', () => {
-      document.body.style.background = document.body.style.background === 'white' ? 'black' : 'white';
-    });
-
+    // Click logo torna a home
     document.getElementById('logo').addEventListener('click', () => {
       window.location.href = 'index.html';
     });
 
-    const miniClock = document.getElementById('mini-clock');
-    if (miniClock) {
-      miniClock.addEventListener('click', () => {
-        window.location.href = 'clock.html';
+    // Gestione toggle menu dropdown Progetti
+    const dropdown = document.getElementById('dropdown-progetti');
+    const button = dropdown.querySelector('.dropbtn');
+
+    button.addEventListener('click', (e) => {
+      e.preventDefault();
+      const isOpen = dropdown.classList.contains('open');
+      // Chiudo tutti dropdown aperti (se ce ne sono)
+      document.querySelectorAll('.dropdown.open').forEach(el => {
+        if (el !== dropdown) {
+          el.classList.remove('open');
+          el.querySelector('.dropbtn').setAttribute('aria-expanded', 'false');
+        }
       });
-    }
+      // Toggle apertura dropdown cliccato
+      if (isOpen) {
+        dropdown.classList.remove('open');
+        button.setAttribute('aria-expanded', 'false');
+      } else {
+        dropdown.classList.add('open');
+        button.setAttribute('aria-expanded', 'true');
+      }
+    });
+
+    // Chiudo il menu se clicco fuori
+    document.addEventListener('click', (e) => {
+      if (!dropdown.contains(e.target)) {
+        dropdown.classList.remove('open');
+        button.setAttribute('aria-expanded', 'false');
+      }
+    });
   </script>
 </body>
 </html>
