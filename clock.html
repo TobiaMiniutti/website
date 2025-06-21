@@ -59,12 +59,18 @@
       top: 0;
       left: 0;
       right: 0;
+      flex-wrap: wrap;
     }
 
     nav a {
       color: white;
       text-decoration: none;
       font-weight: bold;
+      transition: color 0.3s;
+    }
+
+    nav a:hover {
+      color: #ff4444;
     }
 
     .dropdown {
@@ -130,6 +136,25 @@
       width: 40px;
       height: 40px;
       z-index: 1002;
+    }
+
+    @media (max-width: 768px) {
+      nav {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 1em;
+        height: auto;
+      }
+      .dropdown-content {
+        position: static;
+        background-color: transparent;
+        box-shadow: none;
+        border-radius: 0;
+        display: none;
+      }
+      .dropdown:hover .dropdown-content {
+        display: block;
+      }
     }
   </style>
 </head>
