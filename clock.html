@@ -16,9 +16,17 @@
       overflow: hidden;
     }
 
+    body.fullscreen nav {
+      display: none;
+    }
+
     #clock-container {
       width: 100vw;
       height: calc(100vh - 60px);
+    }
+
+    body.fullscreen #clock-container {
+      height: 100vh;
     }
 
     canvas {
@@ -38,7 +46,10 @@
       height: 60px;
       box-sizing: border-box;
       z-index: 1001;
-      position: relative;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
     }
 
     nav a {
@@ -48,7 +59,7 @@
     }
 
     #fullscreen-btn {
-      position: absolute;
+      position: fixed;
       top: 1em;
       right: 1em;
       background: none;
