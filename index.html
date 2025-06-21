@@ -87,42 +87,42 @@
     <a href="diritti.html">Diritti</a>
   </nav>
 
-  <button id="fullscreen-btn" style="
+  <button id="fullscreen-btn" title="Fullscreen" style="
   position: fixed;
   bottom: 1em;
   right: 1em;
-  padding: 0.5em 1em;
-  background: white;
-  color: black;
+  background: none;
   border: none;
-  border-radius: 8px;
-  font-weight: bold;
-  cursor: pointer;
   z-index: 1001;
+  cursor: pointer;
+  font-size: 2em;
+  color: white;
 ">
-  🔲 Fullscreen
+  ⛶
 </button>
 
 <script>
   const btn = document.getElementById("fullscreen-btn");
   const el = document.documentElement;
 
-  btn.addEventListener("click", () => {
+  function toggleFullscreen() {
     if (!document.fullscreenElement) {
       el.requestFullscreen().catch(err => alert("Errore: " + err));
     } else {
       document.exitFullscreen();
     }
-  });
+  }
+
+  btn.addEventListener("click", toggleFullscreen);
 
   document.addEventListener("keydown", e => {
     if (e.key.toLowerCase() === "f") {
-      if (!document.fullscreenElement) {
-        el.requestFullscreen();
-      } else {
-        document.exitFullscreen();
-      }
+      toggleFullscreen();
     }
+  });
+
+  document.addEventListener("fullscreenchange", () => {
+    btn.style.display = document.fullscreenElement ? "none" : "block";
   });
 </script>
 
