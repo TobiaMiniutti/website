@@ -21,7 +21,9 @@
     body.fullscreen nav,
     body.fullscreen #fullscreen-btn,
     body.fullscreen #theme-toggle,
-    body.fullscreen #logo {
+    body.fullscreen #logo,
+    body.fullscreen #mobile-menu-btn,
+    body.fullscreen #mobile-nav {
       display: none;
     }
 
@@ -59,7 +61,6 @@
       top: 0;
       left: 0;
       right: 0;
-      flex-wrap: wrap;
     }
 
     nav a {
@@ -105,7 +106,7 @@
       display: flex;
     }
 
-    #fullscreen-btn, #theme-toggle {
+    #fullscreen-btn, #theme-toggle, #mobile-menu-btn {
       position: fixed;
       top: 1em;
       background: none;
@@ -123,7 +124,12 @@
       right: 5.5em;
     }
 
-    #fullscreen-btn svg, #theme-toggle svg {
+    #mobile-menu-btn {
+      right: 1em;
+      display: none;
+    }
+
+    #fullscreen-btn svg, #theme-toggle svg, #mobile-menu-btn svg {
       width: 24px;
       height: 24px;
       fill: white;
@@ -138,21 +144,33 @@
       z-index: 1002;
     }
 
+    #mobile-nav {
+      display: none;
+      flex-direction: column;
+      background: #111;
+      position: fixed;
+      top: 60px;
+      left: 0;
+      width: 100%;
+      z-index: 1001;
+    }
+
+    #mobile-nav a {
+      padding: 1em;
+      border-top: 1px solid #222;
+      color: white;
+      text-decoration: none;
+    }
+
+    #mobile-nav a:hover {
+      background: #222;
+    }
+
     @media (max-width: 768px) {
       nav {
-        flex-direction: column;
-        align-items: flex-start;
-        padding: 1em;
-        height: auto;
-      }
-      .dropdown-content {
-        position: static;
-        background-color: transparent;
-        box-shadow: none;
-        border-radius: 0;
         display: none;
       }
-      .dropdown:hover .dropdown-content {
+      #mobile-menu-btn {
         display: block;
       }
     }
@@ -173,6 +191,20 @@
     </div>
     <a href="diritti.html">Diritti</a>
   </nav>
+
+  <div id="mobile-nav">
+    <a href="index.html">Home</a>
+    <a href="clock.html">SBB Clock</a>
+    <a href="clock.html">SBB Clock (Progetto)</a>
+    <a href="#">Altro progetto</a>
+    <a href="diritti.html">Diritti</a>
+  </div>
+
+  <button id="mobile-menu-btn" title="Menu Mobile">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+      <path d="M4 6h16M4 12h16M4 18h16"/>
+    </svg>
+  </button>
 
   <button id="theme-toggle" title="Toggle Theme">
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
@@ -235,11 +267,15 @@
       }
     });
 
-    // Theme toggle
-    const themeToggle = document.getElementById('theme-toggle');
-    themeToggle.addEventListener('click', () => {
+    document.getElementById('theme-toggle').addEventListener('click', () => {
       document.body.style.background = document.body.style.background === 'white' ? 'black' : 'white';
+    });
+
+    document.getElementById('mobile-menu-btn').addEventListener('click', () => {
+      const menu = document.getElementById('mobile-nav');
+      menu.style.display = menu.style.display === 'flex' ? 'none' : 'flex';
     });
   </script>
 </body>
 </html>
+
