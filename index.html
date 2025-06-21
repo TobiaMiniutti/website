@@ -19,25 +19,25 @@
     }
 
     #clock-container {
-  width: 100vw;
-  height: calc(100vh - 60px);
-  transition: height 0.5s ease, width 0.5s ease;
-}
-    
-    .fade-blur {
-  transition: opacity 0.4s ease, filter 0.4s ease;
-}
-
-.hidden-blur {
-  opacity: 0;
-  filter: blur(6px);
-  pointer-events: none;
-}
+      width: 100vw;
+      height: 100vh;
+      transition: height 0.5s ease, width 0.5s ease;
+    }
 
     canvas {
       display: block;
       width: 100%;
       height: 100%;
+    }
+
+    .fade-blur {
+      transition: opacity 0.4s ease, filter 0.4s ease;
+    }
+
+    .hidden-blur {
+      opacity: 0;
+      filter: blur(6px);
+      pointer-events: none;
     }
 
     #fullscreen-btn {
@@ -73,25 +73,28 @@
     #rights-text a:hover {
       text-decoration: underline;
     }
+
+    /* Mostra il bottone solo su dispositivi > 768px */
+    @media (max-width: 768px) {
+      #fullscreen-btn {
+        display: none;
+      }
+    }
   </style>
 </head>
 <body>
 
   <div id="clock-container"></div>
 
-  <button id="fullscreen-btn" title="Fullscreen" aria-label="Toggle fullscreen">
+  <button id="fullscreen-btn" class="fade-blur" title="Fullscreen" aria-label="Toggle fullscreen">
     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="white" viewBox="0 0 24 24">
       <path d="M4 4h6v2H6.414l3.293 3.293-1.414 1.414L5 7.414V10H4V4zm16 16h-6v-2h4.586l-3.293-3.293 1.414-1.414L19 16.586V14h1v6z"/>
     </svg>
   </button>
 
-  <p id="rights-text">
+  <p id="rights-text" class="fade-blur">
     Orologio ispirato al progetto open source di <a href="https://github.com/sbb-design-systems/brand-elements" target="_blank" rel="noopener noreferrer">SBB</a>. Marchi e loghi appartengono ai rispettivi titolari.
   </p>
-
-  <p id="rights-text" class="fade-blur">...</p>
-<button id="fullscreen-btn" class="fade-blur" ...>...</button>
-
 
   <script src="sbbUhr-1.3.js"></script>
   <script>
@@ -105,7 +108,7 @@
         const localTime = Date.now();
         return serverTime - localTime;
       } catch (e) {
-        return 0; // fallback se offline
+        return 0;
       }
     }
 
@@ -120,38 +123,22 @@
     });
 
     const fullscreenBtn = document.getElementById('fullscreen-btn');
-    const clockContainer = document.getElementById('clock-container');
     const rightsText = document.getElementById('rights-text');
+    const clockContainer = document.getElementById('clock-container');
 
     fullscreenBtn.addEventListener('click', () => {
-  if (!document.fullscreenElement) {
-    clockContainer.requestFullscreen().then(() => {
-      // Attiva fullscreen
-clockContainer.requestFullscreen().then(() => {
-  rightsText.classList.add('hidden-blur');
-  fullscreenBtn.classList.add('hidden-blur');
-  fullscreenBtn.title = 'Esci fullscreen';
-  clockContainer.classList.add('fullscreen');
-});
-
-      fullscreenBtn.title = 'Esci fullscreen';
-      clockContainer.classList.add('fullscreen');
+      if (!document.fullscreenElement) {
+        clockContainer.requestFullscreen().then(() => {
+          rightsText.classList.add('hidden-blur');
+          fullscreenBtn.classList.add('hidden-blur');
+        });
+      } else {
+        document.exitFullscreen().then(() => {
+          rightsText.classList.remove('hidden-blur');
+          fullscreenBtn.classList.remove('hidden-blur');
+        });
+      }
     });
-  } else {
-    document.exitFullscreen().then(() => {
-      // Esci fullscreen
-document.exitFullscreen().then(() => {
-  rightsText.classList.remove('hidden-blur');
-  fullscreenBtn.classList.remove('hidden-blur');
-  fullscreenBtn.title = 'Fullscreen';
-  clockContainer.classList.remove('fullscreen');
-});
-
-      fullscreenBtn.title = 'Fullscreen';
-      clockContainer.classList.remove('fullscreen');
-    });
-  }
-});
 
     document.addEventListener('keydown', e => {
       if (e.key.toLowerCase() === 'f' && !['INPUT', 'TEXTAREA'].includes(document.activeElement.tagName)) {
@@ -160,13 +147,13 @@ document.exitFullscreen().then(() => {
     });
   </script>
 
-<script>
-if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.register('sw.js')
-    .then(() => console.log('Service Worker registrato'))
-    .catch(err => console.error('Service Worker errore:', err));
-}
-</script>
+  <script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('sw.js')
+        .then(() => console.log('Service Worker registrato'))
+        .catch(err => console.error('Service Worker errore:', err));
+    }
+  </script>
 
 </body>
 </html>
