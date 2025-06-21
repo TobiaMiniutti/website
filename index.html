@@ -40,17 +40,47 @@
       pointer-events: none;
     }
 
-    #fullscreen-btn {
+    .fullscreen-btn {
+      width: 25px;
+      height: 25px;
+      border: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: transparent;
+      cursor: pointer;
+      transition: all 0.3s;
       position: fixed;
       bottom: 10px;
       right: 10px;
-      padding: 6px;
-      background: rgba(255,255,255,0.2);
-      border: none;
-      color: white;
-      cursor: pointer;
-      border-radius: 4px;
       z-index: 1000;
+    }
+
+    .fullscreen-btn svg {
+      height: 100%;
+    }
+
+    .fullscreen-btn:hover {
+      width: 30px;
+      height: 30px;
+      overflow: visible;
+    }
+
+    .tooltip {
+      position: absolute;
+      top: -40px;
+      background-color: rgba(0, 0, 0, 0.753);
+      color: white;
+      padding: 5px 10px;
+      border-radius: 5px;
+      font-size: 0.8em;
+      transition: all 0.3s;
+      opacity: 0;
+    }
+
+    .fullscreen-btn:hover .tooltip {
+      transform: translateY(2.5px);
+      opacity: 1;
     }
 
     #rights-text {
@@ -73,20 +103,14 @@
     #rights-text a:hover {
       text-decoration: underline;
     }
-
-    /* Mostra il bottone solo su dispositivi > 768px */
-    @media (max-width: 768px) {
-      #fullscreen-btn {
-        display: none;
-      }
-    }
   </style>
 </head>
 <body>
 
   <div id="clock-container"></div>
 
-  <button id="fullscreen-btn" class="fade-blur" title="Fullscreen" aria-label="Toggle fullscreen">
+  <button id="fullscreen-btn" class="fullscreen-btn fade-blur" title="Fullscreen" aria-label="Toggle fullscreen">
+    <span class="tooltip">Fullscreen</span>
     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="white" viewBox="0 0 24 24">
       <path d="M4 4h6v2H6.414l3.293 3.293-1.414 1.414L5 7.414V10H4V4zm16 16h-6v-2h4.586l-3.293-3.293 1.414-1.414L19 16.586V14h1v6z"/>
     </svg>
@@ -126,7 +150,7 @@
     const rightsText = document.getElementById('rights-text');
     const clockContainer = document.getElementById('clock-container');
 
-    fullscreenBtn.addEventListener('click', () => {
+    function toggleFullscreen() {
       if (!document.fullscreenElement) {
         clockContainer.requestFullscreen().then(() => {
           rightsText.classList.add('hidden-blur');
@@ -138,11 +162,13 @@
           fullscreenBtn.classList.remove('hidden-blur');
         });
       }
-    });
+    }
+
+    fullscreenBtn.addEventListener('click', toggleFullscreen);
 
     document.addEventListener('keydown', e => {
       if (e.key.toLowerCase() === 'f' && !['INPUT', 'TEXTAREA'].includes(document.activeElement.tagName)) {
-        fullscreenBtn.click();
+        toggleFullscreen();
       }
     });
   </script>
