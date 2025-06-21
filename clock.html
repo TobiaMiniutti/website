@@ -102,61 +102,46 @@
       border: none;
       cursor: pointer;
     }
-
-    <button id="focus-toggle" title="Solo orologio">
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-    <path d="M12 5c-7 0-10 7-10 7s3 7 10 7 10-7 10-7-3-7-10-7zm0 12a5 5 0 1 1 0-10 5 5 0 0 1 0 10zm0-8a3 3 0 1 0 .001 6.001A3 3 0 0 0 12 9z"/>
-  </svg>
-</button>
-
     #focus-toggle {
-  position: fixed;
-  top: 10px;
-  right: 110px;
-  z-index: 1001;
-  background: none;
-  border: none;
-  cursor: pointer;
-}
-
-#focus-toggle svg {
-  width: 24px;
-  height: 24px;
-  fill: white;
-}
-
-body.focus-mode nav,
-body.focus-mode #fullscreen-btn,
-body.focus-mode #theme-toggle,
-body.focus-mode #logo,
-body.focus-mode #focus-toggle {
-  display: none;
-}
-
+      position: fixed;
+      top: 10px;
+      right: 110px;
+      z-index: 1001;
+      background: none;
+      border: none;
+      cursor: pointer;
+    }
+    #focus-toggle svg {
+      width: 24px;
+      height: 24px;
+      fill: white;
+    }
+    body.focus-mode nav,
+    body.focus-mode #fullscreen-btn,
+    body.focus-mode #theme-toggle,
+    body.focus-mode #logo {
+      display: none;
+    }
     #fullscreen-btn svg, #theme-toggle svg {
       width: 24px;
       height: 24px;
       fill: white;
     }
     #clock-container {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 100vw;
-  height: 100vh;
-  z-index: 500;
-}
-
-body:not(.fullscreen) #clock-container {
-  top: calc(50% + 40px);
-  height: calc(100vh - 80px); /* Riduci altezza fuori dal fullscreen */
-  max-height: 600px;          /* Limite massimo desktop */
-  max-width: 600px;
-}
-
-
-
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 100vw;
+      height: 100vh;
+      z-index: 500;
+    }
+    body:not(.fullscreen) #clock-container {
+      top: calc(50% + 40px);
+      height: calc(100vh - 80px);
+      max-height: 600px;
+      max-width: 600px;
+    }
     body.fullscreen nav,
     body.fullscreen #fullscreen-btn,
     body.fullscreen #theme-toggle,
@@ -187,6 +172,12 @@ body:not(.fullscreen) #clock-container {
   <button id="fullscreen-btn" title="Schermo intero">
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
       <path d="M7 14H5v5h5v-2H7v-3zm12 3h-3v2h5v-5h-2v3zM7 7h3V5H5v5h2V7zm10 2h2V5h-5v2h3v2z"/>
+    </svg>
+  </button>
+
+  <button id="focus-toggle" title="Solo orologio">
+    <svg id="eye-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+      <path d="M12 5c-7 0-10 7-10 7s3 7 10 7 10-7 10-7-3-7-10-7zm0 12a5 5 0 1 1 0-10 5 5 0 0 1 0 10zm0-8a3 3 0 1 0 .001 6.001A3 3 0 0 0 12 9z"/>
     </svg>
   </button>
 
@@ -267,9 +258,15 @@ body:not(.fullscreen) #clock-container {
     });
 
     document.getElementById('focus-toggle').addEventListener('click', () => {
-  document.body.classList.toggle('focus-mode');
-});
+      document.body.classList.toggle('focus-mode');
+      
+      const eyeIcon = document.getElementById('eye-icon');
+      const isFocus = document.body.classList.contains('focus-mode');
 
+      eyeIcon.innerHTML = isFocus
+        ? '<path d="M2 5l2-2 17 17-2 2-4.3-4.3C13.4 19 12.7 19 12 19c-7 0-10-7-10-7 1.3-2.4 3.1-4.1 5.2-5.3L2 5zm10 4a3 3 0 0 1 3 3c0 .6-.2 1.1-.4 1.6L10.4 9.4c.5-.3 1-.4 1.6-.4zm0 8c.7 0 1.4-.1 2-.3l-1.5-1.5a5 5 0 0 1-4.7-4.7L6.3 9.3C4.5 10.3 3 12 3 12s3 7 9 7z"/>'
+        : '<path d="M12 5c-7 0-10 7-10 7s3 7 10 7 10-7 10-7-3-7-10-7zm0 12a5 5 0 1 1 0-10 5 5 0 0 1 0 10zm0-8a3 3 0 1 0 .001 6.001A3 3 0 0 0 12 9z"/>';
+    });
   </script>
 </body>
 </html>
