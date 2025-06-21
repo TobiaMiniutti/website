@@ -20,9 +20,11 @@
       background: #000;
       width: 100%;
       display: flex;
+      flex-wrap: wrap;
       gap: 1em;
-      padding: 1em 160px;
+      padding: 1em 2em 1em 4.5em; /* spazio per logo */
       justify-content: center;
+      align-items: center;
       position: fixed;
       top: 0;
       left: 0;
@@ -33,6 +35,27 @@
       color: white;
       text-decoration: none;
       font-weight: bold;
+      white-space: nowrap;
+    }
+    .dropdown {
+      position: relative;
+    }
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      background-color: #111;
+      min-width: 160px;
+      top: 100%;
+      left: 0;
+      z-index: 1001;
+      flex-direction: column;
+      border-radius: 4px;
+    }
+    .dropdown-content a {
+      padding: 0.5em 1em;
+    }
+    .dropdown:hover .dropdown-content {
+      display: flex;
     }
     .content {
       max-width: 900px;
@@ -87,22 +110,23 @@
 
   <div class="content">
     <h1>Informativa Legale, Licenze e Diritti</h1>
-    <p>Il presente sito web &egrave; un progetto personale a scopo puramente didattico, sviluppato da Tobia Miniutti, privo di finalit&agrave; commerciali o promozionali. Il sito incorpora una rappresentazione digitale non ufficiale dell'orologio delle Ferrovie Federali Svizzere (SBB), realizzata utilizzando materiali open source conformi alle normative vigenti in materia di licenze software e tutela dei marchi registrati.</p>
+    <p>Il presente sito web costituisce una realizzazione a carattere esclusivamente personale e didattico, ideata e mantenuta da Tobia Miniutti. Tutti i contenuti offerti sono privi di finalit&agrave; lucrative e non rappresentano in alcun modo un'iniziativa ufficiale o collegata alle Ferrovie Federali Svizzere (SBB).</p>
 
-    <p><strong>Licenza del Codice:</strong> Il codice impiegato &egrave; tratto dal repository ufficiale <a href="https://github.com/sbb-design-systems/brand-elements/tree/main/digital-clock" target="_blank">SBB Digital Clock</a>, distribuito sotto <strong>licenza Apache 2.0</strong>, che consente l'utilizzo, la modifica e la redistribuzione del software, anche per finalit&agrave; commerciali, purch&eacute; vengano rispettate le condizioni della licenza, incluse attribuzione, inclusione della licenza e dichiarazioni di modifica.</p>
+    <p><strong>Licenza del Codice:</strong> L'orologio digitale integrato nel sito utilizza codice open source proveniente dal repository <a href="https://github.com/sbb-design-systems/brand-elements/tree/main/digital-clock" target="_blank">SBB Digital Clock</a>, pubblicato con <strong>licenza Apache 2.0</strong>. Tale licenza permette ampie libert&agrave; d'uso, inclusa la modifica e la ridistribuzione, purch&eacute; vengano rispettati i termini ivi previsti (attribuzione, notifica di modifiche, inclusione della licenza, assenza di responsabilit&agrave;).</p>
 
-    <p><strong>Tutela del Marchio:</strong> Il design dell'orologio SBB, incluse forma, colori e movimento della celebre "lancetta dei 58 secondi", &egrave; coperto da tutela giuridica come marchio registrato di SBB AG. I diritti connessi al marchio restano in capo a SBB, secondo quanto indicato nella <a href="https://digital.sbb.ch/en/foundation/brand/watch/" target="_blank">documentazione ufficiale</a> sul branding aziendale.</p>
+    <p><strong>Tutela Marchio e Design:</strong> Il design dell'orologio SBB, incluse le caratteristiche estetiche e funzionali, &egrave; protetto in quanto marchio registrato e opera tutelata da SBB AG. Per una panoramica ufficiale sullo status del marchio si rimanda alla <a href="https://digital.sbb.ch/en/foundation/brand/watch/" target="_blank">pagina dedicata</a>. Ogni utilizzo &egrave; realizzato con intento illustrativo, nel rispetto dell'identit&agrave; visiva dell'ente e privo di implicazioni promozionali o commerciali.</p>
 
     <h2>Esclusione di Responsabilit&agrave;</h2>
-    <p>L'autore del sito dichiara formalmente quanto segue:</p>
+    <p>L'autore, nella piena osservanza delle normative in materia di diritti d'autore, si esonera da qualsivoglia responsabilit&agrave; derivante da:</p>
     <ul>
-      <li>Il sito non &egrave; in alcun modo affiliato a SBB AG, n&eacute; ne rappresenta un'estensione, derivazione o iniziativa ufficiale.</li>
-      <li>Non sussiste alcuna attivit&agrave; commerciale, pubblicitaria o di monetizzazione del traffico generato.</li>
-      <li>Il sito &egrave; ospitato su piattaforma GitHub Pages, privo di tecnologie di tracciamento, cookie analitici o strumenti di profilazione utenti.</li>
-      <li>Qualora uno o pi&ugrave; contenuti risultassero lesivi di diritti di terze parti, l'autore si impegna a rimuoverli immediatamente previa segnalazione formale.</li>
+      <li>eventuali violazioni non intenzionali di diritti, licenze o marchi;</li>
+      <li>malfunzionamenti tecnici o errori di implementazione;</li>
+      <li>uso improprio, abusivo o fuorviante dei contenuti pubblicati da parte di terzi.</li>
     </ul>
 
-    <p><strong>Contatti:</strong> Per comunicazioni ufficiali, richieste di chiarimenti o notifiche di violazione, scrivere a: <code>tobia.miniutti[at]gmail.com</code></p>
+    <p>In caso di reclami legittimi, l'autore garantisce l'immediata rimozione o rettifica dei contenuti contestati.</p>
+
+    <p><strong>Contatti ufficiali:</strong> <code>tobia.miniutti[at]gmail.com</code></p>
   </div>
 
   <script>
