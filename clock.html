@@ -118,8 +118,12 @@
 }
 
 body:not(.fullscreen) #clock-container {
-  top: calc(50% + 40px); /* centrato sotto la navbar solo fuori fullscreen */
+  top: calc(50% + 40px);
+  height: calc(100vh - 80px); /* Riduci altezza fuori dal fullscreen */
+  max-height: 600px;          /* Limite massimo desktop */
+  max-width: 600px;
 }
+
 
 
     body.fullscreen nav,
