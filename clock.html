@@ -42,7 +42,7 @@
 
     nav {
       background: #000;
-      padding: 1em;
+      padding: 1em 160px;
       display: flex;
       gap: 1em;
       font-family: sans-serif;
@@ -107,9 +107,20 @@
     .fullscreen #fullscreen-btn {
       display: none;
     }
+
+    #logo {
+      position: fixed;
+      top: 10px;
+      left: 10px;
+      width: 40px;
+      height: 40px;
+      z-index: 1002;
+    }
   </style>
 </head>
 <body>
+  <img id="logo" src="favicon.png" alt="Logo Tobia Miniutti" />
+
   <nav>
     <a href="index.html">Home</a>
     <a href="clock.html">SBB Clock</a>
