@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>SBB Clock</title>
-  <link rel="icon" type="image/png" href="favicon.png" />
+  <link rel="icon" type="image/png" href="favicon.png">
   <script src="sbbUhr-1.3.js"></script>
   <style>
     html, body {
@@ -14,45 +14,72 @@
       height: 100%;
       width: 100%;
       overflow: hidden;
-      font-family: sans-serif;
     }
-    #clock-container {
-  width: 100vw;
-  height: calc(100vh - 3em); /* considera altezza barra nav */
-  position: relative;
-  top: 3em;
-}
 
-    canvas, #sbb_uhr_wrapper > div img {
+    #clock-container {
+      width: 100vw;
+      height: calc(100vh - 60px);
+    }
+
+    canvas {
       display: block;
       width: 100%;
       height: 100%;
-      transition: none !important; /* rimuove transizioni */
     }
+
     nav {
       background: #000;
       padding: 1em;
       display: flex;
       gap: 1em;
       font-family: sans-serif;
-      position: fixed;
-      top: 0;
-      width: 100%;
-      z-index: 1000;
+      justify-content: center;
+      align-items: center;
+      height: 60px;
+      box-sizing: border-box;
     }
+
     nav a {
       color: white;
       text-decoration: none;
+      font-weight: bold;
     }
-    /* Scritta visibile solo FUORI fullscreen */
-    @media all and (display-mode: fullscreen), (fullscreen: true) {
-      nav {
-        display: none !important;
-      }
+
+    #fullscreen-btn {
+      position: absolute;
+      top: 1em;
+      right: 1em;
+      background: none;
+      border: none;
+      color: white;
+      cursor: pointer;
+      z-index: 1000;
+    }
+
+    #fullscreen-btn svg {
+      width: 24px;
+      height: 24px;
+      fill: white;
+    }
+
+    #fullscreen-btn.hidden {
+      display: none;
     }
   </style>
 </head>
 <body>
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="clock.html">SBB Clock</a>
+    <a href="diritti.html">Diritti</a>
+  </nav>
+
+  <button id="fullscreen-btn" title="Fullscreen">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+      <path d="M7 14H5v5h5v-2H7v-3zm12 3h-3v2h5v-5h-2v3zM7 7h3V5H5v5h2V7zm10 2h2V5h-5v2h3v2z"/>
+    </svg>
+  </button>
+
   <div id="clock-container"></div>
 
   <script>
@@ -66,65 +93,42 @@
         const localTime = Date.now();
         return serverTime - localTime;
       } catch (e) {
-        return 0; // fallback offline
+        return 0;
       }
     }
 
     getTimeOffset().then(offset => {
       if (typeof sbbUhr !== "undefined") {
-        sbbUhr.prototype.now = () => new Date(Date.now() + offset);
+        sbbUhr.now = () => new Date(Date.now() + offset);
         const clock = new sbbUhr('clock-container', true, 30);
         clock.start();
       } else {
         console.error("sbbUhr non caricato");
       }
     });
+
+    const btn = document.getElementById('fullscreen-btn');
+    btn.addEventListener('click', () => {
+      if (!document.fullscreenElement) {
+        document.documentElement.requestFullscreen();
+      } else {
+        document.exitFullscreen();
+      }
+    });
+
+    document.addEventListener('fullscreenchange', () => {
+      btn.classList.toggle('hidden', !!document.fullscreenElement);
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key.toLowerCase() === 'f') {
+        if (!document.fullscreenElement) {
+          document.documentElement.requestFullscreen();
+        } else {
+          document.exitFullscreen();
+        }
+      }
+    });
   </script>
-
-  <nav>
-    <a href="index.html">Home</a>
-    <a href="clock.html">SBB Clock</a>
-    <a href="diritti.html">Diritti</a>
-  </nav>
-
-  <button id="fullscreen-btn" title="Fullscreen" style="
-  position: fixed;
-  bottom: 1em;
-  right: 1em;
-  background: none;
-  border: none;
-  z-index: 1001;
-  cursor: pointer;
-  font-size: 2em;
-  color: white;
-">
-  ⛶
-</button>
-
-<script>
-  const btn = document.getElementById("fullscreen-btn");
-  const el = document.documentElement;
-
-  function toggleFullscreen() {
-    if (!document.fullscreenElement) {
-      el.requestFullscreen().catch(err => alert("Errore: " + err));
-    } else {
-      document.exitFullscreen();
-    }
-  }
-
-  btn.addEventListener("click", toggleFullscreen);
-
-  document.addEventListener("keydown", e => {
-    if (e.key.toLowerCase() === "f") {
-      toggleFullscreen();
-    }
-  });
-
-  document.addEventListener("fullscreenchange", () => {
-    btn.style.display = document.fullscreenElement ? "none" : "block";
-  });
-</script>
-
 </body>
 </html>
