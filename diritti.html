@@ -111,47 +111,38 @@
   <div class="content">
     <h1>Informativa Legale, Licenze e Clausole di Esclusione di Responsabilità</h1>
 
-    <p>Il presente sito &egrave; sviluppato e gestito da <strong>Tobia Miniutti</strong> a scopo esclusivamente didattico e personale. Nessun contenuto ha finalit&agrave; commerciali, pubblicitarie o promozionali. Ogni riferimento a marchi, nomi registrati, design industriali o altri asset protetti ha solo scopo illustrativo e tecnico.</p>
+    <p>Il presente sito è sviluppato e gestito da <strong>Tobia Miniutti</strong> a scopo esclusivamente didattico, non commerciale, e personale. Ogni contenuto ha finalità illustrativa e dimostrativa. L'autore dichiara espressamente di non detenere alcun diritto sui marchi, grafiche, nomi o materiali protetti eventualmente menzionati o riprodotti, se non quelli previsti da licenze open source o concessioni esplicite.</p>
 
-    <h2>Licenza e Provenienza del Codice</h2>
-    <p>Il codice dell'orologio SBB visualizzato in questo sito deriva dal repository pubblico di SBB AG, reperibile su GitHub all'indirizzo <a href="https://github.com/sbb-design-systems/brand-elements/tree/main/digital-clock" target="_blank">SBB Digital Clock</a>, e &egrave; rilasciato sotto <strong>licenza Apache 2.0</strong>. Tale licenza consente l'utilizzo, la modifica e la redistribuzione del software, a patto di mantenere i termini della licenza e fornire opportuna attribuzione.</p>
+    <h2>Origine e Licenza del Codice</h2>
+    <p>L'orologio digitale delle FFS è riprodotto a partire dal codice open source pubblicato da SBB AG sul repository GitHub <a href="https://github.com/sbb-design-systems/brand-elements/tree/main/digital-clock" target="_blank">SBB Digital Clock</a>, concesso sotto licenza <strong>Apache 2.0</strong>. Il codice è stato adattato nel rispetto dei requisiti previsti, inclusa la conservazione delle note di copyright e delle clausole di licenza.</p>
 
-    <p>L'autore conferma di rispettare integralmente le condizioni previste dalla licenza e si impegna a garantire che ogni modifica effettuata non alteri il significato o la destinazione del codice originario in modo da generare ambiguit&agrave; o violazioni.</p>
+    <h2>Tutela di Marchi, Design e Proprietà Intellettuale</h2>
+    <p>L'orologio SBB è un'icona del design svizzero, protetto come <strong>marchio registrato</strong> da SBB AG. Tutti i diritti sono esclusivamente detenuti da SBB AG. L'uso nel presente sito non ha finalità pubblicitaria, promozionale o commerciale, bensì dimostrativa. Si invita a consultare la <a href="https://digital.sbb.ch/en/foundation/brand/watch/" target="_blank">pagina ufficiale sul design</a> per chiarimenti aggiuntivi.</p>
 
-    <h2>Tutela dei Marchi e dei Diritti di Propriet&agrave;</h2>
-    <p>Il design dell'orologio &egrave; un <strong>marchio registrato</strong> e protetto di SBB AG. Ogni diritto relativo al disegno industriale, all'interfaccia grafica e alla simbologia &egrave; di esclusiva competenza di SBB AG. Si rimanda alla pagina ufficiale <a href="https://digital.sbb.ch/en/foundation/brand/watch/" target="_blank">SBB Brand Watch</a> per ulteriori informazioni e linee guida ufficiali.</p>
-
-    <p>Il sito non intende sostituirsi, replicare o interferire con prodotti, servizi o comunicazioni ufficiali di SBB AG. L'uso delle risorse avviene in contesto sperimentale, tecnico e privato, senza finalit&agrave; di lucro.</p>
-
-    <h2>Manleva e Limitazione di Responsabilit&agrave;</h2>
-    <p>L'autore declina ogni responsabilit&agrave; per:</p>
+    <h2>Manleva, Esclusione di Responsabilità e Clausole Limitative</h2>
     <ul>
-      <li>Violazioni involontarie di diritti d'autore, marchi o brevetti;</li>
-      <li>Errori tecnici, malfunzionamenti, bug o difetti di sicurezza nel codice o nell'infrastruttura;</li>
-      <li>Utilizzo improprio da parte di terzi, anche fraudolento o lesivo;</li>
-      <li>Collegamenti a siti esterni non gestiti direttamente dall'autore;</li>
-      <li>Qualsiasi conseguenza derivante dall'accesso, uso, mancata disponibilit&agrave; o affidamento riposto nei contenuti del sito.</li>
+      <li>Il sito non è affiliato, sponsorizzato o autorizzato da SBB AG o da altri enti pubblici/privati.</li>
+      <li>Ogni contenuto è rilasciato "così com'è" (as is), senza garanzie implicite o esplicite.</li>
+      <li>L'autore non assume responsabilità per danni diretti o indiretti derivanti dall'accesso o utilizzo del sito, incluse perdite economiche, interruzioni di servizio, danni a dispositivi o software.</li>
+      <li>Ogni riferimento a materiali esterni (immagini, script, loghi) è conforme alle rispettive licenze d'uso.</li>
+      <li>Eventuali richieste di rimozione/modifica verranno gestite tempestivamente e con piena collaborazione.</li>
+      <li>Non viene effettuata alcuna raccolta di dati personali, non sono presenti cookie, tracker o tecnologie invasive.</li>
     </ul>
 
-    <p>Non vengono raccolti dati personali, non vengono usati cookie o strumenti di tracciamento, né integrati analytics di terze parti.</p>
-
-    <p>Per qualsiasi richiesta o segnalazione: <strong>tobia.miniutti[at]gmail.com</strong>. Le comunicazioni verranno gestite con disponibilit&agrave; e professionalit&agrave;, in piena collaborazione con eventuali soggetti interessati.</p>
+    <p>Per comunicazioni, scrivere a <strong>tobia.miniutti[at]gmail.com</strong>. Eventuali controversie saranno gestite nel rispetto delle leggi svizzere applicabili, privilegiando la risoluzione amichevole.</p>
   </div>
 
   <script>
     window.addEventListener('load', () => {
       if (typeof sbbUhr !== "undefined") {
-        fetch('https://worldtimeapi.org/api/ip.txt')
-          .then(res => res.text())
-          .then(text => {
-            const datetimeLine = text.split('\n').find(line => line.startsWith('datetime:'));
-            const datetime = new Date(datetimeLine.split('datetime:')[1].trim());
-            const offset = datetime.getTime() - Date.now();
-            sbbUhr.now = () => new Date(Date.now() + offset);
-            const clock = new sbbUhr('corner-clock', true, 30);
-            clock.start();
-          })
-          .catch(err => console.error("Errore orologio:", err));
+        try {
+          const now = new Date();
+          sbbUhr.now = () => now;
+          const clock = new sbbUhr('corner-clock', true, 30);
+          clock.start();
+        } catch (err) {
+          console.error("Errore orologio:", err);
+        }
       }
     });
   </script>
