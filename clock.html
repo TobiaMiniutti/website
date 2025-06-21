@@ -152,24 +152,22 @@
     @media (max-width: 768px) {
       nav {
         flex-direction: column;
-        align-items: flex-start;
+        align-items: stretch;
+        gap: 0;
         padding: 1em;
         height: auto;
-        position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
-        background: #111;
-        z-index: 999;
       }
 
-      #mini-clock {
-        top: 75px;
+      nav a, .dropdown .dropbtn {
+        padding: 1em;
+        display: block;
+        width: 100%;
+        text-align: left;
       }
 
       .dropdown-content {
-        position: static;
-        background-color: transparent;
+        position: relative;
+        background-color: #1c1c1c;
         box-shadow: none;
         border-radius: 0;
         display: none;
@@ -189,7 +187,7 @@
     <a href="index.html">Home</a>
     <a href="clock.html">SBB Clock</a>
     <div class="dropdown">
-      <a href="#">Progetti ▾</a>
+      <a href="#" class="dropbtn">Progetti ▾</a>
       <div class="dropdown-content">
         <a href="clock.html">SBB Clock</a>
         <a href="#">Altro progetto</a>
