@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>SBB Clock</title>
-  <link rel="icon" type="image/png" href="favicon.png">
+  <link rel="icon" type="image/png" href="favicon.png" />
   <script src="sbbUhr-1.3.js"></script>
   <style>
     html, body {
@@ -16,9 +16,6 @@
       overflow: hidden;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       color: white;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
     }
 
     body.fullscreen nav,
@@ -42,7 +39,6 @@
       left: 0;
       z-index: 1000;
       box-sizing: border-box;
-      height: 60px;
     }
 
     nav a, .dropbtn {
@@ -89,23 +85,23 @@
 
     #fullscreen-btn, #theme-toggle {
       position: fixed;
-      top: 15px;
+      top: 1em;
       background: none;
       border: none;
       color: white;
       cursor: pointer;
       z-index: 1002;
-      width: 30px;
-      height: 30px;
+      width: 32px;
+      height: 32px;
       padding: 0;
     }
 
     #fullscreen-btn {
-      right: 20px;
+      right: 2.5em;
     }
 
     #theme-toggle {
-      right: 70px;
+      right: 5.5em;
     }
 
     #fullscreen-btn svg, #theme-toggle svg {
@@ -124,22 +120,17 @@
       cursor: pointer;
     }
 
-    #clock-container {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 90vmin;
-  height: 90vmin;
-  max-width: 600px;
-  max-height: 600px;
-  z-index: 1000;
-}
-
-    canvas {
-      display: block;
-      width: 100%;
-      height: 100%;
+    #mini-clock {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 90vmin;
+      height: 90vmin;
+      max-width: 600px;
+      max-height: 600px;
+      z-index: 1000;
+      cursor: default;
     }
 
     @media (max-width: 768px) {
@@ -149,6 +140,7 @@
         padding: 1em;
         gap: 0.5em;
       }
+
       .dropdown-content {
         position: relative;
         width: 100%;
@@ -156,6 +148,7 @@
         box-shadow: none;
         border-radius: 4px;
       }
+
       .dropdown:hover .dropdown-content {
         display: flex;
       }
@@ -178,19 +171,19 @@
     <a href="diritti.html">Diritti</a>
   </nav>
 
-  <button id="theme-toggle" title="Toggle Theme" type="button">
+  <button id="theme-toggle" title="Toggle Tema">
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
       <path d="M12 3a9 9 0 100 18 9 9 0 000-18zm0 2c.7 0 1.4.1 2 .3a7 7 0 010 13.4A9 9 0 0112 5z"/>
     </svg>
   </button>
 
-  <button id="fullscreen-btn" title="Fullscreen" type="button">
+  <button id="fullscreen-btn" title="Schermo Intero" type="button">
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
       <path d="M7 14H5v5h5v-2H7v-3zm12 3h-3v2h5v-5h-2v3zM7 7h3V5H5v5h2V7zm10 2h2V5h-5v2h3v2z"/>
     </svg>
   </button>
 
-  <div id="clock-container"></div>
+  <div id="mini-clock"></div>
 
   <script>
     async function getTimeOffset() {
@@ -210,7 +203,7 @@
     getTimeOffset().then(offset => {
       if (typeof sbbUhr !== "undefined") {
         sbbUhr.now = () => new Date(Date.now() + offset);
-        const clock = new sbbUhr('clock-container', true, 30);
+        const clock = new sbbUhr('mini-clock', true, 30);
         clock.start();
       } else {
         console.error("sbbUhr non caricato");
@@ -241,19 +234,18 @@
     });
 
     document.getElementById('theme-toggle').addEventListener('click', () => {
-      document.body.style.background = document.body.style.background === 'white' ? 'black' : 'white';
+      if (document.body.style.background === 'white') {
+        document.body.style.background = 'black';
+        document.body.style.color = 'white';
+      } else {
+        document.body.style.background = 'white';
+        document.body.style.color = 'black';
+      }
     });
 
     document.getElementById('logo').addEventListener('click', () => {
       window.location.href = 'index.html';
     });
-
-    const miniClock = document.getElementById('mini-clock');
-    if (miniClock) {
-      miniClock.addEventListener('click', () => {
-        window.location.href = 'clock.html';
-      });
-    }
   </script>
 </body>
 </html>
