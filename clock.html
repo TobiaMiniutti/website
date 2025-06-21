@@ -24,7 +24,7 @@
     body.fullscreen #logo,
     body.fullscreen #mobile-menu-btn,
     body.fullscreen #mobile-nav {
-      display: none;
+      display: none !important;
     }
 
     #clock-container {
@@ -168,10 +168,16 @@
 
     @media (max-width: 768px) {
       nav {
-        display: none;
+        display: none !important;
       }
       #mobile-menu-btn {
         display: block;
+      }
+      #mobile-nav {
+        display: none;
+      }
+      body.show-mobile-menu #mobile-nav {
+        display: flex;
       }
     }
   </style>
@@ -272,8 +278,7 @@
     });
 
     document.getElementById('mobile-menu-btn').addEventListener('click', () => {
-      const menu = document.getElementById('mobile-nav');
-      menu.style.display = menu.style.display === 'flex' ? 'none' : 'flex';
+      document.body.classList.toggle('show-mobile-menu');
     });
   </script>
 </body>
