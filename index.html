@@ -23,7 +23,16 @@
   height: calc(100vh - 60px);
   transition: height 0.5s ease, width 0.5s ease;
 }
+    
+    .fade-blur {
+  transition: opacity 0.4s ease, filter 0.4s ease;
+}
 
+.hidden-blur {
+  opacity: 0;
+  filter: blur(6px);
+  pointer-events: none;
+}
 
     canvas {
       display: block;
@@ -113,13 +122,27 @@
     fullscreenBtn.addEventListener('click', () => {
   if (!document.fullscreenElement) {
     clockContainer.requestFullscreen().then(() => {
-      rightsText.style.display = 'none';
+      // Attiva fullscreen
+clockContainer.requestFullscreen().then(() => {
+  rightsText.classList.add('hidden-blur');
+  fullscreenBtn.classList.add('hidden-blur');
+  fullscreenBtn.title = 'Esci fullscreen';
+  clockContainer.classList.add('fullscreen');
+});
+
       fullscreenBtn.title = 'Esci fullscreen';
       clockContainer.classList.add('fullscreen');
     });
   } else {
     document.exitFullscreen().then(() => {
-      rightsText.style.display = 'block';
+      // Esci fullscreen
+document.exitFullscreen().then(() => {
+  rightsText.classList.remove('hidden-blur');
+  fullscreenBtn.classList.remove('hidden-blur');
+  fullscreenBtn.title = 'Fullscreen';
+  clockContainer.classList.remove('fullscreen');
+});
+
       fullscreenBtn.title = 'Fullscreen';
       clockContainer.classList.remove('fullscreen');
     });
