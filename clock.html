@@ -37,6 +37,8 @@
       align-items: center;
       height: 60px;
       box-sizing: border-box;
+      z-index: 1001;
+      position: relative;
     }
 
     nav a {
@@ -53,7 +55,7 @@
       border: none;
       color: white;
       cursor: pointer;
-      z-index: 1000;
+      z-index: 1002;
     }
 
     #fullscreen-btn svg {
@@ -62,7 +64,7 @@
       fill: white;
     }
 
-    #fullscreen-btn.hidden {
+    .fullscreen #fullscreen-btn {
       display: none;
     }
   </style>
@@ -117,7 +119,7 @@
     });
 
     document.addEventListener('fullscreenchange', () => {
-      btn.classList.toggle('hidden', !!document.fullscreenElement);
+      document.body.classList.toggle('fullscreen', !!document.fullscreenElement);
     });
 
     document.addEventListener('keydown', (e) => {
