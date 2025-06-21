@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>SBB Clock</title>
+  <title>Orologio - Tobia Miniutti</title>
   <link rel="icon" type="image/png" href="favicon.png" />
   <script src="sbbUhr-1.3.js"></script>
   <style>
@@ -13,142 +13,127 @@
       background: black;
       height: 100%;
       width: 100%;
-      overflow: hidden;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       color: white;
+      overflow: hidden;
     }
-
-    body.fullscreen nav,
-    body.fullscreen #fullscreen-btn,
-    body.fullscreen #theme-toggle,
-    body.fullscreen #logo {
-      display: none;
-    }
-
     nav {
-      background: #000;
+      background: rgba(0, 0, 0, 0.85);
       width: 100%;
       display: flex;
-      flex-wrap: wrap;
-      gap: 2em;
-      padding: 1em 6em;
       justify-content: center;
       align-items: center;
+      gap: 1em;
+      padding: 1em 160px;
       position: fixed;
       top: 0;
       left: 0;
       z-index: 1000;
       box-sizing: border-box;
+      backdrop-filter: blur(4px);
+      flex-wrap: wrap;
     }
-
     nav a, .dropbtn {
-      color: white;
-      text-decoration: none;
+      position: relative;
+      display: inline-block;
+      padding: 0.5em 1em;
+      font-size: 1rem;
       font-weight: bold;
-      transition: color 0.3s;
+      text-decoration: none;
+      color: #fff;
+      transition: 0.3s ease;
       cursor: pointer;
     }
-
     nav a:hover, .dropbtn:hover {
-      color: #ff4444;
+      color: #e63946;
     }
-
     .dropdown {
       position: relative;
     }
-
     .dropdown-content {
       display: none;
       position: absolute;
-      background-color: #111;
-      min-width: 160px;
+      background-color: rgba(0, 0, 0, 0.95);
+      min-width: 180px;
+      border-radius: 6px;
       top: 100%;
       left: 0;
       z-index: 1001;
+      box-shadow: 0 8px 16px rgba(0,0,0,0.5);
+      overflow: hidden;
       flex-direction: column;
-      border-radius: 4px;
     }
-
     .dropdown-content a {
-      padding: 0.5em 1em;
-      color: white;
+      padding: 12px 16px;
+      display: block;
+      color: #fff;
       text-decoration: none;
     }
-
     .dropdown-content a:hover {
       background-color: #333;
     }
-
     .dropdown:hover .dropdown-content {
       display: flex;
     }
-
-    #fullscreen-btn, #theme-toggle {
-      position: fixed;
-      top: 1em;
-      background: none;
-      border: none;
-      color: white;
-      cursor: pointer;
-      z-index: 1002;
-      width: 32px;
-      height: 32px;
-      padding: 0;
-    }
-
-    #fullscreen-btn {
-      right: 2.5em;
-    }
-
-    #theme-toggle {
-      right: 5.5em;
-    }
-
-    #fullscreen-btn svg, #theme-toggle svg {
-      width: 24px;
-      height: 24px;
-      fill: white;
-    }
-
     #logo {
       position: fixed;
       top: 10px;
       left: 10px;
       width: 40px;
       height: 40px;
-      z-index: 1002;
+      z-index: 1001;
       cursor: pointer;
     }
-
-    #mini-clock {
+    #fullscreen-btn {
       position: fixed;
+      top: 10px;
+      right: 60px;
+      z-index: 1001;
+      background: none;
+      border: none;
+      cursor: pointer;
+    }
+    #theme-toggle {
+      position: fixed;
+      top: 10px;
+      right: 10px;
+      z-index: 1001;
+      background: none;
+      border: none;
+      cursor: pointer;
+    }
+    #fullscreen-btn svg, #theme-toggle svg {
+      width: 24px;
+      height: 24px;
+      fill: white;
+    }
+    #clock-container {
+      position: absolute;
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
-      width: 90vmin;
-      height: 90vmin;
-      max-width: 600px;
-      max-height: 600px;
-      z-index: 1000;
-      cursor: default;
+      width: 100vw;
+      height: 100vh;
+      z-index: 500;
     }
-
+    body.fullscreen nav,
+    body.fullscreen #fullscreen-btn,
+    body.fullscreen #theme-toggle,
+    body.fullscreen #logo {
+      display: none;
+    }
     @media (max-width: 768px) {
       nav {
         flex-direction: column;
-        align-items: center;
         padding: 1em;
-        gap: 0.5em;
       }
-
       .dropdown-content {
-        position: relative;
-        width: 100%;
-        background-color: #111;
+        position: static;
+        background-color: rgba(0, 0, 0, 0.95);
         box-shadow: none;
-        border-radius: 4px;
+        border-radius: 0;
+        width: 100%;
       }
-
       .dropdown:hover .dropdown-content {
         display: flex;
       }
@@ -158,32 +143,32 @@
 <body>
   <img id="logo" src="favicon.png" alt="Logo Tobia Miniutti" />
 
-  <nav>
-    <a href="index.html">Home</a>
-    <a href="clock.html">SBB Clock</a>
-    <div class="dropdown">
-      <span class="dropbtn">Progetti ▾</span>
-      <div class="dropdown-content">
-        <a href="clock.html">SBB Clock</a>
-        <a href="#">Altro progetto</a>
-      </div>
-    </div>
-    <a href="diritti.html">Diritti</a>
-  </nav>
-
-  <button id="theme-toggle" title="Toggle Tema">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-      <path d="M12 3a9 9 0 100 18 9 9 0 000-18zm0 2c.7 0 1.4.1 2 .3a7 7 0 010 13.4A9 9 0 0112 5z"/>
-    </svg>
-  </button>
-
-  <button id="fullscreen-btn" title="Schermo Intero" type="button">
+  <button id="fullscreen-btn" title="Schermo intero">
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
       <path d="M7 14H5v5h5v-2H7v-3zm12 3h-3v2h5v-5h-2v3zM7 7h3V5H5v5h2V7zm10 2h2V5h-5v2h3v2z"/>
     </svg>
   </button>
 
-  <div id="mini-clock"></div>
+  <button id="theme-toggle" title="Tema chiaro/scuro">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+      <path d="M12 3a9 9 0 100 18 9 9 0 000-18zm0 2c.7 0 1.4.1 2 .3a7 7 0 010 13.4A9 9 0 0112 5z"/>
+    </svg>
+  </button>
+
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="clock.html">SBB Clock</a>
+    <div class="dropdown">
+      <div class="dropbtn">Progetti ▾</div>
+      <div class="dropdown-content">
+        <a href="progetto1.html">Progetto 1</a>
+        <a href="progetto2.html">Progetto 2</a>
+      </div>
+    </div>
+    <a href="diritti.html">Diritti</a>
+  </nav>
+
+  <div id="clock-container"></div>
 
   <script>
     async function getTimeOffset() {
@@ -203,15 +188,14 @@
     getTimeOffset().then(offset => {
       if (typeof sbbUhr !== "undefined") {
         sbbUhr.now = () => new Date(Date.now() + offset);
-        const clock = new sbbUhr('mini-clock', true, 30);
+        const clock = new sbbUhr('clock-container', true, 30);
         clock.start();
       } else {
         console.error("sbbUhr non caricato");
       }
     });
 
-    document.getElementById('fullscreen-btn').addEventListener('click', (e) => {
-      e.preventDefault();
+    document.getElementById('fullscreen-btn').addEventListener('click', () => {
       if (!document.fullscreenElement) {
         document.documentElement.requestFullscreen();
       } else {
@@ -234,13 +218,7 @@
     });
 
     document.getElementById('theme-toggle').addEventListener('click', () => {
-      if (document.body.style.background === 'white') {
-        document.body.style.background = 'black';
-        document.body.style.color = 'white';
-      } else {
-        document.body.style.background = 'white';
-        document.body.style.color = 'black';
-      }
+      document.body.style.background = document.body.style.background === 'white' ? 'black' : 'white';
     });
 
     document.getElementById('logo').addEventListener('click', () => {
