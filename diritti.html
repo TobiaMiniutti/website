@@ -22,7 +22,7 @@
       display: flex;
       flex-wrap: wrap;
       gap: 1em;
-      padding: 1em 2em 1em 4.5em;
+      padding: 1em 160px 1em 4.5em;
       justify-content: center;
       align-items: center;
       position: fixed;
@@ -82,10 +82,10 @@
     }
     #corner-clock {
       position: fixed;
-      top: 10px;
+      top: 5px;
       right: 10px;
-      width: 40px;
-      height: 40px;
+      width: 50px;
+      height: 50px;
       z-index: 1001;
     }
   </style>
@@ -93,7 +93,7 @@
 </head>
 <body>
   <img id="logo" src="favicon.png" alt="Logo Tobia Miniutti" />
-  <canvas id="corner-clock"></canvas>
+  <div id="corner-clock"></div>
 
   <nav>
     <a href="index.html">Home</a>
@@ -111,34 +111,32 @@
   <div class="content">
     <h1>Informativa Legale, Licenze e Clausole di Esclusione di Responsabilità</h1>
 
-    <p>Il presente sito è sviluppato e gestito da <strong>Tobia Miniutti</strong> a scopo esclusivamente didattico, non commerciale, e personale. Ogni contenuto ha finalità illustrativa e dimostrativa. L'autore dichiara espressamente di non detenere alcun diritto sui marchi, grafiche, nomi o materiali protetti eventualmente menzionati o riprodotti, se non quelli previsti da licenze open source o concessioni esplicite.</p>
+    <p>Il presente sito web, realizzato da <strong>Tobia Miniutti</strong>, è destinato esclusivamente a finalità educative e personali. Ogni elemento ivi contenuto è presentato senza finalità commerciali, pubblicitarie o di profitto. L’autore non detiene diritti sui marchi, loghi, design, opere protette o contenuti riconducibili a terze parti, se non nei limiti concessi da licenze open source o da altri strumenti legali espliciti.</p>
 
-    <h2>Origine e Licenza del Codice</h2>
-    <p>L'orologio digitale delle FFS è riprodotto a partire dal codice open source pubblicato da SBB AG sul repository GitHub <a href="https://github.com/sbb-design-systems/brand-elements/tree/main/digital-clock" target="_blank">SBB Digital Clock</a>, concesso sotto licenza <strong>Apache 2.0</strong>. Il codice è stato adattato nel rispetto dei requisiti previsti, inclusa la conservazione delle note di copyright e delle clausole di licenza.</p>
+    <h2>Origine del Codice e Licenza</h2>
+    <p>La componente digitale dell’orologio FFS (SBB) è implementata partendo dal progetto open source ufficiale disponibile su GitHub, reperibile qui: <a href="https://github.com/sbb-design-systems/brand-elements/tree/main/digital-clock" target="_blank">SBB Digital Clock</a>. Tale progetto è disciplinato dalla licenza <strong>Apache License 2.0</strong>, che consente l’uso, la modifica e la distribuzione del codice, a condizione di mantenere i termini originali della licenza.</p>
 
-    <h2>Tutela di Marchi, Design e Proprietà Intellettuale</h2>
-    <p>L'orologio SBB è un'icona del design svizzero, protetto come <strong>marchio registrato</strong> da SBB AG. Tutti i diritti sono esclusivamente detenuti da SBB AG. L'uso nel presente sito non ha finalità pubblicitaria, promozionale o commerciale, bensì dimostrativa. Si invita a consultare la <a href="https://digital.sbb.ch/en/foundation/brand/watch/" target="_blank">pagina ufficiale sul design</a> per chiarimenti aggiuntivi.</p>
+    <h2>Tutela del Design, del Marchio e dei Diritti di Terzi</h2>
+    <p>Il design dell’orologio delle FFS è un marchio registrato e un simbolo iconico protetto da SBB AG. Per ulteriori dettagli: <a href="https://digital.sbb.ch/en/foundation/brand/watch/" target="_blank">pagina ufficiale SBB</a>. Questo sito non è affiliato né autorizzato da SBB AG e ne riconosce integralmente i diritti di proprietà intellettuale e industriale.</p>
 
-    <h2>Manleva, Esclusione di Responsabilità e Clausole Limitative</h2>
+    <h2>Clausole di Manleva ed Esclusione di Responsabilità</h2>
     <ul>
-      <li>Il sito non è affiliato, sponsorizzato o autorizzato da SBB AG o da altri enti pubblici/privati.</li>
-      <li>Ogni contenuto è rilasciato "così com'è" (as is), senza garanzie implicite o esplicite.</li>
-      <li>L'autore non assume responsabilità per danni diretti o indiretti derivanti dall'accesso o utilizzo del sito, incluse perdite economiche, interruzioni di servizio, danni a dispositivi o software.</li>
-      <li>Ogni riferimento a materiali esterni (immagini, script, loghi) è conforme alle rispettive licenze d'uso.</li>
-      <li>Eventuali richieste di rimozione/modifica verranno gestite tempestivamente e con piena collaborazione.</li>
-      <li>Non viene effettuata alcuna raccolta di dati personali, non sono presenti cookie, tracker o tecnologie invasive.</li>
+      <li>L'autore non è responsabile di eventuali usi impropri, interpretazioni errate o conseguenze derivanti dalla consultazione di questo sito.</li>
+      <li>Il sito è fornito "così com'è" (as is), senza garanzie di alcun tipo, esplicite o implicite.</li>
+      <li>Ogni contenuto esterno (immagini, script, collegamenti) è utilizzato nel rispetto delle relative licenze e delle norme sul copyright.</li>
+      <li>Non è attiva alcuna forma di tracciamento, pubblicità, profilazione o raccolta dati personali.</li>
+      <li>In caso di segnalazioni o richieste legittime, l’autore si impegna alla pronta rimozione o modifica del materiale contestato.</li>
+      <li>Le controversie saranno gestite secondo la normativa svizzera vigente, privilegiando soluzioni extragiudiziali ove possibile.</li>
     </ul>
 
-    <p>Per comunicazioni, scrivere a <strong>tobia.miniutti[at]gmail.com</strong>. Eventuali controversie saranno gestite nel rispetto delle leggi svizzere applicabili, privilegiando la risoluzione amichevole.</p>
+    <p>Contatti e richieste: <strong>tobia.miniutti[at]gmail.com</strong></p>
   </div>
 
   <script>
     window.addEventListener('load', () => {
       if (typeof sbbUhr !== "undefined") {
         try {
-          const now = new Date();
-          sbbUhr.now = () => now;
-          const clock = new sbbUhr('corner-clock', true, 30);
+          const clock = new sbbUhr('corner-clock', true, 10);
           clock.start();
         } catch (err) {
           console.error("Errore orologio:", err);
