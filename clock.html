@@ -63,6 +63,30 @@
       font-weight: bold;
     }
 
+    .dropdown {
+      position: relative;
+    }
+
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      background-color: #111;
+      min-width: 160px;
+      top: 100%;
+      left: 0;
+      z-index: 1002;
+      flex-direction: column;
+    }
+
+    .dropdown-content a {
+      padding: 0.5em 1em;
+      white-space: nowrap;
+    }
+
+    .dropdown:hover .dropdown-content {
+      display: flex;
+    }
+
     #fullscreen-btn {
       position: fixed;
       top: 1em;
@@ -89,6 +113,14 @@
   <nav>
     <a href="index.html">Home</a>
     <a href="clock.html">SBB Clock</a>
+    <div class="dropdown">
+      <a href="#">Progetti ▾</a>
+      <div class="dropdown-content">
+        <a href="clock.html">SBB Clock</a>
+        <a href="#">Altro progetto</a>
+        <!-- Aggiungi altri link qui -->
+      </div>
+    </div>
     <a href="diritti.html">Diritti</a>
   </nav>
 
