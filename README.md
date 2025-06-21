@@ -16,7 +16,7 @@ Implementato in JavaScript puro, include:
 
 - sincronizzazione con il tempo reale
 - lancetta dei secondi con effetto "scatto ritardato" originale SBB
-- pulsante fullscreen visibile e funzionante su tutti i dispositivi
+- pulsante fullscreen visibile e funzionante su tutti i dispositivi (tranne iPhone: è stata appositamente progettata una funzione per nascondere il menù azioni)
 - supporto per il tasto F da tastiera
 - layout responsivo desktop e mobile
 
