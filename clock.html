@@ -59,7 +59,6 @@
       top: 0;
       left: 0;
       right: 0;
-      flex-wrap: wrap;
     }
 
     nav a {
@@ -152,29 +151,30 @@
     @media (max-width: 768px) {
       nav {
         flex-direction: column;
-        align-items: stretch;
+        align-items: flex-start;
         gap: 0;
-        padding: 1em;
+        padding: 0.5em 1em;
         height: auto;
       }
 
       nav a, .dropdown .dropbtn {
-        padding: 1em;
-        display: block;
+        padding: 0.75em 1em;
         width: 100%;
         text-align: left;
+        border-top: 1px solid #333;
       }
 
       .dropdown-content {
         position: relative;
+        display: none;
         background-color: #1c1c1c;
         box-shadow: none;
         border-radius: 0;
-        display: none;
+        width: 100%;
       }
 
       .dropdown:hover .dropdown-content {
-        display: block;
+        display: flex;
       }
     }
   </style>
