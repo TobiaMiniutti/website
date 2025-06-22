@@ -7,6 +7,7 @@
   <link rel="icon" type="image/png" href="favicon.png" />
   <script src="sbbUhr-1.3.js"></script>
   <style>
+    /* Reset base + smooth scrolling */
     * {
       margin: 0;
       padding: 0;
@@ -16,15 +17,19 @@
       scroll-behavior: smooth;
     }
     body {
-      background: linear-gradient(135deg, #000 0%, #111 100%), url('bg-svizzera.jpg') no-repeat center center fixed;
+      background:
+        linear-gradient(135deg, #000 0%, #111 100%),
+        url('bg-svizzera.jpg') no-repeat center center fixed;
       background-size: cover;
       color: #ffffff;
       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
       min-height: 100vh;
       opacity: 0;
       transition: opacity 1.2s ease-in-out;
+      cursor: default;
     }
 
+    /* Loader */
     #loader {
       position: fixed;
       top: 0;
@@ -46,7 +51,6 @@
       border-radius: 50%;
       animation: spin 1s linear infinite;
     }
-
     @keyframes spin {
       to { transform: rotate(360deg); }
     }
@@ -67,6 +71,7 @@
       z-index: 1000;
       box-shadow: 0 4px 20px rgba(0,0,0,0.3);
       transition: background 0.4s ease;
+      user-select: none;
     }
 
     nav a, .dropbtn {
@@ -77,6 +82,8 @@
       padding: 0.4em 1em;
       border-radius: 8px;
       transition: all 0.3s ease;
+      cursor: pointer; /* CORRETTO: mano */
+      user-select: none;
     }
 
     nav a:hover, .dropbtn:hover {
@@ -107,6 +114,9 @@
       padding: 12px 16px;
       color: #fff;
       text-decoration: none;
+      cursor: pointer; /* CORRETTO: mano */
+      user-select: none;
+      transition: background 0.3s ease;
     }
 
     .dropdown-content a:hover {
@@ -129,6 +139,7 @@
       box-shadow: 0 4px 12px rgba(0,0,0,0.4);
       z-index: 1001;
       transition: transform 0.3s;
+      cursor: pointer; /* CORRETTO: mano */
     }
 
     #logo:hover {
@@ -141,47 +152,179 @@
       right: 14px;
       width: 50px;
       height: 50px;
-      cursor: pointer;
+      cursor: pointer; /* CORRETTO: mano */
       z-index: 1001;
     }
 
-    .hero {
+    main.hero {
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      min-height: 100vh;
+      min-height: 60vh;
       text-align: center;
       padding-top: 80px;
       animation: fadeInUp 1.4s ease forwards;
+      user-select: none;
+      gap: 1.2rem;
+      max-width: 720px;
+      margin: 0 auto 4rem auto;
     }
-
     @keyframes fadeInUp {
       0% { transform: translateY(40px); opacity: 0; }
       100% { transform: translateY(0); opacity: 1; }
     }
-
     h1 {
-      font-size: 3.5rem;
+      font-size: 3.8rem;
       font-weight: 700;
-      margin-bottom: 0.5em;
+      letter-spacing: -0.03em;
+      margin-bottom: 0.25em;
+      text-shadow: 0 1px 4px rgba(0,0,0,0.3);
     }
-
-    p {
+    main.hero p {
       font-size: 1.3rem;
-      max-width: 700px;
       line-height: 1.6;
-      margin: 0.5em auto;
+      color: #ddd;
+      max-width: 640px;
+      text-shadow: 0 0 4px rgba(0,0,0,0.3);
     }
 
+    /* Nuove sezioni */
+
+    section.features {
+      max-width: 1000px;
+      margin: 0 auto 5rem auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2.5rem;
+      padding: 0 2rem;
+      user-select: none;
+    }
+
+    section.features .feature {
+      background: rgba(255,255,255,0.07);
+      border-radius: 20px;
+      padding: 2rem 1.5rem;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.15);
+      text-align: center;
+      transition: transform 0.35s ease, box-shadow 0.35s ease;
+      cursor: default;
+    }
+
+    section.features .feature:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 15px 40px rgba(230, 57, 70, 0.4);
+      background: rgba(230, 57, 70, 0.05);
+    }
+
+    section.features .feature svg {
+      width: 56px;
+      height: 56px;
+      margin-bottom: 1.2rem;
+      fill: #e63946;
+      filter: drop-shadow(0 1px 2px rgba(230,57,70,0.7));
+      transition: fill 0.3s ease;
+    }
+
+    section.features .feature:hover svg {
+      fill: #b92a33;
+      filter: drop-shadow(0 3px 6px rgba(185,42,51,0.8));
+    }
+
+    section.features .feature h3 {
+      font-weight: 700;
+      font-size: 1.4rem;
+      margin-bottom: 0.5rem;
+      color: #eee;
+      text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+    }
+
+    section.features .feature p {
+      font-size: 1rem;
+      line-height: 1.4;
+      color: #ccc;
+      text-shadow: 0 0 2px rgba(0,0,0,0.2);
+    }
+
+    /* Call to action */
+    section.cta {
+      background: rgba(230,57,70,0.1);
+      border-radius: 30px;
+      max-width: 600px;
+      margin: 0 auto 6rem auto;
+      padding: 2.5rem 2rem;
+      text-align: center;
+      box-shadow: 0 15px 40px rgba(230, 57, 70, 0.3);
+      user-select: none;
+    }
+    section.cta h2 {
+      font-weight: 700;
+      font-size: 2rem;
+      margin-bottom: 1rem;
+      color: #e63946;
+      text-shadow: 0 2px 6px rgba(185,42,51,0.6);
+    }
+    section.cta p {
+      font-size: 1.1rem;
+      color: #eee;
+      margin-bottom: 2rem;
+    }
+    section.cta button {
+      background: #e63946;
+      border: none;
+      padding: 0.75rem 2rem;
+      border-radius: 30px;
+      font-weight: 700;
+      font-size: 1.1rem;
+      color: white;
+      cursor: pointer;
+      box-shadow: 0 6px 20px rgba(230,57,70,0.7);
+      transition: background 0.3s ease, box-shadow 0.3s ease, transform 0.2s ease;
+      user-select: none;
+    }
+    section.cta button:hover {
+      background: #b92a33;
+      box-shadow: 0 10px 30px rgba(185,42,51,0.9);
+      transform: translateY(-3px);
+    }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 2rem 1rem;
+      font-size: 0.9rem;
+      color: #aaa;
+      user-select: none;
+      letter-spacing: 0.05em;
+    }
+    footer a {
+      color: #e63946;
+      text-decoration: none;
+      cursor: pointer;
+      transition: color 0.3s ease;
+    }
+    footer a:hover {
+      color: #b92a33;
+      text-decoration: underline;
+    }
+
+    /* Responsive */
     @media (max-width: 768px) {
       nav {
         flex-direction: column;
         gap: 1em;
         height: auto;
+        padding: 1em 1.5em;
       }
-      .hero {
+      main.hero {
         padding-top: 120px;
+        max-width: 90vw;
+      }
+      section.features {
+        padding: 0 1rem;
+      }
+      section.cta {
+        max-width: 90vw;
       }
     }
   </style>
@@ -204,11 +347,41 @@
     </div>
   </nav>
 
-  <main class="hero">
+  <main class="hero" role="main">
     <h1>Ciao</h1>
     <p>Benvenuto nel mio sito personale. Qui raccolgo i miei progetti su web, elettronica e programmazione. Troverai anche il celebre orologio delle FFS (SBB), in versione digitale.</p>
     <p>Buona navigazione!</p>
   </main>
+
+  <section class="features" aria-label="Caratteristiche principali">
+    <article class="feature" tabindex="0" aria-describedby="feature1desc">
+      <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 2L2 7v7c0 3 2.5 5 5.5 5s5.5-2 5.5-5V7l-6 3"></path></svg>
+      <h3>Design Moderno</h3>
+      <p id="feature1desc">Interfaccia pulita, elegante e fluida ispirata ai migliori siti Apple e Uiverse.</p>
+    </article>
+
+    <article class="feature" tabindex="0" aria-describedby="feature2desc">
+      <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 3v18m9-9H3"></path></svg>
+      <h3>Responsive & Accessibile</h3>
+      <p id="feature2desc">Perfetto su tutti i dispositivi e facile da navigare con tastiera e schermi piccoli.</p>
+    </article>
+
+    <article class="feature" tabindex="0" aria-describedby="feature3desc">
+      <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 12h18M12 3v18"></path></svg>
+      <h3>Animazioni Fluide</h3>
+      <p id="feature3desc">Effetti di transizione e animazioni professionali che migliorano l’esperienza utente.</p>
+    </article>
+  </section>
+
+  <section class="cta" role="region" aria-label="Call to action">
+    <h2>Esplora i miei progetti</h2>
+    <p>Scopri tutte le idee, i prototipi e i lavori che porto avanti con passione e dedizione.</p>
+    <button onclick="window.location.href='progetti.html'">Vai ai Progetti</button>
+  </section>
+
+  <footer>
+    &copy; 2025 Tobia Miniutti. <a href="diritti.html">Privacy e Diritti</a>
+  </footer>
 
   <script>
     window.addEventListener('load', () => {
