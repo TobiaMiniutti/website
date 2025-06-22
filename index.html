@@ -7,17 +7,59 @@
   <link rel="icon" type="image/png" href="favicon.png" />
   <script src="sbbUhr-1.3.js"></script>
   <style>
-    body {
+    /* Reset base + smooth scrolling */
+    * {
       margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
       background: url('bg-svizzera.jpg') no-repeat center center fixed;
       background-size: cover;
       color: #ffffff;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       min-height: 100vh;
-      box-sizing: border-box;
+      opacity: 0;
+      transition: opacity 1s ease-in;
     }
+
+    /* Loader */
+    #loader {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: black;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 2000;
+    }
+
+    .spinner {
+      width: 50px;
+      height: 50px;
+      border: 4px solid #fff;
+      border-top: 4px solid #e63946;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
     nav {
-      background: rgba(0, 0, 0, 0.85);
+      background: rgba(15, 15, 15, 0.8);
+      backdrop-filter: blur(10px);
+      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
       width: 100%;
       display: flex;
       justify-content: center;
@@ -27,29 +69,30 @@
       position: fixed;
       top: 0;
       left: 0;
-      height: 60px; /* altezza fissa */
+      height: 60px;
       z-index: 1000;
-      box-sizing: border-box;
-      backdrop-filter: blur(4px);
-      flex-wrap: wrap;
-    }
-    nav a, .dropbtn {
-      position: relative;
-      display: inline-block;
-      padding: 0.5em 1em;
-      font-size: 1rem;
-      font-weight: bold;
-      text-decoration: none;
-      color: #fff;
       transition: 0.3s ease;
-      cursor: pointer;
     }
+
+    nav a, .dropbtn {
+      font-size: 1rem;
+      font-weight: 600;
+      color: #fff;
+      text-decoration: none;
+      padding: 0.5em 1em;
+      border-radius: 8px;
+      transition: all 0.3s ease;
+    }
+
     nav a:hover, .dropbtn:hover {
+      background-color: rgba(255,255,255,0.1);
       color: #e63946;
     }
+
     .dropdown {
       position: relative;
     }
+
     .dropdown-content {
       display: none;
       position: absolute;
@@ -62,28 +105,43 @@
       box-shadow: 0 8px 16px rgba(0,0,0,0.5);
       overflow: hidden;
       flex-direction: column;
+      transition: opacity 0.3s ease;
     }
+
     .dropdown-content a {
       padding: 12px 16px;
       display: block;
       color: #fff;
       text-decoration: none;
+      transition: background 0.3s ease;
     }
+
     .dropdown-content a:hover {
       background-color: #333;
     }
+
     .dropdown:hover .dropdown-content {
       display: flex;
     }
+
     #logo {
       position: fixed;
-      top: 10px;
-      left: 10px;
-      width: 40px;
-      height: 40px;
+      top: 8px;
+      left: 12px;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: white;
+      padding: 4px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
       z-index: 1001;
-      cursor: pointer;
+      transition: transform 0.2s ease-in-out;
     }
+
+    #logo:hover {
+      transform: scale(1.08);
+    }
+
     #mini-clock {
       position: fixed;
       top: 5px;
@@ -93,44 +151,61 @@
       z-index: 1001;
       cursor: pointer;
     }
+
     .content {
       max-width: 800px;
-      padding: 2em;
+      margin: 0 auto;
+      padding: 120px 2em 2em;
       text-align: center;
-      margin: auto;
-      background-color: rgba(0,0,0,0.6);
-      border-radius: 8px;
-      padding-top: 80px; /* spazio per il menu fisso */
-      box-sizing: border-box;
+      background: rgba(255, 255, 255, 0.08);
+      border-radius: 16px;
+      backdrop-filter: blur(12px);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+      animation: fadeInUp 1.2s ease both;
     }
+
+    @keyframes fadeInUp {
+      0% {
+        transform: translateY(30px);
+        opacity: 0;
+      }
+      100% {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+
+    h1 {
+      font-size: 3rem;
+      margin-bottom: 0.5em;
+      font-weight: 700;
+    }
+
+    p {
+      font-size: 1.2rem;
+      line-height: 1.6;
+      transition: all 0.3s ease-in-out;
+    }
+
     @media (max-width: 768px) {
       nav {
         flex-direction: column;
         padding: 0 1em;
-        height: auto; /* altezza automatica per il menu espanso */
+        height: auto;
         gap: 0.5em;
-        position: fixed;
-      }
-      .dropdown-content {
-        position: static;
-        background-color: rgba(0, 0, 0, 0.95);
-        box-shadow: none;
-        border-radius: 0;
-        width: 100%;
-      }
-      .dropdown:hover .dropdown-content {
-        display: flex;
       }
 
-      /* Spaziatura per contenuto sotto il menu fisso, 
-         considerando altezza menu espanso 120px */
       .content {
-        padding-top: 130px !important;
+        padding-top: 140px;
       }
     }
   </style>
 </head>
 <body>
+  <div id="loader">
+    <div class="spinner"></div>
+  </div>
+
   <img id="logo" src="favicon.png" alt="Logo Tobia Miniutti" />
   <div id="mini-clock"></div>
 
@@ -153,6 +228,7 @@
   </div>
 
   <script>
+    // Avvio orologio
     window.addEventListener('load', () => {
       if (typeof sbbUhr !== "undefined") {
         try {
@@ -162,8 +238,13 @@
           console.error("Errore orologio:", err);
         }
       }
+
+      // Effetto comparsa dopo il caricamento
+      document.body.style.opacity = '1';
+      document.getElementById('loader').style.display = 'none';
     });
 
+    // Logo link
     document.getElementById('logo').addEventListener('click', () => {
       window.location.href = 'index.html';
     });
