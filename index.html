@@ -7,7 +7,7 @@
 <link rel="icon" type="image/png" href="favicon.png" />
 <script src="sbbUhr-1.3.js"></script>
 <style>
-  /* BASE RESET */
+  /* RESET */
   *, *::before, *::after {
     margin: 0; padding: 0; box-sizing: border-box;
   }
@@ -31,6 +31,11 @@
     --shadow-light: rgba(0,0,0,0.1);
     --shadow-strong: rgba(0,0,0,0.18);
     --ease-smooth: cubic-bezier(0.4, 0, 0.2, 1);
+    opacity: 0;
+    transition: opacity 0.7s var(--ease-smooth);
+  }
+  body.loaded {
+    opacity: 1;
   }
 
   /* LOADER */
@@ -42,6 +47,11 @@
     justify-content: center;
     align-items: center;
     z-index: 99999;
+    transition: opacity 0.7s var(--ease-smooth);
+  }
+  #loader.hidden {
+    opacity: 0;
+    pointer-events: none;
   }
   .spinner {
     width: 70px;
@@ -54,7 +64,7 @@
   }
   @keyframes spin { 100% { transform: rotate(360deg); } }
 
-  /* NAV BAR */
+  /* NAVBAR */
   nav {
     position: fixed;
     top: 0; left: 0; width: 100%;
@@ -85,7 +95,9 @@
     cursor: pointer;
     user-select: none;
     position: relative;
-    transition: color 0.4s var(--ease-smooth), transform 0.3s ease;
+    transition:
+      color 0.45s var(--ease-smooth),
+      transform 0.3s ease;
   }
   nav a:hover, nav a:focus-visible,
   .dropbtn:hover, .dropbtn:focus-visible {
@@ -123,7 +135,7 @@
     position: absolute;
     top: 110%;
     left: 0;
-    min-width: 180px;
+    min-width: 200px;
     background: var(--col-white);
     border-radius: 18px;
     box-shadow: 0 12px 30px var(--shadow-strong);
@@ -139,16 +151,23 @@
     pointer-events: auto;
     transform: translateY(0);
   }
-  .dropdown-content a {
+  .dropdown-content a, .dropdown-content button {
     padding: 14px 24px;
     color: var(--col-gray-dark);
     text-decoration: none;
     cursor: pointer;
     font-weight: 500;
     font-size: 1rem;
-    transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease;
+    transition:
+      background-color 0.35s ease,
+      color 0.35s ease,
+      transform 0.2s ease;
     position: relative;
     user-select: none;
+    background: none;
+    border: none;
+    text-align: left;
+    width: 100%;
   }
   .dropdown-content a::after {
     content: "";
@@ -163,13 +182,15 @@
     transition: opacity 0.3s ease;
     pointer-events: none;
   }
-  .dropdown-content a:hover, .dropdown-content a:focus-visible {
+  .dropdown-content a:hover, .dropdown-content a:focus-visible,
+  .dropdown-content button:hover, .dropdown-content button:focus-visible {
     background-color: #e6f0ea;
     color: var(--col-green);
     outline: none;
     transform: scale(1.04);
   }
-  .dropdown-content a:hover::after, .dropdown-content a:focus-visible::after {
+  .dropdown-content a:hover::after, .dropdown-content a:focus-visible::after,
+  .dropdown-content button:hover::after, .dropdown-content button:focus-visible::after {
     opacity: 1;
   }
 
@@ -404,58 +425,6 @@
     vertical-align: middle;
   }
 
-  /* FOOTER */
-  footer {
-    font-weight: 400;
-    font-size: 0.85rem;
-    text-align: center;
-    color: #666;
-    margin-bottom: 3rem;
-    user-select: none;
-  }
-  footer a {
-    color: var(--col-green);
-    font-weight: 600;
-    text-decoration: none;
-    transition: color 0.3s ease;
-  }
-  footer a:hover, footer a:focus-visible {
-    color: var(--col-red);
-    text-decoration: underline;
-    outline: none;
-  }
-
-  /* ACCESSIBILITY */
-  a:focus-visible, button:focus-visible, .dropbtn:focus-visible {
-    outline: 3px solid var(--col-green);
-    outline-offset: 4px;
-  }
-
-  /* RESPONSIVE */
-  @media (max-width: 720px) {
-    nav {
-      gap: 1.2rem;
-      padding: 1rem 1.5rem;
-      height: 60px;
-    }
-    main.hero h1 {
-      font-size: 2.8rem;
-    }
-    section.features {
-      grid-template-columns: 1fr;
-      padding: 0 1rem;
-      gap: 2rem;
-    }
-    section.projects ul {
-      grid-template-columns: 1fr;
-      gap: 2rem;
-    }
-    section.cta {
-      margin: 0 1rem 3rem 1rem;
-      padding: 1.8rem 1rem 2.5rem 1rem;
-    }
-  }
-
   /* EMAIL SECTION */
   section.email {
     background: var(--col-gray-light);
@@ -496,44 +465,96 @@
     outline: none;
   }
 
+  /* FOOTER */
+  footer {
+    font-weight: 400;
+    font-size: 0.85rem;
+    text-align: center;
+    color: #666;
+    margin-bottom: 3rem;
+    user-select: none;
+  }
+  footer a {
+    color: var(--col-green);
+    font-weight: 600;
+    text-decoration: none;
+    transition: color 0.3s ease;
+  }
+  footer a:hover, footer a:focus-visible {
+    color: var(--col-red);
+    text-decoration: underline;
+    outline: none;
+  }
+
+  /* ACCESSIBILITY */
+  a:focus-visible, button:focus-visible, .dropbtn:focus-visible {
+    outline: 3px solid var(--col-green);
+    outline-offset: 4px;
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 720px) {
+    nav {
+      gap: 1.2rem;
+      padding: 1rem 1.5rem;
+      height: 60px;
+    }
+    main.hero h1 {
+      font-size: 2.8rem;
+    }
+    section.features {
+      grid-template-columns: 1fr;
+      padding: 0 1rem;
+    }
+    section.projects ul {
+      grid-template-columns: 1fr;
+    }
+  }
 </style>
 </head>
 <body>
 
 <!-- Loader -->
-<div id="loader" role="alert" aria-live="assertive" aria-label="Caricamento in corso">
-  <div class="spinner"></div>
+<div id="loader" aria-label="Caricamento pagina">
+  <div class="spinner" role="progressbar" aria-busy="true" aria-live="polite"></div>
 </div>
 
-<!-- Logo -->
-<img id="logo" src="favicon.png" alt="Logo Miniutti.it" tabindex="0" aria-label="Logo Miniutti.it" />
-
-<!-- Navigation -->
+<!-- Nav -->
 <nav role="navigation" aria-label="Menu principale">
+  <div id="logo" tabindex="0" aria-label="Torna alla home Miniutti.it">
+    <!-- puoi inserire logo SVG o testo -->
+    <svg width="32" height="32" viewBox="0 0 64 64" aria-hidden="true" focusable="false" fill="var(--col-green)">
+      <circle cx="32" cy="32" r="30" />
+      <text x="32" y="40" font-size="24" font-family="Arial" fill="var(--col-white)" text-anchor="middle" font-weight="700">M</text>
+    </svg>
+  </div>
   <a href="index.html" tabindex="0">Home</a>
   <a href="sbbclock.html" tabindex="0">SBB Clock</a>
-  <div class="dropdown" tabindex="0" aria-haspopup="true" aria-expanded="false" aria-label="Menu Diritti">
-    <span class="dropbtn" tabindex="0">Diritti</span>
-    <div class="dropdown-content" role="menu" aria-label="Sottomenu Diritti">
-      <a href="diritti.html" role="menuitem" tabindex="0">Esenzione legale</a>
-      <a href="branding.html" role="menuitem" tabindex="0">Branding SBB</a>
+
+  <!-- Qui è la home, quindi menu "Progetti" a tendina -->
+  <div class="dropdown" tabindex="0" aria-haspopup="true" aria-expanded="false" aria-label="Menu Progetti">
+    <span class="dropbtn" tabindex="0">Progetti</span>
+    <div class="dropdown-content" role="menu" aria-label="Sottomenu Progetti">
+      <a href="sbbclock.html" role="menuitem" tabindex="0">Orologio SBB</a>
+      <a href="#" role="menuitem" tabindex="0" aria-disabled="true" style="cursor:not-allowed; color:#bbb;">Coming Soon</a>
+      <button role="menuitem" tabindex="0" onclick="window.location.href='progetti.html'">Vedi tutti i progetti</button>
     </div>
   </div>
 </nav>
 
-<!-- Mini Clock (small SBB clock in top right) -->
+<!-- Mini Clock -->
 <div id="mini-clock" tabindex="0" aria-label="Orologio SBB ridotto"></div>
 
 <!-- Main Content -->
 <main class="hero" role="main" aria-labelledby="page-title">
   <h1 id="page-title" tabindex="0">Benvenuto su Miniutti.it</h1>
-  <p>Esplora i miei progetti, il mio orologio SBB personalizzato, e scopri i miei diritti legali e contenuti esclusivi.</p>
+  <p tabindex="0">Esplora i miei progetti, il mio orologio SBB personalizzato, e scopri i miei diritti legali e contenuti esclusivi.</p>
 </main>
 
 <!-- Features Section -->
 <section class="features" aria-label="Caratteristiche principali">
   <article class="feature" tabindex="0" role="article" aria-label="Caratteristica: Orologio SBB">
-    <svg aria-hidden="true" focusable="false" viewBox="0 0 64 64">
+    <svg aria-hidden="true" focusable="false" viewBox="0 0 64 64" aria-label="Icona Orologio">
       <circle cx="32" cy="32" r="30" stroke="none" fill="var(--col-green)"/>
       <path d="M32 10v22l18 10" stroke="#fff" stroke-width="4" stroke-linecap="round" />
     </svg>
@@ -541,7 +562,7 @@
     <p>Un orologio digitale preciso e sincronizzato con lo standard SBB, in stile minimal e responsive.</p>
   </article>
   <article class="feature" tabindex="0" role="article" aria-label="Caratteristica: Design Responsive">
-    <svg aria-hidden="true" focusable="false" viewBox="0 0 64 64">
+    <svg aria-hidden="true" focusable="false" viewBox="0 0 64 64" aria-label="Icona Design">
       <rect x="10" y="14" width="44" height="36" fill="var(--col-green)" rx="8"/>
       <circle cx="32" cy="32" r="10" fill="#fff"/>
     </svg>
@@ -549,7 +570,7 @@
     <p>Ottimizzato per ogni dispositivo, desktop e mobile, con interfacce intuitive e accessibili.</p>
   </article>
   <article class="feature" tabindex="0" role="article" aria-label="Caratteristica: Accessibilità">
-    <svg aria-hidden="true" focusable="false" viewBox="0 0 64 64">
+    <svg aria-hidden="true" focusable="false" viewBox="0 0 64 64" aria-label="Icona Accessibilità">
       <path d="M32 6a26 26 0 1 0 0 52 26 26 0 0 0 0-52zm0 6a20 20 0 1 1 0 40 20 20 0 0 1 0-40z" fill="var(--col-green)"/>
       <path d="M32 18v28m-6-6h12" stroke="#fff" stroke-width="3" stroke-linecap="round"/>
     </svg>
@@ -562,10 +583,11 @@
 <section class="projects" aria-label="Progetti recenti">
   <h2 tabindex="0">I miei progetti</h2>
   <ul>
-    <li tabindex="0" role="link" aria-label="Progetto Orologio SBB">Orologio SBB personalizzato</li>
-    <li tabindex="0" role="link" aria-label="Progetto Branding">Progetto Branding e Design</li>
-    <li tabindex="0" role="link" aria-label="Progetto Sito Web">Sito web portfolio</li>
+    <li tabindex="0" role="link" aria-label="Progetto Orologio SBB" onclick="window.location.href='sbbclock.html'">Orologio SBB personalizzato</li>
+    <li tabindex="0" role="link" aria-label="Progetto Coming Soon" class="empty">Coming Soon</li>
   </ul>
+  <button style="margin-top:1.6rem; padding:0.7rem 1.8rem; background:var(--col-green); color: var(--col-white); border-radius:14px; font-weight:600; cursor:pointer; border:none; font-size:1.1rem; transition: background 0.3s ease;" 
+    onmouseover="this.style.background='#d62f27'" onmouseout="this.style.background='var(--col-green)'" onclick="window.location.href='progetti.html'">Vedi tutti i progetti</button>
 </section>
 
 <!-- Social Links -->
@@ -600,11 +622,12 @@
 </footer>
 
 <script>
-  // Loader hide after window loaded
+  // Loader hide after window loaded + body fade in
   window.addEventListener('load', () => {
     const loader = document.getElementById('loader');
-    loader.style.opacity = '0';
-    setTimeout(() => loader.style.display = 'none', 600);
+    loader.classList.add('hidden');
+    document.body.classList.add('loaded');
+    setTimeout(() => loader.style.display = 'none', 800);
   });
 
   // Nav shadow on scroll
@@ -619,24 +642,20 @@
 
   // Mini clock initialization
   const miniClock = document.getElementById('mini-clock');
-  // Assuming sbbUhr-1.3.js provides an init function like SBB.initClock
   if(typeof SBB !== 'undefined' && SBB.initClock) {
     SBB.initClock(miniClock, {
       size: 56,
       showSeconds: false,
-      // other options if any...
     });
+  } else {
+    miniClock.textContent = '⏰';
   }
 
-  // Logo click -> homepage
+  // Logo click + keyboard accessible
   const logo = document.getElementById('logo');
-  logo.addEventListener('click', () => {
-    window.location.href = 'index.html';
-  });
+  logo.addEventListener('click', () => window.location.href = 'index.html');
   logo.addEventListener('keypress', (e) => {
-    if(e.key === 'Enter' || e.key === ' ') {
-      window.location.href = 'index.html';
-    }
+    if(e.key === 'Enter' || e.key === ' ') window.location.href = 'index.html';
   });
 </script>
 
