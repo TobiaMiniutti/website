@@ -1,300 +1,644 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Miniutti.it - Home</title>
-  <link rel="icon" type="image/png" href="favicon.png" />
-  <script src="sbbUhr-1.3.js"></script>
-  <style>
-    :root {
-      --col-green: #00703c;
-      --col-white: #ffffff;
-      --col-red: #d62f27;
-      --col-gray-light: #f5f5f7;
-      --col-gray-dark: #1f1f1f;
-      --ease: cubic-bezier(0.4, 0, 0.2, 1);
-    }
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Miniutti.it - Home</title>
+<link rel="icon" type="image/png" href="favicon.png" />
+<script src="sbbUhr-1.3.js"></script>
+<style>
+  /* BASE RESET */
+  *, *::before, *::after {
+    margin: 0; padding: 0; box-sizing: border-box;
+  }
+  html {
+    scroll-behavior: smooth;
+    font-size: 18px;
+  }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    background: #fafafa;
+    color: #1a1a1a;
+    min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    cursor: default;
+    --col-green: #00703c;
+    --col-white: #fff;
+    --col-red: #d62f27;
+    --col-gray-light: #f5f5f7;
+    --col-gray-dark: #2f2f2f;
+    --shadow-light: rgba(0,0,0,0.1);
+    --shadow-strong: rgba(0,0,0,0.18);
+    --ease-smooth: cubic-bezier(0.4, 0, 0.2, 1);
+  }
 
-    *, *::before, *::after {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+  /* LOADER */
+  #loader {
+    position: fixed;
+    inset: 0;
+    background: var(--col-white);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 99999;
+  }
+  .spinner {
+    width: 70px;
+    height: 70px;
+    border: 7px solid #ddd;
+    border-top-color: var(--col-green);
+    border-radius: 50%;
+    animation: spin 1.2s linear infinite;
+    box-shadow: 0 0 14px var(--col-green);
+  }
+  @keyframes spin { 100% { transform: rotate(360deg); } }
 
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-      background: var(--col-white);
-      color: var(--col-gray-dark);
-      line-height: 1.6;
-    }
+  /* NAV BAR */
+  nav {
+    position: fixed;
+    top: 0; left: 0; width: 100%;
+    height: 68px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 2.5rem;
+    padding: 1rem 3rem;
+    background: var(--col-white);
+    box-shadow: 0 8px 24px var(--shadow-light);
+    z-index: 999;
+    user-select: none;
+    cursor: default;
+    border-bottom: 2px solid var(--col-green);
+    transition: box-shadow 0.5s var(--ease-smooth);
+  }
+  nav.scrolled {
+    box-shadow: 0 12px 40px var(--shadow-strong);
+  }
+  nav a, .dropbtn {
+    font-weight: 600;
+    font-size: 1.15rem;
+    color: var(--col-gray-dark);
+    text-decoration: none;
+    padding: 0.5rem 1.25rem;
+    border-radius: 16px;
+    cursor: pointer;
+    user-select: none;
+    position: relative;
+    transition: color 0.4s var(--ease-smooth), transform 0.3s ease;
+  }
+  nav a:hover, nav a:focus-visible,
+  .dropbtn:hover, .dropbtn:focus-visible {
+    color: var(--col-green);
+    transform: scale(1.1);
+    outline: none;
+  }
+  /* tricolor underline on hover */
+  nav a::after, .dropbtn::after {
+    content: "";
+    position: absolute;
+    bottom: 0.22rem;
+    left: 10%;
+    width: 80%;
+    height: 3px;
+    border-radius: 4px;
+    background: linear-gradient(90deg, var(--col-green) 0%, var(--col-white) 50%, var(--col-red) 100%);
+    opacity: 0;
+    transition: opacity 0.4s var(--ease-smooth);
+    pointer-events: none;
+  }
+  nav a:hover::after, nav a:focus-visible::after,
+  .dropbtn:hover::after, .dropbtn:focus-visible::after {
+    opacity: 1;
+  }
 
+  /* DROPDOWN */
+  .dropdown {
+    position: relative;
+    user-select: none;
+  }
+  .dropdown-content {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 110%;
+    left: 0;
+    min-width: 180px;
+    background: var(--col-white);
+    border-radius: 18px;
+    box-shadow: 0 12px 30px var(--shadow-strong);
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(14px);
+    transition: opacity 0.35s var(--ease-smooth), transform 0.35s var(--ease-smooth);
+    z-index: 1001;
+  }
+  .dropdown:hover .dropdown-content,
+  .dropdown:focus-within .dropdown-content {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateY(0);
+  }
+  .dropdown-content a {
+    padding: 14px 24px;
+    color: var(--col-gray-dark);
+    text-decoration: none;
+    cursor: pointer;
+    font-weight: 500;
+    font-size: 1rem;
+    transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease;
+    position: relative;
+    user-select: none;
+  }
+  .dropdown-content a::after {
+    content: "";
+    position: absolute;
+    bottom: 8px;
+    left: 15%;
+    width: 70%;
+    height: 3px;
+    border-radius: 4px;
+    background: linear-gradient(90deg, var(--col-green) 0%, var(--col-white) 50%, var(--col-red) 100%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+  }
+  .dropdown-content a:hover, .dropdown-content a:focus-visible {
+    background-color: #e6f0ea;
+    color: var(--col-green);
+    outline: none;
+    transform: scale(1.04);
+  }
+  .dropdown-content a:hover::after, .dropdown-content a:focus-visible::after {
+    opacity: 1;
+  }
+
+  /* LOGO */
+  #logo {
+    position: fixed;
+    top: 10px;
+    left: 18px;
+    width: 56px;
+    height: 56px;
+    background: var(--col-white);
+    padding: 10px;
+    border-radius: 50%;
+    box-shadow:
+      0 8px 18px rgba(0,0,0,0.09),
+      inset 0 1px 7px rgba(255,255,255,0.98);
+    cursor: pointer;
+    transition:
+      transform 0.45s var(--ease-smooth),
+      box-shadow 0.45s var(--ease-smooth);
+    will-change: transform, box-shadow;
+    z-index: 1001;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    perspective: 800px;
+  }
+  #logo:hover, #logo:focus-visible {
+    outline: none;
+    transform: scale(1.22) rotateY(20deg) translateZ(2px);
+    box-shadow:
+      0 14px 48px var(--col-green),
+      inset 0 1px 10px rgba(255,255,255,1);
+  }
+
+  /* MINI CLOCK */
+  #mini-clock {
+    position: fixed;
+    top: 12px;
+    right: 18px;
+    width: 56px;
+    height: 56px;
+    background: var(--col-white);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow:
+      0 6px 16px rgba(0,0,0,0.08),
+      inset 0 1px 8px rgba(255,255,255,0.95);
+    cursor: pointer;
+    filter: drop-shadow(0 2px 6px rgba(0,0,0,0.1));
+    transition:
+      filter 0.4s var(--ease-smooth),
+      transform 0.45s var(--ease-smooth),
+      box-shadow 0.45s var(--ease-smooth);
+    will-change: filter, transform, box-shadow;
+    z-index: 1001;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    perspective: 800px;
+  }
+  #mini-clock:hover, #mini-clock:focus-visible {
+    filter: drop-shadow(0 12px 28px var(--col-green));
+    outline: none;
+    transform: scale(1.22) rotateY(20deg) translateZ(2px);
+    box-shadow:
+      0 20px 52px var(--col-green),
+      inset 0 1px 12px rgba(255,255,255,0.98);
+  }
+
+  /* MAIN HERO */
+  main.hero {
+    max-width: 720px;
+    margin: 110px auto 4rem auto;
+    padding: 0 1rem;
+    text-align: center;
+    user-select: none;
+    color: var(--col-gray-dark);
+    perspective: 900px;
+  }
+  main.hero h1 {
+    font-weight: 900;
+    font-size: 3.8rem;
+    margin-bottom: 0.4rem;
+    letter-spacing: -0.025em;
+    text-shadow: 0 0 3px rgba(0,0,0,0.04);
+    transition: transform 0.6s ease;
+  }
+  main.hero h1:hover, main.hero h1:focus-visible {
+    transform: scale(1.05) rotateX(6deg);
+    outline: none;
+  }
+  main.hero p {
+    font-size: 1.3rem;
+    line-height: 1.6;
+    color: #555;
+    max-width: 600px;
+    margin: 0 auto;
+    font-weight: 500;
+  }
+
+  /* FEATURES */
+  section.features {
+    max-width: 1024px;
+    margin: 0 auto 5rem auto;
+    padding: 0 2rem;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px,1fr));
+    gap: 3rem;
+    perspective: 900px;
+  }
+  section.features .feature {
+    background: var(--col-gray-light);
+    border-radius: 24px;
+    padding: 3rem 2.4rem;
+    box-shadow: 0 10px 32px var(--shadow-light);
+    text-align: center;
+    transition:
+      transform 0.5s var(--ease-smooth),
+      box-shadow 0.4s ease;
+    cursor: default;
+    color: var(--col-gray-dark);
+    user-select: none;
+    position: relative;
+    transform-style: preserve-3d;
+  }
+  section.features .feature:hover, section.features .feature:focus-visible {
+    box-shadow: 0 20px 64px rgba(0,112,60,0.25);
+    transform: translateY(-10px) rotateX(8deg) translateZ(12px);
+    outline: none;
+  }
+  section.features .feature svg {
+    width: 68px;
+    height: 68px;
+    margin-bottom: 1.6rem;
+    fill: var(--col-green);
+    transition: fill 0.35s ease;
+  }
+  section.features .feature:hover svg, section.features .feature:focus-visible svg {
+    fill: var(--col-red);
+  }
+  section.features .feature h3 {
+    font-weight: 700;
+    font-size: 1.5rem;
+    margin-bottom: 0.6rem;
+  }
+  section.features .feature p {
+    font-weight: 500;
+    font-size: 1.12rem;
+    color: #444;
+    line-height: 1.55;
+  }
+
+  /* PROJECTS */
+  section.projects {
+    max-width: 980px;
+    margin: 0 auto 6rem auto;
+    padding: 0 1rem;
+    text-align: center;
+  }
+  section.projects h2 {
+    font-weight: 800;
+    font-size: 2.8rem;
+    color: var(--col-gray-dark);
+    margin-bottom: 1.8rem;
+    text-shadow: 0 0 2px rgba(0,0,0,0.03);
+  }
+  section.projects ul {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(auto-fit,minmax(280px,1fr));
+    gap: 2.6rem;
+    padding: 0;
+  }
+  section.projects li {
+    background: var(--col-gray-light);
+    border-radius: 22px;
+    padding: 1.6rem 1.4rem;
+    box-shadow: 0 10px 28px var(--shadow-light);
+    font-weight: 600;
+    color: var(--col-gray-dark);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.18rem;
+    cursor: pointer;
+    user-select: none;
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    transform-style: preserve-3d;
+  }
+  section.projects li:hover, section.projects li:focus-visible {
+    box-shadow: 0 20px 56px rgba(0,112,60,0.3);
+    transform: translateY(-8px) translateZ(15px);
+    outline: none;
+    color: var(--col-red);
+  }
+  section.projects li.empty {
+    color: #bbb;
+    cursor: default;
+    font-style: italic;
+    font-weight: 500;
+  }
+  section.projects li.empty:hover {
+    box-shadow: none;
+    transform: none;
+    color: #bbb;
+  }
+
+  /* SOCIAL LINKS */
+  section.social {
+    max-width: 980px;
+    margin: 0 auto 3.5rem auto;
+    padding: 0 1rem;
+    text-align: center;
+  }
+  section.social a {
+    display: inline-block;
+    margin: 0 1.2rem;
+    color: var(--col-gray-dark);
+    transition: color 0.35s ease, transform 0.3s ease;
+  }
+  section.social a:hover, section.social a:focus-visible {
+    color: var(--col-green);
+    transform: scale(1.15);
+    outline: none;
+  }
+  section.social svg {
+    width: 30px;
+    height: 30px;
+    vertical-align: middle;
+  }
+
+  /* FOOTER */
+  footer {
+    font-weight: 400;
+    font-size: 0.85rem;
+    text-align: center;
+    color: #666;
+    margin-bottom: 3rem;
+    user-select: none;
+  }
+  footer a {
+    color: var(--col-green);
+    font-weight: 600;
+    text-decoration: none;
+    transition: color 0.3s ease;
+  }
+  footer a:hover, footer a:focus-visible {
+    color: var(--col-red);
+    text-decoration: underline;
+    outline: none;
+  }
+
+  /* ACCESSIBILITY */
+  a:focus-visible, button:focus-visible, .dropbtn:focus-visible {
+    outline: 3px solid var(--col-green);
+    outline-offset: 4px;
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 720px) {
     nav {
-      position: fixed;
-      top: 0;
-      width: 100%;
-      background: var(--col-white);
-      display: flex;
-      justify-content: center;
-      gap: 2.5rem;
-      padding: 1rem 2rem;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-      z-index: 1000;
-      border-bottom: 2px solid var(--col-green);
+      gap: 1.2rem;
+      padding: 1rem 1.5rem;
+      height: 60px;
     }
-
-    nav a {
-      color: var(--col-gray-dark);
-      text-decoration: none;
-      font-weight: 600;
-      font-size: 1.1rem;
-      position: relative;
-      padding: 0.3rem 0.5rem;
-      transition: color 0.3s var(--ease);
+    main.hero h1 {
+      font-size: 2.8rem;
     }
-
-    nav a::after {
-      content: '';
-      position: absolute;
-      bottom: -4px;
-      left: 0;
-      width: 100%;
-      height: 2px;
-      background: linear-gradient(90deg, var(--col-green), var(--col-white), var(--col-red));
-      opacity: 0;
-      transition: opacity 0.3s var(--ease);
-    }
-
-    nav a:hover {
-      color: var(--col-green);
-    }
-
-    nav a:hover::after {
-      opacity: 1;
-    }
-
-    #mini-clock {
-      position: fixed;
-      top: 12px;
-      right: 18px;
-      width: 50px;
-      height: 50px;
-      padding: 6px;
-      background: var(--col-white);
-      border-radius: 50%;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1), inset 0 1px 5px rgba(255,255,255,0.9);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      transition: transform 0.3s var(--ease), box-shadow 0.3s var(--ease);
-      z-index: 1001;
-    }
-
-    #mini-clock:hover {
-      transform: scale(1.08);
-      box-shadow: 0 8px 24px rgba(0,112,60,0.2);
-    }
-
-    main {
-      margin-top: 100px;
-      text-align: center;
-      padding: 2rem 1rem;
-      max-width: 960px;
-      margin-left: auto;
-      margin-right: auto;
-    }
-
-    h1 {
-      font-size: 3rem;
-      font-weight: 700;
-      margin-bottom: 1rem;
-      color: var(--col-gray-dark);
-    }
-
-    p {
-      font-size: 1.2rem;
-      color: #555;
-    }
-
     section.features {
-      margin: 4rem auto;
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 2rem;
+      grid-template-columns: 1fr;
       padding: 0 1rem;
-      max-width: 960px;
+      gap: 2rem;
     }
+    section.projects ul {
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+    section.cta {
+      margin: 0 1rem 3rem 1rem;
+      padding: 1.8rem 1rem 2.5rem 1rem;
+    }
+  }
 
-    .feature {
-      background: var(--col-gray-light);
-      border-radius: 20px;
-      padding: 2rem;
-      box-shadow: 0 4px 16px rgba(0,0,0,0.05);
-      transition: box-shadow 0.3s ease, transform 0.3s ease;
-    }
+  /* EMAIL SECTION */
+  section.email {
+    background: var(--col-gray-light);
+    padding: 3rem 2rem;
+    margin: 0 auto 5rem auto;
+    border-radius: 24px;
+    max-width: 720px;
+    text-align: center;
+    box-shadow: 0 8px 32px var(--shadow-light);
+  }
+  section.email h2 {
+    font-size: 2.2rem;
+    margin-bottom: 1rem;
+    color: var(--col-gray-dark);
+    font-weight: 800;
+  }
+  section.email p {
+    font-size: 1.1rem;
+    color: #444;
+    margin-bottom: 2rem;
+    font-weight: 500;
+  }
+  section.email a.button {
+    display: inline-block;
+    padding: 0.9rem 1.8rem;
+    font-size: 1.1rem;
+    background: var(--col-green);
+    color: var(--col-white);
+    border-radius: 12px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: background 0.3s ease, transform 0.3s ease;
+  }
+  section.email a.button:hover,
+  section.email a.button:focus-visible {
+    background: var(--col-red);
+    transform: scale(1.05);
+    outline: none;
+  }
 
-    .feature:hover {
-      transform: translateY(-6px);
-      box-shadow: 0 12px 28px rgba(0,0,0,0.08);
-    }
-
-    .feature h3 {
-      margin-bottom: 0.5rem;
-      font-size: 1.4rem;
-      font-weight: 700;
-    }
-
-    .feature p {
-      font-size: 1rem;
-      color: #444;
-    }
-
-    section.email {
-      background: var(--col-gray-light);
-      padding: 2.5rem 1.5rem;
-      margin: 3rem auto;
-      border-radius: 18px;
-      max-width: 720px;
-      text-align: center;
-    }
-
-    section.email h2 {
-      font-size: 2rem;
-      margin-bottom: 1rem;
-    }
-
-    section.email form {
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
-    }
-
-    section.email input,
-    section.email textarea {
-      padding: 0.8rem 1rem;
-      font-size: 1rem;
-      border-radius: 10px;
-      border: 1px solid #ccc;
-      transition: border-color 0.3s ease;
-    }
-
-    section.email input:focus,
-    section.email textarea:focus {
-      outline: none;
-      border-color: var(--col-green);
-    }
-
-    section.email button {
-      background: var(--col-green);
-      color: var(--col-white);
-      border: none;
-      padding: 0.9rem 1.4rem;
-      font-size: 1rem;
-      border-radius: 10px;
-      cursor: pointer;
-      transition: background 0.3s ease;
-    }
-
-    section.email button:hover {
-      background: var(--col-red);
-    }
-
-    footer {
-      text-align: center;
-      font-size: 0.9rem;
-      color: #666;
-      margin: 3rem 0 2rem 0;
-    }
-
-    footer a {
-      color: var(--col-green);
-      font-weight: 600;
-      text-decoration: none;
-    }
-
-    footer a:hover {
-      color: var(--col-red);
-    }
-
-    @media (max-width: 600px) {
-      h1 {
-        font-size: 2.2rem;
-      }
-      nav {
-        flex-wrap: wrap;
-        gap: 1.2rem;
-        padding: 1rem;
-      }
-    }
-  </style>
+</style>
 </head>
 <body>
-  <nav>
-    <a href="index.html">Home</a>
-    <a href="clock.html">SBB Clock</a>
-    <a href="diritti.html">Diritti</a>
-  </nav>
 
-  <div id="mini-clock" role="link" tabindex="0" aria-label="Vai alla pagina orologio SBB"></div>
+<!-- Loader -->
+<div id="loader" role="alert" aria-live="assertive" aria-label="Caricamento in corso">
+  <div class="spinner"></div>
+</div>
 
-  <main>
-    <h1>Miniutti.it</h1>
-    <p>Benvenuto nel sito di Tobia Miniutti. Qui trovi progetti e passioni tra elettronica, codice e design raffinato.</p>
-  </main>
+<!-- Logo -->
+<img id="logo" src="favicon.png" alt="Logo Miniutti.it" tabindex="0" aria-label="Logo Miniutti.it" />
 
-  <section class="features">
-    <div class="feature">
-      <h3>Design Moderno</h3>
-      <p>Interfaccia minimalista con tocchi italiani: bianco, verde e rosso.</p>
+<!-- Navigation -->
+<nav role="navigation" aria-label="Menu principale">
+  <a href="index.html" tabindex="0">Home</a>
+  <a href="sbbclock.html" tabindex="0">SBB Clock</a>
+  <div class="dropdown" tabindex="0" aria-haspopup="true" aria-expanded="false" aria-label="Menu Diritti">
+    <span class="dropbtn" tabindex="0">Diritti</span>
+    <div class="dropdown-content" role="menu" aria-label="Sottomenu Diritti">
+      <a href="diritti.html" role="menuitem" tabindex="0">Esenzione legale</a>
+      <a href="branding.html" role="menuitem" tabindex="0">Branding SBB</a>
     </div>
-    <div class="feature">
-      <h3>Responsive & Accessibile</h3>
-      <p>Perfetto su ogni dispositivo. Focus su leggibilità e chiarezza.</p>
-    </div>
-    <div class="feature">
-      <h3>Progetti Realistici</h3>
-      <p>Sviluppo e integrazione con hardware reale, testato e curato.</p>
-    </div>
-  </section>
+  </div>
+</nav>
 
-  <section class="email">
-    <h2>Contattami</h2>
-    <form action="mailto:info@miniutti.it" method="POST" enctype="text/plain">
-      <input type="text" name="nome" placeholder="Il tuo nome" required>
-      <input type="email" name="email" placeholder="La tua email" required>
-      <textarea name="messaggio" rows="5" placeholder="Il tuo messaggio" required></textarea>
-      <button type="submit">Invia</button>
-    </form>
-  </section>
+<!-- Mini Clock (small SBB clock in top right) -->
+<div id="mini-clock" tabindex="0" aria-label="Orologio SBB ridotto"></div>
 
-  <footer>
-    <p>© 2025 Tobia Miniutti – <a href="diritti.html">Diritti</a></p>
-  </footer>
+<!-- Main Content -->
+<main class="hero" role="main" aria-labelledby="page-title">
+  <h1 id="page-title" tabindex="0">Benvenuto su Miniutti.it</h1>
+  <p>Esplora i miei progetti, il mio orologio SBB personalizzato, e scopri i miei diritti legali e contenuti esclusivi.</p>
+</main>
 
-  <script>
-    // Mini orologio
-    window.addEventListener('load', () => {
-      if(typeof sbbUhr !== "undefined") {
-        try {
-          const miniClock = new sbbUhr('mini-clock', true, 12);
-          miniClock.start();
-        } catch (e) {
-          console.error('Errore avvio orologio:', e);
-        }
-      }
-    });
+<!-- Features Section -->
+<section class="features" aria-label="Caratteristiche principali">
+  <article class="feature" tabindex="0" role="article" aria-label="Caratteristica: Orologio SBB">
+    <svg aria-hidden="true" focusable="false" viewBox="0 0 64 64">
+      <circle cx="32" cy="32" r="30" stroke="none" fill="var(--col-green)"/>
+      <path d="M32 10v22l18 10" stroke="#fff" stroke-width="4" stroke-linecap="round" />
+    </svg>
+    <h3>Orologio SBB</h3>
+    <p>Un orologio digitale preciso e sincronizzato con lo standard SBB, in stile minimal e responsive.</p>
+  </article>
+  <article class="feature" tabindex="0" role="article" aria-label="Caratteristica: Design Responsive">
+    <svg aria-hidden="true" focusable="false" viewBox="0 0 64 64">
+      <rect x="10" y="14" width="44" height="36" fill="var(--col-green)" rx="8"/>
+      <circle cx="32" cy="32" r="10" fill="#fff"/>
+    </svg>
+    <h3>Design Responsive</h3>
+    <p>Ottimizzato per ogni dispositivo, desktop e mobile, con interfacce intuitive e accessibili.</p>
+  </article>
+  <article class="feature" tabindex="0" role="article" aria-label="Caratteristica: Accessibilità">
+    <svg aria-hidden="true" focusable="false" viewBox="0 0 64 64">
+      <path d="M32 6a26 26 0 1 0 0 52 26 26 0 0 0 0-52zm0 6a20 20 0 1 1 0 40 20 20 0 0 1 0-40z" fill="var(--col-green)"/>
+      <path d="M32 18v28m-6-6h12" stroke="#fff" stroke-width="3" stroke-linecap="round"/>
+    </svg>
+    <h3>Accessibilità</h3>
+    <p>Supporto completo per tastiera, screen reader e colori ad alto contrasto.</p>
+  </article>
+</section>
 
-    const miniClock = document.getElementById('mini-clock');
-    if(miniClock) {
-      miniClock.addEventListener('click', () => window.location.href = 'clock.html');
-      miniClock.addEventListener('keydown', e => {
-        if(e.key === 'Enter' || e.key === ' ') {
-          e.preventDefault();
-          window.location.href = 'clock.html';
-        }
-      });
+<!-- Projects Section -->
+<section class="projects" aria-label="Progetti recenti">
+  <h2 tabindex="0">I miei progetti</h2>
+  <ul>
+    <li tabindex="0" role="link" aria-label="Progetto Orologio SBB">Orologio SBB personalizzato</li>
+    <li tabindex="0" role="link" aria-label="Progetto Branding">Progetto Branding e Design</li>
+    <li tabindex="0" role="link" aria-label="Progetto Sito Web">Sito web portfolio</li>
+  </ul>
+</section>
+
+<!-- Social Links -->
+<section class="social" aria-label="Social media e contatti">
+  <a href="https://github.com/tobiaminiutti" target="_blank" rel="noopener" aria-label="GitHub Tobia Miniutti" tabindex="0" >
+    <svg role="img" aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="currentColor">
+      <path d="M12 .297a12 12 0 0 0-3.793 23.41c.6.11.82-.26.82-.577v-2.2c-3.338.726-4.042-1.61-4.042-1.61-.546-1.39-1.333-1.76-1.333-1.76-1.09-.745.083-.73.083-.73 1.2.086 1.832 1.234 1.832 1.234 1.07 1.83 2.8 1.3 3.485.993.11-.774.42-1.3.763-1.6-2.665-.3-5.466-1.33-5.466-5.93 0-1.31.47-2.38 1.236-3.22-.124-.303-.535-1.523.118-3.176 0 0 1.008-.322 3.3 1.23a11.52 11.52 0 0 1 3-.404c1.02.005 2.04.138 3 .404 2.29-1.552 3.295-1.23 3.295-1.23.656 1.653.246 2.873.12 3.176.77.84 1.23 1.91 1.23 3.22 0 4.61-2.803 5.62-5.475 5.92.43.37.815 1.1.815 2.22v3.293c0 .32.21.694.825.576A12 12 0 0 0 12 .297"/>
+    </svg>
+  </a>
+  <a href="https://twitter.com/tobiaminiutti" target="_blank" rel="noopener" aria-label="Twitter Tobia Miniutti" tabindex="0" >
+    <svg role="img" aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="currentColor">
+      <path d="M23.954 4.569c-.885.39-1.83.654-2.825.775 1.014-.608 1.794-1.574 2.163-2.723-.951.564-2.005.974-3.127 1.195-.896-.954-2.173-1.55-3.59-1.55-2.717 0-4.92 2.203-4.92 4.917 0 .39.045.765.127 1.124-4.088-.2-7.713-2.164-10.14-5.144-.422.722-.664 1.56-.664 2.475 0 1.708.87 3.213 2.188 4.096-.807-.026-1.566-.247-2.228-.616v.061c0 2.385 1.693 4.374 3.946 4.828-.413.112-.85.17-1.296.17-.317 0-.626-.03-.927-.086.627 1.956 2.444 3.377 4.6 3.416-1.68 1.316-3.8 2.102-6.104 2.102-.39 0-.776-.023-1.158-.067 2.179 1.397 4.768 2.212 7.557 2.212 9.054 0 14-7.497 14-13.986 0-.21 0-.42-.015-.63.962-.689 1.797-1.56 2.457-2.548l-.047-.02z"/>
+    </svg>
+  </a>
+  <a href="mailto:info@miniutti.it" aria-label="Email Tobia Miniutti" tabindex="0" >
+    <svg role="img" aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="currentColor">
+      <path d="M12 13.065L2 6v12h20V6l-10 7.065zM12 11l10-7H2l10 7z"/>
+    </svg>
+  </a>
+</section>
+
+<!-- Email Section -->
+<section class="email" aria-label="Contatto">
+  <h2 tabindex="0">Hai domande o proposte?</h2>
+  <p tabindex="0">Contattami direttamente per collaborazioni, progetti o richieste.</p>
+  <a href="mailto:info@miniutti.it" class="button" aria-label="Scrivimi via email" tabindex="0">Scrivimi</a>
+</section>
+
+<!-- Footer -->
+<footer>
+  <p tabindex="0">© 2025 Tobia Miniutti. Tutti i diritti riservati. <a href="mailto:info@miniutti.it" tabindex="0">info@miniutti.it</a></p>
+</footer>
+
+<script>
+  // Loader hide after window loaded
+  window.addEventListener('load', () => {
+    const loader = document.getElementById('loader');
+    loader.style.opacity = '0';
+    setTimeout(() => loader.style.display = 'none', 600);
+  });
+
+  // Nav shadow on scroll
+  const nav = document.querySelector('nav');
+  window.addEventListener('scroll', () => {
+    if(window.scrollY > 48) {
+      nav.classList.add('scrolled');
+    } else {
+      nav.classList.remove('scrolled');
     }
-  </script>
+  });
+
+  // Mini clock initialization
+  const miniClock = document.getElementById('mini-clock');
+  // Assuming sbbUhr-1.3.js provides an init function like SBB.initClock
+  if(typeof SBB !== 'undefined' && SBB.initClock) {
+    SBB.initClock(miniClock, {
+      size: 56,
+      showSeconds: false,
+      // other options if any...
+    });
+  }
+
+  // Logo click -> homepage
+  const logo = document.getElementById('logo');
+  logo.addEventListener('click', () => {
+    window.location.href = 'index.html';
+  });
+  logo.addEventListener('keypress', (e) => {
+    if(e.key === 'Enter' || e.key === ' ') {
+      window.location.href = 'index.html';
+    }
+  });
+</script>
+
 </body>
 </html>
