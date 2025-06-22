@@ -54,7 +54,8 @@
     /* HEADER/NAV */
     nav {
       position: fixed;
-      top: 0; left: 0; right: 0;
+      top: 0; left: 50%;
+      transform: translateX(-50%);
       height: 64px;
       background: var(--col-white);
       display: flex;
@@ -64,12 +65,13 @@
       padding: 0 1.5rem;
       z-index: 1000;
       box-shadow: 0 8px 24px var(--shadow-light);
+      font-weight: 600;
+      font-size: 1.1rem;
+      user-select: none;
     }
     nav a, .dropbtn {
       color: var(--col-gray-dark);
       text-decoration: none;
-      font-weight: 600;
-      font-size: 1.1rem;
       padding: 0.6rem 1rem;
       position: relative;
       transition: transform 0.3s var(--ease), color 0.3s var(--ease);
@@ -111,6 +113,7 @@
     /* DROPDOWN */
     .dropdown {
       position: relative;
+      z-index: 1100;
     }
     .dropdown-content {
       display: none;
@@ -121,13 +124,13 @@
       box-shadow: 0 10px 32px var(--shadow-heavy);
       border-radius: 12px;
       padding: 0.5rem 0;
-      z-index: 999;
       min-width: 220px;
       transform-origin: top;
-      animation: fadeSlideDown 0.6s ease forwards;
+      animation: fadeSlideDown 0.4s ease forwards;
       user-select: none;
     }
-    .dropdown:hover .dropdown-content {
+    .dropdown:hover .dropdown-content,
+    .dropdown-content:hover {
       display: block;
     }
     .dropdown-content a, .dropdown-content .disabled {
@@ -186,7 +189,7 @@
       padding: 8px;
       box-shadow: 0 10px 24px rgba(0,0,0,0.1), inset 0 2px 8px rgba(255,255,255,0.9);
       cursor: pointer;
-      z-index: 1001;
+      z-index: 1101;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -209,7 +212,7 @@
       border-radius: 50%;
       box-shadow: 0 10px 20px rgba(0,0,0,0.12), inset 0 2px 8px rgba(255,255,255,0.9);
       padding: 6px;
-      z-index: 1001;
+      z-index: 1101;
       cursor: pointer;
       transition: transform 0.3s, box-shadow 0.3s;
       display: flex;
@@ -221,13 +224,22 @@
       box-shadow: 0 20px 48px var(--col-green);
     }
 
+    /* Mostra dropdown Progetti se hover su mini-clock o logo */
+    #mini-clock:hover ~ nav .dropdown .dropdown-content,
+    #logo:hover ~ nav .dropdown .dropdown-content {
+      display: block !important;
+    }
+
     /* ---------------- HERO ---------------- */
     .hero {
       max-width: 760px;
       margin: 110px auto 2rem auto;
       text-align: center;
       padding: 1rem;
-      animation: fadePop 1.2s ease;
+      animation: fadePop 1.2s ease forwards;
+      opacity: 0;
+      animation-delay: 0.3s;
+      animation-fill-mode: forwards;
     }
 
     .hero h1 {
@@ -244,7 +256,9 @@
     .hero p {
       font-size: 1.4rem;
       color: #444;
-      animation: fadeIn 2s ease;
+      animation: fadeIn 2s ease forwards;
+      animation-delay: 0.7s;
+      opacity: 0;
     }
 
     @keyframes fadePop {
@@ -270,6 +284,9 @@
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
       gap: 2.5rem;
+      opacity: 0;
+      animation: fadeIn 1s ease forwards;
+      animation-delay: 1.2s;
     }
 
     .project-card {
@@ -283,15 +300,14 @@
       transform-style: preserve-3d;
       position: relative;
       overflow: hidden;
-      animation: fadeInCard 1s ease forwards;
-      cursor: default;
+      cursor: pointer;
+      user-select: none;
     }
 
     .project-card:hover {
       transform: rotateX(8deg) rotateY(-4deg) scale(1.05);
       box-shadow: 0 18px 60px rgba(0, 112, 60, 0.35);
       color: var(--col-green);
-      cursor: pointer;
     }
 
     /* Overlay luce sfumata */
@@ -312,11 +328,6 @@
       opacity: 1;
     }
 
-    @keyframes fadeInCard {
-      0% { opacity: 0; transform: translateY(30px); }
-      100% { opacity: 1; transform: translateY(0); }
-    }
-
     /* Nuovo contenuto extra */
     .extra-content {
       max-width: 900px;
@@ -332,6 +343,9 @@
       font-weight: 500;
       transform-style: preserve-3d;
       transition: transform 0.4s ease, box-shadow 0.4s ease;
+      opacity: 0;
+      animation: fadeIn 1s ease forwards;
+      animation-delay: 1.6s;
     }
     .extra-content:hover {
       transform: translateZ(40px) rotateX(4deg) rotateY(-6deg);
@@ -354,6 +368,9 @@
       flex-wrap: wrap;
       transform-style: preserve-3d;
       transition: box-shadow 0.3s ease;
+      opacity: 0;
+      animation: fadeIn 1s ease forwards;
+      animation-delay: 2s;
     }
     .contact-section:hover {
       box-shadow: 0 20px 60px rgba(0, 112, 60, 0.3);
@@ -433,37 +450,41 @@
     <div class="dropbtn">Progetti</div>
     <div class="dropdown-content">
       <a href="clock.html">SBB Clock</a>
-      <div class="disabled">Uno in arrivo</div>
+      <span class="disabled">Uno in arrivo</span>
       <a href="progetti.html" class="btn-progetti">Altri Progetti</a>
     </div>
   </div>
 </nav>
 
 <!-- Hero -->
-<section class="hero">
+<section class="hero" aria-label="Benvenuto su Miniutti.it">
   <h1>Miniutti.it</h1>
-  <p>Scopri i progetti, i codici e le interfacce eleganti di Tobia Miniutti.</p>
+  <p>Scopri i progetti, i codici e le interfacce eleganti di Tobia Miniutti. Esperienze con design moderno, animazioni 3D e tanto altro.</p>
 </section>
 
 <!-- Projects -->
-<section class="projects">
-  <div class="project-card" onclick="location.href='clock.html'">SBB Clock</div>
-  <div class="project-card" style="cursor: default; color: #aaa; font-style: italic;">Progetto in arrivo</div>
-  <div class="project-card" onclick="location.href='progetti.html'">Altri Progetti &raquo;</div>
+<section class="projects" aria-label="Sezione progetti">
+  <div class="project-card" tabindex="0" role="button" onclick="window.location.href='clock.html';" onkeypress="if(event.key==='Enter') window.location.href='clock.html';">
+    SBB Clock
+  </div>
+  <div class="project-card disabled" tabindex="-1" aria-disabled="true">
+    Uno in arrivo
+  </div>
+  <div class="project-card btn-progetti" tabindex="0" role="button" onclick="window.location.href='progetti.html';" onkeypress="if(event.key==='Enter') window.location.href='progetti.html';">
+    Altri Progetti
+  </div>
 </section>
 
 <!-- Extra contenuto -->
-<section class="extra-content">
-  <h2>Benvenuto su Miniutti.it</h2>
-  <p>Qui trovi le migliori interfacce con effetti 3D, animazioni sofisticate e un design pulito e professionale. Tutti i progetti sono pensati per offrire un'esperienza utente fluida e moderna.</p>
-  <p>Se vuoi approfondire o hai domande, non esitare a contattarmi tramite il pulsante qui sotto.</p>
+<section class="extra-content" aria-label="Descrizione progetti e contenuti">
+  <p>Questo sito raccoglie i miei migliori lavori di programmazione, design e sviluppo web. Sono sempre alla ricerca di soluzioni innovative con animazioni fluide, design moderno e un’interfaccia utente elegante. La tecnologia SBB Clock è solo uno degli esempi del mio impegno nel creare strumenti funzionali e belli.</p>
 </section>
 
-<!-- Sezione Contatti -->
-<section class="contact-section">
-  <a href="mailto:info@miniutti.it" class="contact-btn" title="Contattami via email">
-    <svg viewBox="0 0 24 24" aria-hidden="true">
-      <path d="M2,6 L22,6 L12,13 L2,6 Z M2,8 L2,18 L22,18 L22,8 L2,8 Z" />
+<!-- Contatti -->
+<section class="contact-section" aria-label="Contatti">
+  <a href="mailto:info@miniutti.it" class="contact-btn" aria-label="Invia una email a info@miniutti.it">
+    <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+      <path d="M20 4H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2zm0 2-8 5-8-5V6l8 5 8-5v.01z"/>
     </svg>
     info@miniutti.it
   </a>
@@ -481,18 +502,15 @@
     loader.style.opacity = '0';
     setTimeout(() => loader.style.display = 'none', 400);
 
-    // Inizializza orologio SBB se disponibile
     if (typeof sbbUhr !== "undefined") {
       const clock = new sbbUhr('mini-clock', true, 12);
       clock.start();
     }
 
-    // Click orologio porta a /clock
     document.getElementById('mini-clock').addEventListener('click', () => {
       window.location.href = 'clock.html';
     });
 
-    // Click logo porta a /index.html
     document.getElementById('logo').addEventListener('click', () => {
       window.location.href = 'index.html';
     });
