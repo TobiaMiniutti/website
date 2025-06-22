@@ -7,175 +7,111 @@
   <link rel="icon" href="favicon.png" />
   <script src="sbbUhr-1.3.js" defer></script>
   <style>
-    /* ---------------- RESET & VARIABILI ---------------- */
-    *, *::before, *::after {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
+    /* RESET E VARIABILI */
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
     :root {
       --col-green: #00703c;
       --col-white: #ffffff;
       --col-red: #d62f27;
       --col-gray-light: #f5f5f7;
-      --col-gray-dark: #1e1e1e;
+      --col-gray-dark: #222;
       --shadow-light: rgba(0, 0, 0, 0.08);
       --shadow-heavy: rgba(0, 0, 0, 0.2);
-      --tricolor: linear-gradient(90deg, #00703c, #ffffff, #d62f27);
       --ease: cubic-bezier(0.4, 0, 0.2, 1);
+      --tricolor-gradient: linear-gradient(90deg, #d62f27, #ffffff, #00703c);
     }
-
-    html, body {
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
       background: var(--col-gray-light);
       color: var(--col-gray-dark);
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
       scroll-behavior: smooth;
       overflow-x: hidden;
       perspective: 1000px;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
     }
 
-    /* ---------------- LOADER ---------------- */
+    /* LOADER */
     #loader {
       position: fixed;
       inset: 0;
-      background: var(--col-white);
       display: flex;
       align-items: center;
       justify-content: center;
+      background: var(--col-white);
       z-index: 99999;
     }
-
     .spinner {
-      width: 64px;
-      height: 64px;
+      width: 60px;
+      height: 60px;
       border: 6px solid #ccc;
       border-top: 6px solid var(--col-green);
       border-radius: 50%;
       animation: spin 1.2s linear infinite;
     }
+    @keyframes spin { to { transform: rotate(360deg); } }
 
-    @keyframes spin {
-      to { transform: rotate(360deg); }
-    }
-
-    /* ---------------- LOGO ---------------- */
-    #logo {
-      position: fixed;
-      top: 8px;
-      left: 12px;
-      width: 56px;
-      height: 56px;
-      border-radius: 50%;
-      background: var(--col-white);
-      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15), inset 0 2px 8px rgba(255,255,255,0.8);
-      z-index: 1001;
-      padding: 6px;
-      animation: logoFade 1.2s ease;
-    }
-
-    @keyframes logoFade {
-      0% { transform: scale(0.8); opacity: 0; }
-      100% { transform: scale(1); opacity: 1; }
-    }
-
-    /* ---------------- MINI CLOCK ---------------- */
-    #mini-clock {
-      position: fixed;
-      top: 8px;
-      right: 12px;
-      width: 56px;
-      height: 56px;
-      border-radius: 50%;
-      background: var(--col-white);
-      padding: 8px;
-      box-shadow: 0 10px 24px rgba(0,0,0,0.1), inset 0 2px 8px rgba(255,255,255,0.9);
-      z-index: 1001;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      transition: transform 0.4s ease, box-shadow 0.4s ease;
-      perspective: 600px;
-    }
-
-    #mini-clock:hover {
-      transform: rotateY(15deg) scale(1.1);
-      box-shadow: 0 20px 48px var(--col-green);
-    }
-
-    /* ---------------- NAVBAR ---------------- */
+    /* HEADER/NAV */
     nav {
       position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
+      top: 0; left: 0; right: 0;
       height: 64px;
       background: var(--col-white);
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 2.5rem;
+      gap: 2rem;
       padding: 0 1.5rem;
       z-index: 1000;
       box-shadow: 0 8px 24px var(--shadow-light);
-      animation: fadeInTop 1s ease;
     }
-
-    @keyframes fadeInTop {
-      0% { opacity: 0; transform: translateY(-20px); }
-      100% { opacity: 1; transform: translateY(0); }
-    }
-
     nav a, .dropbtn {
-      position: relative;
-      text-decoration: none;
       color: var(--col-gray-dark);
+      text-decoration: none;
       font-weight: 600;
       font-size: 1.1rem;
       padding: 0.6rem 1rem;
-      display: flex;
+      position: relative;
+      transition: transform 0.3s var(--ease), color 0.3s var(--ease);
+      display: inline-flex;
       align-items: center;
-      transition: all 0.3s var(--ease);
+      cursor: pointer;
     }
-
     nav a:hover, .dropbtn:hover {
       color: var(--col-green);
       transform: scale(1.08) rotateX(3deg);
+      text-shadow: 0 0 6px var(--col-green);
     }
-
     nav a::after, .dropbtn::after {
       content: "";
       position: absolute;
-      bottom: 0;
       left: 10%;
+      bottom: 0;
       width: 80%;
       height: 3px;
-      background: var(--tricolor);
+      background: var(--tricolor-gradient);
       opacity: 0;
-      border-radius: 3px;
       transition: opacity 0.3s ease;
+      border-radius: 3px;
     }
-
     nav a:hover::after, .dropbtn:hover::after {
       opacity: 1;
     }
 
-    /* ---------------- FRECCIA SOLO SU PROGETTI ---------------- */
+    /* FRECCIA VISIBILE SOLO PER DROPDOWN */
     .dropbtn::after {
       content: " \25BE";
-      font-size: 0.8rem;
+      font-size: 0.75rem;
       position: static;
       margin-left: 0.5rem;
-      background: none;
       opacity: 1;
+      background: none;
     }
 
-    /* ---------------- DROPDOWN MENU ---------------- */
+    /* DROPDOWN */
     .dropdown {
       position: relative;
     }
-
     .dropdown-content {
       display: none;
       position: absolute;
@@ -186,34 +122,105 @@
       border-radius: 12px;
       padding: 0.5rem 0;
       z-index: 999;
-      min-width: 180px;
+      min-width: 220px;
       transform-origin: top;
       animation: fadeSlideDown 0.6s ease forwards;
+      user-select: none;
     }
-
     .dropdown:hover .dropdown-content {
       display: block;
     }
-
-    .dropdown-content a {
+    .dropdown-content a, .dropdown-content .disabled {
       padding: 0.8rem 1.5rem;
       display: block;
       white-space: nowrap;
       color: var(--col-gray-dark);
       font-weight: 500;
       transition: background 0.3s, color 0.3s, transform 0.3s;
+      cursor: pointer;
     }
-
     .dropdown-content a:hover {
       background: #e6f0ea;
       color: var(--col-green);
-      transform: translateX(4px);
+      transform: translateX(6px);
+    }
+    .dropdown-content .disabled {
+      color: #aaa;
+      cursor: default;
+      user-select: none;
+      pointer-events: none;
+      font-style: italic;
+    }
+    /* Bottone "Altri Progetti" */
+    .dropdown-content .btn-progetti {
+      margin-top: 0.3rem;
+      background: var(--col-green);
+      color: var(--col-white);
+      border-radius: 12px;
+      font-weight: 700;
+      text-align: center;
+      user-select: none;
+      transition: background 0.4s ease;
+    }
+    .dropdown-content .btn-progetti:hover {
+      background: var(--col-red);
+      color: var(--col-white);
+      transform: scale(1.05);
+      box-shadow: 0 0 10px var(--col-red);
     }
 
     @keyframes fadeSlideDown {
       0% { opacity: 0; transform: scaleY(0.8) translateY(-10px); }
       100% { opacity: 1; transform: scaleY(1) translateY(0); }
     }
+
+    /* MINI CLOCK */
+    #mini-clock {
+      position: fixed;
+      top: 10px;
+      right: 18px;
+      width: 56px;
+      height: 56px;
+      background: var(--col-white);
+      border-radius: 50%;
+      padding: 8px;
+      box-shadow: 0 10px 24px rgba(0,0,0,0.1), inset 0 2px 8px rgba(255,255,255,0.9);
+      cursor: pointer;
+      z-index: 1001;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform 0.3s, box-shadow 0.3s;
+      perspective: 600px;
+    }
+    #mini-clock:hover {
+      transform: rotateY(15deg) scale(1.1);
+      box-shadow: 0 20px 48px var(--col-green);
+    }
+
+    /* LOGO - STESSI EFFETTI DELL'OROLOGIO */
+    #logo {
+      position: fixed;
+      top: 4px;
+      left: 12px;
+      width: 56px;
+      height: 56px;
+      background: var(--col-white);
+      border-radius: 50%;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.12), inset 0 2px 8px rgba(255,255,255,0.9);
+      padding: 6px;
+      z-index: 1001;
+      cursor: pointer;
+      transition: transform 0.3s, box-shadow 0.3s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    #logo:hover {
+      transform: rotateY(15deg) scale(1.1);
+      box-shadow: 0 20px 48px var(--col-green);
+    }
+
     /* ---------------- HERO ---------------- */
     .hero {
       max-width: 760px;
@@ -277,14 +284,17 @@
       position: relative;
       overflow: hidden;
       animation: fadeInCard 1s ease forwards;
+      cursor: default;
     }
 
     .project-card:hover {
       transform: rotateX(8deg) rotateY(-4deg) scale(1.05);
       box-shadow: 0 18px 60px rgba(0, 112, 60, 0.35);
       color: var(--col-green);
+      cursor: pointer;
     }
 
+    /* Overlay luce sfumata */
     .project-card::before {
       content: '';
       position: absolute;
@@ -307,7 +317,77 @@
       100% { opacity: 1; transform: translateY(0); }
     }
 
-    /* ---------------- FOOTER ---------------- */
+    /* Nuovo contenuto extra */
+    .extra-content {
+      max-width: 900px;
+      margin: 3rem auto;
+      padding: 1rem 2rem;
+      background: var(--col-white);
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.07);
+      text-align: center;
+      font-size: 1.1rem;
+      color: var(--col-gray-dark);
+      line-height: 1.5;
+      font-weight: 500;
+      transform-style: preserve-3d;
+      transition: transform 0.4s ease, box-shadow 0.4s ease;
+    }
+    .extra-content:hover {
+      transform: translateZ(40px) rotateX(4deg) rotateY(-6deg);
+      box-shadow: 0 20px 70px rgba(0, 112, 60, 0.25);
+      color: var(--col-green);
+    }
+
+    /* SEZIONE CONTATTI */
+    .contact-section {
+      max-width: 900px;
+      margin: 4rem auto 5rem auto;
+      padding: 2rem 2rem;
+      background: var(--col-white);
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.07);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+      transform-style: preserve-3d;
+      transition: box-shadow 0.3s ease;
+    }
+    .contact-section:hover {
+      box-shadow: 0 20px 60px rgba(0, 112, 60, 0.3);
+    }
+    .contact-btn {
+      background: var(--col-green);
+      color: var(--col-white);
+      font-weight: 700;
+      padding: 1rem 2rem;
+      border-radius: 50px;
+      font-size: 1.2rem;
+      cursor: pointer;
+      user-select: none;
+      box-shadow: 0 5px 15px rgba(0, 112, 60, 0.5);
+      transition: background 0.4s ease, transform 0.3s ease;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .contact-btn:hover {
+      background: var(--col-red);
+      box-shadow: 0 8px 20px rgba(214, 47, 39, 0.8);
+      transform: scale(1.05);
+      text-decoration: none;
+      color: var(--col-white);
+    }
+    .contact-btn svg {
+      width: 20px;
+      height: 20px;
+      fill: currentColor;
+    }
+
+    /* FOOTER */
     footer {
       text-align: center;
       margin: 4rem 0 2rem;
@@ -318,13 +398,20 @@
       border-top: 1px solid #ddd;
     }
 
-    /* ---------------- RESPONSIVE ---------------- */
+    /* RESPONSIVE */
     @media(max-width: 600px) {
       .hero h1 { font-size: 2.2rem; }
-      nav { flex-wrap: wrap; gap: 1rem; padding: 1rem; }
+      nav { flex-wrap: wrap; gap: 1rem; padding: 1rem; justify-content: center;}
       .project-card { padding: 1.2rem; }
+      .contact-section {
+        flex-direction: column;
+        padding: 1.5rem 1rem;
+      }
+      .contact-btn {
+        width: 100%;
+        justify-content: center;
+      }
     }
-
   </style>
 </head>
 <body>
@@ -333,7 +420,7 @@
 <div id="loader"><div class="spinner"></div></div>
 
 <!-- Logo -->
-<img src="favicon.png" alt="Logo Miniutti" id="logo" />
+<img src="favicon.png" alt="Logo Miniutti" id="logo" title="Home - Miniutti.it" />
 
 <!-- Mini Clock -->
 <div id="mini-clock" title="Orologio SBB"></div>
@@ -345,8 +432,9 @@
   <div class="dropdown">
     <div class="dropbtn">Progetti</div>
     <div class="dropdown-content">
-      <a href="progetto1.html">SBB Clock Digitale</a>
-      <a href="#">Altro in arrivo</a>
+      <a href="clock.html">SBB Clock</a>
+      <div class="disabled">Uno in arrivo</div>
+      <a href="progetti.html" class="btn-progetti">Altri Progetti</a>
     </div>
   </div>
 </nav>
@@ -359,9 +447,26 @@
 
 <!-- Projects -->
 <section class="projects">
-  <div class="project-card">SBB Clock Digitale</div>
-  <div class="project-card">Progetto 2 (in arrivo)</div>
-  <div class="project-card">Progetto 3 (in arrivo)</div>
+  <div class="project-card" onclick="location.href='clock.html'">SBB Clock</div>
+  <div class="project-card" style="cursor: default; color: #aaa; font-style: italic;">Progetto in arrivo</div>
+  <div class="project-card" onclick="location.href='progetti.html'">Altri Progetti &raquo;</div>
+</section>
+
+<!-- Extra contenuto -->
+<section class="extra-content">
+  <h2>Benvenuto su Miniutti.it</h2>
+  <p>Qui trovi le migliori interfacce con effetti 3D, animazioni sofisticate e un design pulito e professionale. Tutti i progetti sono pensati per offrire un'esperienza utente fluida e moderna.</p>
+  <p>Se vuoi approfondire o hai domande, non esitare a contattarmi tramite il pulsante qui sotto.</p>
+</section>
+
+<!-- Sezione Contatti -->
+<section class="contact-section">
+  <a href="mailto:info@miniutti.it" class="contact-btn" title="Contattami via email">
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M2,6 L22,6 L12,13 L2,6 Z M2,8 L2,18 L22,18 L22,8 L2,8 Z" />
+    </svg>
+    info@miniutti.it
+  </a>
 </section>
 
 <!-- Footer -->
@@ -382,8 +487,14 @@
       clock.start();
     }
 
+    // Click orologio porta a /clock
     document.getElementById('mini-clock').addEventListener('click', () => {
       window.location.href = 'clock.html';
+    });
+
+    // Click logo porta a /index.html
+    document.getElementById('logo').addEventListener('click', () => {
+      window.location.href = 'index.html';
     });
   });
 </script>
