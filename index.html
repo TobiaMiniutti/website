@@ -7,7 +7,7 @@
 <link rel="icon" type="image/png" href="favicon.png" />
 <script src="sbbUhr-1.3.js"></script>
 <style>
-  /* RESET & BASE */
+  /* BASE RESET */
   *, *::before, *::after {
     margin: 0; padding: 0; box-sizing: border-box;
   }
@@ -85,11 +85,12 @@
     cursor: pointer;
     user-select: none;
     position: relative;
-    transition: color 0.4s var(--ease-smooth);
+    transition: color 0.4s var(--ease-smooth), transform 0.3s ease;
   }
   nav a:hover, nav a:focus-visible,
   .dropbtn:hover, .dropbtn:focus-visible {
     color: var(--col-green);
+    transform: scale(1.1);
     outline: none;
   }
   /* tricolor underline on hover */
@@ -111,13 +112,14 @@
     opacity: 1;
   }
 
-  /* DROPDOWN */
+  /* DROPDOWN - APRE AL PASSAGGIO DEL MOUSE, TRANSIZIONE DELICATA */
   .dropdown {
     position: relative;
     user-select: none;
   }
   .dropdown-content {
-    display: none;
+    display: flex;
+    flex-direction: column;
     position: absolute;
     top: 110%;
     left: 0;
@@ -125,16 +127,16 @@
     background: var(--col-white);
     border-radius: 18px;
     box-shadow: 0 12px 30px var(--shadow-strong);
-    overflow: hidden;
-    flex-direction: column;
     opacity: 0;
-    transform: translateY(12px);
+    pointer-events: none;
+    transform: translateY(14px);
     transition: opacity 0.35s var(--ease-smooth), transform 0.35s var(--ease-smooth);
     z-index: 1001;
   }
-  .dropdown.open .dropdown-content {
-    display: flex;
+  .dropdown:hover .dropdown-content,
+  .dropdown:focus-within .dropdown-content {
     opacity: 1;
+    pointer-events: auto;
     transform: translateY(0);
   }
   .dropdown-content a {
@@ -144,7 +146,7 @@
     cursor: pointer;
     font-weight: 500;
     font-size: 1rem;
-    transition: background-color 0.3s ease, color 0.3s ease;
+    transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease;
     position: relative;
     user-select: none;
   }
@@ -166,6 +168,7 @@
     background-color: #e6f0ea;
     color: var(--col-green);
     outline: none;
+    transform: scale(1.04);
   }
   .dropdown-content a:hover::after, .dropdown-content a:focus-visible::after {
     opacity: 1;
@@ -202,7 +205,7 @@
       inset 0 1px 10px rgba(255,255,255,1);
   }
 
-  /* MINI CLOCK */
+  /* MINI CLOCK - EFFETTO SIMILE AL LOGO */
   #mini-clock {
     position: fixed;
     top: 12px;
@@ -222,11 +225,11 @@
     justify-content: center;
   }
   #mini-clock:hover, #mini-clock:focus-visible {
-    filter: drop-shadow(0 10px 24px var(--col-green));
+    filter: drop-shadow(0 12px 28px var(--col-green));
     outline: none;
-    transform: scale(1.15) rotateY(20deg);
+    transform: scale(1.18) rotateY(20deg);
     box-shadow:
-      0 16px 52px var(--col-green),
+      0 20px 52px var(--col-green),
       inset 0 1px 12px rgba(255,255,255,0.98);
   }
 
@@ -381,7 +384,7 @@
     align-items: center;
     color: var(--col-gray-dark);
     cursor: pointer;
-    transition: box-shadow 0.35s ease, color 0.35s ease;
+    transition: box-shadow 0.35s ease, color 0.35s ease, transform 0.3s ease;
     position: relative;
     outline-offset: 4px;
   }
@@ -390,6 +393,7 @@
     box-shadow: 0 10px 28px rgba(0,112,60,0.22);
     outline: none;
     background: var(--col-white);
+    transform: scale(1.1);
   }
   section.social svg {
     width: 26px;
@@ -457,10 +461,12 @@
     color: var(--col-green);
     font-weight: 600;
     text-decoration: none;
+    transition: color 0.35s ease;
   }
   footer a:hover, footer a:focus-visible {
     text-decoration: underline;
     outline: none;
+    color: var(--col-red);
   }
 
   /* FOCUS ACCESSIBILITY */
@@ -563,94 +569,38 @@
   <section class="social" aria-label="Link ai social network">
     <a href="https://github.com/tobiaminiutti" target="_blank" rel="noopener" aria-label="GitHub Miniutti.it" title="GitHub">
       <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="currentColor" width="24" height="24">
-        <path d="M12 0C5.37 0 0 5.37 0 12a12 12 0 0 0 8.21 11.43c.6.1.82-.26.82-.58v-2.18c-3.34.73-4.04-1.61-4.04-1.61a3.18 3.18 0 0 0-1.34-1.77c-1.1-.75.08-.74.08-.74a2.51 2.51 0 0 1 1.83 1.23 2.54 2.54 0 0 0 3.48 1 2.54 2.54 0 0 0 .75-1.6c0-1.27-.9-1.6-1.35-1.7a3.67 3.67 0 0 1 1.07-2.26c-2.66-.3-5.46-1.33-5.46-5.93a4.63 4.63 0 0 1 1.23-3.22 4.3 4.3 0 0 1 .12-3.17s1-.32 3.3 1.23a11.44 11.44 0 0 1 6 0c2.3-1.55 3.3-1.23 3.3-1.23a4.3 4.3 0 0 1 .12 3.17 4.63 4.63 0 0 1 1.22 3.22c0 4.6-2.8 5.63-5.47 5.92a4.09 4.09 0 0 1 1.16 3.18v4.72c0 .32.22.68.83.57A12 12 0 0 0 24 12c0-6.63-5.37-12-12-12Z"/>
+        <path d="M12 0C5.37 0 0 5.37 0 12a12 12 0 0 0 8.21 11.43c.6.1.82-.26.82-.58v-2.18c-3.34.73-4.04-1.61-4.04-1.61a3.18 3.18 0 0 0-1.34-1.77c-1.1-.75.08-.74.08-.74a2.51 2.51 0 0 1 1.83 1.23 2.54 2.54 0 0 0 3.48 1 2.54 2.54 0 0 0 .75-1.6c0-1.27-.9-1.6-1.35-1.7a3.67 3.67 0 0 1 1.07-2.26c-2.66-.3-5.46-1.33-5.46-5.93a4.63 4.63 0 0 1 1.23-3.22 4.3 4.3 0 0 1 .12-3.17s1-.32 3.3 1.23a11.44 11.44 0 0 1 6 0c2.3-1.55 3.3-1.23 3.3-1.23a4.3 4.3 0 0 1 .12 3.17 4.63 4.63 0 0 1 1.23 3.22c0 4.6-2.8 5.62-5.47 5.92a4.11 4.11 0 0 1 1.17 3.17v4.7c0 .32.22.69.83.58A12 12 0 0 0 24 12c0-6.63-5.37-12-12-12z"/>
       </svg>
     </a>
-    <a href="mailto:tobia.miniutti@gmail.com" aria-label="Email Miniutti" title="Email">
-      <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="currentColor" width="24" height="24">
-        <path d="M1.5 5.5v13h21v-13h-21zm19 1.24L12 12.91 3.5 6.74v-1.99l8.5 6.11 8.5-6.11v1.99z"/>
-      </svg>
-    </a>
-  </section>
-
-  <section class="cta" aria-label="Contattami">
-    <h2>Interessato ai miei progetti?</h2>
-    <p>Per qualsiasi domanda o collaborazione, scrivimi pure a <a href="mailto:tobia.miniutti@gmail.com">tobia.miniutti@gmail.com</a>. Sarò felice di risponderti!</p>
-    <button onclick="window.location.href='mailto:tobia.miniutti@gmail.com'" aria-label="Invia email a Tobia Miniutti">Contattami</button>
   </section>
 
   <footer>
-    &copy; 2025 Miniutti.it - Tutti i diritti riservati
+    <p>© 2025 Tobia Miniutti. Tutti i diritti riservati.</p>
   </footer>
 
 <script>
-  // Loader fadeout
+  // Remove loader after load
   window.addEventListener('load', () => {
     const loader = document.getElementById('loader');
-    if (loader) {
+    if(loader) {
       loader.style.opacity = '0';
-      setTimeout(() => loader.style.display = 'none', 600);
+      setTimeout(() => loader.style.display = 'none', 400);
     }
+  });
 
-    // Inizializza orologio SBB
-    if (typeof sbbUhr !== "undefined") {
-      try {
-        const miniClock = new sbbUhr('mini-clock', true, 10);
-        miniClock.start();
-      } catch (err) {
-        console.error("Errore orologio:", err);
+  // Mini clock click navigazione
+  const miniClock = document.getElementById('mini-clock');
+  if(miniClock) {
+    miniClock.addEventListener('click', () => {
+      window.location.href = 'clock.html';
+    });
+    miniClock.addEventListener('keypress', e => {
+      if(e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        window.location.href = 'clock.html';
       }
-    }
-  });
-
-  // Dropdown click toggle
-  const dropdown = document.getElementById('dropdownProgetti');
-  const dropbtn = dropdown.querySelector('.dropbtn');
-  const dropdownContent = dropdown.querySelector('.dropdown-content');
-
-  dropbtn.addEventListener('click', (e) => {
-    e.stopPropagation();
-    const expanded = dropdown.getAttribute('aria-expanded') === 'true';
-    if (expanded) {
-      dropdown.classList.remove('open');
-      dropdown.setAttribute('aria-expanded', 'false');
-      dropdownContent.setAttribute('aria-hidden', 'true');
-    } else {
-      dropdown.classList.add('open');
-      dropdown.setAttribute('aria-expanded', 'true');
-      dropdownContent.setAttribute('aria-hidden', 'false');
-      dropbtn.focus();
-    }
-  });
-
-  // Chiudi dropdown cliccando fuori o premendo ESC
-  document.addEventListener('click', (e) => {
-    if (!dropdown.contains(e.target)) {
-      dropdown.classList.remove('open');
-      dropdown.setAttribute('aria-expanded', 'false');
-      dropdownContent.setAttribute('aria-hidden', 'true');
-    }
-  });
-  document.addEventListener('keydown', (e) => {
-    if (e.key === "Escape") {
-      dropdown.classList.remove('open');
-      dropdown.setAttribute('aria-expanded', 'false');
-      dropdownContent.setAttribute('aria-hidden', 'true');
-      dropbtn.focus();
-    }
-  });
-
-  // Logo e orologio: focus + click + cursor pointer fix
-  const logo = document.getElementById('logo');
-  logo.addEventListener('click', () => window.location.href = 'index.html');
-  logo.addEventListener('keydown', e => { if (e.key === "Enter" || e.key === " ") logo.click(); });
-  logo.style.cursor = 'pointer';
-
-  const miniClockEl = document.getElementById('mini-clock');
-  miniClockEl.addEventListener('click', () => window.location.href = 'clock.html');
-  miniClockEl.addEventListener('keydown', e => { if (e.key === "Enter" || e.key === " ") miniClockEl.click(); });
-  miniClockEl.style.cursor = 'pointer';
-
+    });
+  }
 </script>
 
 </body>
