@@ -7,7 +7,7 @@
   <link rel="icon" href="favicon.png" />
   <script src="sbbUhr-1.3.js" defer></script>
   <style>
-    /* RESET & VARIABILI */
+    /* RESET E VARIABILI */
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
     :root {
       --col-green: #00703c;
@@ -16,7 +16,7 @@
       --col-gray-light: #f5f5f7;
       --col-gray-dark: #222;
       --shadow-light: rgba(0, 0, 0, 0.08);
-      --shadow-heavy: rgba(0, 0, 0, 0.18);
+      --shadow-heavy: rgba(0, 0, 0, 0.2);
       --ease: cubic-bezier(0.4, 0, 0.2, 1);
     }
     body {
@@ -25,6 +25,7 @@
       color: var(--col-gray-dark);
       scroll-behavior: smooth;
       overflow-x: hidden;
+      perspective: 1000px;
     }
 
     /* LOADER */
@@ -69,10 +70,12 @@
       padding: 0.6rem 1rem;
       position: relative;
       transition: transform 0.3s var(--ease), color 0.3s var(--ease);
+      display: inline-flex;
+      align-items: center;
     }
     nav a:hover, .dropbtn:hover {
       color: var(--col-green);
-      transform: scale(1.08);
+      transform: scale(1.08) rotateX(3deg);
     }
     nav a::after, .dropbtn::after {
       content: "";
@@ -90,13 +93,19 @@
       opacity: 1;
     }
 
+    /* FRECCIA SEMPRE VISIBILE SOLO PER DROPDOWN */
+    .dropbtn::after {
+      content: " \25BE";
+      font-size: 0.75rem;
+      position: static;
+      margin-left: 0.5rem;
+      opacity: 1;
+      background: none;
+    }
+
     /* DROPDOWN */
     .dropdown {
       position: relative;
-    }
-    .dropbtn::after {
-      content: " ▾";
-      font-size: 0.9rem;
     }
     .dropdown-content {
       display: none;
@@ -108,6 +117,9 @@
       border-radius: 12px;
       padding: 0.5rem 0;
       z-index: 999;
+      min-width: 180px;
+      transform-origin: top;
+      animation: fadeSlideDown 0.6s ease forwards;
     }
     .dropdown:hover .dropdown-content {
       display: block;
@@ -124,6 +136,11 @@
       background: #e6f0ea;
       color: var(--col-green);
       transform: translateX(4px);
+    }
+
+    @keyframes fadeSlideDown {
+      0% { opacity: 0; transform: scaleY(0.8) translateY(-10px); }
+      100% { opacity: 1; transform: scaleY(1) translateY(0); }
     }
 
     /* MINI CLOCK */
@@ -143,19 +160,34 @@
       align-items: center;
       justify-content: center;
       transition: transform 0.3s, box-shadow 0.3s;
+      perspective: 600px;
     }
     #mini-clock:hover {
-      transform: scale(1.1);
+      transform: rotateY(15deg) scale(1.1);
       box-shadow: 0 20px 48px var(--col-green);
     }
 
-    /* MAIN HERO */
+    /* LOGO */
+    #logo {
+      position: fixed;
+      top: 4px;
+      left: 12px;
+      width: 56px;
+      height: 56px;
+      background: var(--col-white);
+      border-radius: 50%;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.12), inset 0 2px 8px rgba(255,255,255,0.9);
+      padding: 6px;
+      z-index: 1001;
+    }
+
+    /* HERO */
     .hero {
       max-width: 760px;
-      margin: 100px auto 2rem auto;
+      margin: 110px auto 2rem auto;
       text-align: center;
       padding: 1rem;
-      animation: fadeIn 1.4s ease;
+      animation: fadePop 1.2s ease;
     }
     .hero h1 {
       font-size: 3.5rem;
@@ -167,7 +199,12 @@
       color: #444;
     }
 
-    /* PROJECT BOX */
+    @keyframes fadePop {
+      0% { opacity: 0; transform: scale(0.9) translateY(30px); }
+      100% { opacity: 1; transform: scale(1) translateY(0); }
+    }
+
+    /* PROGETTI */
     .projects {
       max-width: 1000px;
       margin: 4rem auto;
@@ -175,20 +212,20 @@
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
       gap: 2rem;
-      animation: fadeIn 1.6s ease;
     }
     .projects div {
       background: var(--col-white);
       border-radius: 20px;
       padding: 2rem 1.5rem;
       box-shadow: 0 8px 24px var(--shadow-light);
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      transition: transform 0.4s ease, box-shadow 0.4s ease;
       text-align: center;
       font-weight: 600;
+      transform-style: preserve-3d;
     }
     .projects div:hover {
-      transform: translateY(-6px) scale(1.03);
-      box-shadow: 0 16px 48px var(--shadow-heavy);
+      transform: rotateX(8deg) rotateY(-4deg) scale(1.05);
+      box-shadow: 0 18px 60px rgba(0, 112, 60, 0.35);
       color: var(--col-green);
     }
 
@@ -198,11 +235,6 @@
       margin: 4rem 0 2rem;
       color: #666;
       font-size: 0.9rem;
-    }
-
-    @keyframes fadeIn {
-      0% { opacity: 0; transform: translateY(30px); }
-      100% { opacity: 1; transform: translateY(0); }
     }
 
     @media(max-width: 600px) {
@@ -216,32 +248,36 @@
 <!-- Loader -->
 <div id="loader"><div class="spinner"></div></div>
 
+<!-- Logo -->
+<img src="favicon.png" alt="Logo Miniutti" id="logo" />
+
 <!-- Mini Clock -->
 <div id="mini-clock" title="Orologio SBB"></div>
 
 <!-- Navbar -->
 <nav>
   <a href="index.html">Home</a>
+  <a href="clock.html">SBB Clock</a>
   <div class="dropdown">
     <div class="dropbtn">Progetti</div>
     <div class="dropdown-content">
       <a href="progetto1.html">SBB Clock Digitale</a>
-      <a href="#">Coming soon</a>
+      <a href="#">Altro in arrivo</a>
     </div>
   </div>
-  <a href="clock.html">SBB Clock</a>
 </nav>
 
 <!-- Hero -->
 <section class="hero">
   <h1>Miniutti.it</h1>
-  <p>Esplora i miei progetti tra elettronica, programmazione e design raffinato.</p>
+  <p>Scopri i progetti, i codici e le interfacce eleganti di Tobia Miniutti.</p>
 </section>
 
 <!-- Projects -->
 <section class="projects">
   <div>SBB Clock Digitale</div>
   <div>Progetto 2 (in arrivo)</div>
+  <div>Progetto 3 (in arrivo)</div>
 </section>
 
 <!-- Footer -->
@@ -255,7 +291,6 @@
     document.getElementById('loader').style.opacity = '0';
     setTimeout(() => document.getElementById('loader').style.display = 'none', 400);
 
-    // Orologio
     if (typeof sbbUhr !== "undefined") {
       const clock = new sbbUhr('mini-clock', true, 12);
       clock.start();
