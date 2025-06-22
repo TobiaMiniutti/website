@@ -4,16 +4,16 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Miniutti.it - Home</title>
-<link rel="icon" type="image/png" href="favicon.png" />
+<link rel="icon" href="favicon.png" />
 <script src="sbbUhr-1.3.js"></script>
 <style>
-  /* BASE RESET */
+  /* RESET BASE */
   *, *::before, *::after {
     margin: 0; padding: 0; box-sizing: border-box;
   }
   html {
-    scroll-behavior: smooth;
     font-size: 18px;
+    scroll-behavior: smooth;
   }
   body {
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
@@ -22,105 +22,56 @@
     min-height: 100vh;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    cursor: default;
-    --col-green: #00703c;
-    --col-white: #fff;
-    --col-red: #d62f27;
-    --col-gray-light: #f5f5f7;
-    --col-gray-dark: #2f2f2f;
-    --shadow-light: rgba(0,0,0,0.1);
-    --shadow-strong: rgba(0,0,0,0.18);
-    --ease-smooth: cubic-bezier(0.4, 0, 0.2, 1);
+    user-select: none;
   }
-
-  /* LOADER */
-  #loader {
-    position: fixed;
-    inset: 0;
-    background: var(--col-white);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 99999;
-  }
-  .spinner {
-    width: 70px;
-    height: 70px;
-    border: 7px solid #ddd;
-    border-top-color: var(--col-green);
-    border-radius: 50%;
-    animation: spin 1.2s linear infinite;
-    box-shadow: 0 0 14px var(--col-green);
-  }
-  @keyframes spin { 100% { transform: rotate(360deg); } }
 
   /* NAV BAR */
   nav {
     position: fixed;
-    top: 0; left: 0; width: 100%;
+    top: 0; left: 0; right: 0;
     height: 68px;
+    background: #fff;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
     display: flex;
-    justify-content: center;
     align-items: center;
     gap: 2.5rem;
-    padding: 1rem 3rem;
-    background: var(--col-white);
-    box-shadow: 0 8px 24px var(--shadow-light);
-    z-index: 999;
-    user-select: none;
-    cursor: default;
-    border-bottom: 2px solid var(--col-green);
-    transition: box-shadow 0.5s var(--ease-smooth);
+    padding: 0 3rem;
+    z-index: 1000;
+    border-bottom: 2px solid #00703c;
   }
   nav.scrolled {
-    box-shadow: 0 12px 40px var(--shadow-strong);
+    box-shadow: 0 12px 40px rgba(0, 112, 60, 0.18);
   }
   nav a, .dropbtn {
     font-weight: 600;
     font-size: 1.15rem;
-    color: var(--col-gray-dark);
+    color: #2f2f2f;
     text-decoration: none;
     padding: 0.5rem 1.25rem;
     border-radius: 16px;
     cursor: pointer;
-    user-select: none;
     position: relative;
-    transition: color 0.4s var(--ease-smooth), transform 0.3s ease;
+    user-select: none;
+    transition: color 0.4s cubic-bezier(0.4, 0, 0.2, 1), transform 0.3s ease;
   }
-
-  /* Freccia sempre visibile */
-  .dropbtn::after {
-    content: " ▾";
-    font-size: 1rem;
-    color: var(--col-gray-dark);
-    margin-left: 4px;
-    pointer-events: none;
-    transition: color 0.4s var(--ease-smooth);
-  }
-
   nav a:hover, nav a:focus-visible,
   .dropbtn:hover, .dropbtn:focus-visible {
-    color: var(--col-green);
+    color: #00703c;
     transform: scale(1.1);
     outline: none;
   }
-  .dropbtn:hover::after, .dropbtn:focus-visible::after {
-    color: var(--col-green);
-  }
-
-  /* tricolor underline on hover */
   nav a::after, .dropbtn::after {
+    content: "";
     position: absolute;
     bottom: 0.22rem;
     left: 10%;
     width: 80%;
     height: 3px;
     border-radius: 4px;
-    background: linear-gradient(90deg, var(--col-green) 0%, var(--col-white) 50%, var(--col-red) 100%);
+    background: linear-gradient(90deg, #00703c 0%, #fff 50%, #d62f27 100%);
     opacity: 0;
     pointer-events: none;
-    transition: opacity 0.4s var(--ease-smooth);
-    content: "";
+    transition: opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   }
   nav a:hover::after, nav a:focus-visible::after,
   .dropbtn:hover::after, .dropbtn:focus-visible::after {
@@ -132,6 +83,14 @@
     position: relative;
     user-select: none;
   }
+  /* freccina sempre visibile */
+  .dropbtn::after {
+    content: " ▾";
+    font-weight: 700;
+    font-size: 1rem;
+    color: #00703c;
+    pointer-events: none;
+  }
   .dropdown-content {
     display: flex;
     flex-direction: column;
@@ -139,39 +98,31 @@
     top: 110%;
     left: 0;
     min-width: 180px;
-    background: var(--col-white);
+    background: #fff;
     border-radius: 18px;
-    box-shadow: 0 12px 30px var(--shadow-strong);
+    box-shadow: 0 12px 30px rgba(0,112,60,0.18);
     opacity: 0;
     pointer-events: none;
     transform: translateY(14px);
-    transition: opacity 0.35s var(--ease-smooth), transform 0.35s var(--ease-smooth);
+    transition: opacity 0.35s cubic-bezier(0.4, 0, 0.2, 1), transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
     z-index: 1001;
   }
   .dropdown:hover .dropdown-content,
-  .dropdown:focus-within .dropdown-content,
-  .dropdown[aria-expanded="true"] .dropdown-content {
+  .dropdown:focus-within .dropdown-content {
     opacity: 1;
     pointer-events: auto;
     transform: translateY(0);
   }
   .dropdown-content a {
     padding: 14px 24px;
-    color: var(--col-gray-dark);
-    text-decoration: none;
-    cursor: pointer;
+    color: #2f2f2f;
     font-weight: 500;
     font-size: 1rem;
+    text-decoration: none;
+    cursor: pointer;
+    user-select: none;
     transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease;
     position: relative;
-    user-select: none;
-    border-radius: 12px;
-  }
-  .dropdown-content a:hover, .dropdown-content a:focus-visible {
-    background-color: #e6f0ea;
-    color: var(--col-green);
-    outline: none;
-    transform: scale(1.04);
   }
   .dropdown-content a.empty {
     color: #bbb;
@@ -179,15 +130,12 @@
     font-style: italic;
     font-weight: 500;
   }
-  .dropdown-content a.empty:hover, .dropdown-content a.empty:focus-visible {
-    background: none;
-    color: #bbb;
-    transform: none;
-    cursor: default;
+  .dropdown-content a:hover:not(.empty), 
+  .dropdown-content a:focus-visible:not(.empty) {
+    background-color: #e6f0ea;
+    color: #00703c;
     outline: none;
-  }
-  .dropdown-content a:hover::after, .dropdown-content a:focus-visible::after {
-    opacity: 1;
+    transform: scale(1.04);
   }
 
   /* LOGO */
@@ -197,76 +145,56 @@
     left: 18px;
     width: 56px;
     height: 56px;
-    background: var(--col-white);
+    background: #fff;
     padding: 10px;
     border-radius: 50%;
-    box-shadow:
-      0 8px 18px rgba(0,0,0,0.09),
-      inset 0 1px 7px rgba(255,255,255,0.98);
+    box-shadow: 0 8px 18px rgba(0,0,0,0.09), inset 0 1px 7px rgba(255,255,255,0.98);
     cursor: pointer;
-    transition:
-      transform 0.45s var(--ease-smooth),
-      box-shadow 0.45s var(--ease-smooth);
-    will-change: transform, box-shadow;
-    z-index: 1001;
+    transition: transform 0.45s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.45s cubic-bezier(0.4, 0, 0.2, 1);
     display: flex;
     align-items: center;
     justify-content: center;
-    perspective: 800px;
+    z-index: 1001;
   }
   #logo:hover, #logo:focus-visible {
     outline: none;
-    transform: scale(1.22) rotateY(20deg) translateZ(2px);
-    box-shadow:
-      0 14px 48px var(--col-green),
-      inset 0 1px 10px rgba(255,255,255,1);
+    transform: scale(1.22);
+    box-shadow: 0 14px 48px #00703c, inset 0 1px 10px rgba(255,255,255,1);
   }
 
-  /* MINI CLOCK - centrato verticalmente */
+  /* MINI CLOCK */
   #mini-clock {
     position: fixed;
-    top: 50%;
+    top: 12px;
     right: 18px;
     width: 56px;
     height: 56px;
-    background: var(--col-white);
+    background: #fff;
     border-radius: 50%;
     padding: 8px;
-    box-shadow:
-      0 6px 16px rgba(0,0,0,0.08),
-      inset 0 1px 8px rgba(255,255,255,0.95);
+    box-shadow: 0 6px 16px rgba(0,0,0,0.08), inset 0 1px 8px rgba(255,255,255,0.95);
     cursor: pointer;
     filter: drop-shadow(0 2px 6px rgba(0,0,0,0.1));
-    transition:
-      filter 0.4s var(--ease-smooth),
-      transform 0.45s var(--ease-smooth),
-      box-shadow 0.45s var(--ease-smooth);
-    will-change: filter, transform, box-shadow;
-    z-index: 1001;
+    transition: filter 0.4s cubic-bezier(0.4, 0, 0.2, 1), transform 0.45s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.45s cubic-bezier(0.4, 0, 0.2, 1);
     display: flex;
     align-items: center;
     justify-content: center;
-    perspective: 800px;
-    transform: translateY(-50%);
+    z-index: 1001;
   }
   #mini-clock:hover, #mini-clock:focus-visible {
-    filter: drop-shadow(0 12px 28px var(--col-green));
+    filter: drop-shadow(0 12px 28px #00703c);
     outline: none;
-    transform: translateY(-50%) scale(1.22) rotateY(20deg) translateZ(2px);
-    box-shadow:
-      0 20px 52px var(--col-green),
-      inset 0 1px 12px rgba(255,255,255,0.98);
+    transform: scale(1.22);
+    box-shadow: 0 20px 52px #00703c, inset 0 1px 12px rgba(255,255,255,0.98);
   }
 
   /* MAIN HERO */
   main.hero {
     max-width: 720px;
-    margin: 110px auto 4rem auto;
+    margin: 110px auto 4rem;
     padding: 0 1rem;
     text-align: center;
-    user-select: none;
-    color: var(--col-gray-dark);
-    perspective: 900px;
+    color: #2f2f2f;
   }
   main.hero h1 {
     font-weight: 900;
@@ -277,7 +205,7 @@
     transition: transform 0.6s ease;
   }
   main.hero h1:hover, main.hero h1:focus-visible {
-    transform: scale(1.05) rotateX(6deg);
+    transform: scale(1.05);
     outline: none;
   }
   main.hero p {
@@ -289,171 +217,304 @@
     font-weight: 500;
   }
 
-  /* FEATURES */
+  /* Features */
   section.features {
     max-width: 1024px;
-    margin: 0 auto 5rem auto;
+    margin: 0 auto 5rem;
     padding: 0 2rem;
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px,1fr));
     gap: 3rem;
-    perspective: 900px;
   }
   section.features .feature {
-    background: var(--col-gray-light);
+    background: #f5f5f7;
     border-radius: 24px;
     padding: 3rem 2.4rem;
-    box-shadow: 0 10px 32px var(--shadow-light);
+    box-shadow: 0 10px 32px rgba(0,0,0,0.1);
     text-align: center;
-    transition:
-      transform 0.5s var(--ease-smooth),
-      box-shadow 0.4s ease;
     cursor: default;
-    color: var(--col-gray-dark);
+    color: #2f2f2f;
     user-select: none;
-    position: relative;
-    transform-style: preserve-3d;
+    transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.4s ease;
   }
   section.features .feature:hover, section.features .feature:focus-visible {
     box-shadow: 0 20px 64px rgba(0,112,60,0.25);
-    transform: translateZ(16px);
+    transform: translateY(-10px) translateZ(12px);
     outline: none;
   }
-  section.features .feature h2 {
-    font-weight: 800;
-    font-size: 1.65rem;
-    margin-bottom: 1rem;
+  section.features .feature svg {
+    width: 68px;
+    height: 68px;
+    margin-bottom: 1.6rem;
+    fill: #00703c;
+    transition: fill 0.35s ease;
+  }
+  section.features .feature:hover svg, section.features .feature:focus-visible svg {
+    fill: #d62f27;
+  }
+  section.features .feature h3 {
+    font-weight: 700;
+    font-size: 1.5rem;
+    margin-bottom: 0.6rem;
   }
   section.features .feature p {
     font-weight: 500;
-    font-size: 1.1rem;
-    line-height: 1.45;
+    font-size: 1.12rem;
     color: #444;
+    line-height: 1.55;
+  }
+
+  /* Projects */
+  section.projects {
+    max-width: 980px;
+    margin: 0 auto 6rem;
+    padding: 0 1rem;
+    text-align: center;
+  }
+  section.projects h2 {
+    font-weight: 800;
+    font-size: 2.8rem;
+    color: #2f2f2f;
+    margin-bottom: 1.8rem;
+    text-shadow: 0 0 2px rgba(0,0,0,0.03);
+  }
+  section.projects ul {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(auto-fit,minmax(280px,1fr));
+    gap: 2.6rem;
+    padding: 0;
+  }
+  section.projects li {
+    background: #f5f5f7;
+    border-radius: 22px;
+    padding: 1.6rem 1.4rem;
+    box-shadow: 0 10px 28px rgba(0,0,0,0.1);
+    font-weight: 600;
+    color: #2f2f2f;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.18rem;
+    cursor: pointer;
+    user-select: none;
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
+    position: relative;
+    overflow: hidden;
+  }
+  section.projects li:hover, section.projects li:focus-visible {
+    box-shadow: 0 20px 56px rgba(0,112,60,0.3);
+    transform: translateY(-8px) translateZ(15px);
+    outline: none;
+    color: #d62f27;
+  }
+  section.projects li.empty {
+    color: #bbb;
+    cursor: default;
+    font-style: italic;
+    font-weight: 500;
+  }
+  section.projects li.empty:hover {
+    box-shadow: none;
+    transform: none;
+    color: #bbb;
+  }
+
+  /* SOCIAL */
+  section.social {
+    max-width: 980px;
+    margin: 0 auto 3.5rem;
+    padding: 0 1rem;
+    text-align: center;
+  }
+  section.social a {
+    display: inline-block;
+    margin: 0 1.2rem;
+    color: #2f2f2f;
+    transition: color 0.35s ease, transform 0.3s ease;
+  }
+  section.social a:hover, section.social a:focus-visible {
+    color: #00703c;
+    transform: scale(1.15);
+    outline: none;
+  }
+  section.social svg {
+    width: 30px;
+    height: 30px;
+    vertical-align: middle;
+  }
+
+  /* FOOTER */
+  footer {
+    font-weight: 400;
+    font-size: 0.85rem;
+    text-align: center;
+    color: #666;
+    margin-bottom: 3rem;
+    user-select: none;
+  }
+  footer a {
+    color: #00703c;
+    font-weight: 600;
+    text-decoration: none;
+    transition: color 0.3s ease;
+  }
+  footer a:hover, footer a:focus-visible {
+    color: #d62f27;
+    text-decoration: underline;
+    outline: none;
+  }
+
+  /* ACCESSIBILITY */
+  a:focus-visible, button:focus-visible, .dropbtn:focus-visible {
+    outline: 3px solid #00703c;
+    outline-offset: 4px;
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 720px) {
+    nav {
+      gap: 1.2rem;
+      padding: 1rem 1.5rem;
+      height: 60px;
+    }
+    main.hero h1 {
+      font-size: 2.8rem;
+    }
+    section.features {
+      grid-template-columns: 1fr;
+      padding: 0 1rem;
+      gap: 2rem;
+    }
+    section.projects ul {
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
   }
 </style>
 </head>
 <body>
 
-<!-- Loader -->
-<div id="loader" aria-hidden="true">
-  <div class="spinner" role="status" aria-label="Caricamento in corso"></div>
-</div>
+<!-- LOGO -->
+<img id="logo" src="favicon.png" alt="Logo Miniutti.it" tabindex="0" aria-label="Logo Miniutti.it" />
 
-<!-- NAVBAR -->
+<!-- NAVIGATION -->
 <nav role="navigation" aria-label="Menu principale">
-  <a href="index.html" tabindex="0" aria-current="page">Home</a>
-
-  <div class="dropdown" id="dropdownProgetti" role="menu" aria-haspopup="true" aria-expanded="false" tabindex="0" aria-label="Progetti con sottomenu">
-    <span class="dropbtn" role="menuitem" aria-haspopup="true" aria-expanded="false" tabindex="0">Progetti</span>
-    <div class="dropdown-content" role="menu" aria-label="Sottomenu Progetti">
-      <a href="sbb-clock.html" role="menuitem" tabindex="-1">SBB Clock</a>
-      <a href="#" role="menuitem" tabindex="-1" class="empty" aria-disabled="true" tabindex="-1">MoonWolf (in pausa)</a>
-      <a href="#" role="menuitem" tabindex="-1" class="empty" aria-disabled="true" tabindex="-1">Progetto 3 (in arrivo)</a>
+  <a href="index.html" tabindex="0">Home</a>
+  <a href="clock.html" tabindex="0">SBB Clock</a>
+  <div class="dropdown" tabindex="0" aria-haspopup="true" aria-expanded="false" id="dropdownProgetti">
+    <div class="dropbtn" tabindex="-1" aria-label="Apri menu Progetti">Progetti</div>
+    <div class="dropdown-content" role="menu" aria-hidden="true">
+      <a href="progetto1.html" role="menuitem" tabindex="-1">SBB Clock Digitale</a>
+      <a class="empty" role="menuitem" tabindex="-1" aria-disabled="true">Progetto 2 (in arrivo)</a>
+      <a class="empty" role="menuitem" tabindex="-1" aria-disabled="true">Progetto 3 (in arrivo)</a>
+      <a href="progetti.html" role="menuitem" tabindex="-1" style="border-top: 1px solid #ddd; margin-top: 8px; padding-top: 10px;">Altri Progetti</a>
     </div>
   </div>
-
-  <a href="diritti.html" tabindex="0">Diritti</a>
 </nav>
 
-<!-- LOGO -->
-<a href="index.html" id="logo" tabindex="0" aria-label="Torna alla Home">
-  <img src="favicon.png" alt="Logo Miniutti" width="36" height="36" loading="lazy" />
-</a>
-
-<!-- MINI CLOCK SBB -->
-<button id="mini-clock" aria-label="Visualizza orologio completo" title="Visualizza orologio completo" tabindex="0"></button>
+<!-- MINI CLOCK -->
+<div id="mini-clock" role="link" tabindex="0" aria-label="Vai alla pagina orologio SBB"></div>
 
 <!-- MAIN CONTENT -->
 <main class="hero" role="main">
-  <h1 tabindex="0">Benvenuto su Miniutti.it</h1>
-  <p tabindex="0">Progetti personali di Tobia Miniutti, tra cui l'orologio digitale ufficiale SBB.</p>
+  <h1>Miniutti.it</h1>
+  <p>Benvenuto nel sito personale di Tobia Miniutti. Qui trovi i miei progetti, passioni e lavori tra elettronica, programmazione e design web moderno.</p>
 </main>
 
 <!-- FEATURES -->
-<section class="features" aria-label="Sezione caratteristiche principali">
-  <article class="feature" tabindex="0">
-    <h2>SBB Clock</h2>
-    <p>Orologio digitale sincronizzato con il tempo ufficiale SBB, semplice e affidabile.</p>
+<section class="features" aria-label="Caratteristiche principali">
+  <article class="feature" tabindex="0" aria-describedby="feature1desc" role="region">
+    <svg aria-hidden="true" focusable="false" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="32" cy="32" r="28" stroke="#00703c" fill="rgba(0,112,60,0.15)"/>
+      <path d="M40 26L24 38M40 38L24 26" stroke="#00703c"/>
+    </svg>
+    <h3>Design Moderno</h3>
+    <p id="feature1desc">Interfaccia pulita, elegante e fluida ispirata ai migliori siti Apple e Rolex.</p>
   </article>
-  <article class="feature" tabindex="0">
-    <h2>Progetti Futuri</h2>
-    <p>Altri progetti in sviluppo, presto disponibili.</p>
+
+  <article class="feature" tabindex="0" aria-describedby="feature2desc" role="region">
+    <svg aria-hidden="true" focusable="false" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+      <rect x="10" y="10" width="44" height="44" rx="8" ry="8" stroke="#d62f27" fill="rgba(214,47,39,0.15)" />
+      <path d="M22 32h20" stroke="#d62f27" />
+      <path d="M32 22v20" stroke="#d62f27" />
+    </svg>
+    <h3>Orologio SBB</h3>
+    <p id="feature2desc">L’orologio ufficiale SBB sincronizzato, bello e preciso, facile da consultare.</p>
   </article>
-  <article class="feature" tabindex="0">
-    <h2>Accessibilità</h2>
-    <p>Interfaccia pensata per essere semplice, pulita e utilizzabile da tutti.</p>
+
+  <article class="feature" tabindex="0" aria-describedby="feature3desc" role="region">
+    <svg aria-hidden="true" focusable="false" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M16 48h32M16 40h32M16 32h32" stroke="#00703c"/>
+    </svg>
+    <h3>Menu Intuitivo</h3>
+    <p id="feature3desc">Navigazione chiara con dropdown animati e accessibili su desktop e mobile.</p>
   </article>
 </section>
 
+<!-- PROJECTS -->
+<section class="projects" aria-label="Progetti recenti">
+  <h2>Progetti</h2>
+  <ul>
+    <li tabindex="0"><a href="sbb-clock.html" style="text-decoration:none; color:inherit;">SBB Clock Digitale</a></li>
+    <li class="empty" tabindex="-1" aria-disabled="true">Progetto 2 (in arrivo)</li>
+    <li class="empty" tabindex="-1" aria-disabled="true">Progetto 3 (in arrivo)</li>
+  </ul>
+</section>
+
+<!-- FOOTER -->
+<footer role="contentinfo">
+  &copy; 2025 Tobia Miniutti. Tutti i diritti riservati.
+</footer>
+
 <script>
-  // Nascondi loader quando pagina pronta
-  window.addEventListener('load', () => {
-    const loader = document.getElementById('loader');
-    loader.style.opacity = '0';
-    setTimeout(() => loader.style.display = 'none', 400);
-  });
+  // Inizializza l’orologio SBB
+  document.addEventListener('DOMContentLoaded', () => {
+    if (typeof SbbClock === 'function') {
+      new SbbClock('#mini-clock');
+    }
 
-  // Gestione dropdown con aria-expanded e focus/hover
-  const dropdown = document.getElementById('dropdownProgetti');
-  const dropbtn = dropdown.querySelector('.dropbtn');
+    // Dropdown aria
+    const dropdown = document.getElementById('dropdownProgetti');
+    dropdown.addEventListener('mouseenter', () => {
+      dropdown.setAttribute('aria-expanded', 'true');
+      dropdown.querySelector('.dropdown-content').setAttribute('aria-hidden', 'false');
+    });
+    dropdown.addEventListener('mouseleave', () => {
+      dropdown.setAttribute('aria-expanded', 'false');
+      dropdown.querySelector('.dropdown-content').setAttribute('aria-hidden', 'true');
+    });
+    dropdown.addEventListener('focusin', () => {
+      dropdown.setAttribute('aria-expanded', 'true');
+      dropdown.querySelector('.dropdown-content').setAttribute('aria-hidden', 'false');
+    });
+    dropdown.addEventListener('focusout', () => {
+      dropdown.setAttribute('aria-expanded', 'false');
+      dropdown.querySelector('.dropdown-content').setAttribute('aria-hidden', 'true');
+    });
 
-  function setExpanded(state) {
-    dropdown.setAttribute('aria-expanded', state);
-    dropbtn.setAttribute('aria-expanded', state);
-  }
-
-  dropdown.addEventListener('keydown', e => {
-    if(['Enter', ' ', 'ArrowDown'].includes(e.key)) {
-      e.preventDefault();
-      const expanded = dropdown.getAttribute('aria-expanded') === 'true';
-      setExpanded(!expanded);
-      if (!expanded) {
-        const firstLink = dropdown.querySelector('.dropdown-content a:not(.empty)');
-        if(firstLink) firstLink.focus();
+    // Click mini-clock va su clock.html
+    document.getElementById('mini-clock').addEventListener('click', () => {
+      window.location.href = 'clock.html';
+    });
+    document.getElementById('mini-clock').addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        window.location.href = 'clock.html';
       }
-    }
-    if(e.key === "Escape") {
-      setExpanded(false);
-      dropbtn.focus();
-    }
-  });
+    });
 
-  dropdown.addEventListener('mouseenter', () => setExpanded(true));
-  dropdown.addEventListener('mouseleave', () => setExpanded(false));
-  dropdown.addEventListener('focusin', () => setExpanded(true));
-  dropdown.addEventListener('focusout', (e) => {
-    // Se il focus esce dal dropdown intero, chiudi menu
-    if (!dropdown.contains(e.relatedTarget)) {
-      setExpanded(false);
-    }
-  });
-
-  // Inizializza SBB clock nel mini-clock
-  const miniClock = document.getElementById('mini-clock');
-
-  // Crea orologio SBB con le impostazioni base, dimensioni compatte
-  // Usa la libreria sbbUhr-1.3.js già inclusa
-
-  // Configura orologio SBB come elemento SVG dentro mini-clock
-  miniClock.innerHTML = '';
-  const sbbClock = new window.SbbUhr({
-    el: miniClock,
-    size: 56,
-    style: 'digital',
-    showSecondHand: false,
-    // Opzioni extra come da libreria
-  });
-  sbbClock.init();
-
-  // Clic o invio su mini-clock apre pagina orologio completo
-  miniClock.addEventListener('click', () => window.location.href = 'sbb-clock.html');
-  miniClock.addEventListener('keydown', e => {
-    if(e.key === 'Enter' || e.key === ' ') {
-      e.preventDefault();
-      window.location.href = 'sbb-clock.html';
-    }
+    // Logo click torna home
+    document.getElementById('logo').addEventListener('click', () => {
+      window.location.href = 'index.html';
+    });
+    document.getElementById('logo').addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        window.location.href = 'index.html';
+      }
+    });
   });
 </script>
-
 </body>
 </html>
