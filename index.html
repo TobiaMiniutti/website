@@ -196,24 +196,31 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    perspective: 800px;
   }
   #logo:hover, #logo:focus-visible {
     outline: none;
-    transform: scale(1.2) rotateY(20deg);
+    transform: scale(1.22) rotateY(20deg) translateZ(2px);
     box-shadow:
       0 14px 48px var(--col-green),
       inset 0 1px 10px rgba(255,255,255,1);
   }
 
-  /* MINI CLOCK - EFFETTO SIMILE AL LOGO */
+  /* MINI CLOCK - EFFETTO SIMILE AL LOGO, CORRETTO VISIBILITÀ */
   #mini-clock {
     position: fixed;
     top: 12px;
     right: 18px;
     width: 56px;
     height: 56px;
+    background: var(--col-white);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow:
+      0 6px 16px rgba(0,0,0,0.08),
+      inset 0 1px 8px rgba(255,255,255,0.95);
     cursor: pointer;
-    filter: drop-shadow(0 3px 7px rgba(0,0,0,0.06));
+    filter: drop-shadow(0 2px 6px rgba(0,0,0,0.1));
     transition:
       filter 0.4s var(--ease-smooth),
       transform 0.45s var(--ease-smooth),
@@ -223,11 +230,12 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    perspective: 800px;
   }
   #mini-clock:hover, #mini-clock:focus-visible {
     filter: drop-shadow(0 12px 28px var(--col-green));
     outline: none;
-    transform: scale(1.18) rotateY(20deg);
+    transform: scale(1.22) rotateY(20deg) translateZ(2px);
     box-shadow:
       0 20px 52px var(--col-green),
       inset 0 1px 12px rgba(255,255,255,0.98);
@@ -241,13 +249,19 @@
     text-align: center;
     user-select: none;
     color: var(--col-gray-dark);
+    perspective: 900px;
   }
   main.hero h1 {
     font-weight: 900;
     font-size: 3.8rem;
     margin-bottom: 0.4rem;
     letter-spacing: -0.025em;
-    text-shadow: 0 0 3px rgba(0,0,0,0.05);
+    text-shadow: 0 0 3px rgba(0,0,0,0.04);
+    transition: transform 0.6s ease;
+  }
+  main.hero h1:hover, main.hero h1:focus-visible {
+    transform: scale(1.05) rotateX(6deg);
+    outline: none;
   }
   main.hero p {
     font-size: 1.3rem;
@@ -266,6 +280,7 @@
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px,1fr));
     gap: 3rem;
+    perspective: 900px;
   }
   section.features .feature {
     background: var(--col-gray-light);
@@ -273,15 +288,18 @@
     padding: 3rem 2.4rem;
     box-shadow: 0 10px 32px var(--shadow-light);
     text-align: center;
-    transition: transform 0.5s var(--ease-smooth), box-shadow 0.4s ease;
+    transition:
+      transform 0.5s var(--ease-smooth),
+      box-shadow 0.4s ease;
     cursor: default;
     color: var(--col-gray-dark);
     user-select: none;
     position: relative;
+    transform-style: preserve-3d;
   }
   section.features .feature:hover, section.features .feature:focus-visible {
-    box-shadow: 0 20px 64px rgba(0,112,60,0.22);
-    transform: translateY(-10px);
+    box-shadow: 0 20px 64px rgba(0,112,60,0.25);
+    transform: translateY(-10px) rotateX(8deg) translateZ(12px);
     outline: none;
   }
   section.features .feature svg {
@@ -343,117 +361,56 @@
     transition: box-shadow 0.3s ease, transform 0.3s ease;
     position: relative;
     overflow: hidden;
+    transform-style: preserve-3d;
   }
   section.projects li:hover, section.projects li:focus-visible {
-    box-shadow: 0 20px 56px rgba(0,112,60,0.22);
-    transform: translateY(-6px);
+    box-shadow: 0 20px 56px rgba(0,112,60,0.3);
+    transform: translateY(-8px) translateZ(15px);
     outline: none;
+    color: var(--col-red);
   }
   section.projects li.empty {
+    color: #bbb;
     cursor: default;
     font-style: italic;
-    font-weight: 400;
-    color: #999;
+    font-weight: 500;
+  }
+  section.projects li.empty:hover {
     box-shadow: none;
     transform: none;
-    pointer-events: none;
-  }
-  section.projects li a {
-    text-decoration: none;
-    color: var(--col-gray-dark);
-    width: 100%;
-    display: inline-block;
+    color: #bbb;
   }
 
-  /* SOCIAL */
+  /* SOCIAL LINKS */
   section.social {
-    display: flex;
-    justify-content: center;
-    gap: 3.8rem;
-    margin-bottom: 5rem;
-    user-select: none;
+    max-width: 980px;
+    margin: 0 auto 3.5rem auto;
+    padding: 0 1rem;
+    text-align: center;
   }
   section.social a {
-    background: var(--col-gray-light);
-    width: 48px;
-    height: 48px;
-    border-radius: 50%;
-    box-shadow: 0 4px 14px var(--shadow-light);
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    display: inline-block;
+    margin: 0 1.2rem;
     color: var(--col-gray-dark);
-    cursor: pointer;
-    transition: box-shadow 0.35s ease, color 0.35s ease, transform 0.3s ease;
-    position: relative;
-    outline-offset: 4px;
+    transition: color 0.35s ease, transform 0.3s ease;
   }
   section.social a:hover, section.social a:focus-visible {
     color: var(--col-green);
-    box-shadow: 0 10px 28px rgba(0,112,60,0.22);
+    transform: scale(1.15);
     outline: none;
-    background: var(--col-white);
-    transform: scale(1.1);
   }
   section.social svg {
-    width: 26px;
-    height: 26px;
-    fill: currentColor;
-  }
-
-  /* CTA */
-  section.cta {
-    max-width: 620px;
-    margin: 0 auto 6rem auto;
-    padding: 3.5rem 3.2rem;
-    background: var(--col-white);
-    border-radius: 24px;
-    box-shadow: 0 10px 36px var(--shadow-light);
-    text-align: center;
-    user-select: none;
-    transition: box-shadow 0.5s var(--ease-smooth);
-  }
-  section.cta:hover, section.cta:focus-within {
-    box-shadow: 0 16px 48px rgba(0,112,60,0.3);
-  }
-  section.cta h2 {
-    font-weight: 900;
-    font-size: 2.4rem;
-    margin-bottom: 0.8rem;
-    color: var(--col-gray-dark);
-  }
-  section.cta p {
-    font-weight: 600;
-    font-size: 1.18rem;
-    margin-bottom: 2.4rem;
-    color: #444;
-  }
-  section.cta button {
-    background: linear-gradient(90deg, var(--col-green), var(--col-red));
-    border: none;
-    border-radius: 30px;
-    padding: 1rem 3.8rem;
-    font-weight: 800;
-    font-size: 1.22rem;
-    color: var(--col-white);
-    cursor: pointer;
-    box-shadow: 0 8px 26px rgba(198,45,51,0.7);
-    transition: background 0.4s ease, box-shadow 0.4s ease, transform 0.3s ease;
-    user-select: none;
-    letter-spacing: 0.05em;
-  }
-  section.cta button:hover, section.cta button:focus-visible {
-    background: linear-gradient(90deg, var(--col-red), var(--col-green));
-    box-shadow: 0 12px 38px rgba(0,112,60,0.9);
-    outline: none;
-    transform: scale(1.07);
+    width: 30px;
+    height: 30px;
+    vertical-align: middle;
   }
 
   /* FOOTER */
   footer {
+    font-weight: 400;
+    font-size: 0.85rem;
     text-align: center;
-    font-size: 0.9rem;
-    color: #888;
+    color: #666;
     margin-bottom: 3rem;
     user-select: none;
   }
@@ -461,15 +418,15 @@
     color: var(--col-green);
     font-weight: 600;
     text-decoration: none;
-    transition: color 0.35s ease;
+    transition: color 0.3s ease;
   }
   footer a:hover, footer a:focus-visible {
+    color: var(--col-red);
     text-decoration: underline;
     outline: none;
-    color: var(--col-red);
   }
 
-  /* FOCUS ACCESSIBILITY */
+  /* ACCESSIBILITY */
   a:focus-visible, button:focus-visible, .dropbtn:focus-visible {
     outline: 3px solid var(--col-green);
     outline-offset: 4px;
@@ -478,108 +435,118 @@
   /* RESPONSIVE */
   @media (max-width: 720px) {
     nav {
+      gap: 1.2rem;
       padding: 1rem 1.5rem;
-      gap: 1.5rem;
       height: 60px;
     }
     main.hero h1 {
-      font-size: 2.6rem;
+      font-size: 2.8rem;
     }
     section.features {
       grid-template-columns: 1fr;
       padding: 0 1rem;
-      gap: 1.8rem;
+      gap: 2rem;
     }
     section.projects ul {
       grid-template-columns: 1fr;
-      gap: 1.8rem;
+      gap: 2rem;
     }
     section.cta {
-      margin: 0 1rem 4rem 1rem;
-      padding: 2.2rem 1.5rem 3rem 1.5rem;
+      margin: 0 1rem 3rem 1rem;
+      padding: 1.8rem 1rem 2.5rem 1rem;
     }
   }
 </style>
 </head>
 <body>
-  <div id="loader" role="alert" aria-live="assertive" aria-label="Caricamento in corso">
-    <div class="spinner"></div>
-  </div>
 
-  <img id="logo" src="favicon.png" alt="Logo Miniutti.it" tabindex="0" aria-label="Logo Miniutti.it" />
+<!-- Loader -->
+<div id="loader" role="alert" aria-live="assertive" aria-label="Caricamento in corso">
+  <div class="spinner"></div>
+</div>
 
-  <nav role="navigation" aria-label="Menu principale">
-    <a href="index.html" tabindex="0">Home</a>
-    <a href="clock.html" tabindex="0">SBB Clock</a>
-    <div class="dropdown" tabindex="0" aria-haspopup="true" aria-expanded="false" id="dropdownProgetti">
-      <div class="dropbtn" tabindex="-1" aria-label="Apri menu Progetti">Progetti ▾</div>
-      <div class="dropdown-content" role="menu" aria-hidden="true">
-        <a href="progetto1.html" role="menuitem" tabindex="-1">SBB Clock Digitale</a>
-        <a class="empty" role="menuitem" tabindex="-1" aria-disabled="true">Progetto 2 (in arrivo)</a>
-        <a class="empty" role="menuitem" tabindex="-1" aria-disabled="true">Progetto 3 (in arrivo)</a>
-      </div>
+<!-- Logo -->
+<img id="logo" src="favicon.png" alt="Logo Miniutti.it" tabindex="0" aria-label="Logo Miniutti.it" />
+
+<!-- Navigation -->
+<nav role="navigation" aria-label="Menu principale">
+  <a href="index.html" tabindex="0">Home</a>
+  <a href="clock.html" tabindex="0">SBB Clock</a>
+  <div class="dropdown" tabindex="0" aria-haspopup="true" aria-expanded="false" id="dropdownProgetti">
+    <div class="dropbtn" tabindex="-1" aria-label="Apri menu Progetti">Progetti ▾</div>
+    <div class="dropdown-content" role="menu" aria-hidden="true">
+      <a href="progetto1.html" role="menuitem" tabindex="-1">SBB Clock Digitale</a>
+      <a class="empty" role="menuitem" tabindex="-1" aria-disabled="true">Progetto 2 (in arrivo)</a>
+      <a class="empty" role="menuitem" tabindex="-1" aria-disabled="true">Progetto 3 (in arrivo)</a>
     </div>
-  </nav>
+  </div>
+</nav>
 
-  <div id="mini-clock" role="link" tabindex="0" aria-label="Vai alla pagina orologio SBB"></div>
+<!-- Mini clock -->
+<div id="mini-clock" role="link" tabindex="0" aria-label="Vai alla pagina orologio SBB"></div>
 
-  <main class="hero" role="main">
-    <h1>Miniutti.it</h1>
-    <p>Benvenuto nel sito personale di Tobia Miniutti. Qui trovi i miei progetti, passioni e lavori tra elettronica, programmazione e design web moderno.</p>
-  </main>
+<!-- Main content -->
+<main class="hero" role="main">
+  <h1>Miniutti.it</h1>
+  <p>Benvenuto nel sito personale di Tobia Miniutti. Qui trovi i miei progetti, passioni e lavori tra elettronica, programmazione e design web moderno.</p>
+</main>
 
-  <section class="features" aria-label="Caratteristiche principali">
-    <article class="feature" tabindex="0" aria-describedby="feature1desc" role="region">
-      <svg aria-hidden="true" focusable="false" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
-        <circle cx="32" cy="32" r="28" stroke="var(--col-green)" fill="rgba(0,112,60,0.15)"/>
-        <path d="M40 26L24 38M40 38L24 26" stroke="var(--col-green)"/>
-      </svg>
-      <h3>Design Moderno</h3>
-      <p id="feature1desc">Interfaccia pulita, elegante e fluida ispirata ai migliori siti Apple e Uiverse.</p>
-    </article>
+<!-- Features -->
+<section class="features" aria-label="Caratteristiche principali">
+  <article class="feature" tabindex="0" aria-describedby="feature1desc" role="region">
+    <svg aria-hidden="true" focusable="false" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="32" cy="32" r="28" stroke="var(--col-green)" fill="rgba(0,112,60,0.15)"/>
+      <path d="M40 26L24 38M40 38L24 26" stroke="var(--col-green)"/>
+    </svg>
+    <h3>Design Moderno</h3>
+    <p id="feature1desc">Interfaccia pulita, elegante e fluida ispirata ai migliori siti Apple e Uiverse.</p>
+  </article>
 
-    <article class="feature" tabindex="0" aria-describedby="feature2desc" role="region">
-      <svg aria-hidden="true" focusable="false" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
-        <rect x="10" y="10" width="44" height="44" rx="10" ry="10" stroke="var(--col-green)" fill="rgba(0,112,60,0.15)"/>
-        <path d="M22 22h20v20H22z" fill="var(--col-green)"/>
-      </svg>
-      <h3>Responsive & Accessibile</h3>
-      <p id="feature2desc">Perfetto su tutti i dispositivi e facile da navigare con tastiera e schermi piccoli.</p>
-    </article>
+  <article class="feature" tabindex="0" aria-describedby="feature2desc" role="region">
+    <svg aria-hidden="true" focusable="false" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+      <rect x="10" y="10" width="44" height="44" rx="10" ry="10" stroke="var(--col-green)" fill="rgba(0,112,60,0.15)"/>
+      <path d="M22 22h20v20H22z" fill="var(--col-green)"/>
+    </svg>
+    <h3>Responsive & Accessibile</h3>
+    <p id="feature2desc">Perfetto su tutti i dispositivi e facile da navigare con tastiera e schermi piccoli.</p>
+  </article>
 
-    <article class="feature" tabindex="0" aria-describedby="feature3desc" role="region">
-      <svg aria-hidden="true" focusable="false" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
-        <circle cx="32" cy="32" r="28" stroke="var(--col-green)" fill="rgba(0,112,60,0.15)"/>
-        <path d="M20 32h24M32 20v24" stroke="var(--col-green)"/>
-      </svg>
-      <h3>Animazioni Fluide</h3>
-      <p id="feature3desc">Effetti di transizione e animazioni professionali che migliorano l’esperienza utente.</p>
-    </article>
-  </section>
+  <article class="feature" tabindex="0" aria-describedby="feature3desc" role="region">
+    <svg aria-hidden="true" focusable="false" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="32" cy="32" r="28" stroke="var(--col-green)" fill="rgba(0,112,60,0.15)"/>
+      <path d="M20 32h24M32 20v24" stroke="var(--col-green)"/>
+    </svg>
+    <h3>Animazioni Fluide</h3>
+    <p id="feature3desc">Effetti di transizione e animazioni professionali che migliorano l’esperienza utente.</p>
+  </article>
+</section>
 
-  <section class="projects" aria-label="Ultimi progetti">
-    <h2>Ultimi Progetti</h2>
-    <ul>
-      <li><a href="progetto1.html" tabindex="0">SBB Clock Digitale</a></li>
-      <li class="empty" tabindex="-1" aria-disabled="true">Progetto 2 (in arrivo)</li>
-      <li class="empty" tabindex="-1" aria-disabled="true">Progetto 3 (in arrivo)</li>
-    </ul>
-  </section>
+<!-- Projects -->
+<section class="projects" aria-label="Ultimi progetti">
+  <h2>Ultimi Progetti</h2>
+  <ul>
+    <li><a href="progetto1.html" tabindex="0">SBB Clock Digitale</a></li>
+    <li class="empty" tabindex="-1" aria-disabled="true">Progetto 2 (in arrivo)</li>
+    <li class="empty" tabindex="-1" aria-disabled="true">Progetto 3 (in arrivo)</li>
+  </ul>
+</section>
 
-  <section class="social" aria-label="Link ai social network">
-    <a href="https://github.com/tobiaminiutti" target="_blank" rel="noopener" aria-label="GitHub Miniutti.it" title="GitHub">
-      <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="currentColor" width="24" height="24">
-        <path d="M12 0C5.37 0 0 5.37 0 12a12 12 0 0 0 8.21 11.43c.6.1.82-.26.82-.58v-2.18c-3.34.73-4.04-1.61-4.04-1.61a3.18 3.18 0 0 0-1.34-1.77c-1.1-.75.08-.74.08-.74a2.51 2.51 0 0 1 1.83 1.23 2.54 2.54 0 0 0 3.48 1 2.54 2.54 0 0 0 .75-1.6c0-1.27-.9-1.6-1.35-1.7a3.67 3.67 0 0 1 1.07-2.26c-2.66-.3-5.46-1.33-5.46-5.93a4.63 4.63 0 0 1 1.23-3.22 4.3 4.3 0 0 1 .12-3.17s1-.32 3.3 1.23a11.44 11.44 0 0 1 6 0c2.3-1.55 3.3-1.23 3.3-1.23a4.3 4.3 0 0 1 .12 3.17 4.63 4.63 0 0 1 1.23 3.22c0 4.6-2.8 5.62-5.47 5.92a4.11 4.11 0 0 1 1.17 3.17v4.7c0 .32.22.69.83.58A12 12 0 0 0 24 12c0-6.63-5.37-12-12-12z"/>
-      </svg>
-    </a>
-  </section>
+<!-- Social -->
+<section class="social" aria-label="Link ai social network">
+  <a href="https://github.com/tobiaminiutti" target="_blank" rel="noopener" aria-label="GitHub Miniutti.it" title="GitHub">
+    <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="currentColor" width="24" height="24">
+      <path d="M12 0C5.37 0 0 5.37 0 12a12 12 0 0 0 8.21 11.43c.6.1.82-.26.82-.58v-2.18c-3.34.73-4.04-1.61-4.04-1.61a3.18 3.18 0 0 0-1.34-1.77c-1.1-.75.08-.74.08-.74a2.51 2.51 0 0 1 1.83 1.23 2.54 2.54 0 0 0 3.48 1 2.54 2.54 0 0 0 .75-1.6c0-1.27-.9-1.6-1.35-1.7a3.67 3.67 0 0 1 1.07-2.26c-2.66-.3-5.46-1.33-5.46-5.93a4.63 4.63 0 0 1 1.23-3.22 4.3 4.3 0 0 1 .12-3.17s1-.32 3.3 1.23a11.44 11.44 0 0 1 6 0c2.3-1.55 3.3-1.23 3.3-1.23a4.3 4.3 0 0 1 .12 3.17 4.63 4.63 0 0 1 1.23 3.22c0 4.6-2.8 5.62-5.47 5.92a4.11 4.11 0 0 1 1.17 3.17v4.7c0 .32.22.69.83.58A12 12 0 0 0 24 12c0-6.63-5.37-12-12-12z"/>
+    </svg>
+  </a>
+</section>
 
-  <footer>
-    <p>© 2025 Tobia Miniutti. Tutti i diritti riservati.</p>
-  </footer>
+<!-- Footer -->
+<footer>
+  <p>© 2025 Tobia Miniutti. Tutti i diritti riservati.</p>
+</footer>
 
 <script>
-  // Remove loader after load
+  // Loader fadeout
   window.addEventListener('load', () => {
     const loader = document.getElementById('loader');
     if(loader) {
@@ -588,19 +555,57 @@
     }
   });
 
-  // Mini clock click navigazione
+  // Mini clock start
+  window.addEventListener('load', () => {
+    if(typeof sbbUhr !== "undefined") {
+      try {
+        const miniClock = new sbbUhr('mini-clock', true, 12);
+        miniClock.start();
+      } catch (e) {
+        console.error('Errore avvio orologio:', e);
+      }
+    }
+  });
+
+  // Mini clock click + keyboard nav
   const miniClock = document.getElementById('mini-clock');
   if(miniClock) {
-    miniClock.addEventListener('click', () => {
-      window.location.href = 'clock.html';
-    });
-    miniClock.addEventListener('keypress', e => {
+    miniClock.addEventListener('click', () => window.location.href = 'clock.html');
+    miniClock.addEventListener('keydown', e => {
       if(e.key === 'Enter' || e.key === ' ') {
         e.preventDefault();
         window.location.href = 'clock.html';
       }
     });
   }
+
+  // Accessibilità dropdown aria-expanded
+  const dropdown = document.getElementById('dropdownProgetti');
+  dropdown.addEventListener('keydown', e => {
+    if(e.key === "Enter" || e.key === " " || e.key === "ArrowDown") {
+      e.preventDefault();
+      const expanded = dropdown.getAttribute('aria-expanded') === 'true';
+      dropdown.setAttribute('aria-expanded', expanded ? 'false' : 'true');
+      dropdown.querySelector('.dropdown-content').style.pointerEvents = expanded ? 'none' : 'auto';
+      dropdown.querySelector('.dropdown-content').style.opacity = expanded ? '0' : '1';
+      dropdown.querySelector('.dropdown-content').style.transform = expanded ? 'translateY(14px)' : 'translateY(0)';
+      if(!expanded) dropdown.querySelector('.dropdown-content a').focus();
+    }
+    if(e.key === "Escape") {
+      dropdown.setAttribute('aria-expanded', 'false');
+      dropdown.querySelector('.dropdown-content').style.pointerEvents = 'none';
+      dropdown.querySelector('.dropdown-content').style.opacity = '0';
+      dropdown.querySelector('.dropdown-content').style.transform = 'translateY(14px)';
+      dropdown.focus();
+    }
+  });
+
+  // Nav shadow on scroll
+  window.addEventListener('scroll', () => {
+    const nav = document.querySelector('nav');
+    if(window.scrollY > 20) nav.classList.add('scrolled');
+    else nav.classList.remove('scrolled');
+  });
 </script>
 
 </body>
