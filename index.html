@@ -7,7 +7,6 @@
   <link rel="icon" type="image/png" href="favicon.png" />
   <script src="sbbUhr-1.3.js"></script>
   <style>
-    /* Reset & base */
     *, *::before, *::after {
       margin: 0; padding: 0; box-sizing: border-box;
     }
@@ -36,8 +35,6 @@
       --shadow-dark: rgba(0,0,0,0.5);
       --bg-glass: rgba(15, 20, 25, 0.6);
     }
-
-    /* Loader */
     #loader {
       position: fixed;
       inset: 0;
@@ -57,8 +54,6 @@
       box-shadow: 0 0 12px var(--accent);
     }
     @keyframes spin { 100% { transform: rotate(360deg); } }
-
-    /* Navbar */
     nav {
       position: fixed;
       top: 0; left: 0; width: 100%;
@@ -82,7 +77,6 @@
       background-color: rgba(22, 26, 32, 0.95);
       box-shadow: 0 12px 38px var(--shadow-dark);
     }
-
     nav a, .dropbtn {
       font-weight: 600;
       font-size: 1.15rem;
@@ -105,8 +99,6 @@
       transform: translateZ(12px) scale(1.07);
       box-shadow: 0 6px 20px var(--shadow-light);
     }
-
-    /* Dropdown */
     .dropdown {
       position: relative;
       user-select: none;
@@ -152,8 +144,6 @@
       box-shadow: 0 4px 18px var(--shadow-light);
       transform: translateZ(8px);
     }
-
-    /* Logo */
     #logo {
       position: fixed;
       top: 10px;
@@ -180,8 +170,6 @@
         0 14px 42px var(--accent),
         inset 0 1px 6px rgba(255,255,255,0.95);
     }
-
-    /* Mini Clock */
     #mini-clock {
       position: fixed;
       top: 10px;
@@ -200,8 +188,6 @@
       filter: drop-shadow(0 4px 12px var(--accent));
       transform: translateZ(8px);
     }
-
-    /* Hero */
     main.hero {
       display: flex;
       flex-direction: column;
@@ -220,35 +206,32 @@
       color: #ddd;
       text-shadow:
         0 2px 4px rgba(0,0,0,0.6),
-        0 0 12px rgba(0,0,0,0.3);
+        0 0 8px rgba(0,0,0,0.3);
     }
     @keyframes fadeInUp {
       0% { transform: translateY(40px) translateZ(-40px); opacity: 0; }
       100% { transform: translateY(0) translateZ(0); opacity: 1; }
     }
     main.hero h1 {
-      font-size: 4rem;
+      font-size: 3.6rem;
       font-weight: 800;
-      letter-spacing: -0.03em;
-      margin-bottom: 0.3rem;
-      color: #fff;
+      letter-spacing: -0.02em;
+      margin-bottom: 0.7rem;
+      color: #eee;
       text-shadow:
-        0 2px 8px rgba(230,57,70,0.85),
-        0 0 12px rgba(230,57,70,0.5);
+        0 2px 6px rgba(230,57,70,0.4);
       transform-style: preserve-3d;
     }
     main.hero p {
-      font-size: 1.35rem;
+      font-size: 1.25rem;
       max-width: 640px;
-      line-height: 1.7;
-      margin-bottom: 1.2rem;
-      color: #ddd;
+      line-height: 1.6;
+      margin-bottom: 1.5rem;
+      color: #ccc;
       text-shadow:
-        0 1px 3px rgba(0,0,0,0.7);
+        0 1px 3px rgba(0,0,0,0.5);
       transform-style: preserve-3d;
     }
-
-    /* Features section */
     section.features {
       max-width: 1040px;
       margin: 0 auto 6rem auto;
@@ -284,8 +267,8 @@
       outline: none;
     }
     section.features .feature svg {
-      width: 64px;
-      height: 64px;
+      width: 72px;
+      height: 72px;
       margin-bottom: 1.5rem;
       fill: var(--accent);
       filter: drop-shadow(0 0 8px var(--accent));
@@ -310,8 +293,6 @@
       color: #ccc;
       text-shadow: 0 0 3px rgba(0,0,0,0.25);
     }
-
-    /* Call to action */
     section.cta {
       max-width: 660px;
       margin: 0 auto 8rem auto;
@@ -339,7 +320,7 @@
       font-weight: 800;
       margin-bottom: 1rem;
       text-shadow:
-        0 2px 8px rgba(230,57,70,0.9);
+        0 2px 8px rgba(230,57,70,0.6);
       color: #fff;
     }
     section.cta p {
@@ -376,8 +357,6 @@
       outline: 2px solid var(--accent);
       outline-offset: 4px;
     }
-
-    /* Footer */
     footer {
       text-align: center;
       padding: 2rem 1rem;
@@ -399,82 +378,198 @@
       text-decoration: underline;
       outline: none;
     }
-
-    /* Responsive */
+    /* Social Icons */
+    .social {
+      max-width: 320px;
+      margin: 0 auto 3rem auto;
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      user-select: none;
+    }
+    .social a {
+      color: #eee;
+      font-size: 1.6rem;
+      transition: color 0.3s ease;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: var(--bg-glass);
+      box-shadow: 0 6px 16px rgba(0,0,0,0.3);
+      filter: drop-shadow(0 0 6px rgba(230,57,70,0.35));
+      transform-style: preserve-3d;
+      will-change: transform, color;
+      user-select: none;
+    }
+    .social a:hover,
+    .social a:focus-visible {
+      color: var(--accent);
+      box-shadow: 0 12px 32px var(--shadow-light);
+      transform: translateZ(12px);
+      outline: none;
+    }
+    /* Projects List */
+    section.projects {
+      max-width: 980px;
+      margin: 0 auto 8rem auto;
+      padding: 0 2rem;
+    }
+    section.projects h2 {
+      font-weight: 700;
+      font-size: 2.8rem;
+      color: #eee;
+      margin-bottom: 2rem;
+      text-align: center;
+      text-shadow: 0 1px 8px rgba(0,0,0,0.5);
+    }
+    section.projects ul {
+      list-style: none;
+      display: grid;
+      grid-template-columns: repeat(auto-fit,minmax(280px,1fr));
+      gap: 2.2rem;
+    }
+    section.projects li {
+      background: var(--bg-glass);
+      border-radius: 22px;
+      padding: 1.5rem 1.8rem;
+      box-shadow: 0 10px 36px rgba(0,0,0,0.3);
+      color: #ddd;
+      transition: box-shadow 0.3s ease, transform 0.3s cubic-bezier(.4,0,.2,1);
+      cursor: pointer;
+      user-select: none;
+      transform-style: preserve-3d;
+      will-change: transform, box-shadow;
+    }
+    section.projects li:hover,
+    section.projects li:focus-visible {
+      box-shadow: 0 28px 84px var(--shadow-light);
+      transform: translateZ(18px);
+      outline: none;
+      color: #fff;
+    }
+    section.projects li a {
+      color: inherit;
+      font-weight: 600;
+      font-size: 1.15rem;
+      text-decoration: none;
+      user-select: none;
+    }
+    section.projects li a:hover,
+    section.projects li a:focus-visible {
+      text-decoration: underline;
+      outline: none;
+    }
     @media (max-width: 768px) {
       html { font-size: 16px; }
       nav {
-        gap: 1.5rem;
+        gap: 1.2rem;
         padding: 1rem 1.5rem;
-        height: auto;
-        flex-wrap: wrap;
-        justify-content: center;
       }
-      main.hero {
-        max-width: 90vw;
-        padding-top: 120px;
-        min-height: 55vh;
+      main.hero h1 {
+        font-size: 2.8rem;
       }
       section.features {
-        padding: 0 1rem;
         grid-template-columns: 1fr;
-        max-width: 90vw;
-        margin-bottom: 5rem;
+        padding: 0 1rem;
+      }
+      section.projects ul {
+        grid-template-columns: 1fr;
+      }
+      .social {
+        gap: 1.5rem;
       }
       section.cta {
-        max-width: 90vw;
+        margin: 0 1rem 6rem 1rem;
+        padding: 2.5rem 1.5rem;
       }
     }
   </style>
 </head>
 <body>
-  <div id="loader"><div class="spinner"></div></div>
+  <div id="loader" role="alert" aria-live="assertive" aria-label="Caricamento in corso">
+    <div class="spinner"></div>
+  </div>
 
-  <img id="logo" src="favicon.png" alt="Logo Tobia Miniutti" tabindex="0" aria-label="Vai alla home" />
-  <div id="mini-clock" tabindex="0" aria-label="Orologio SBB digitale"></div>
+  <img id="logo" src="favicon.png" alt="Logo Miniutti.it" tabindex="0" />
 
   <nav role="navigation" aria-label="Menu principale">
     <a href="index.html" tabindex="0">Home</a>
     <a href="clock.html" tabindex="0">SBB Clock</a>
-    <div class="dropdown" tabindex="0" aria-haspopup="true" aria-expanded="false" aria-label="Progetti dropdown">
-      <div class="dropbtn" tabindex="-1">Progetti ▾</div>
-      <div class="dropdown-content" role="menu">
-        <a href="progetto1.html" role="menuitem" tabindex="0">Progetto 1</a>
-        <a href="progetto2.html" role="menuitem" tabindex="0">Progetto 2</a>
+    <div class="dropdown" tabindex="0" aria-haspopup="true" aria-expanded="false">
+      <div class="dropbtn" tabindex="-1" aria-label="Apri menu Progetti">Progetti ▾</div>
+      <div class="dropdown-content" role="menu" aria-hidden="true">
+        <a href="progetto1.html" role="menuitem" tabindex="-1">Progetto 1</a>
+        <a href="progetto2.html" role="menuitem" tabindex="-1">Progetto 2</a>
       </div>
     </div>
   </nav>
 
+  <div id="mini-clock" role="link" tabindex="0" aria-label="Vai alla pagina orologio SBB"></div>
+
   <main class="hero" role="main">
     <h1>Miniutti.it</h1>
-    <p>Benvenuto nel mio sito personale. Qui raccolgo i miei progetti su web, elettronica e programmazione. Troverai anche il celebre orologio delle FFS (SBB), in versione digitale.</p>
-    <p>Buona navigazione!</p>
+    <p>Benvenuto nel sito personale di Tobia Miniutti. Qui trovi i miei progetti, passioni e lavori tra elettronica, programmazione e design web moderno.</p>
   </main>
 
   <section class="features" aria-label="Caratteristiche principali">
-    <article class="feature" tabindex="0" aria-describedby="feature1desc">
-      <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg">
-        <path d="M12 2L2 7v7c0 3 2.5 5 5.5 5s5.5-2 5.5-5V7l-6 3" stroke="none" fill="currentColor"/>
+    <article class="feature" tabindex="0" aria-describedby="feature1desc" role="region">
+      <svg aria-hidden="true" focusable="false" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="32" cy="32" r="28" stroke="#e63946" stroke-width="3" fill="rgba(230, 57, 70, 0.15)"/>
+        <path d="M40 26L24 38M40 38L24 26" stroke="#e63946" stroke-width="3"/>
       </svg>
       <h3>Design Moderno</h3>
       <p id="feature1desc">Interfaccia pulita, elegante e fluida ispirata ai migliori siti Apple e Uiverse.</p>
     </article>
 
-    <article class="feature" tabindex="0" aria-describedby="feature2desc">
-      <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg">
-        <path d="M12 3v18m9-9H3" stroke="none" fill="currentColor"/>
+    <article class="feature" tabindex="0" aria-describedby="feature2desc" role="region">
+      <svg aria-hidden="true" focusable="false" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="10" y="10" width="44" height="44" rx="10" ry="10" stroke="#e63946" stroke-width="3" fill="rgba(230, 57, 70, 0.15)"/>
+        <path d="M22 22h20v20H22z" fill="#e63946"/>
       </svg>
       <h3>Responsive & Accessibile</h3>
       <p id="feature2desc">Perfetto su tutti i dispositivi e facile da navigare con tastiera e schermi piccoli.</p>
     </article>
 
-    <article class="feature" tabindex="0" aria-describedby="feature3desc">
-      <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg">
-        <path d="M3 12h18M12 3v18" stroke="none" fill="currentColor"/>
+    <article class="feature" tabindex="0" aria-describedby="feature3desc" role="region">
+      <svg aria-hidden="true" focusable="false" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="32" cy="32" r="28" stroke="#e63946" stroke-width="3" fill="rgba(230, 57, 70, 0.15)"/>
+        <path d="M20 32h24M32 20v24" stroke="#e63946" stroke-width="3"/>
       </svg>
       <h3>Animazioni Fluide</h3>
       <p id="feature3desc">Effetti di transizione e animazioni professionali che migliorano l’esperienza utente.</p>
     </article>
+  </section>
+
+  <section class="projects" aria-label="Ultimi progetti">
+    <h2>Ultimi Progetti</h2>
+    <ul>
+      <li tabindex="0"><a href="progetto1.html">Orologio SBB Digitale</a></li>
+      <li tabindex="0"><a href="progetto2.html">App per Monitoraggio Sportivo</a></li>
+      <li tabindex="0"><a href="#">Altri progetti in arrivo...</a></li>
+    </ul>
+  </section>
+
+  <section class="social" aria-label="Link ai social network">
+    <a href="https://github.com/tobiaminiutti" target="_blank" rel="noopener" aria-label="GitHub Miniutti.it" title="GitHub">
+      <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="currentColor" width="24" height="24">
+        <path d="M12 0C5.37 0 0 5.37 0 12a12 12 0 0 0 8.21 11.43c.6.1.82-.26.82-.58v-2.18c-3.34.73-4.04-1.61-4.04-1.61a3.18 3.18 0 0 0-1.34-1.77c-1.1-.75.08-.74.08-.74a2.51 2.51 0 0 1 1.83 1.23 2.54 2.54 0 0 0 3.48 1 2.54 2.54 0 0 0 .75-1.6c0-1.27-.9-1.6-1.35-1.7a3.67 3.67 0 0 1 1.07-2.26c-2.66-.3-5.46-1.33-5.46-5.93a4.63 4.63 0 0 1 1.23-3.22 4.3 4.3 0 0 1 .12-3.17s1-.32 3.3 1.23a11.44 11.44 0 0 1 6 0c2.28-1.55 3.28-1.23 3.28-1.23a4.3 4.3 0 0 1 .13 3.17 4.63 4.63 0 0 1 1.23 3.22c0 4.61-2.8 5.63-5.48 5.93a4.1 4.1 0 0 1 1.17 3.17v4.71c0 .32.2.7.82.58A12 12 0 0 0 24 12c0-6.63-5.37-12-12-12z" />
+      </svg>
+    </a>
+    <a href="https://linkedin.com/in/tobiaminiutti" target="_blank" rel="noopener" aria-label="LinkedIn Miniutti.it" title="LinkedIn">
+      <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="currentColor" width="24" height="24">
+        <path d="M4.98 3.5C4.98 4.88 3.88 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1s2.48 1.12 2.48 2.5zM.5 8H4v13H.5zM10 8h3.5v2h.05a3.83 3.83 0 0 1 3.4-1.87c3.64 0 4.3 2.4 4.3 5.5V21H17v-6.5c0-1.5-.03-3.44-2.1-3.44-2.1 0-2.42 1.64-2.42 3.34V21h-3.1z" />
+      </svg>
+    </a>
+    <a href="mailto:tobia@example.com" aria-label="Email Miniutti.it" title="Email" target="_blank" rel="noopener">
+      <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="currentColor" width="24" height="24">
+        <path d="M1.5 4.5h21v15h-21z" fill="none" />
+        <path d="M1.5 4.5l10.5 7.5 10.5-7.5" stroke="#e63946" stroke-width="2" stroke-linejoin="round" />
+      </svg>
+    </a>
   </section>
 
   <section class="cta" role="region" aria-label="Call to action">
@@ -488,7 +583,6 @@
   </footer>
 
   <script>
-    // Loader fade out + body fade in
     window.addEventListener('load', () => {
       if (typeof sbbUhr !== "undefined") {
         try {
@@ -502,7 +596,6 @@
       document.getElementById('loader').style.display = 'none';
     });
 
-    // Navbar background change on scroll
     window.addEventListener('scroll', () => {
       const nav = document.querySelector('nav');
       if (window.scrollY > 32) {
@@ -512,23 +605,18 @@
       }
     });
 
-    // Logo click
-    document.getElementById('logo').addEventListener('click', () => {
-      window.location.href = 'index.html';
-    });
-    document.getElementById('logo').addEventListener('keydown', (e) => {
+    const logo = document.getElementById('logo');
+    logo.addEventListener('click', () => { window.location.href = 'index.html'; });
+    logo.addEventListener('keydown', (e) => {
       if (e.key === "Enter" || e.key === " ") {
         e.preventDefault();
         window.location.href = 'index.html';
       }
     });
 
-    // Mini clock click
     const miniClock = document.getElementById('mini-clock');
     if (miniClock) {
-      miniClock.addEventListener('click', () => {
-        window.location.href = 'clock.html';
-      });
+      miniClock.addEventListener('click', () => { window.location.href = 'clock.html'; });
       miniClock.addEventListener('keydown', (e) => {
         if (e.key === "Enter" || e.key === " ") {
           e.preventDefault();
