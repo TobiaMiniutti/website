@@ -1,487 +1,499 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Miniutti.it - Home</title>
-  <link rel="icon" type="image/png" href="favicon.png" />
-  <script src="sbbUhr-1.3.js"></script>
-  <style>
-    /* RESET */
-    *, *::before, *::after {
-      margin: 0; padding: 0; box-sizing: border-box;
-    }
-    html {
-      scroll-behavior: smooth;
-      font-size: 18px;
-    }
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-      background: #f9f9f9;
-      color: #222;
-      min-height: 100vh;
-      overflow-x: hidden;
-      -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
-      cursor: default;
-      --col-green: #009246;
-      --col-white: #fff;
-      --col-red: #ce2b37;
-      --col-dark: #222;
-      --col-gray-light: #f2f2f2;
-      --shadow-light: rgba(0,0,0,0.1);
-      --shadow-strong: rgba(0,0,0,0.15);
-    }
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Miniutti.it - Home</title>
+<link rel="icon" type="image/png" href="favicon.png" />
+<script src="sbbUhr-1.3.js"></script>
+<style>
+  /* RESET & BASE */
+  *, *::before, *::after {
+    margin: 0; padding: 0; box-sizing: border-box;
+  }
+  html {
+    scroll-behavior: smooth;
+    font-size: 18px;
+  }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    background: #fafafa;
+    color: #1a1a1a;
+    min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    cursor: default;
+    --col-green: #00703c;
+    --col-white: #fff;
+    --col-red: #d62f27;
+    --col-gray-light: #f5f5f7;
+    --col-gray-dark: #2f2f2f;
+    --shadow-light: rgba(0,0,0,0.1);
+    --shadow-strong: rgba(0,0,0,0.18);
+    --ease-smooth: cubic-bezier(0.4, 0, 0.2, 1);
+  }
 
-    #loader {
-      position: fixed;
-      inset: 0;
-      background: #fff;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      z-index: 99999;
-    }
-    .spinner {
-      width: 70px;
-      height: 70px;
-      border: 7px solid #ddd;
-      border-top-color: var(--col-green);
-      border-radius: 50%;
-      animation: spin 1.2s linear infinite;
-      box-shadow: 0 0 12px var(--col-green);
-    }
-    @keyframes spin { 100% { transform: rotate(360deg); } }
+  /* LOADER */
+  #loader {
+    position: fixed;
+    inset: 0;
+    background: var(--col-white);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 99999;
+  }
+  .spinner {
+    width: 70px;
+    height: 70px;
+    border: 7px solid #ddd;
+    border-top-color: var(--col-green);
+    border-radius: 50%;
+    animation: spin 1.2s linear infinite;
+    box-shadow: 0 0 14px var(--col-green);
+  }
+  @keyframes spin { 100% { transform: rotate(360deg); } }
 
+  /* NAV BAR */
+  nav {
+    position: fixed;
+    top: 0; left: 0; width: 100%;
+    height: 68px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 2.5rem;
+    padding: 1rem 3rem;
+    background: var(--col-white);
+    box-shadow: 0 8px 24px var(--shadow-light);
+    z-index: 999;
+    user-select: none;
+    cursor: default;
+    border-bottom: 2px solid var(--col-green);
+    transition: box-shadow 0.5s var(--ease-smooth);
+  }
+  nav.scrolled {
+    box-shadow: 0 12px 40px var(--shadow-strong);
+  }
+  nav a, .dropbtn {
+    font-weight: 600;
+    font-size: 1.15rem;
+    color: var(--col-gray-dark);
+    text-decoration: none;
+    padding: 0.5rem 1.25rem;
+    border-radius: 16px;
+    cursor: pointer;
+    user-select: none;
+    position: relative;
+    transition: color 0.4s var(--ease-smooth);
+  }
+  nav a:hover, nav a:focus-visible,
+  .dropbtn:hover, .dropbtn:focus-visible {
+    color: var(--col-green);
+    outline: none;
+  }
+  /* tricolor underline on hover */
+  nav a::after, .dropbtn::after {
+    content: "";
+    position: absolute;
+    bottom: 0.22rem;
+    left: 10%;
+    width: 80%;
+    height: 3px;
+    border-radius: 4px;
+    background: linear-gradient(90deg, var(--col-green) 0%, var(--col-white) 50%, var(--col-red) 100%);
+    opacity: 0;
+    transition: opacity 0.4s var(--ease-smooth);
+    pointer-events: none;
+  }
+  nav a:hover::after, nav a:focus-visible::after,
+  .dropbtn:hover::after, .dropbtn:focus-visible::after {
+    opacity: 1;
+  }
+
+  /* DROPDOWN */
+  .dropdown {
+    position: relative;
+    user-select: none;
+  }
+  .dropdown-content {
+    display: none;
+    position: absolute;
+    top: 110%;
+    left: 0;
+    min-width: 180px;
+    background: var(--col-white);
+    border-radius: 18px;
+    box-shadow: 0 12px 30px var(--shadow-strong);
+    overflow: hidden;
+    flex-direction: column;
+    opacity: 0;
+    transform: translateY(12px);
+    transition: opacity 0.35s var(--ease-smooth), transform 0.35s var(--ease-smooth);
+    z-index: 1001;
+  }
+  .dropdown.open .dropdown-content {
+    display: flex;
+    opacity: 1;
+    transform: translateY(0);
+  }
+  .dropdown-content a {
+    padding: 14px 24px;
+    color: var(--col-gray-dark);
+    text-decoration: none;
+    cursor: pointer;
+    font-weight: 500;
+    font-size: 1rem;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    position: relative;
+    user-select: none;
+  }
+  /* tricolor underline for dropdown links */
+  .dropdown-content a::after {
+    content: "";
+    position: absolute;
+    bottom: 8px;
+    left: 15%;
+    width: 70%;
+    height: 3px;
+    border-radius: 4px;
+    background: linear-gradient(90deg, var(--col-green) 0%, var(--col-white) 50%, var(--col-red) 100%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+  }
+  .dropdown-content a:hover, .dropdown-content a:focus-visible {
+    background-color: #e6f0ea;
+    color: var(--col-green);
+    outline: none;
+  }
+  .dropdown-content a:hover::after, .dropdown-content a:focus-visible::after {
+    opacity: 1;
+  }
+
+  /* LOGO */
+  #logo {
+    position: fixed;
+    top: 10px;
+    left: 18px;
+    width: 56px;
+    height: 56px;
+    background: var(--col-white);
+    padding: 10px;
+    border-radius: 50%;
+    box-shadow:
+      0 8px 18px rgba(0,0,0,0.09),
+      inset 0 1px 7px rgba(255,255,255,0.98);
+    cursor: pointer;
+    transition:
+      transform 0.45s var(--ease-smooth),
+      box-shadow 0.45s var(--ease-smooth);
+    will-change: transform, box-shadow;
+    z-index: 1001;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  #logo:hover, #logo:focus-visible {
+    outline: none;
+    transform: scale(1.2) rotateY(20deg);
+    box-shadow:
+      0 14px 48px var(--col-green),
+      inset 0 1px 10px rgba(255,255,255,1);
+  }
+
+  /* MINI CLOCK */
+  #mini-clock {
+    position: fixed;
+    top: 12px;
+    right: 18px;
+    width: 56px;
+    height: 56px;
+    cursor: pointer;
+    filter: drop-shadow(0 3px 7px rgba(0,0,0,0.06));
+    transition:
+      filter 0.4s var(--ease-smooth),
+      transform 0.45s var(--ease-smooth),
+      box-shadow 0.45s var(--ease-smooth);
+    will-change: filter, transform, box-shadow;
+    z-index: 1001;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  #mini-clock:hover, #mini-clock:focus-visible {
+    filter: drop-shadow(0 10px 24px var(--col-green));
+    outline: none;
+    transform: scale(1.15) rotateY(20deg);
+    box-shadow:
+      0 16px 52px var(--col-green),
+      inset 0 1px 12px rgba(255,255,255,0.98);
+  }
+
+  /* MAIN HERO */
+  main.hero {
+    max-width: 720px;
+    margin: 110px auto 4rem auto;
+    padding: 0 1rem;
+    text-align: center;
+    user-select: none;
+    color: var(--col-gray-dark);
+  }
+  main.hero h1 {
+    font-weight: 900;
+    font-size: 3.8rem;
+    margin-bottom: 0.4rem;
+    letter-spacing: -0.025em;
+    text-shadow: 0 0 3px rgba(0,0,0,0.05);
+  }
+  main.hero p {
+    font-size: 1.3rem;
+    line-height: 1.6;
+    color: #555;
+    max-width: 600px;
+    margin: 0 auto;
+    font-weight: 500;
+  }
+
+  /* FEATURES */
+  section.features {
+    max-width: 1024px;
+    margin: 0 auto 5rem auto;
+    padding: 0 2rem;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px,1fr));
+    gap: 3rem;
+  }
+  section.features .feature {
+    background: var(--col-gray-light);
+    border-radius: 24px;
+    padding: 3rem 2.4rem;
+    box-shadow: 0 10px 32px var(--shadow-light);
+    text-align: center;
+    transition: transform 0.5s var(--ease-smooth), box-shadow 0.4s ease;
+    cursor: default;
+    color: var(--col-gray-dark);
+    user-select: none;
+    position: relative;
+  }
+  section.features .feature:hover, section.features .feature:focus-visible {
+    box-shadow: 0 20px 64px rgba(0,112,60,0.22);
+    transform: translateY(-10px);
+    outline: none;
+  }
+  section.features .feature svg {
+    width: 68px;
+    height: 68px;
+    margin-bottom: 1.6rem;
+    fill: var(--col-green);
+    transition: fill 0.35s ease;
+  }
+  section.features .feature:hover svg, section.features .feature:focus-visible svg {
+    fill: var(--col-red);
+  }
+  section.features .feature h3 {
+    font-weight: 700;
+    font-size: 1.5rem;
+    margin-bottom: 0.6rem;
+  }
+  section.features .feature p {
+    font-weight: 500;
+    font-size: 1.12rem;
+    color: #444;
+    line-height: 1.55;
+  }
+
+  /* PROJECTS */
+  section.projects {
+    max-width: 980px;
+    margin: 0 auto 6rem auto;
+    padding: 0 1rem;
+    text-align: center;
+  }
+  section.projects h2 {
+    font-weight: 800;
+    font-size: 2.8rem;
+    color: var(--col-gray-dark);
+    margin-bottom: 1.8rem;
+    text-shadow: 0 0 2px rgba(0,0,0,0.03);
+  }
+  section.projects ul {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(auto-fit,minmax(280px,1fr));
+    gap: 2.6rem;
+    padding: 0;
+  }
+  section.projects li {
+    background: var(--col-gray-light);
+    border-radius: 22px;
+    padding: 1.6rem 1.4rem;
+    box-shadow: 0 10px 28px var(--shadow-light);
+    font-weight: 600;
+    color: var(--col-gray-dark);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.18rem;
+    cursor: pointer;
+    user-select: none;
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
+    position: relative;
+    overflow: hidden;
+  }
+  section.projects li:hover, section.projects li:focus-visible {
+    box-shadow: 0 20px 56px rgba(0,112,60,0.22);
+    transform: translateY(-6px);
+    outline: none;
+  }
+  section.projects li.empty {
+    cursor: default;
+    font-style: italic;
+    font-weight: 400;
+    color: #999;
+    box-shadow: none;
+    transform: none;
+    pointer-events: none;
+  }
+  section.projects li a {
+    text-decoration: none;
+    color: var(--col-gray-dark);
+    width: 100%;
+    display: inline-block;
+  }
+
+  /* SOCIAL */
+  section.social {
+    display: flex;
+    justify-content: center;
+    gap: 3.8rem;
+    margin-bottom: 5rem;
+    user-select: none;
+  }
+  section.social a {
+    background: var(--col-gray-light);
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    box-shadow: 0 4px 14px var(--shadow-light);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--col-gray-dark);
+    cursor: pointer;
+    transition: box-shadow 0.35s ease, color 0.35s ease;
+    position: relative;
+    outline-offset: 4px;
+  }
+  section.social a:hover, section.social a:focus-visible {
+    color: var(--col-green);
+    box-shadow: 0 10px 28px rgba(0,112,60,0.22);
+    outline: none;
+    background: var(--col-white);
+  }
+  section.social svg {
+    width: 26px;
+    height: 26px;
+    fill: currentColor;
+  }
+
+  /* CTA */
+  section.cta {
+    max-width: 620px;
+    margin: 0 auto 6rem auto;
+    padding: 3.5rem 3.2rem;
+    background: var(--col-white);
+    border-radius: 24px;
+    box-shadow: 0 10px 36px var(--shadow-light);
+    text-align: center;
+    user-select: none;
+    transition: box-shadow 0.5s var(--ease-smooth);
+  }
+  section.cta:hover, section.cta:focus-within {
+    box-shadow: 0 16px 48px rgba(0,112,60,0.3);
+  }
+  section.cta h2 {
+    font-weight: 900;
+    font-size: 2.4rem;
+    margin-bottom: 0.8rem;
+    color: var(--col-gray-dark);
+  }
+  section.cta p {
+    font-weight: 600;
+    font-size: 1.18rem;
+    margin-bottom: 2.4rem;
+    color: #444;
+  }
+  section.cta button {
+    background: linear-gradient(90deg, var(--col-green), var(--col-red));
+    border: none;
+    border-radius: 30px;
+    padding: 1rem 3.8rem;
+    font-weight: 800;
+    font-size: 1.22rem;
+    color: var(--col-white);
+    cursor: pointer;
+    box-shadow: 0 8px 26px rgba(198,45,51,0.7);
+    transition: background 0.4s ease, box-shadow 0.4s ease, transform 0.3s ease;
+    user-select: none;
+    letter-spacing: 0.05em;
+  }
+  section.cta button:hover, section.cta button:focus-visible {
+    background: linear-gradient(90deg, var(--col-red), var(--col-green));
+    box-shadow: 0 12px 38px rgba(0,112,60,0.9);
+    outline: none;
+    transform: scale(1.07);
+  }
+
+  /* FOOTER */
+  footer {
+    text-align: center;
+    font-size: 0.9rem;
+    color: #888;
+    margin-bottom: 3rem;
+    user-select: none;
+  }
+  footer a {
+    color: var(--col-green);
+    font-weight: 600;
+    text-decoration: none;
+  }
+  footer a:hover, footer a:focus-visible {
+    text-decoration: underline;
+    outline: none;
+  }
+
+  /* FOCUS ACCESSIBILITY */
+  a:focus-visible, button:focus-visible, .dropbtn:focus-visible {
+    outline: 3px solid var(--col-green);
+    outline-offset: 4px;
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 720px) {
     nav {
-      position: fixed;
-      top: 0; left: 0; width: 100%;
-      height: 64px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: 2.5rem;
-      padding: 1rem 3rem;
-      background: var(--col-white);
-      box-shadow: 0 4px 12px var(--shadow-light);
-      z-index: 999;
-      user-select: none;
-      cursor: default;
-      transition: background-color 0.4s ease, box-shadow 0.4s ease;
-      border-bottom: 2px solid var(--col-green);
-    }
-    nav.scrolled {
-      box-shadow: 0 6px 20px var(--shadow-strong);
-    }
-    nav a, .dropbtn {
-      font-weight: 600;
-      font-size: 1.15rem;
-      color: var(--col-dark);
-      text-decoration: none;
-      padding: 0.5rem 1.25rem;
-      border-radius: 14px;
-      cursor: pointer;
-      user-select: none;
-      position: relative;
-      transition: color 0.3s ease;
-    }
-    /* Tricolor underline on hover */
-    nav a::after, .dropbtn::after {
-      content: "";
-      position: absolute;
-      bottom: 0.15rem;
-      left: 10%;
-      width: 80%;
-      height: 3px;
-      border-radius: 3px;
-      background: linear-gradient(90deg, var(--col-green) 0%, var(--col-white) 50%, var(--col-red) 100%);
-      opacity: 0;
-      transition: opacity 0.3s ease;
-      pointer-events: none;
-    }
-    nav a:hover, nav a:focus-visible, .dropbtn:hover, .dropbtn:focus-visible {
-      color: var(--col-green);
-      outline: none;
-    }
-    nav a:hover::after, nav a:focus-visible::after, .dropbtn:hover::after, .dropbtn:focus-visible::after {
-      opacity: 1;
-    }
-    .dropdown {
-      position: relative;
-      user-select: none;
-    }
-    .dropdown-content {
-      display: none;
-      position: absolute;
-      top: 110%;
-      left: 0;
-      min-width: 180px;
-      background: var(--col-white);
-      border-radius: 12px;
-      box-shadow: 0 6px 18px var(--shadow-strong);
-      overflow: hidden;
-      flex-direction: column;
-      opacity: 0;
-      transform: translateY(6px);
-      transition: opacity 0.3s ease, transform 0.3s ease;
-      z-index: 1001;
-    }
-    .dropdown:hover .dropdown-content,
-    .dropdown:focus-within .dropdown-content {
-      display: flex;
-      opacity: 1;
-      transform: translateY(0);
-    }
-    .dropdown-content a {
-      padding: 12px 20px;
-      color: var(--col-dark);
-      text-decoration: none;
-      cursor: pointer;
-      user-select: none;
-      font-weight: 500;
-      font-size: 1rem;
-      transition: background-color 0.25s ease;
-      position: relative;
-    }
-    /* Tricolor underline on hover for dropdown */
-    .dropdown-content a::after {
-      content: "";
-      position: absolute;
-      bottom: 6px;
-      left: 10%;
-      width: 80%;
-      height: 3px;
-      border-radius: 3px;
-      background: linear-gradient(90deg, var(--col-green) 0%, var(--col-white) 50%, var(--col-red) 100%);
-      opacity: 0;
-      transition: opacity 0.3s ease;
-      pointer-events: none;
-    }
-    .dropdown-content a:hover, .dropdown-content a:focus-visible {
-      background-color: #e6f0ea;
-      outline: none;
-      color: var(--col-green);
-    }
-    .dropdown-content a:hover::after, .dropdown-content a:focus-visible::after {
-      opacity: 1;
-    }
-
-    #logo {
-      position: fixed;
-      top: 8px;
-      left: 16px;
-      width: 54px;
-      height: 54px;
-      background: var(--col-white);
-      padding: 8px;
-      border-radius: 50%;
-      box-shadow:
-        0 6px 14px rgba(0,0,0,0.07),
-        inset 0 1px 5px rgba(255,255,255,0.95);
-      cursor: pointer;
-      transition: transform 0.4s ease, box-shadow 0.4s ease;
-      will-change: transform, box-shadow;
-      z-index: 1001;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    #logo:hover, #logo:focus-visible {
-      outline: none;
-      transform: scale(1.15) rotateY(15deg);
-      box-shadow:
-        0 12px 36px var(--col-green),
-        inset 0 1px 8px rgba(255,255,255,1);
-    }
-    #mini-clock {
-      position: fixed;
-      top: 10px;
-      right: 16px;
-      width: 54px;
-      height: 54px;
-      cursor: pointer;
-      filter: drop-shadow(0 2px 4px rgba(0,0,0,0.07));
-      transition: filter 0.3s ease;
-      will-change: filter;
-      z-index: 1001;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    #mini-clock:hover, #mini-clock:focus-visible {
-      filter: drop-shadow(0 4px 10px var(--col-green));
-      outline: none;
-      transform: translateZ(6px);
-    }
-
-    main.hero {
-      max-width: 720px;
-      margin: 100px auto 4rem auto;
-      padding: 0 1rem;
-      text-align: center;
-      user-select: none;
-      color: var(--col-dark);
+      padding: 1rem 1.5rem;
+      gap: 1.5rem;
+      height: 60px;
     }
     main.hero h1 {
-      font-weight: 900;
-      font-size: 3.6rem;
-      margin-bottom: 0.4rem;
-      letter-spacing: -0.02em;
-      text-shadow: 0 0 2px rgba(0,0,0,0.07);
-    }
-    main.hero p {
-      font-size: 1.25rem;
-      line-height: 1.6;
-      color: #555;
-      max-width: 600px;
-      margin: 0 auto;
-      font-weight: 500;
-    }
-
-    section.features {
-      max-width: 1024px;
-      margin: 0 auto 5rem auto;
-      padding: 0 2rem;
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px,1fr));
-      gap: 2.8rem;
-    }
-    section.features .feature {
-      background: var(--col-gray-light);
-      border-radius: 22px;
-      padding: 2.5rem 2rem;
-      box-shadow: 0 6px 24px var(--shadow-light);
-      text-align: center;
-      transition: transform 0.4s ease, box-shadow 0.3s ease;
-      cursor: default;
-      color: var(--col-dark);
-      user-select: none;
-      position: relative;
-    }
-    section.features .feature:hover, section.features .feature:focus-visible {
-      box-shadow: 0 16px 48px rgba(0,146,70,0.22);
-      transform: translateY(-8px);
-      outline: none;
-    }
-    section.features .feature svg {
-      width: 64px;
-      height: 64px;
-      margin-bottom: 1.3rem;
-      fill: var(--col-green);
-      transition: fill 0.3s ease;
-    }
-    section.features .feature:hover svg, section.features .feature:focus-visible svg {
-      fill: var(--col-red);
-    }
-    section.features .feature h3 {
-      font-weight: 700;
-      font-size: 1.45rem;
-      margin-bottom: 0.5rem;
-    }
-    section.features .feature p {
-      font-weight: 500;
-      font-size: 1.1rem;
-      color: #444;
-      line-height: 1.5;
-    }
-
-    section.projects {
-      max-width: 980px;
-      margin: 0 auto 6rem auto;
-      padding: 0 1rem;
-      text-align: center;
-    }
-    section.projects h2 {
-      font-weight: 800;
       font-size: 2.6rem;
-      color: var(--col-dark);
-      margin-bottom: 1.5rem;
+    }
+    section.features {
+      grid-template-columns: 1fr;
+      padding: 0 1rem;
+      gap: 1.8rem;
     }
     section.projects ul {
-      list-style: none;
-      display: grid;
-      grid-template-columns: repeat(auto-fit,minmax(280px,1fr));
-      gap: 2.2rem;
-      padding: 0;
+      grid-template-columns: 1fr;
+      gap: 1.8rem;
     }
-    section.projects li {
-      background: var(--col-gray-light);
-      border-radius: 20px;
-      padding: 1.4rem 1.6rem;
-      box-shadow: 0 6px 16px var(--shadow-light);
-      color: var(--col-dark);
-      transition: box-shadow 0.3s ease, transform 0.3s ease;
-      cursor: pointer;
-      user-select: none;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: 600;
-      font-size: 1.1rem;
-      position: relative;
-    }
-    section.projects li:hover,
-    section.projects li:focus-visible {
-      box-shadow: 0 16px 44px rgba(0,146,70,0.2);
-      transform: translateY(-6px);
-      outline: none;
-    }
-    section.projects li a {
-      color: var(--col-dark);
-      text-decoration: none;
-      flex-grow: 1;
-    }
-    section.projects li.empty {
-      cursor: default;
-      font-weight: 400;
-      color: #777;
-      font-style: italic;
-      background: #e7e7e7;
-      box-shadow: none;
-      transform: none;
-    }
-    section.projects li.empty:hover,
-    section.projects li.empty:focus-visible {
-      box-shadow: none;
-      transform: none;
-      color: #777;
-      outline: none;
-      cursor: default;
-    }
-
-    section.social {
-      display: flex;
-      justify-content: center;
-      gap: 3.5rem;
-      margin-bottom: 5rem;
-      user-select: none;
-    }
-    section.social a {
-      color: var(--col-dark);
-      font-size: 0;
-      transition: color 0.3s ease;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      width: 42px;
-      height: 42px;
-      border-radius: 50%;
-      background: var(--col-gray-light);
-      box-shadow: 0 3px 10px var(--shadow-light);
-      position: relative;
-      outline-offset: 3px;
-    }
-    section.social a:hover,
-    section.social a:focus-visible {
-      color: var(--col-green);
-      outline: none;
-      box-shadow: 0 6px 24px rgba(0,146,70,0.25);
-      background: var(--col-white);
-    }
-    section.social svg {
-      width: 22px;
-      height: 22px;
-      fill: currentColor;
-      transition: fill 0.3s ease;
-    }
-
     section.cta {
-      background: var(--col-gray-light);
-      max-width: 620px;
-      margin: 0 auto 6rem auto;
-      padding: 3rem 3rem 3.5rem 3rem;
-      border-radius: 24px;
-      box-shadow: 0 6px 22px var(--shadow-light);
-      text-align: center;
-      user-select: none;
-      transition: box-shadow 0.4s ease;
+      margin: 0 1rem 4rem 1rem;
+      padding: 2.2rem 1.5rem 3rem 1.5rem;
     }
-    section.cta:hover, section.cta:focus-within {
-      box-shadow: 0 12px 36px rgba(0,146,70,0.2);
-    }
-    section.cta h2 {
-      font-weight: 900;
-      font-size: 2.3rem;
-      margin-bottom: 0.7rem;
-      color: var(--col-dark);
-    }
-    section.cta p {
-      font-weight: 500;
-      font-size: 1.2rem;
-      color: #444;
-      margin-bottom: 2rem;
-    }
-    section.cta button {
-      background: linear-gradient(90deg, var(--col-green), var(--col-red));
-      border: none;
-      border-radius: 30px;
-      color: var(--col-white);
-      font-weight: 700;
-      font-size: 1.15rem;
-      padding: 0.9rem 3.2rem;
-      cursor: pointer;
-      box-shadow: 0 5px 14px rgba(206,43,55,0.7);
-      transition: background 0.35s ease, box-shadow 0.35s ease, transform 0.25s ease;
-      user-select: none;
-      letter-spacing: 0.04em;
-    }
-    section.cta button:hover, section.cta button:focus-visible {
-      background: linear-gradient(90deg, var(--col-red), var(--col-green));
-      box-shadow: 0 8px 26px rgba(0,146,70,0.9);
-      outline: none;
-      transform: scale(1.05);
-    }
-
-    footer {
-      font-size: 0.9rem;
-      color: #888;
-      text-align: center;
-      margin-bottom: 3rem;
-      user-select: none;
-    }
-    footer a {
-      color: var(--col-green);
-      text-decoration: none;
-      font-weight: 600;
-    }
-    footer a:hover,
-    footer a:focus-visible {
-      text-decoration: underline;
-      outline: none;
-    }
-
-    /* Accessibility focus */
-    a:focus-visible, button:focus-visible {
-      outline: 3px solid var(--col-green);
-      outline-offset: 3px;
-    }
-
-    /* Responsive */
-    @media (max-width: 720px) {
-      nav {
-        gap: 1.25rem;
-        padding: 1rem 1.5rem;
-        height: 56px;
-      }
-      main.hero h1 {
-        font-size: 2.4rem;
-      }
-      section.features {
-        grid-template-columns: 1fr;
-        padding: 0 1rem;
-        gap: 1.6rem;
-      }
-      section.projects ul {
-        grid-template-columns: 1fr;
-        gap: 1.6rem;
-      }
-      section.cta {
-        margin: 0 1rem 4rem 1rem;
-        padding: 2rem 1.5rem 2.5rem 1.5rem;
-      }
-    }
-  </style>
+  }
+</style>
 </head>
 <body>
   <div id="loader" role="alert" aria-live="assertive" aria-label="Caricamento in corso">
@@ -493,7 +505,7 @@
   <nav role="navigation" aria-label="Menu principale">
     <a href="index.html" tabindex="0">Home</a>
     <a href="clock.html" tabindex="0">SBB Clock</a>
-    <div class="dropdown" tabindex="0" aria-haspopup="true" aria-expanded="false">
+    <div class="dropdown" tabindex="0" aria-haspopup="true" aria-expanded="false" id="dropdownProgetti">
       <div class="dropbtn" tabindex="-1" aria-label="Apri menu Progetti">Progetti ▾</div>
       <div class="dropdown-content" role="menu" aria-hidden="true">
         <a href="progetto1.html" role="menuitem" tabindex="-1">SBB Clock Digitale</a>
@@ -513,7 +525,7 @@
   <section class="features" aria-label="Caratteristiche principali">
     <article class="feature" tabindex="0" aria-describedby="feature1desc" role="region">
       <svg aria-hidden="true" focusable="false" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
-        <circle cx="32" cy="32" r="28" stroke="var(--col-green)" fill="rgba(0,146,70,0.15)"/>
+        <circle cx="32" cy="32" r="28" stroke="var(--col-green)" fill="rgba(0,112,60,0.15)"/>
         <path d="M40 26L24 38M40 38L24 26" stroke="var(--col-green)"/>
       </svg>
       <h3>Design Moderno</h3>
@@ -522,7 +534,7 @@
 
     <article class="feature" tabindex="0" aria-describedby="feature2desc" role="region">
       <svg aria-hidden="true" focusable="false" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
-        <rect x="10" y="10" width="44" height="44" rx="10" ry="10" stroke="var(--col-green)" fill="rgba(0,146,70,0.15)"/>
+        <rect x="10" y="10" width="44" height="44" rx="10" ry="10" stroke="var(--col-green)" fill="rgba(0,112,60,0.15)"/>
         <path d="M22 22h20v20H22z" fill="var(--col-green)"/>
       </svg>
       <h3>Responsive & Accessibile</h3>
@@ -531,7 +543,7 @@
 
     <article class="feature" tabindex="0" aria-describedby="feature3desc" role="region">
       <svg aria-hidden="true" focusable="false" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
-        <circle cx="32" cy="32" r="28" stroke="var(--col-green)" fill="rgba(0,146,70,0.15)"/>
+        <circle cx="32" cy="32" r="28" stroke="var(--col-green)" fill="rgba(0,112,60,0.15)"/>
         <path d="M20 32h24M32 20v24" stroke="var(--col-green)"/>
       </svg>
       <h3>Animazioni Fluide</h3>
@@ -551,74 +563,95 @@
   <section class="social" aria-label="Link ai social network">
     <a href="https://github.com/tobiaminiutti" target="_blank" rel="noopener" aria-label="GitHub Miniutti.it" title="GitHub">
       <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="currentColor" width="24" height="24">
-        <path d="M12 0C5.37 0 0 5.37 0 12a12 12 0 0 0 8.21 11.43c.6.1.82-.26.82-.58v-2.18c-3.34.73-4.04-1.61-4.04-1.61a3.18 3.18 0 0 0-1.34-1.77c-1.1-.75.08-.74.08-.74a2.51 2.51 0 0 1 1.83 1.23 2.54 2.54 0 0 0 3.48 1 2.54 2.54 0 0 0 .75-1.6c0-1.27-.9-1.6-1.35-1.7a3.67 3.67 0 0 1 1.07-2.26c-2.66-.3-5.46-1.33-5.46-5.93a4.63 4.63 0 0 1 1.23-3.22 4.3 4.3 0 0 1 .12-3.17s1-.32 3.3 1.23a11.44 11.44 0 0 1 6 0c2.28-1.55 3.28-1.23 3.28-1.23a4.3 4.3 0 0 1 .13 3.17 4.63 4.63 0 0 1 1.23 3.22c0 4.61-2.8 5.63-5.48 5.93a4.1 4.1 0 0 1 1.17 3.17v4.71c0 .32.2.7.82.58A12 12 0 0 0 24 12c0-6.63-5.37-12-12-12z" />
+        <path d="M12 0C5.37 0 0 5.37 0 12a12 12 0 0 0 8.21 11.43c.6.1.82-.26.82-.58v-2.18c-3.34.73-4.04-1.61-4.04-1.61a3.18 3.18 0 0 0-1.34-1.77c-1.1-.75.08-.74.08-.74a2.51 2.51 0 0 1 1.83 1.23 2.54 2.54 0 0 0 3.48 1 2.54 2.54 0 0 0 .75-1.6c0-1.27-.9-1.6-1.35-1.7a3.67 3.67 0 0 1 1.07-2.26c-2.66-.3-5.46-1.33-5.46-5.93a4.63 4.63 0 0 1 1.23-3.22 4.3 4.3 0 0 1 .12-3.17s1-.32 3.3 1.23a11.44 11.44 0 0 1 6 0c2.3-1.55 3.3-1.23 3.3-1.23a4.3 4.3 0 0 1 .12 3.17 4.63 4.63 0 0 1 1.22 3.22c0 4.6-2.8 5.63-5.47 5.92a4.09 4.09 0 0 1 1.16 3.18v4.72c0 .32.22.68.83.57A12 12 0 0 0 24 12c0-6.63-5.37-12-12-12Z"/>
       </svg>
     </a>
-    <a href="https://linkedin.com/in/tobiaminiutti" target="_blank" rel="noopener" aria-label="LinkedIn Miniutti.it" title="LinkedIn">
+    <a href="mailto:tobia.miniutti@gmail.com" aria-label="Email Miniutti" title="Email">
       <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="currentColor" width="24" height="24">
-        <path d="M4.98 3.5C4.98 4.88 3.88 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1s2.48 1.12 2.48 2.5zM.5 8H4v13H.5zM10 8h3.5v2h.05a3.83 3.83 0 0 1 3.4-1.87c3.64 0 4.3 2.4 4.3 5.5V21H17v-6.5c0-1.5-.03-3.44-2.1-3.44-2.1 0-2.42 1.64-2.42 3.34V21h-3.1z" />
-      </svg>
-    </a>
-    <a href="mailto:tobia.miniutti@gmail.com" aria-label="Email Miniutti.it" title="Email" target="_blank" rel="noopener">
-      <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="currentColor" width="24" height="24">
-        <path d="M1.5 4.5h21v15h-21z" fill="none" />
-        <path d="M1.5 4.5l10.5 7.5 10.5-7.5" stroke="var(--col-green)" stroke-width="2" stroke-linejoin="round" />
+        <path d="M1.5 5.5v13h21v-13h-21zm19 1.24L12 12.91 3.5 6.74v-1.99l8.5 6.11 8.5-6.11v1.99z"/>
       </svg>
     </a>
   </section>
 
-  <section class="cta" role="region" aria-label="Call to action">
-    <h2>Esplora i miei progetti</h2>
-    <p>Scopri tutte le idee, i prototipi e i lavori che porto avanti con passione e dedizione.</p>
-    <button onclick="window.location.href='progetti.html'" aria-label="Vai ai progetti">Vai ai Progetti</button>
+  <section class="cta" aria-label="Contattami">
+    <h2>Interessato ai miei progetti?</h2>
+    <p>Per qualsiasi domanda o collaborazione, scrivimi pure a <a href="mailto:tobia.miniutti@gmail.com">tobia.miniutti@gmail.com</a>. Sarò felice di risponderti!</p>
+    <button onclick="window.location.href='mailto:tobia.miniutti@gmail.com'" aria-label="Invia email a Tobia Miniutti">Contattami</button>
   </section>
 
   <footer>
-    &copy; 2025 Tobia Miniutti. <a href="diritti.html">Privacy e Diritti</a>
+    &copy; 2025 Miniutti.it - Tutti i diritti riservati
   </footer>
 
-  <script>
-    window.addEventListener('load', () => {
-      if (typeof sbbUhr !== "undefined") {
-        try {
-          const miniClock = new sbbUhr('mini-clock', true, 12);
-          miniClock.start();
-        } catch (err) {
-          console.error("Errore orologio:", err);
-        }
-      }
-      document.body.style.opacity = '1';
-      document.getElementById('loader').style.display = 'none';
-    });
-
-    window.addEventListener('scroll', () => {
-      const nav = document.querySelector('nav');
-      if (window.scrollY > 32) {
-        nav.classList.add('scrolled');
-      } else {
-        nav.classList.remove('scrolled');
-      }
-    });
-
-    const logo = document.getElementById('logo');
-    logo.addEventListener('click', () => { window.location.href = 'index.html'; });
-    logo.addEventListener('keydown', (e) => {
-      if (e.key === "Enter" || e.key === " ") {
-        e.preventDefault();
-        window.location.href = 'index.html';
-      }
-    });
-
-    const miniClock = document.getElementById('mini-clock');
-    if (miniClock) {
-      miniClock.addEventListener('click', () => { window.location.href = 'clock.html'; });
-      miniClock.addEventListener('keydown', (e) => {
-        if (e.key === "Enter" || e.key === " ") {
-          e.preventDefault();
-          window.location.href = 'clock.html';
-        }
-      });
+<script>
+  // Loader fadeout
+  window.addEventListener('load', () => {
+    const loader = document.getElementById('loader');
+    if (loader) {
+      loader.style.opacity = '0';
+      setTimeout(() => loader.style.display = 'none', 600);
     }
-  </script>
+
+    // Inizializza orologio SBB
+    if (typeof sbbUhr !== "undefined") {
+      try {
+        const miniClock = new sbbUhr('mini-clock', true, 10);
+        miniClock.start();
+      } catch (err) {
+        console.error("Errore orologio:", err);
+      }
+    }
+  });
+
+  // Dropdown click toggle
+  const dropdown = document.getElementById('dropdownProgetti');
+  const dropbtn = dropdown.querySelector('.dropbtn');
+  const dropdownContent = dropdown.querySelector('.dropdown-content');
+
+  dropbtn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    const expanded = dropdown.getAttribute('aria-expanded') === 'true';
+    if (expanded) {
+      dropdown.classList.remove('open');
+      dropdown.setAttribute('aria-expanded', 'false');
+      dropdownContent.setAttribute('aria-hidden', 'true');
+    } else {
+      dropdown.classList.add('open');
+      dropdown.setAttribute('aria-expanded', 'true');
+      dropdownContent.setAttribute('aria-hidden', 'false');
+      dropbtn.focus();
+    }
+  });
+
+  // Chiudi dropdown cliccando fuori o premendo ESC
+  document.addEventListener('click', (e) => {
+    if (!dropdown.contains(e.target)) {
+      dropdown.classList.remove('open');
+      dropdown.setAttribute('aria-expanded', 'false');
+      dropdownContent.setAttribute('aria-hidden', 'true');
+    }
+  });
+  document.addEventListener('keydown', (e) => {
+    if (e.key === "Escape") {
+      dropdown.classList.remove('open');
+      dropdown.setAttribute('aria-expanded', 'false');
+      dropdownContent.setAttribute('aria-hidden', 'true');
+      dropbtn.focus();
+    }
+  });
+
+  // Logo e orologio: focus + click + cursor pointer fix
+  const logo = document.getElementById('logo');
+  logo.addEventListener('click', () => window.location.href = 'index.html');
+  logo.addEventListener('keydown', e => { if (e.key === "Enter" || e.key === " ") logo.click(); });
+  logo.style.cursor = 'pointer';
+
+  const miniClockEl = document.getElementById('mini-clock');
+  miniClockEl.addEventListener('click', () => window.location.href = 'clock.html');
+  miniClockEl.addEventListener('keydown', e => { if (e.key === "Enter" || e.key === " ") miniClockEl.click(); });
+  miniClockEl.style.cursor = 'pointer';
+
+</script>
+
 </body>
 </html>
