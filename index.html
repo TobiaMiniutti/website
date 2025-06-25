@@ -6,12 +6,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Miniutti.it - Home</title>
   <link rel="icon" href="favicon.png" />
-  <!-- Script orologio SBB -->
   <script src="sbbUhr-1.3.js" defer></script>
 
   <style>
-    /* RESET */
-    *, *::before, *::after {
+    /* ======================= RESET & VARIABILI ======================= */
+    *,
+    *::before,
+    *::after {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
@@ -24,33 +25,70 @@
       --col-gray-light: #f5f5f7;
       --col-gray-medium: #888888;
       --col-gray-dark: #222222;
-
-      --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-
-      --border-radius: 14px;
+      --shadow-light: rgba(0, 0, 0, 0.08);
+      --shadow-heavy: rgba(0, 0, 0, 0.12);
       --ease: cubic-bezier(0.4, 0, 0.2, 1);
+      --tricolor-gradient: linear-gradient(90deg, #00703c, #ffffff, #d62f27);
+      --border-radius: 14px;
+      --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      --transition-fast: 0.25s var(--ease);
+      --transition-medium: 0.4s var(--ease);
+      --transition-slow: 0.6s var(--ease);
 
-      /* **LIQUID GLASS migliorato** */
-      --glass-bg: rgba(255 255 255 / 0.15);
-      --glass-border-light: rgba(255 255 255 / 0.6);
-      --glass-border-dark: rgba(0 0 0 / 0.1);
-      --glass-shadow-light: rgba(255 255 255 / 0.4);
-      --glass-shadow-dark: rgba(0 0 0 / 0.15);
+      /* Liquid glass effect */
+      --glass-bg: rgba(255, 255, 255, 0.7);
+      --glass-border: rgba(255, 255, 255, 0.4);
+      --glass-shadow: rgba(255, 255, 255, 0.6);
     }
 
+    /* ======================= BODY ======================= */
     body {
       font-family: var(--font-sans);
       background: var(--col-gray-light);
       color: var(--col-gray-dark);
+      scroll-behavior: smooth;
       overflow-x: hidden;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
       user-select: none;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
     }
 
+    a,
+    span,
+    div {
+      user-select: none;
+    }
+
+    /* ======================= LOADER ======================= */
+    #loader {
+      position: fixed;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--col-white);
+      z-index: 99999;
+    }
+
+    .spinner {
+      width: 60px;
+      height: 60px;
+      border: 6px solid #ccc;
+      border-top: 6px solid var(--col-purple);
+      border-radius: 50%;
+      animation: spin 1.2s linear infinite;
+    }
+
+    @keyframes spin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    /* ======================= NAVBAR ======================= */
     nav {
       position: fixed;
       top: 0;
@@ -58,13 +96,8 @@
       transform: translateX(-50%);
       height: 64px;
       background: var(--glass-bg);
-      backdrop-filter: saturate(250%) blur(20px);
-      -webkit-backdrop-filter: saturate(250%) blur(20px);
-      border-radius: 0 0 var(--border-radius) var(--border-radius);
-      box-shadow:
-        inset 1px 1px 1px var(--glass-border-light),
-        inset -1px -1px 2px var(--glass-border-dark),
-        0 8px 24px var(--glass-shadow-dark);
+      backdrop-filter: saturate(180%) blur(12px);
+      -webkit-backdrop-filter: saturate(180%) blur(12px);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -75,17 +108,21 @@
       font-size: 1.125rem;
       letter-spacing: 0.02em;
       user-select: none;
-      transition: box-shadow 0.4s var(--ease);
+      border-radius: 0 0 var(--border-radius) var(--border-radius);
+      box-shadow:
+        0 8px 32px var(--shadow-light),
+        inset 0 0 0 1px var(--glass-border);
+      transition: box-shadow var(--transition-medium);
     }
 
     nav:hover {
       box-shadow:
-        inset 1px 1px 2px var(--glass-border-light),
-        inset -1px -1px 4px var(--glass-border-dark),
-        0 14px 48px var(--glass-shadow-dark);
+        0 12px 48px var(--shadow-heavy),
+        inset 0 0 0 1px var(--glass-border);
     }
 
-    nav a, .dropbtn {
+    nav a,
+    .dropbtn {
       color: var(--col-gray-dark);
       text-decoration: none;
       padding: 0.7rem 1.25rem;
@@ -93,64 +130,62 @@
       display: inline-flex;
       align-items: center;
       cursor: pointer;
-      border-radius: var(--border-radius);
-      user-select: none;
       transition:
-        color 0.25s var(--ease),
-        transform 0.25s var(--ease),
-        text-shadow 0.25s var(--ease),
-        background 0.25s var(--ease),
-        box-shadow 0.25s var(--ease);
-      background: rgba(255 255 255 / 0.25);
-      box-shadow:
-        inset 1px 1px 4px rgba(255 255 255 / 0.35),
-        inset -1px -1px 8px rgba(0 0 0 / 0.1);
-      backdrop-filter: saturate(180%) blur(14px);
-      -webkit-backdrop-filter: saturate(180%) blur(14px);
+        color var(--transition-fast),
+        transform var(--transition-fast),
+        text-shadow var(--transition-fast);
       user-select: none;
-      font-weight: 600;
+      border-radius: var(--border-radius);
+      backdrop-filter: saturate(180%) blur(12px);
+      -webkit-backdrop-filter: saturate(180%) blur(12px);
+      box-shadow: inset 0 0 8px rgba(255 255 255 / 0.35);
+      background: rgba(255 255 255 / 0.5);
     }
 
-    nav a:hover, .dropbtn:hover {
+    nav a:hover,
+    .dropbtn:hover {
       color: var(--col-purple);
-      transform: scale(1.07);
-      text-shadow: 0 0 8px var(--col-purple);
-      background: rgba(118, 35, 127, 0.15);
-      box-shadow:
-        0 0 16px rgba(118, 35, 127, 0.5),
-        inset 1px 1px 6px rgba(255 255 255 / 0.5);
-      backdrop-filter: saturate(220%) blur(20px);
-      -webkit-backdrop-filter: saturate(220%) blur(20px);
+      transform: scale(1.07) translateZ(0);
+      text-shadow: 0 0 6px var(--col-purple);
+      background: rgba(118, 35, 127, 0.1);
+      box-shadow: 0 0 8px rgba(118, 35, 127, 0.3);
+      backdrop-filter: saturate(180%) blur(20px);
+      -webkit-backdrop-filter: saturate(180%) blur(20px);
     }
 
-    nav a::after, .dropbtn::after {
+    nav a::after,
+    .dropbtn::after {
       content: "";
       position: absolute;
       left: 10%;
       bottom: 0;
       width: 80%;
       height: 3px;
-      background: linear-gradient(90deg, #00703c, #fff, #d62f27);
+      background: var(--tricolor-gradient);
       opacity: 0;
-      transition: opacity 0.25s ease;
+      transition: opacity var(--transition-fast);
       border-radius: 3px;
       pointer-events: none;
       user-select: none;
     }
 
-    nav a:hover::after, .dropbtn:hover::after {
+    nav a:hover::after,
+    .dropbtn:hover::after {
       opacity: 1;
     }
 
+    /* Freccia solo per dropdown */
     .dropbtn::after {
       content: " \25BE";
       font-size: 0.75rem;
       position: static;
       margin-left: 0.5rem;
       opacity: 1;
+      background: none;
+      user-select: none;
     }
 
-    /* DROPDOWN */
+    /* ======================= DROPDOWN ======================= */
     .dropdown {
       position: relative;
       z-index: 1110;
@@ -163,22 +198,23 @@
       top: 100%;
       left: 0;
       background: var(--glass-bg);
-      backdrop-filter: saturate(250%) blur(30px);
-      -webkit-backdrop-filter: saturate(250%) blur(30px);
+      backdrop-filter: saturate(180%) blur(16px);
+      -webkit-backdrop-filter: saturate(180%) blur(16px);
       box-shadow:
-        0 14px 48px var(--glass-shadow-dark),
-        inset 0 0 0 1px var(--glass-border-light);
+        0 12px 36px var(--shadow-heavy),
+        inset 0 0 0 1px var(--glass-border);
       border-radius: var(--border-radius);
       padding: 0.75rem 0;
       min-width: 220px;
       transform-origin: top center;
+      animation: fadeSlideDown 0.4s ease forwards;
       font-weight: 500;
       color: var(--col-gray-dark);
       letter-spacing: 0.01em;
       user-select: none;
-      animation: fadeSlideDown 0.4s ease forwards;
     }
 
+    /* apertura SOLO hover o focus nel dropdown */
     nav .dropdown:hover > .dropdown-content,
     nav .dropdown:focus-within > .dropdown-content {
       display: block;
@@ -192,17 +228,18 @@
       display: block;
       white-space: nowrap;
       border-radius: var(--border-radius);
-      transition: background 0.25s ease, color 0.25s ease, transform 0.25s ease;
+      transition: background var(--transition-fast), color var(--transition-fast),
+        transform var(--transition-fast);
+      user-select: none;
       color: var(--col-gray-dark);
       cursor: pointer;
-      user-select: none;
     }
 
     .dropdown-content a:hover {
       background: rgba(118, 35, 127, 0.12);
       color: var(--col-purple);
       transform: translateX(7px);
-      box-shadow: 0 0 12px rgba(118, 35, 127, 0.35);
+      box-shadow: 0 0 8px rgba(118, 35, 127, 0.25);
     }
 
     .dropdown-content .not-selectable {
@@ -214,7 +251,7 @@
       font-weight: 400;
     }
 
-    /* Bottone "Altri Progetti" */
+    /* Bottone "Altri Progetti" tematizzato */
     .dropdown-content .btn-progetti {
       margin-top: 0.4rem;
       background: var(--col-purple);
@@ -223,14 +260,14 @@
       font-weight: 700;
       text-align: center;
       user-select: none;
-      transition: background 0.3s ease;
-      box-shadow: 0 0 8px rgba(118, 35, 127, 0.5);
+      transition: background var(--transition-medium);
+      box-shadow: 0 0 6px rgba(118, 35, 127, 0.35);
       cursor: pointer;
     }
 
     .dropdown-content .btn-progetti:hover {
       background: var(--col-purple-dark);
-      box-shadow: 0 0 18px var(--col-purple-dark);
+      box-shadow: 0 0 14px var(--col-purple-dark);
       transform: scale(1.06);
       color: var(--col-white);
     }
@@ -247,7 +284,7 @@
       }
     }
 
-    /* MINI CLOCK */
+    /* ======================= MINI CLOCK ======================= */
     #mini-clock {
       position: fixed;
       top: 12px;
@@ -258,33 +295,30 @@
       border-radius: 50%;
       padding: 8px;
       box-shadow:
-        inset 1px 1px 8px var(--glass-border-light),
-        inset -1px -1px 12px var(--glass-border-dark),
-        0 10px 30px rgba(0, 0, 0, 0.1);
+        0 10px 30px rgba(0, 0, 0, 0.1),
+        inset 0 2px 10px rgba(255, 255, 255, 0.7);
       cursor: pointer;
       z-index: 1101;
       display: flex;
       align-items: center;
       justify-content: center;
       transition:
-        transform 0.4s var(--ease),
-        box-shadow 0.4s var(--ease);
+        transform var(--transition-medium),
+        box-shadow var(--transition-medium);
       perspective: 600px;
       user-select: none;
       will-change: transform, box-shadow;
-      backdrop-filter: saturate(250%) blur(20px);
-      -webkit-backdrop-filter: saturate(250%) blur(20px);
-      border: 1px solid var(--glass-border-light);
+      backdrop-filter: saturate(180%) blur(12px);
+      -webkit-backdrop-filter: saturate(180%) blur(12px);
+      border: 1px solid var(--glass-border);
     }
 
     #mini-clock:hover {
-      transform: rotateY(8deg) scale(1.1);
-      box-shadow:
-        0 18px 48px var(--col-purple),
-        inset 1px 1px 12px rgba(255 255 255 / 0.7);
+      transform: rotateY(8deg) scale(1.08);
+      box-shadow: 0 18px 48px var(--col-purple);
     }
 
-    /* LOGO */
+    /* ======================= LOGO ======================= */
     #logo {
       position: fixed;
       top: 8px;
@@ -294,9 +328,8 @@
       background: var(--glass-bg);
       border-radius: 36px;
       box-shadow:
-        inset 1px 1px 8px var(--glass-border-light),
-        inset -1px -1px 12px var(--glass-border-dark),
-        0 14px 32px rgba(0 0 0 / 0.12);
+        0 12px 24px rgba(0, 0, 0, 0.12),
+        inset 0 2px 10px rgba(255, 255, 255, 0.7);
       padding: 8px;
       z-index: 1101;
       cursor: pointer;
@@ -305,11 +338,9 @@
       justify-content: center;
       user-select: none;
       transition:
-        transform 0.4s var(--ease),
-        box-shadow 0.4s var(--ease);
-      border: 1px solid var(--glass-border-light);
-      backdrop-filter: saturate(250%) blur(20px);
-      -webkit-backdrop-filter: saturate(250%) blur(20px);
+        transform var(--transition-medium),
+        box-shadow var(--transition-medium);
+      border: 1px solid var(--glass-border);
     }
 
     #logo img {
@@ -321,13 +352,11 @@
     }
 
     #logo:hover {
-      transform: rotateY(8deg) scale(1.1);
-      box-shadow:
-        0 18px 48px var(--col-purple),
-        inset 1px 1px 12px rgba(255 255 255 / 0.7);
+      transform: rotateY(8deg) scale(1.08);
+      box-shadow: 0 18px 48px var(--col-purple);
     }
 
-    /* HERO */
+    /* ======================= HERO ======================= */
     .hero {
       max-width: 760px;
       margin: 110px auto 2.5rem auto;
@@ -378,16 +407,26 @@
     }
 
     @keyframes fadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
+      from {
+        opacity: 0;
+      }
+
+      to {
+        opacity: 1;
+      }
     }
 
     @keyframes gradientShift {
-      0% { background-position: 0% 50%; }
-      100% { background-position: 100% 50%; }
+      0% {
+        background-position: 0% 50%;
+      }
+
+      100% {
+        background-position: 100% 50%;
+      }
     }
 
-    /* PROGETTI */
+    /* ======================= SEZIONE PROGETTI ======================= */
     .projects {
       max-width: 1200px;
       margin: 4rem auto 5rem auto;
@@ -403,33 +442,32 @@
 
     .project-card {
       background: var(--glass-bg);
-      backdrop-filter: saturate(250%) blur(25px);
-      -webkit-backdrop-filter: saturate(250%) blur(25px);
+      backdrop-filter: saturate(180%) blur(20px);
+      -webkit-backdrop-filter: saturate(180%) blur(20px);
       border-radius: var(--border-radius);
       padding: 2rem 1.75rem;
       box-shadow:
         0 12px 32px rgba(0, 0, 0, 0.08),
-        inset 1px 1px 12px var(--glass-border-light);
+        inset 0 0 0 1px var(--glass-border);
       transition:
-        transform 0.4s var(--ease),
-        box-shadow 0.4s var(--ease),
-        color 0.4s var(--ease);
+        transform var(--transition-medium),
+        box-shadow var(--transition-medium),
+        color var(--transition-medium);
       text-align: center;
       font-weight: 600;
+      transform-style: preserve-3d;
+      position: relative;
+      overflow: hidden;
       cursor: pointer;
       user-select: none;
       color: var(--col-gray-dark);
       letter-spacing: 0.015em;
       will-change: transform, box-shadow, color;
-      position: relative;
-      overflow: hidden;
     }
 
     .project-card:hover:not(.not-selectable) {
-      transform: rotateX(8deg) rotateY(-5deg) scale(1.08);
-      box-shadow:
-        0 20px 72px rgba(118, 35, 127, 0.35),
-        inset 1px 1px 16px rgba(255 255 255 / 0.85);
+      transform: rotateX(7deg) rotateY(-3deg) scale(1.07);
+      box-shadow: 0 20px 72px rgba(118, 35, 127, 0.3);
       color: var(--col-purple);
     }
 
@@ -442,7 +480,20 @@
       user-select: none;
     }
 
-    /* CONTATTI */
+    /* ======================= SEZIONE EXTRA ======================= */
+    .extra-content {
+      max-width: 760px;
+      margin: 0 auto 5rem auto;
+      padding: 0 2rem;
+      font-size: 1.125rem;
+      color: var(--col-gray-medium);
+      text-align: center;
+      letter-spacing: 0.02em;
+      user-select: none;
+      line-height: 1.7;
+    }
+
+    /* ======================= CONTATTI ======================= */
     .contact-section {
       max-width: 400px;
       margin: 0 auto 5rem auto;
@@ -530,7 +581,7 @@
       box-shadow: 0 8px 28px var(--col-purple-dark);
     }
 
-    /* MEDIA QUERY */
+    /* ======================= MEDIA ======================= */
     @media (max-width: 620px) {
       nav {
         font-size: 1rem;
@@ -571,7 +622,7 @@
       <div class="dropdown-content" id="dropdown-menu" role="menu" aria-label="Sottomenu Progetti">
         <a href="clock.html" role="menuitem" tabindex="0">SBB Clock</a>
         <span class="not-selectable" tabindex="-1">In arrivo...</span>
-        <a href="progetti.html" role="menuitem" tabindex="0" class="btn-progetti">Altri Progetti</a>
+        <a href="progetti.html" role="menuitem" tabindex="0">Altri Progetti</a>
       </div>
     </div>
 
@@ -652,7 +703,7 @@
         }
       });
 
-      // Inizializza orologio SBB con fallback se mancasse SBBUhr
+      // Mini SBB Uhr clock
       const miniClock = document.getElementById("mini-clock");
       if (typeof SBBUhr !== "undefined" && miniClock) {
         new SBBUhr({
@@ -664,10 +715,6 @@
           fullScreenBtn: false,
           fullScreenKey: false,
         });
-      } else {
-        // fallback testo orologio
-        miniClock.textContent = "Loading clock...";
-        console.warn("SBBUhr non trovato o errore di caricamento.");
       }
 
       // Click e tastiera per aprire pagina clock
