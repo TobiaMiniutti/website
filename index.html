@@ -9,64 +9,74 @@
   <script src="sbbUhr-1.3.js" defer></script>
 
   <style>
-    /* RESET & VARIABILI */
-    *, *::before, *::after {
+    /* ======================= RESET & VARIABILI ======================= */
+    *,
+    *::before,
+    *::after {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
-      user-select: none;
-      -webkit-user-select: none;
-      -moz-user-select: none;
-      -ms-user-select: none;
     }
 
     :root {
-      --glass-bg: rgba(255 255 255 / 0.15);
-      --glass-border: rgba(255 255 255 / 0.3);
-      --glass-shadow-light: rgba(255 255 255 / 0.25);
-      --glass-shadow-dark: rgba(0 0 0 / 0.15);
       --col-purple: #76237f;
       --col-purple-dark: #5c1a64;
       --col-white: #ffffff;
       --col-gray-light: #f5f5f7;
+      --col-gray-medium: #888888;
       --col-gray-dark: #222222;
+      --shadow-light: rgba(0, 0, 0, 0.08);
+      --shadow-heavy: rgba(0, 0, 0, 0.12);
       --ease: cubic-bezier(0.4, 0, 0.2, 1);
-      --border-radius: 22px;
+      --tricolor-gradient: linear-gradient(90deg, #00703c, #ffffff, #d62f27);
+      --border-radius: 14px;
       --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-      --transition-fast: 0.22s var(--ease);
-      --transition-medium: 0.45s var(--ease);
-      --transition-slow: 0.7s var(--ease);
+      --transition-fast: 0.25s var(--ease);
+      --transition-medium: 0.4s var(--ease);
+      --transition-slow: 0.6s var(--ease);
+
+      /* Liquid Glass Colors */
+      --glass-bg: rgba(255, 255, 255, 0.25);
+      --glass-border: rgba(255, 255, 255, 0.4);
+      --glass-shadow: rgba(118, 35, 127, 0.15);
     }
 
+    /* ======================= BODY ======================= */
     body {
       font-family: var(--font-sans);
-      background: linear-gradient(135deg, #1e1e1e, #2c2c2c);
-      color: var(--col-white);
+      background: var(--col-gray-light);
+      color: var(--col-gray-dark);
+      scroll-behavior: smooth;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      user-select: none;
       min-height: 100vh;
       display: flex;
       flex-direction: column;
-      perspective: 1200px;
-      -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
-      overflow-x: hidden;
+    }
+
+    a,
+    span,
+    div {
       user-select: none;
     }
 
-    /* LOADER */
+    /* ======================= LOADER ======================= */
     #loader {
       position: fixed;
       inset: 0;
       display: flex;
       align-items: center;
       justify-content: center;
-      background: #121212;
+      background: var(--col-white);
       z-index: 99999;
     }
 
     .spinner {
       width: 60px;
       height: 60px;
-      border: 6px solid #555;
+      border: 6px solid #ccc;
       border-top: 6px solid var(--col-purple);
       border-radius: 50%;
       animation: spin 1.2s linear infinite;
@@ -78,89 +88,79 @@
       }
     }
 
-    /* NAVBAR (Dynamic Island Style) */
+    /* ======================= NAVBAR ======================= */
     nav {
       position: fixed;
-      top: 12px;
+      top: 0;
       left: 50%;
       transform: translateX(-50%);
-      height: 54px;
+      height: 64px;
       background: var(--glass-bg);
-      border: 1.5px solid var(--glass-border);
-      border-radius: 34px;
-      padding: 0 2.5rem;
+      backdrop-filter: saturate(180%) blur(20px);
+      -webkit-backdrop-filter: saturate(180%) blur(20px);
+      border: 1px solid var(--glass-border);
+      box-shadow: 0 8px 32px var(--glass-shadow);
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 2.2rem;
-      z-index: 1150;
-      box-shadow:
-        0 8px 32px var(--glass-shadow-dark),
-        inset 0 0 50px var(--glass-shadow-light);
-      backdrop-filter: saturate(180%) blur(18px);
-      -webkit-backdrop-filter: saturate(180%) blur(18px);
+      gap: 2rem;
+      padding: 0 2rem;
+      z-index: 1100;
       font-weight: 600;
-      font-size: 1.05rem;
+      font-size: 1.125rem;
       letter-spacing: 0.02em;
-      cursor: default;
-      transition: box-shadow var(--transition-medium);
       user-select: none;
-      will-change: transform, box-shadow;
+      border-radius: 0 0 var(--border-radius) var(--border-radius);
+      transition: box-shadow var(--transition-medium);
     }
 
     nav:hover {
-      box-shadow:
-        0 12px 48px var(--glass-shadow-dark),
-        inset 0 0 80px var(--glass-shadow-light);
+      box-shadow: 0 12px 48px rgba(118, 35, 127, 0.3);
     }
 
     nav a,
     .dropbtn {
-      color: var(--col-white);
+      color: var(--col-gray-dark);
       text-decoration: none;
-      padding: 0.45rem 1.4rem;
+      padding: 0.7rem 1.25rem;
       position: relative;
       display: inline-flex;
       align-items: center;
-      border-radius: 24px;
       cursor: pointer;
       transition:
         color var(--transition-fast),
         transform var(--transition-fast),
-        text-shadow var(--transition-fast),
-        background-color var(--transition-fast);
+        text-shadow var(--transition-fast);
       user-select: none;
-      font-weight: 600;
-      font-variant: small-caps;
+      border-radius: var(--border-radius);
+      background: transparent;
+      /* rimuovo dropdown hover */
+      pointer-events: auto;
     }
 
     nav a:hover,
     .dropbtn:hover {
       color: var(--col-purple);
-      background: rgba(118 35 127 / 0.25);
-      box-shadow:
-        0 0 10px var(--col-purple),
-        inset 0 0 8px rgba(118 35 127 / 0.5);
-      transform: scale(1.12) translateZ(0);
-      text-shadow: 0 0 8px var(--col-purple);
+      transform: scale(1.07) translateZ(0);
+      text-shadow: 0 0 6px var(--col-purple);
+      background: rgba(118, 35, 127, 0.08);
+      box-shadow: 0 0 6px rgba(118, 35, 127, 0.25);
     }
 
     nav a::after,
     .dropbtn::after {
       content: "";
       position: absolute;
-      left: 15%;
-      bottom: 4px;
-      width: 70%;
-      height: 2.5px;
-      background: linear-gradient(90deg, #00703c, #ffffff, #d62f27);
-      border-radius: 3px;
+      left: 10%;
+      bottom: 0;
+      width: 80%;
+      height: 3px;
+      background: var(--tricolor-gradient);
       opacity: 0;
       transition: opacity var(--transition-fast);
+      border-radius: 3px;
       pointer-events: none;
       user-select: none;
-      filter: drop-shadow(0 0 3px rgba(255 255 255 / 0.4));
-      z-index: 10;
     }
 
     nav a:hover::after,
@@ -168,206 +168,102 @@
       opacity: 1;
     }
 
-    /* Freccia dropdown (più sottile e luminosa) */
+    /* Rimuovo freccia dropdown (non serve più) */
     .dropbtn::after {
-      content: " \25BE";
-      font-size: 0.8rem;
-      position: static;
-      margin-left: 0.4rem;
-      opacity: 1;
-      filter: drop-shadow(0 0 3px rgba(255 255 255 / 0.8));
-      user-select: none;
+      content: "";
     }
 
-    /* DROPDOWN */
-    .dropdown {
-      position: relative;
-      z-index: 1160;
-      user-select: none;
-    }
-
+    /* ======================= DROPDOWN ======================= */
     .dropdown-content {
-      display: none;
-      position: absolute;
-      top: 115%;
-      left: 50%;
-      transform: translateX(-50%);
-      background: var(--glass-bg);
-      border-radius: 28px;
-      padding: 0.8rem 0;
-      min-width: 260px;
-      box-shadow:
-        0 18px 40px rgba(0, 0, 0, 0.5),
-        inset 0 0 40px rgba(255, 255, 255, 0.15);
-      backdrop-filter: saturate(180%) blur(20px);
-      -webkit-backdrop-filter: saturate(180%) blur(20px);
-      animation: fadeSlideDown 0.45s ease forwards;
-      user-select: none;
-      font-weight: 600;
-      color: var(--col-white);
-      letter-spacing: 0.01em;
-      transform-origin: top center;
-      transition: opacity var(--transition-medium), transform var(--transition-medium);
-      will-change: transform, opacity;
+      display: none !important; /* blocco totalmente dropdown */
     }
 
-    .dropdown:hover>.dropdown-content {
-      display: block;
-    }
-
-    .dropdown-content a,
-    .dropdown-content .disabled {
-      padding: 1rem 2rem;
-      display: block;
-      white-space: nowrap;
-      cursor: pointer;
-      border-radius: 20px;
-      color: var(--col-white);
-      transition: background var(--transition-fast), color var(--transition-fast),
-        transform var(--transition-fast), box-shadow var(--transition-fast);
-      user-select: none;
-      font-weight: 600;
-    }
-
-    .dropdown-content a:hover {
-      background: rgba(118 35 127 / 0.3);
-      color: var(--col-purple);
-      transform: translateX(8px) scale(1.03);
-      box-shadow:
-        0 0 12px var(--col-purple),
-        inset 0 0 10px rgba(118 35 127 / 0.7);
-    }
-
-    .dropdown-content .disabled {
-      color: #aaa;
-      cursor: default;
-      user-select: none;
-      pointer-events: none;
-      font-style: italic;
-      font-weight: 400;
-    }
-
-    /* Bottone "Altri Progetti" tematizzato */
-    .dropdown-content .btn-progetti {
-      margin-top: 0.5rem;
-      background: var(--col-purple);
-      color: var(--col-white);
-      border-radius: 28px;
-      font-weight: 700;
-      text-align: center;
-      user-select: none;
-      transition: background var(--transition-medium), box-shadow var(--transition-medium);
-      box-shadow:
-        0 0 10px rgba(118 35 127 / 0.45),
-        inset 0 0 12px rgba(255 255 255 / 0.2);
-      cursor: pointer;
-    }
-
-    .dropdown-content .btn-progetti:hover {
-      background: var(--col-purple-dark);
-      box-shadow:
-        0 0 24px var(--col-purple-dark),
-        inset 0 0 18px rgba(255 255 255 / 0.35);
-      transform: scale(1.07);
-      color: var(--col-white);
-    }
-
-    @keyframes fadeSlideDown {
-      0% {
-        opacity: 0;
-        transform: scaleY(0.75) translateY(-15px);
-      }
-
-      100% {
-        opacity: 1;
-        transform: scaleY(1) translateY(0);
-      }
-    }
-
-    /* MINI CLOCK */
+    /* ======================= MINI CLOCK (Dynamic Island) ======================= */
     #mini-clock {
       position: fixed;
-      top: 14px;
-      right: 26px;
-      width: 56px;
-      height: 56px;
+      top: 12px;
+      right: 22px;
+      width: 64px;
+      height: 64px;
       background: var(--glass-bg);
-      border-radius: 50%;
-      padding: 8px;
-      box-shadow:
-        0 12px 30px rgba(0 0 0 / 0.4),
-        inset 0 0 18px rgba(255 255 255 / 0.25),
-        inset 0 4px 10px rgba(255 255 255 / 0.3);
+      border-radius: 36px;
+      padding: 8px 16px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08), inset 0 2px 10px rgba(255, 255, 255, 0.7);
       cursor: pointer;
-      z-index: 1155;
+      z-index: 1101;
       display: flex;
       align-items: center;
       justify-content: center;
       transition:
         transform var(--transition-medium),
         box-shadow var(--transition-medium);
-      perspective: 700px;
-      will-change: transform, box-shadow;
-      filter: drop-shadow(0 2px 4px rgba(0 0 0 / 0.3));
+      perspective: 600px;
       user-select: none;
+      will-change: transform, box-shadow;
+      backdrop-filter: saturate(180%) blur(20px);
+      -webkit-backdrop-filter: saturate(180%) blur(20px);
+      border: 1px solid var(--glass-border);
+      font-weight: 600;
+      font-size: 1rem;
+      color: var(--col-purple-dark);
+      letter-spacing: 0.05em;
+      text-shadow: 0 0 3px rgba(118, 35, 127, 0.6);
+      box-shadow:
+        0 10px 30px rgba(118, 35, 127, 0.15),
+        inset 0 2px 10px rgba(255, 255, 255, 0.7);
     }
 
     #mini-clock:hover {
-      transform: rotateY(12deg) scale(1.14);
+      transform: scale(1.1) translateZ(0);
       box-shadow:
-        0 18px 56px var(--col-purple),
-        inset 0 0 24px rgba(255 255 255 / 0.45),
-        inset 0 6px 14px rgba(255 255 255 / 0.5);
-      filter: drop-shadow(0 0 12px var(--col-purple));
+        0 18px 48px var(--col-purple),
+        inset 0 2px 12px rgba(255, 255, 255, 0.8);
     }
 
-    /* LOGO */
+    /* ======================= LOGO (Dynamic Island) ======================= */
     #logo {
       position: fixed;
-      top: 12px;
-      left: 20px;
-      width: 56px;
-      height: 56px;
+      top: 8px;
+      left: 16px;
+      width: 64px;
+      height: 64px;
       background: var(--glass-bg);
-      border-radius: 50%;
-      padding: 6px;
+      border-radius: 36px;
       box-shadow:
-        0 14px 28px rgba(0 0 0 / 0.35),
-        inset 0 0 22px rgba(255 255 255 / 0.35),
-        inset 0 5px 12px rgba(255 255 255 / 0.38);
+        0 12px 24px rgba(0, 0, 0, 0.12),
+        inset 0 2px 10px rgba(255, 255, 255, 0.7);
+      padding: 8px 16px;
+      z-index: 1101;
       cursor: pointer;
-      z-index: 1155;
-      display: flex;
-      align-items: center;
-      justify-content: center;
       transition:
         transform var(--transition-medium),
         box-shadow var(--transition-medium);
-      perspective: 700px;
-      will-change: transform, box-shadow;
-      filter: drop-shadow(0 2px 5px rgba(0 0 0 / 0.32));
+      display: flex;
+      align-items: center;
+      justify-content: center;
       user-select: none;
+      will-change: transform, box-shadow;
+      backdrop-filter: saturate(180%) blur(20px);
+      -webkit-backdrop-filter: saturate(180%) blur(20px);
+      border: 1px solid var(--glass-border);
+      font-weight: 700;
+      font-size: 1rem;
+      color: var(--col-purple-dark);
+      letter-spacing: 0.06em;
+      text-shadow: 0 0 3px rgba(118, 35, 127, 0.6);
     }
 
     #logo:hover {
-      transform: rotateY(12deg) scale(1.14);
+      transform: scale(1.1) translateZ(0);
       box-shadow:
-        0 22px 54px var(--col-purple),
-        inset 0 0 32px rgba(255 255 255 / 0.55),
-        inset 0 7px 18px rgba(255 255 255 / 0.6);
-      filter: drop-shadow(0 0 14px var(--col-purple));
+        0 18px 48px var(--col-purple),
+        inset 0 2px 12px rgba(255, 255, 255, 0.8);
     }
 
-    /* Mostra dropdown Progetti se hover su mini-clock o logo */
-    #mini-clock:hover~nav .dropdown .dropdown-content,
-    #logo:hover~nav .dropdown .dropdown-content {
-      display: block !important;
-    }
-
-    /* HERO */
+    /* ======================= HERO ======================= */
     .hero {
       max-width: 760px;
-      margin: 110px auto 3rem auto;
+      margin: 110px auto 2.5rem auto;
       text-align: center;
       padding: 1rem 2rem;
       animation: fadePop 1.2s ease forwards;
@@ -378,36 +274,34 @@
     }
 
     .hero h1 {
-      font-size: 4rem;
+      font-size: 3.8rem;
       font-weight: 900;
-      margin-bottom: 0.7rem;
+      margin-bottom: 0.6rem;
       background: linear-gradient(45deg, var(--col-purple), var(--col-purple-dark));
       background-clip: text;
       -webkit-background-clip: text;
       color: transparent;
       animation: gradientShift 7s infinite alternate;
       user-select: none;
-      letter-spacing: 0.03em;
-      text-shadow: 0 0 10px rgba(118 35 127 / 0.7);
+      letter-spacing: 0.02em;
     }
 
     .hero p {
-      font-size: 1.5rem;
-      color: rgba(255 255 255 / 0.75);
+      font-size: 1.45rem;
+      color: var(--col-gray-medium);
       animation: fadeIn 2s ease forwards;
       animation-delay: 0.7s;
       opacity: 0;
       user-select: none;
-      line-height: 1.7;
-      max-width: 600px;
+      line-height: 1.6;
+      max-width: 550px;
       margin: 0 auto;
-      text-shadow: 0 0 5px rgba(0 0 0 / 0.2);
     }
 
     @keyframes fadePop {
       0% {
         opacity: 0;
-        transform: scale(0.94) translateY(28px);
+        transform: scale(0.92) translateY(28px);
       }
 
       100% {
@@ -436,78 +330,278 @@
       }
     }
 
+    /* ======================= SEZIONE PROGETTI ======================= */
+    .projects {
+      max-width: 1200px;
+      margin: 4rem auto 5rem auto;
+      padding: 1rem 2rem;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2.8rem;
+      opacity: 0;
+      animation: fadeIn 1s ease forwards;
+      animation-delay: 1.2s;
+      user-select: none;
+    }
+
+    .project-card {
+      background: var(--col-white);
+      border-radius: var(--border-radius);
+      padding: 2rem 1.75rem;
+      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.08);
+      transition:
+        transform var(--transition-medium),
+        box-shadow var(--transition-medium),
+        color var(--transition-medium);
+      text-align: center;
+      font-weight: 600;
+      transform-style: preserve-3d;
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
+      user-select: none;
+      color: var(--col-gray-dark);
+      letter-spacing: 0.015em;
+      will-change: transform, box-shadow, color;
+    }
+
+    .project-card:hover:not(.disabled) {
+      transform: rotateX(7deg) rotateY(-3deg) scale(1.07);
+      box-shadow: 0 20px 72px rgba(118, 35, 127, 0.3);
+      color: var(--col-purple);
+    }
+
+    .project-card.disabled {
+      background: #f0f0f0;
+      cursor: default;
+      color: #aaa !important;
+      font-style: italic;
+      pointer-events: none;
+      user-select: none;
+    }
+
+    /* ======================= SEZIONE EXTRA ======================= */
+    .extra-content {
+      max-width: 760px;
+      margin: 0 auto 5rem auto;
+      padding: 0 2rem;
+      font-size: 1.125rem;
+      color: var(--col-gray-medium);
+      text-align: center;
+      letter-spacing: 0.02em;
+      user-select: none;
+      line-height: 1.7;
+    }
+
+    /* ======================= CONTATTI ======================= */
+    .contact-section {
+      max-width: 320px;
+      margin: 0 auto 4rem auto;
+      text-align: center;
+      user-select: none;
+    }
+
+    .contact-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.65rem 1.4rem;
+      background: var(--col-purple);
+      color: var(--col-white);
+      border-radius: var(--border-radius);
+      font-weight: 700;
+      font-size: 1.05rem;
+      text-decoration: none;
+      box-shadow: 0 8px 24px rgba(118, 35, 127, 0.4);
+      transition:
+        background var(--transition-medium),
+        box-shadow var(--transition-medium),
+        transform var(--transition-medium);
+      user-select: none;
+      cursor: pointer;
+    }
+
+    .contact-btn:hover,
+    .contact-btn:focus-visible {
+      background: var(--col-purple-dark);
+      box-shadow: 0 12px 36px var(--col-purple-dark);
+      transform: scale(1.05);
+      outline-offset: 3px;
+      outline: 2px solid var(--col-purple-dark);
+      color: var(--col-white);
+    }
+
+    .contact-btn svg {
+      width: 20px;
+      height: 20px;
+      fill: var(--col-white);
+      user-select: none;
+      pointer-events: none;
+    }
+
+    /* ======================= FOOTER ======================= */
+    footer {
+      text-align: center;
+      padding: 1.5rem 1rem;
+      background: var(--col-white);
+      font-weight: 600;
+      font-size: 0.875rem;
+      color: var(--col-gray-medium);
+      border-top: 1px solid #eaeaea;
+      user-select: none;
+    }
+
+    /* ======================= ACCESSIBILITÀ ======================= */
+    .disabled {
+      pointer-events: none !important;
+      user-select: none !important;
+      cursor: default !important;
+      color: #aaa !important;
+      font-style: italic !important;
+    }
+
+    /* ======================= MEDIA QUERIES ======================= */
+    @media (max-width: 480px) {
+      nav {
+        gap: 1rem;
+        padding: 0 1rem;
+      }
+
+      nav a,
+      .dropbtn {
+        padding: 0.55rem 1rem;
+        font-size: 1rem;
+      }
+
+      .hero h1 {
+        font-size: 2.6rem;
+      }
+
+      .hero p {
+        font-size: 1.1rem;
+      }
+
+      .projects {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+      }
+
+      #mini-clock {
+        width: 56px;
+        height: 56px;
+        border-radius: 28px;
+        padding: 6px 12px;
+        font-size: 0.9rem;
+      }
+
+      #logo {
+        width: 56px;
+        height: 56px;
+        border-radius: 28px;
+        padding: 6px 12px;
+        font-size: 0.9rem;
+      }
+    }
   </style>
 </head>
 
 <body>
 
   <!-- Loader -->
-  <div id="loader" aria-hidden="true">
+  <div id="loader">
     <div class="spinner"></div>
   </div>
 
-  <!-- Logo (liquid glass) -->
-  <div id="logo" aria-label="Logo Miniutti" tabindex="0">
-    <img src="favicon.png" alt="Logo" style="width:40px; height:40px; user-select:none;" />
-  </div>
+  <!-- Logo -->
+  <img src="favicon.png" alt="Logo Miniutti" id="logo" title="Home - Miniutti.it" role="button" tabindex="0" />
 
-  <!-- Mini Clock (liquid glass) -->
-  <div id="mini-clock" aria-label="Orologio Mini" tabindex="0"></div>
+  <!-- Mini Clock -->
+  <div id="mini-clock" title="Orologio SBB" role="button" tabindex="0" aria-label="Vai a SBB Clock"></div>
 
-  <!-- Dynamic Island Nav -->
-  <nav role="navigation" aria-label="Menu di navigazione principale">
-    <a href="/index.html" aria-current="page">Home</a>
-
-    <div class="dropdown">
-      <div class="dropbtn" aria-haspopup="true" aria-expanded="false" tabindex="0" aria-controls="dropdown-progetti">
-        Progetti
-      </div>
-      <div class="dropdown-content" id="dropdown-progetti" role="menu" aria-label="Menu progetti">
-        <a href="/clock" role="menuitem" tabindex="-1">SBB Clock</a>
-        <a class="disabled" tabindex="-1" aria-disabled="true">Altro in arrivo...</a>
-        <div class="btn-progetti" tabindex="0" role="menuitem" onclick="alert('Nessun progetto aggiuntivo ora');">
-          Altri progetti
-        </div>
-      </div>
+  <!-- Navbar -->
+  <nav role="navigation" aria-label="Menu principale">
+    <a href="index.html" tabindex="0">Home</a>
+    <a href="clock.html" tabindex="0">SBB Clock</a>
+    <div class="dropdown" tabindex="-1" aria-haspopup="false" aria-expanded="false" aria-label="Menu Progetti non cliccabile">
+      <div class="dropbtn" tabindex="-1" aria-disabled="true">Progetti</div>
     </div>
-
-    <a href="/diritti.html">Diritti</a>
   </nav>
 
   <!-- Hero -->
-  <section class="hero" aria-label="Introduzione sito Miniutti">
-    <h1>Benvenuto su Miniutti.it</h1>
-    <p>Progetti innovativi con design minimalista e tecnologia d’avanguardia, ispirati a eleganza e precisione svizzera.</p>
+  <section class="hero" aria-label="Benvenuto su Miniutti.it">
+    <h1>Miniutti.it</h1>
+    <p>Scopri i progetti, i codici e le interfacce eleganti di Tobia Miniutti. Esperienze con design moderno, animazioni 3D e
+      tanto altro.</p>
   </section>
 
-  <script>
-    // Loader fadeout semplice
-    window.addEventListener('load', () => {
-      const loader = document.getElementById('loader');
-      loader.style.transition = 'opacity 0.8s ease';
-      loader.style.opacity = '0';
-      setTimeout(() => loader.style.display = 'none', 900);
-    });
+  <!-- Projects -->
+  <section class="projects" aria-label="Sezione progetti">
+    <article class="project-card" tabindex="0" role="region" aria-labelledby="proj-sbb-clock">
+      <h2 id="proj-sbb-clock">SBB Clock</h2>
+      <p>Orologio digitale SBB con animazioni fedeli e design responsive.</p>
+    </article>
+    <article class="project-card disabled" aria-disabled="true">
+      <h2>MoonWolf (abbandonato)</h2>
+      <p>Progetto non più attivo.</p>
+    </article>
+  </section>
 
-    // Inizializza orologio SBB Clock sul mini-clock
-    document.addEventListener('DOMContentLoaded', () => {
-      if (typeof sbbUhr === 'function') {
-        sbbUhr('#mini-clock', {
-          size: 56,
-          showSeconds: false,
-          showDate: false
-        });
+  <!-- Extra content -->
+  <section class="extra-content">
+    <p>Contenuti aggiuntivi e informazioni varie su Miniutti.it.</p>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    &copy; 2025 Tobia Miniutti. Tutti i diritti riservati.
+  </footer>
+
+  <script>
+    // Loader fadeout
+    window.addEventListener("load", () => {
+      const loader = document.getElementById("loader");
+      if (loader) {
+        loader.style.transition = "opacity 0.6s ease";
+        loader.style.opacity = "0";
+        setTimeout(() => loader.remove(), 700);
       }
     });
 
-    // Gestione aria-expanded per dropdown dinamico
-    const dropbtn = document.querySelector('.dropbtn');
-    const dropdown = dropbtn.nextElementSibling;
-    dropbtn.addEventListener('click', () => {
-      const expanded = dropbtn.getAttribute('aria-expanded') === 'true';
-      dropbtn.setAttribute('aria-expanded', !expanded);
-      dropdown.style.display = expanded ? 'none' : 'block';
-    });
+    // Mini-clock aggiornamento SBB Uhr
+    const miniClock = document.getElementById("mini-clock");
+    if (miniClock) {
+      function updateMiniClock() {
+        const now = new Date();
+        const h = now.getHours().toString().padStart(2, "0");
+        const m = now.getMinutes().toString().padStart(2, "0");
+        miniClock.textContent = `${h}:${m}`;
+      }
+      updateMiniClock();
+      setInterval(updateMiniClock, 60000);
+      miniClock.addEventListener("click", () => {
+        window.location.href = "clock.html";
+      });
+      miniClock.addEventListener("keydown", e => {
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          window.location.href = "clock.html";
+        }
+      });
+    }
+
+    // Logo click rimanda a home
+    const logo = document.getElementById("logo");
+    if (logo) {
+      logo.addEventListener("click", () => {
+        window.location.href = "index.html";
+      });
+      logo.addEventListener("keydown", e => {
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          window.location.href = "index.html";
+        }
+      });
+    }
   </script>
 
 </body>
