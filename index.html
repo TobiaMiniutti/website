@@ -9,7 +9,7 @@
   <script src="sbbUhr-1.3.js" defer></script>
 
   <style>
-    /* ======================= RESET & VARIABILI ======================= */
+    /* RESET & VARIABILI */
     *,
     *::before,
     *::after {
@@ -35,13 +35,11 @@
       --transition-medium: 0.4s var(--ease);
       --transition-slow: 0.6s var(--ease);
 
-      /* Liquid Glass Colors */
       --glass-bg: rgba(255, 255, 255, 0.25);
       --glass-border: rgba(255, 255, 255, 0.4);
       --glass-shadow: rgba(118, 35, 127, 0.15);
     }
 
-    /* ======================= BODY ======================= */
     body {
       font-family: var(--font-sans);
       background: var(--col-gray-light);
@@ -62,7 +60,7 @@
       user-select: none;
     }
 
-    /* ======================= LOADER ======================= */
+    /* LOADER */
     #loader {
       position: fixed;
       inset: 0;
@@ -88,7 +86,7 @@
       }
     }
 
-    /* ======================= NAVBAR ======================= */
+    /* NAVBAR */
     nav {
       position: fixed;
       top: 0;
@@ -134,8 +132,6 @@
       user-select: none;
       border-radius: var(--border-radius);
       background: transparent;
-      /* rimuovo dropdown hover */
-      pointer-events: auto;
     }
 
     nav a:hover,
@@ -168,17 +164,56 @@
       opacity: 1;
     }
 
-    /* Rimuovo freccia dropdown (non serve più) */
-    .dropbtn::after {
-      content: "";
+    /* DROPDOWN */
+    .dropdown {
+      position: relative;
+      display: inline-block;
     }
 
-    /* ======================= DROPDOWN ======================= */
     .dropdown-content {
-      display: none !important; /* blocco totalmente dropdown */
+      display: none;
+      position: absolute;
+      top: 56px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--glass-bg);
+      backdrop-filter: saturate(180%) blur(20px);
+      -webkit-backdrop-filter: saturate(180%) blur(20px);
+      border: 1px solid var(--glass-border);
+      box-shadow: 0 8px 32px var(--glass-shadow);
+      border-radius: var(--border-radius);
+      padding: 0.75rem 1.5rem;
+      white-space: nowrap;
+      user-select: none;
+      z-index: 1200;
+      transition: opacity 0.3s ease, visibility 0.3s ease;
+      opacity: 0;
+      visibility: hidden;
     }
 
-    /* ======================= MINI CLOCK (Dynamic Island) ======================= */
+    .dropdown:hover .dropdown-content {
+      display: block;
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .dropdown-content a {
+      display: block;
+      color: var(--col-gray-dark);
+      font-weight: 600;
+      padding: 0.3rem 0;
+      text-decoration: none;
+      user-select: none;
+      transition: color var(--transition-fast);
+      letter-spacing: 0.03em;
+    }
+
+    .dropdown-content a:hover {
+      color: var(--col-purple);
+      text-shadow: 0 0 6px var(--col-purple);
+    }
+
+    /* MINI CLOCK (Dynamic Island) */
     #mini-clock {
       position: fixed;
       top: 12px;
@@ -220,7 +255,7 @@
         inset 0 2px 12px rgba(255, 255, 255, 0.8);
     }
 
-    /* ======================= LOGO (Dynamic Island) ======================= */
+    /* LOGO (Dynamic Island) */
     #logo {
       position: fixed;
       top: 8px;
@@ -260,7 +295,7 @@
         inset 0 2px 12px rgba(255, 255, 255, 0.8);
     }
 
-    /* ======================= HERO ======================= */
+    /* HERO */
     .hero {
       max-width: 760px;
       margin: 110px auto 2.5rem auto;
@@ -330,7 +365,7 @@
       }
     }
 
-    /* ======================= SEZIONE PROGETTI ======================= */
+    /* SEZIONE PROGETTI */
     .projects {
       max-width: 1200px;
       margin: 4rem auto 5rem auto;
@@ -365,22 +400,13 @@
       will-change: transform, box-shadow, color;
     }
 
-    .project-card:hover:not(.disabled) {
+    .project-card:hover {
       transform: rotateX(7deg) rotateY(-3deg) scale(1.07);
       box-shadow: 0 20px 72px rgba(118, 35, 127, 0.3);
       color: var(--col-purple);
     }
 
-    .project-card.disabled {
-      background: #f0f0f0;
-      cursor: default;
-      color: #aaa !important;
-      font-style: italic;
-      pointer-events: none;
-      user-select: none;
-    }
-
-    /* ======================= SEZIONE EXTRA ======================= */
+    /* EXTRA */
     .extra-content {
       max-width: 760px;
       margin: 0 auto 5rem auto;
@@ -393,7 +419,7 @@
       line-height: 1.7;
     }
 
-    /* ======================= CONTATTI ======================= */
+    /* CONTATTI */
     .contact-section {
       max-width: 320px;
       margin: 0 auto 4rem auto;
@@ -439,7 +465,7 @@
       pointer-events: none;
     }
 
-    /* ======================= FOOTER ======================= */
+    /* FOOTER */
     footer {
       text-align: center;
       padding: 1.5rem 1rem;
@@ -451,16 +477,7 @@
       user-select: none;
     }
 
-    /* ======================= ACCESSIBILITÀ ======================= */
-    .disabled {
-      pointer-events: none !important;
-      user-select: none !important;
-      cursor: default !important;
-      color: #aaa !important;
-      font-style: italic !important;
-    }
-
-    /* ======================= MEDIA QUERIES ======================= */
+    /* MEDIA QUERIES */
     @media (max-width: 480px) {
       nav {
         gap: 1rem;
@@ -522,27 +539,28 @@
   <nav role="navigation" aria-label="Menu principale">
     <a href="index.html" tabindex="0">Home</a>
     <a href="clock.html" tabindex="0">SBB Clock</a>
-    <div class="dropdown" tabindex="-1" aria-haspopup="false" aria-expanded="false" aria-label="Menu Progetti non cliccabile">
-      <div class="dropbtn" tabindex="-1" aria-disabled="true">Progetti</div>
+
+    <div class="dropdown" tabindex="0" aria-haspopup="true" aria-expanded="false" aria-label="Menu Progetti">
+      <div class="dropbtn" aria-haspopup="true" aria-expanded="false" aria-controls="dropdown-menu" tabindex="0">Progetti</div>
+      <div class="dropdown-content" id="dropdown-menu" role="menu" aria-label="Sottomenu Progetti">
+        <a href="clock.html" role="menuitem" tabindex="-1">SBB Clock</a>
+      </div>
     </div>
+
+    <a href="diritti.html" tabindex="0">Diritti</a>
   </nav>
 
   <!-- Hero -->
-  <section class="hero" aria-label="Benvenuto su Miniutti.it">
+  <section class="hero" aria-label="Introduzione">
     <h1>Miniutti.it</h1>
-    <p>Scopri i progetti, i codici e le interfacce eleganti di Tobia Miniutti. Esperienze con design moderno, animazioni 3D e
-      tanto altro.</p>
+    <p>Sito personale con progetti digitali e contenuti curati.</p>
   </section>
 
-  <!-- Projects -->
-  <section class="projects" aria-label="Sezione progetti">
+  <!-- Progetti -->
+  <section class="projects" aria-label="Sezione Progetti">
     <article class="project-card" tabindex="0" role="region" aria-labelledby="proj-sbb-clock">
       <h2 id="proj-sbb-clock">SBB Clock</h2>
       <p>Orologio digitale SBB con animazioni fedeli e design responsive.</p>
-    </article>
-    <article class="project-card disabled" aria-disabled="true">
-      <h2>MoonWolf (abbandonato)</h2>
-      <p>Progetto non più attivo.</p>
     </article>
   </section>
 
@@ -602,6 +620,34 @@
         }
       });
     }
+
+    // Dropdown aria-expanded toggle per accessibilità
+    const dropdown = document.querySelector(".dropdown");
+    const dropbtn = dropdown.querySelector(".dropbtn");
+    const dropdownContent = dropdown.querySelector(".dropdown-content");
+
+    dropdown.addEventListener("mouseenter", () => {
+      dropdown.setAttribute("aria-expanded", "true");
+      dropbtn.setAttribute("aria-expanded", "true");
+    });
+    dropdown.addEventListener("mouseleave", () => {
+      dropdown.setAttribute("aria-expanded", "false");
+      dropbtn.setAttribute("aria-expanded", "false");
+    });
+
+    dropbtn.addEventListener("keydown", (e) => {
+      if (e.key === "Enter" || e.key === " ") {
+        e.preventDefault();
+        const expanded = dropdown.getAttribute("aria-expanded") === "true";
+        if (expanded) {
+          dropdown.setAttribute("aria-expanded", "false");
+          dropbtn.setAttribute("aria-expanded", "false");
+        } else {
+          dropdown.setAttribute("aria-expanded", "true");
+          dropbtn.setAttribute("aria-expanded", "true");
+        }
+      }
+    });
   </script>
 
 </body>
