@@ -10,7 +10,7 @@
     /* RESET E VARIABILI */
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
     :root {
-      --col-green: #00703c;
+      --col-purple: #76237f;
       --col-white: #ffffff;
       --col-red: #d62f27;
       --col-gray-light: #f5f5f7;
@@ -18,7 +18,8 @@
       --shadow-light: rgba(0, 0, 0, 0.08);
       --shadow-heavy: rgba(0, 0, 0, 0.2);
       --ease: cubic-bezier(0.4, 0, 0.2, 1);
-      --tricolor-gradient: linear-gradient(90deg, #d62f27, #ffffff, #00703c);
+      /* Tricolore invertito per bandiera italiana */
+      --tricolor-gradient: linear-gradient(90deg, #00703c, #ffffff, #d62f27);
     }
     body {
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
@@ -30,26 +31,6 @@
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
     }
-
-    /* LOADER */
-    #loader {
-      position: fixed;
-      inset: 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: var(--col-white);
-      z-index: 99999;
-    }
-    .spinner {
-      width: 60px;
-      height: 60px;
-      border: 6px solid #ccc;
-      border-top: 6px solid var(--col-green);
-      border-radius: 50%;
-      animation: spin 1.2s linear infinite;
-    }
-    @keyframes spin { to { transform: rotate(360deg); } }
 
     /* HEADER/NAV */
     nav {
@@ -67,7 +48,7 @@
       box-shadow: 0 8px 24px var(--shadow-light);
       font-weight: 600;
       font-size: 1.1rem;
-      user-select: none;
+      user-select: none; /* Niente copia testo in nav */
     }
     nav a, .dropbtn {
       color: var(--col-gray-dark);
@@ -78,11 +59,12 @@
       display: inline-flex;
       align-items: center;
       cursor: pointer;
+      user-select: none; /* Niente copia testo */
     }
     nav a:hover, .dropbtn:hover {
-      color: var(--col-green);
-      transform: scale(1.08) rotateX(3deg);
-      text-shadow: 0 0 6px var(--col-green);
+      color: var(--col-purple);
+      transform: scale(1.05) rotateX(2deg); /* Effetto hover più leggero */
+      text-shadow: 0 0 5px var(--col-purple);
     }
     nav a::after, .dropbtn::after {
       content: "";
@@ -95,12 +77,13 @@
       opacity: 0;
       transition: opacity 0.3s ease;
       border-radius: 3px;
+      pointer-events: none;
     }
     nav a:hover::after, .dropbtn:hover::after {
       opacity: 1;
     }
 
-    /* FRECCIA VISIBILE SOLO PER DROPDOWN */
+    /* Freccia visibile solo per dropdown */
     .dropbtn::after {
       content: " \25BE";
       font-size: 0.75rem;
@@ -108,12 +91,14 @@
       margin-left: 0.5rem;
       opacity: 1;
       background: none;
+      user-select: none;
     }
 
-    /* DROPDOWN */
+    /* Dropdown */
     .dropdown {
       position: relative;
       z-index: 1100;
+      user-select: none;
     }
     .dropdown-content {
       display: none;
@@ -127,12 +112,13 @@
       min-width: 220px;
       transform-origin: top;
       animation: fadeSlideDown 0.4s ease forwards;
-      user-select: none;
+      user-select: none; /* Niente copia nel menu */
     }
-    .dropdown:hover .dropdown-content,
-    .dropdown-content:hover {
+    .dropdown:hover .dropdown-content {
       display: block;
     }
+    /* Rimuovo dropdown-content:hover display block per evitare che rimanga aperto se si tocca solo dropdown-content */
+
     .dropdown-content a, .dropdown-content .disabled {
       padding: 0.8rem 1.5rem;
       display: block;
@@ -141,10 +127,11 @@
       font-weight: 500;
       transition: background 0.3s, color 0.3s, transform 0.3s;
       cursor: pointer;
+      user-select: none;
     }
     .dropdown-content a:hover {
-      background: #e6f0ea;
-      color: var(--col-green);
+      background: #f4e6f7; /* più chiaro viola */
+      color: var(--col-purple);
       transform: translateX(6px);
     }
     .dropdown-content .disabled {
@@ -154,10 +141,10 @@
       pointer-events: none;
       font-style: italic;
     }
-    /* Bottone "Altri Progetti" */
+    /* Bottone "Altri Progetti" tematizzato come prima selezione */
     .dropdown-content .btn-progetti {
       margin-top: 0.3rem;
-      background: var(--col-green);
+      background: var(--col-purple);
       color: var(--col-white);
       border-radius: 12px;
       font-weight: 700;
@@ -166,10 +153,10 @@
       transition: background 0.4s ease;
     }
     .dropdown-content .btn-progetti:hover {
-      background: var(--col-red);
+      background: #5c1a64; /* tonalità più scura viola */
       color: var(--col-white);
       transform: scale(1.05);
-      box-shadow: 0 0 10px var(--col-red);
+      box-shadow: 0 0 10px #5c1a64;
     }
 
     @keyframes fadeSlideDown {
@@ -195,13 +182,14 @@
       justify-content: center;
       transition: transform 0.3s, box-shadow 0.3s;
       perspective: 600px;
+      user-select: none;
     }
     #mini-clock:hover {
-      transform: rotateY(15deg) scale(1.1);
-      box-shadow: 0 20px 48px var(--col-green);
+      transform: rotateY(8deg) scale(1.07);
+      box-shadow: 0 15px 40px var(--col-purple);
     }
 
-    /* LOGO - STESSI EFFETTI DELL'OROLOGIO */
+    /* LOGO */
     #logo {
       position: fixed;
       top: 4px;
@@ -218,65 +206,36 @@
       display: flex;
       align-items: center;
       justify-content: center;
+      user-select: none;
     }
     #logo:hover {
-      transform: rotateY(15deg) scale(1.1);
-      box-shadow: 0 20px 48px var(--col-green);
+      transform: rotateY(8deg) scale(1.07);
+      box-shadow: 0 15px 40px var(--col-purple);
     }
 
-    /* Mostra dropdown Progetti se hover su mini-clock o logo */
-    #mini-clock:hover ~ nav .dropdown .dropdown-content,
-    #logo:hover ~ nav .dropdown .dropdown-content {
-      display: block !important;
+    /* RIMOSSO apertura dropdown al passaggio su mini-clock e logo */
+    /* #mini-clock:hover ~ nav .dropdown .dropdown-content,
+       #logo:hover ~ nav .dropdown .dropdown-content {
+         display: block !important;
+       }
+    */
+
+    /* Testo e link non selezionabile ovunque */
+    a, span, div {
+      user-select: none;
     }
 
-    /* ---------------- HERO ---------------- */
-    .hero {
-      max-width: 760px;
-      margin: 110px auto 2rem auto;
-      text-align: center;
-      padding: 1rem;
-      animation: fadePop 1.2s ease forwards;
-      opacity: 0;
-      animation-delay: 0.3s;
-      animation-fill-mode: forwards;
+    /* Bottone Progetti "Uno in arrivo" NON cliccabile e NON selezionabile */
+    .dropdown-content .disabled,
+    .project-card.disabled {
+      pointer-events: none;
+      user-select: none;
+      cursor: default;
+      color: #aaa !important;
+      font-style: italic;
     }
 
-    .hero h1 {
-      font-size: 3.5rem;
-      font-weight: 800;
-      margin-bottom: 0.5rem;
-      background: linear-gradient(45deg, var(--col-green), var(--col-red));
-      background-clip: text;
-      -webkit-background-clip: text;
-      color: transparent;
-      animation: gradientShift 6s infinite alternate;
-    }
-
-    .hero p {
-      font-size: 1.4rem;
-      color: #444;
-      animation: fadeIn 2s ease forwards;
-      animation-delay: 0.7s;
-      opacity: 0;
-    }
-
-    @keyframes fadePop {
-      0% { opacity: 0; transform: scale(0.9) translateY(30px); }
-      100% { opacity: 1; transform: scale(1) translateY(0); }
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
-    }
-
-    @keyframes gradientShift {
-      0% { background-position: 0% 50%; }
-      100% { background-position: 100% 50%; }
-    }
-
-    /* ---------------- PROGETTI ---------------- */
+    /* Sezione Progetti */
     .projects {
       max-width: 1200px;
       margin: 4rem auto;
@@ -288,7 +247,6 @@
       animation: fadeIn 1s ease forwards;
       animation-delay: 1.2s;
     }
-
     .project-card {
       background: var(--col-white);
       border-radius: 20px;
@@ -302,132 +260,22 @@
       overflow: hidden;
       cursor: pointer;
       user-select: none;
-    }
-
-    .project-card:hover {
-      transform: rotateX(8deg) rotateY(-4deg) scale(1.05);
-      box-shadow: 0 18px 60px rgba(0, 112, 60, 0.35);
-      color: var(--col-green);
-    }
-
-    /* Overlay luce sfumata */
-    .project-card::before {
-      content: '';
-      position: absolute;
-      top: -50%;
-      left: -50%;
-      width: 200%;
-      height: 200%;
-      background: radial-gradient(circle at center, rgba(0,0,0,0.05), transparent 70%);
-      opacity: 0;
-      transition: opacity 0.5s ease;
-      z-index: 0;
-    }
-
-    .project-card:hover::before {
-      opacity: 1;
-    }
-
-    /* Nuovo contenuto extra */
-    .extra-content {
-      max-width: 900px;
-      margin: 3rem auto;
-      padding: 1rem 2rem;
-      background: var(--col-white);
-      border-radius: 20px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.07);
-      text-align: center;
-      font-size: 1.1rem;
       color: var(--col-gray-dark);
-      line-height: 1.5;
-      font-weight: 500;
-      transform-style: preserve-3d;
-      transition: transform 0.4s ease, box-shadow 0.4s ease;
-      opacity: 0;
-      animation: fadeIn 1s ease forwards;
-      animation-delay: 1.6s;
     }
-    .extra-content:hover {
-      transform: translateZ(40px) rotateX(4deg) rotateY(-6deg);
-      box-shadow: 0 20px 70px rgba(0, 112, 60, 0.25);
-      color: var(--col-green);
+    .project-card:hover:not(.disabled) {
+      transform: rotateX(8deg) rotateY(-4deg) scale(1.05);
+      box-shadow: 0 18px 60px var(--col-purple);
+      color: var(--col-purple);
+    }
+    .project-card.disabled {
+      background: #f0f0f0;
+      cursor: default;
     }
 
-    /* SEZIONE CONTATTI */
-    .contact-section {
-      max-width: 900px;
-      margin: 4rem auto 5rem auto;
-      padding: 2rem 2rem;
-      background: var(--col-white);
-      border-radius: 20px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.07);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: 1rem;
-      flex-wrap: wrap;
-      transform-style: preserve-3d;
-      transition: box-shadow 0.3s ease;
-      opacity: 0;
-      animation: fadeIn 1s ease forwards;
-      animation-delay: 2s;
-    }
-    .contact-section:hover {
-      box-shadow: 0 20px 60px rgba(0, 112, 60, 0.3);
-    }
-    .contact-btn {
-      background: var(--col-green);
-      color: var(--col-white);
-      font-weight: 700;
-      padding: 1rem 2rem;
-      border-radius: 50px;
-      font-size: 1.2rem;
-      cursor: pointer;
-      user-select: none;
-      box-shadow: 0 5px 15px rgba(0, 112, 60, 0.5);
-      transition: background 0.4s ease, transform 0.3s ease;
-      text-decoration: none;
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-    }
-    .contact-btn:hover {
-      background: var(--col-red);
-      box-shadow: 0 8px 20px rgba(214, 47, 39, 0.8);
-      transform: scale(1.05);
-      text-decoration: none;
-      color: var(--col-white);
-    }
-    .contact-btn svg {
-      width: 20px;
-      height: 20px;
-      fill: currentColor;
-    }
-
-    /* FOOTER */
-    footer {
-      text-align: center;
-      margin: 4rem 0 2rem;
-      color: #666;
-      font-size: 0.9rem;
-      padding: 1rem;
-      background: #fafafa;
-      border-top: 1px solid #ddd;
-    }
-
-    /* RESPONSIVE */
-    @media(max-width: 600px) {
-      .hero h1 { font-size: 2.2rem; }
-      nav { flex-wrap: wrap; gap: 1rem; padding: 1rem; justify-content: center;}
-      .project-card { padding: 1.2rem; }
-      .contact-section {
-        flex-direction: column;
-        padding: 1.5rem 1rem;
-      }
-      .contact-btn {
-        width: 100%;
-        justify-content: center;
-      }
+    /* Animazioni generali */
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
     }
   </style>
 </head>
@@ -448,9 +296,9 @@
   <a href="clock.html">SBB Clock</a>
   <div class="dropdown">
     <div class="dropbtn">Progetti</div>
-    <div class="dropdown-content">
+    <div class="dropdown-content" aria-label="Menu Progetti">
       <a href="clock.html">SBB Clock</a>
-      <span class="disabled">Uno in arrivo</span>
+      <span class="disabled" tabindex="-1" aria-disabled="true">Uno in arrivo</span>
       <a href="progetti.html" class="btn-progetti">Altri Progetti</a>
     </div>
   </div>
