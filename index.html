@@ -191,13 +191,15 @@
       visibility: hidden;
     }
 
-    .dropdown:hover .dropdown-content {
+    .dropdown:hover .dropdown-content,
+    .dropdown:focus-within .dropdown-content {
       display: block;
       opacity: 1;
       visibility: visible;
     }
 
-    .dropdown-content a {
+    .dropdown-content a,
+    .dropdown-content span.not-selectable {
       display: block;
       color: var(--col-gray-dark);
       font-weight: 600;
@@ -206,6 +208,7 @@
       user-select: none;
       transition: color var(--transition-fast);
       letter-spacing: 0.03em;
+      cursor: pointer;
     }
 
     .dropdown-content a:hover {
@@ -213,7 +216,14 @@
       text-shadow: 0 0 6px var(--col-purple);
     }
 
-    /* MINI CLOCK (Dynamic Island) */
+    .dropdown-content span.not-selectable {
+      cursor: default;
+      opacity: 0.5;
+      pointer-events: none;
+      font-style: italic;
+    }
+
+    /* MINI CLOCK (SBB Uhr) */
     #mini-clock {
       position: fixed;
       top: 12px;
@@ -255,7 +265,7 @@
         inset 0 2px 12px rgba(255, 255, 255, 0.8);
     }
 
-    /* LOGO (Dynamic Island) */
+    /* LOGO */
     #logo {
       position: fixed;
       top: 8px;
@@ -371,7 +381,7 @@
       margin: 4rem auto 5rem auto;
       padding: 1rem 2rem;
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
       gap: 2.8rem;
       opacity: 0;
       animation: fadeIn 1s ease forwards;
@@ -406,63 +416,82 @@
       color: var(--col-purple);
     }
 
-    /* EXTRA */
-    .extra-content {
-      max-width: 760px;
-      margin: 0 auto 5rem auto;
-      padding: 0 2rem;
-      font-size: 1.125rem;
+    .project-card.not-selectable {
+      cursor: default;
+      opacity: 0.5;
+      pointer-events: none;
+      font-style: italic;
       color: var(--col-gray-medium);
-      text-align: center;
-      letter-spacing: 0.02em;
-      user-select: none;
-      line-height: 1.7;
     }
 
     /* CONTATTI */
     .contact-section {
-      max-width: 320px;
+      max-width: 480px;
       margin: 0 auto 4rem auto;
-      text-align: center;
+      padding: 1rem 2rem;
+      background: var(--glass-bg);
+      border-radius: var(--border-radius);
+      box-shadow: 0 8px 32px var(--glass-shadow);
       user-select: none;
     }
 
-    .contact-btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      padding: 0.65rem 1.4rem;
+    .contact-section h2 {
+      text-align: center;
+      color: var(--col-purple-dark);
+      margin-bottom: 1rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+    }
+
+    .contact-form {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .contact-form label {
+      font-weight: 600;
+      color: var(--col-purple-dark);
+      user-select: text;
+    }
+
+    .contact-form input,
+    .contact-form textarea {
+      padding: 0.75rem 1rem;
+      border-radius: var(--border-radius);
+      border: 1px solid var(--col-gray-medium);
+      font-size: 1rem;
+      font-family: var(--font-sans);
+      resize: vertical;
+      transition: border-color var(--transition-fast);
+      user-select: text;
+    }
+
+    .contact-form input:focus,
+    .contact-form textarea:focus {
+      outline: none;
+      border-color: var(--col-purple);
+      box-shadow: 0 0 8px var(--col-purple);
+    }
+
+    .contact-form button {
       background: var(--col-purple);
       color: var(--col-white);
-      border-radius: var(--border-radius);
+      padding: 0.75rem 1.5rem;
       font-weight: 700;
-      font-size: 1.05rem;
-      text-decoration: none;
-      box-shadow: 0 8px 24px rgba(118, 35, 127, 0.4);
-      transition:
-        background var(--transition-medium),
-        box-shadow var(--transition-medium),
-        transform var(--transition-medium);
-      user-select: none;
+      font-size: 1.1rem;
+      border: none;
+      border-radius: var(--border-radius);
       cursor: pointer;
+      transition: background var(--transition-medium);
+      user-select: none;
     }
 
-    .contact-btn:hover,
-    .contact-btn:focus-visible {
+    .contact-form button:hover,
+    .contact-form button:focus-visible {
       background: var(--col-purple-dark);
-      box-shadow: 0 12px 36px var(--col-purple-dark);
-      transform: scale(1.05);
       outline-offset: 3px;
       outline: 2px solid var(--col-purple-dark);
-      color: var(--col-white);
-    }
-
-    .contact-btn svg {
-      width: 20px;
-      height: 20px;
-      fill: var(--col-white);
-      user-select: none;
-      pointer-events: none;
     }
 
     /* FOOTER */
@@ -523,27 +552,25 @@
 </head>
 
 <body>
-
-  <!-- Loader -->
   <div id="loader">
     <div class="spinner"></div>
   </div>
 
   <!-- Logo -->
-  <img src="favicon.png" alt="Logo Miniutti" id="logo" title="Home - Miniutti.it" role="button" tabindex="0" />
-
-  <!-- Mini Clock -->
-  <div id="mini-clock" title="Orologio SBB" role="button" tabindex="0" aria-label="Vai a SBB Clock"></div>
+  <div id="logo" tabindex="0" role="button" aria-label="Vai alla home">Miniutti.it</div>
 
   <!-- Navbar -->
   <nav role="navigation" aria-label="Menu principale">
     <a href="index.html" tabindex="0">Home</a>
-    <a href="clock.html" tabindex="0">SBB Clock</a>
 
-    <div class="dropdown" tabindex="0" aria-haspopup="true" aria-expanded="false" aria-label="Menu Progetti">
-      <div class="dropbtn" aria-haspopup="true" aria-expanded="false" aria-controls="dropdown-menu" tabindex="0">Progetti</div>
+    <div class="dropdown" role="menu" aria-haspopup="true" aria-expanded="false" aria-label="Menu Progetti">
+      <div class="dropbtn" tabindex="0" role="button" aria-haspopup="true" aria-expanded="false" aria-controls="dropdown-menu">
+        Progetti
+      </div>
       <div class="dropdown-content" id="dropdown-menu" role="menu" aria-label="Sottomenu Progetti">
-        <a href="clock.html" role="menuitem" tabindex="-1">SBB Clock</a>
+        <span class="not-selectable" tabindex="-1">In arrivo...</span>
+        <a href="clock.html" role="menuitem" tabindex="0">SBB Clock</a>
+        <a href="progetti.html" role="menuitem" tabindex="0">Altri Progetti</a>
       </div>
     </div>
 
@@ -553,21 +580,47 @@
   <!-- Hero -->
   <section class="hero" aria-label="Introduzione">
     <h1>Miniutti.it</h1>
-    <p>Sito personale con progetti digitali e contenuti curati.</p>
+    <p>Benvenuto nel sito personale di Tobia Miniutti, dedicato alla presentazione di progetti digitali innovativi e alla condivisione di contenuti accuratamente realizzati. Qui troverai informazioni dettagliate sui miei lavori, aggiornamenti e risorse utili.</p>
   </section>
 
   <!-- Progetti -->
   <section class="projects" aria-label="Sezione Progetti">
+    <article class="project-card not-selectable" tabindex="-1" role="region" aria-labelledby="proj-in-arrivo">
+      <h2 id="proj-in-arrivo">Progetto in arrivo</h2>
+      <p>Questo progetto è in fase di sviluppo e sarà presto disponibile con funzionalità esclusive e design all'avanguardia.</p>
+    </article>
+
     <article class="project-card" tabindex="0" role="region" aria-labelledby="proj-sbb-clock">
       <h2 id="proj-sbb-clock">SBB Clock</h2>
-      <p>Orologio digitale SBB con animazioni fedeli e design responsive.</p>
+      <p>Orologio digitale ufficiale SBB, fedele riproduzione con animazioni fluide e design responsive adattabile a ogni dispositivo. Ideale per chi ama l’eleganza e la precisione svizzera.</p>
+    </article>
+
+    <article class="project-card" tabindex="0" role="region" aria-labelledby="proj-altri">
+      <h2 id="proj-altri">Altri Progetti</h2>
+      <p>Scopri altri progetti digitali e creativi realizzati da me visitando la pagina dedicata, dove pubblico aggiornamenti regolari e novità interessanti.</p>
+      <a href="progetti.html" tabindex="0" style="font-weight:700; color: var(--col-purple); text-decoration: underline;">Vai alla pagina progetti</a>
     </article>
   </section>
 
-  <!-- Extra content -->
-  <section class="extra-content">
-    <p>Contenuti aggiuntivi e informazioni varie su Miniutti.it.</p>
+  <!-- Contatti -->
+  <section class="contact-section" aria-label="Modulo contatti">
+    <h2>Contattami</h2>
+    <form class="contact-form" action="mailto:info@miniutti.it" method="GET" enctype="text/plain" novalidate>
+      <label for="name">Nome</label>
+      <input id="name" name="name" type="text" placeholder="Inserisci il tuo nome" required autocomplete="name" />
+
+      <label for="email">Email</label>
+      <input id="email" name="email" type="email" placeholder="esempio@mail.com" required autocomplete="email" />
+
+      <label for="message">Messaggio</label>
+      <textarea id="message" name="message" rows="5" placeholder="Scrivi qui il tuo messaggio" required></textarea>
+
+      <button type="submit" aria-label="Invia messaggio a info@miniutti.it">Invia email</button>
+    </form>
   </section>
+
+  <!-- Mini SBB Clock -->
+  <div id="mini-clock" tabindex="0" aria-label="Orologio digitale SBB"></div>
 
   <!-- Footer -->
   <footer>
@@ -585,51 +638,27 @@
       }
     });
 
-    // Mini-clock aggiornamento SBB Uhr
-    const miniClock = document.getElementById("mini-clock");
-    if (miniClock) {
-      function updateMiniClock() {
-        const now = new Date();
-        const h = now.getHours().toString().padStart(2, "0");
-        const m = now.getMinutes().toString().padStart(2, "0");
-        miniClock.textContent = `${h}:${m}`;
-      }
-      updateMiniClock();
-      setInterval(updateMiniClock, 60000);
-      miniClock.addEventListener("click", () => {
-        window.location.href = "clock.html";
-      });
-      miniClock.addEventListener("keydown", e => {
-        if (e.key === "Enter" || e.key === " ") {
-          e.preventDefault();
-          window.location.href = "clock.html";
-        }
-      });
-    }
-
-    // Logo click rimanda a home
+    // Logo click / keyboard access
     const logo = document.getElementById("logo");
-    if (logo) {
-      logo.addEventListener("click", () => {
+    logo.addEventListener("click", () => {
+      window.location.href = "index.html";
+    });
+    logo.addEventListener("keydown", e => {
+      if (e.key === "Enter" || e.key === " ") {
+        e.preventDefault();
         window.location.href = "index.html";
-      });
-      logo.addEventListener("keydown", e => {
-        if (e.key === "Enter" || e.key === " ") {
-          e.preventDefault();
-          window.location.href = "index.html";
-        }
-      });
-    }
+      }
+    });
 
-    // Dropdown aria-expanded toggle per accessibilità
+    // Dropdown aria-expanded toggle for accessibility
     const dropdown = document.querySelector(".dropdown");
     const dropbtn = dropdown.querySelector(".dropbtn");
-    const dropdownContent = dropdown.querySelector(".dropdown-content");
 
     dropdown.addEventListener("mouseenter", () => {
       dropdown.setAttribute("aria-expanded", "true");
       dropbtn.setAttribute("aria-expanded", "true");
     });
+
     dropdown.addEventListener("mouseleave", () => {
       dropdown.setAttribute("aria-expanded", "false");
       dropbtn.setAttribute("aria-expanded", "false");
@@ -648,8 +677,35 @@
         }
       }
     });
-  </script>
 
+    // Mini SBB Uhr clock initialization
+    window.addEventListener("DOMContentLoaded", () => {
+      const miniClock = document.getElementById("mini-clock");
+      if (typeof SBBUhr !== "undefined" && miniClock) {
+        new SBBUhr({
+          target: miniClock,
+          type: "digital",
+          size: 64,
+          showSeconds: false,
+          showDate: false,
+          fullScreenBtn: false,
+          fullScreenKey: false,
+        });
+      }
+
+      // Click and keyboard to open clock page
+      miniClock.addEventListener("click", () => {
+        window.location.href = "clock.html";
+      });
+
+      miniClock.addEventListener("keydown", (e) => {
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          window.location.href = "clock.html";
+        }
+      });
+    });
+  </script>
 </body>
 
 </html>
