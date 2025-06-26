@@ -17,6 +17,7 @@
   <!-- NAVBAR -->
   <nav role="navigation" aria-label="Menu principale">
     <a href="index.html" tabindex="0">Home</a>
+
     <div class="dropdown" role="menu" aria-haspopup="true" aria-expanded="true" aria-label="Menu Progetti" tabindex="0">
       <div class="dropbtn" tabindex="0" role="button">Progetti</div>
       <div class="dropdown-content" role="menu" id="dropdown-menu">
@@ -25,47 +26,45 @@
         <a href="progetti.html" role="menuitem" tabindex="0">Altri Progetti</a>
       </div>
     </div>
+
     <a href="diritti.html" tabindex="0">Diritti</a>
   </nav>
 
   <!-- HERO -->
   <section class="hero" aria-label="Introduzione ai Progetti">
-    <h1>I miei Progetti</h1>
-    <p>Una selezione curata di lavori personali nel mondo digitale, elettronico e creativo. In continuo aggiornamento.</p>
+    <h1>Progetti</h1>
+    <p>Benvenuto nella sezione dedicata ai miei progetti digitali e creativi. Questa pagina è in continua evoluzione.</p>
   </section>
 
-  <!-- SEZIONE PROGETTI -->
-  <section class="projects" aria-label="Elenco dei progetti">
-    <article class="project-card" tabindex="0" role="region" aria-labelledby="sbb-clock">
-      <h2 id="sbb-clock">SBB Clock</h2>
-      <p>Replica digitale dell’orologio svizzero SBB, con animazioni precise e design responsive. Eleganza e accuratezza in un click.</p>
+  <!-- PROGETTI -->
+  <section class="projects" aria-label="Elenco progetti attivi e in sviluppo">
+    <article class="project-card" tabindex="0" role="region" aria-labelledby="proj-sbb-clock">
+      <h2 id="proj-sbb-clock">SBB Clock</h2>
+      <p>Replica digitale dell’orologio ufficiale svizzero, con animazioni fluide e responsive. Design minimalista, ma tecnico e preciso.</p>
       <a href="clock.html" style="font-weight:700; color: var(--col-purple); text-decoration: underline;">Apri il progetto</a>
     </article>
 
-    <article class="project-card not-selectable" tabindex="-1" role="region" aria-labelledby="allarme">
-      <h2 id="allarme">Allarme con Arduino</h2>
-      <p>Progetto in corso: sistema di sicurezza con sensori, buzzer e controllo remoto. Presto disponibile.</p>
+    <article class="project-card not-selectable" tabindex="-1" role="region" aria-labelledby="proj-in-arrivo-1">
+      <h2 id="proj-in-arrivo-1">Progetto Arduino</h2>
+      <p>Sistema di automazione con microcontrollore e sensori. In fase di sviluppo, sarà disponibile a breve.</p>
     </article>
 
-    <article class="project-card not-selectable" tabindex="-1" role="region" aria-labelledby="webapp">
-      <h2 id="webapp">WebApp scolastica</h2>
-      <p>App per la gestione scolastica: compiti, scadenze e notifiche integrate. In fase sperimentale.</p>
+    <article class="project-card not-selectable" tabindex="-1" role="region" aria-labelledby="proj-in-arrivo-2">
+      <h2 id="proj-in-arrivo-2">App Web Scolastica</h2>
+      <p>Gestione compiti, promemoria, orari e notifiche. App pensata per studenti, con UI chiara e funzionale.</p>
     </article>
   </section>
 
   <!-- MINI CLOCK -->
   <div id="mini-clock" tabindex="0" aria-label="Orologio digitale SBB"></div>
 
-  <!-- SCRIPT -->
   <script>
     document.addEventListener("DOMContentLoaded", () => {
-      // Dropdown ARIA
       const dropdown = document.querySelector(".dropdown");
       const dropbtn = dropdown.querySelector(".dropbtn");
       dropdown.setAttribute("aria-expanded", "true");
       dropbtn.setAttribute("aria-expanded", "true");
 
-      // Mini clock
       const miniClock = document.getElementById("mini-clock");
       if (typeof SBBUhr !== "undefined" && miniClock) {
         new SBBUhr({
@@ -79,7 +78,10 @@
         });
       }
 
-      miniClock.addEventListener("click", () => window.location.href = "clock.html");
+      miniClock.addEventListener("click", () => {
+        window.location.href = "clock.html";
+      });
+
       miniClock.addEventListener("keydown", (e) => {
         if (e.key === "Enter" || e.key === " ") {
           e.preventDefault();
