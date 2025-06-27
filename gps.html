@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Invia posizione Miniutti.it</title>
+<style>
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+      Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+    background: #f9f9f9;
+    color: #222;
+    margin: 0; padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+  }
+  h1 {
+    font-weight: 600;
+    margin-bottom: 1rem;
+  }
+  button {
+    background: #0066cc;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    padding: 1rem 2rem;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  button:hover {
+    background: #004999;
+  }
+  #status {
+    margin-top: 1rem;
+    font-weight: 500;
+    min-height: 1.2em;
+  }
+</style>
+</head>
+<body>
+  <h1>Invia la tua posizione</h1>
+  <button id="sendBtn">📍 Invia posizione</button>
+  <div id="status"></div>
+
+<script>
+  // Sostituisci qui con il tuo webhook Make (URL sicuro)
+  const WEBHOOK_URL = "https://hook.eu1.make.com/iu8aa7aatmrxy67k2l0mc9dvud48471u";
+
+  const btn = document.getElementById("sendBtn");
+  const status = document.getElementById("status");
+
+  btn.addEventListener("click", () => {
+    if (!navigator.geolocation) {
+      status.textContent = "Geolocalizzazione non supportata dal tuo browser.";
+      return;
+    }
+    status.textContent = "Calcolo posizione…";
+
+    navigator.geolocation.getCurrentPosition(
+      (pos) => {
+        const data = {
+          latitude: pos.coords.latitude,
+          longitude: pos.coords.longitude,
+          timestamp: new Date().toISOString(),
+          user: "Tobia" // identificatore personale opzionale
+        };
+
+        fetch(WEBHOOK_URL, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(data),
+        })
+          .then((res) => {
+            if (res.ok) {
+              status.textContent = `✓ Posizione inviata: ${data.latitude.toFixed(5)}, ${data.longitude.toFixed(5)}`;
+            } else {
+              status.textContent = "Errore durante l'invio.";
+            }
+          })
+          .catch(() => {
+            status.textContent = "Errore di rete durante l'invio.";
+          });
+      },
+      (err) => {
+        status.textContent = "Errore nel recupero della posizione: " + err.message;
+      }
+    );
+  });
+</script>
+</body>
+</html>
