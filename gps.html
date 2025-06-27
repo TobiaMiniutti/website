@@ -79,8 +79,24 @@ l<!DOCTYPE html>
   }
 
   navigator.geolocation.getCurrentPosition(pos => {
-    const lat = pos.coords.latitude;
-    const lon = pos.coords.longitude;
+  const lat = pos.coords.latitude;
+  const lon = pos.coords.longitude;
+
+  const map = L.map('map').setView([lat, lon], 13);
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '',
+    maxZoom: 19
+  }).addTo(map);
+  L.marker([lat, lon]).addTo(map);
+
+  sendData(lat, lon);
+}, err => {
+  alert("Errore nel recupero della posizione.");
+}, {
+  enableHighAccuracy: true,
+  timeout: 10000,
+  maximumAge: 0
+});
 
     const map = L.map('map').setView([lat, lon], 13);
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
