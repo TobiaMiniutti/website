@@ -1,292 +1,253 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Accesso Riservato - MoonWolf</title>
-    <!-- Link alla libreria FontAwesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Accesso Riservato</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #000;
+      --panel: #101010;
+      --accent: #00e0ff;
+      --white: #f5f5f5;
+      --input-bg: #1a1a1a;
+    }
 
-    <style>
-        body {
-            font-family: 'Arial', sans-serif;
-            background-color: #000;
-            color: #fff;
-            text-align: center;
-            padding: 50px;
-        }
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: var(--bg);
+      font-family: 'Inter', sans-serif;
+      color: var(--white);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
 
-        h1 {
-            color: #fff;
-            text-transform: uppercase;
-            font-size: 2.5em;
-            letter-spacing: 3px;
-            margin-bottom: 30px;
-        }
+    h1 {
+      font-weight: 700;
+      font-size: 2.5em;
+      letter-spacing: 2px;
+      margin-bottom: 30px;
+      animation: fadeIn 1.2s ease-out;
+    }
 
-        .login-container {
-            background-color: #111;
-            padding: 40px;
-            border-radius: 15px;
-            display: inline-block;
-            box-shadow: 0 0 30px rgba(255, 255, 255, 0.1);
-            max-width: 400px;
-            margin: 0 auto;
-        }
+    .login-container {
+      background-color: var(--panel);
+      padding: 40px;
+      border-radius: 20px;
+      width: 90%;
+      max-width: 400px;
+      box-shadow: 0 0 50px rgba(0, 224, 255, 0.15);
+      animation: fadeIn 1.5s ease-out;
+    }
 
-        .input-group {
-            position: relative;
-            margin-bottom: 20px;
-        }
+    .input-group {
+      position: relative;
+      margin-bottom: 20px;
+    }
 
-        .input-group input {
-            padding: 12px 40px 12px 40px; /* Padding left and right to accommodate icons */
-            font-size: 1em;
-            border: none;
-            border-radius: 5px;
-            background-color: #222;
-            color: #fff;
-            width: 100%;
-            box-sizing: border-box;
-            transition: background-color 0.3s ease;
-        }
+    .input-group input {
+      background-color: var(--input-bg);
+      border: none;
+      border-radius: 10px;
+      padding: 12px 45px 12px 40px;
+      width: 100%;
+      color: var(--white);
+      font-size: 1em;
+      transition: 0.3s;
+    }
 
-        .input-group input:focus {
-            background-color: #333;
-            outline: none;
-        }
+    .input-group input:focus {
+      outline: none;
+      background-color: #222;
+    }
 
-        .input-group i {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            color: #777;
-            font-size: 1.2em;
-        }
+    .input-group i {
+      position: absolute;
+      top: 50%;
+      left: 12px;
+      transform: translateY(-50%);
+      color: #555;
+    }
 
-        .input-group .fa-user {
-            left: 12px; /* Allineamento icona utente */
-        }
+    .toggle-password {
+      position: absolute;
+      right: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      cursor: pointer;
+      color: #555;
+    }
 
-        .input-group .fa-lock {
-            left: 12px; /* Allineamento icona password */
-        }
+    .btn {
+      width: 100%;
+      padding: 12px;
+      border: none;
+      border-radius: 10px;
+      background-color: var(--accent);
+      color: #000;
+      font-weight: bold;
+      font-size: 1em;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
 
-        .toggle-password {
-            position: absolute;
-            right: 12px; /* Posizione dell'icona dell'occhio */
-            top: 50%;
-            transform: translateY(-50%);
-            cursor: pointer;
-            color: #777;
-            font-size: 1.2em;
-        }
+    .btn:hover {
+      background-color: #00b2cc;
+    }
 
-        .btn {
-            padding: 12px 25px;
-            background-color: #28a745;
-            color: #fff;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 1.1em;
-            width: 100%;
-            transition: background-color 0.3s ease;
-        }
+    .error-message {
+      color: #ff4d4d;
+      margin-top: 10px;
+      display: none;
+      font-size: 0.95em;
+    }
 
-        .btn:hover {
-            background-color: #218838;
-        }
+    .hidden-content {
+      display: none;
+      margin-top: 50px;
+      width: 100%;
+      animation: fadeIn 1s ease;
+    }
 
-        .hidden-content {
-            display: none;
-            margin-top: 40px;
-        }
+    .hidden-content.active {
+      display: block;
+    }
 
-        .hidden-content.active {
-            display: block;
-        }
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+      padding: 20px;
+      max-width: 1200px;
+      margin: auto;
+    }
 
-        .hidden-content h2 {
-            font-size: 2em;
-            color: #fff;
-            margin-bottom: 20px;
-        }
+    .gallery img {
+      width: 100%;
+      border-radius: 12px;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      cursor: pointer;
+    }
 
-        .hidden-content p {
-            font-size: 1.2em;
-            color: #bbb;
-        }
+    .gallery img:hover {
+      transform: scale(1.03);
+      box-shadow: 0 0 15px rgba(0, 224, 255, 0.3);
+    }
 
-        .error-message {
-            color: red;
-            margin-top: 10px;
-            display: none;
-        }
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 999;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background-color: rgba(0, 0, 0, 0.9);
+      justify-content: center;
+      align-items: center;
+    }
 
-        /* Stile per la galleria */
-        .gallery {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 20px;
-            padding: 20px;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
+    .modal-content {
+      max-width: 90%;
+      max-height: 80%;
+      border-radius: 10px;
+      animation: zoom 0.5s ease;
+    }
 
-        .gallery img {
-            width: 100%;
-            height: auto;
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s ease;
-            cursor: pointer;
-        }
+    .close {
+      position: absolute;
+      top: 30px;
+      right: 40px;
+      font-size: 2.5em;
+      color: var(--white);
+      cursor: pointer;
+    }
 
-        .gallery img:hover {
-            transform: scale(1.05);
-        }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
 
-        /* Finestra modale */
-        .modal {
-            display: none;
-            position: fixed;
-            z-index: 1000;
-            padding-top: 60px;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.9);
-        }
-
-        .modal-content {
-            margin: auto;
-            display: block;
-            max-width: 80%;
-            max-height: 80%;
-        }
-
-        .modal-content {
-            animation-name: zoom;
-            animation-duration: 0.6s;
-        }
-
-        @keyframes zoom {
-            from {transform: scale(0)}
-            to {transform: scale(1)}
-        }
-
-        .close {
-            position: absolute;
-            top: 20px;
-            right: 35px;
-            color: #fff;
-            font-size: 40px;
-            font-weight: bold;
-            transition: 0.3s;
-        }
-
-        .close:hover,
-        .close:focus {
-            color: #bbb;
-            text-decoration: none;
-            cursor: pointer;
-        }
-    </style>
+    @keyframes zoom {
+      from { transform: scale(0.5); }
+      to { transform: scale(1); }
+    }
+  </style>
 </head>
 <body>
 
-    <h1>Accesso Riservato</h1>
-    <div class="login-container">
-        <div class="input-group">
-            <i class="fas fa-user"></i>
-            <input type="text" id="username" placeholder="Nome utente" aria-label="Nome utente">
-        </div>
-        <div class="input-group">
-            <i class="fas fa-lock"></i>
-            <input type="password" id="password" placeholder="Password" aria-label="Password">
-            <i class="fas fa-eye toggle-password" id="togglePassword"></i>
-        </div>
-        
-        <button class="btn" onclick="checkPassword()">Accedi</button>
-        <div class="error-message" id="error-message">Nome utente o password errati. Riprova.</div>
+  <h1>Accesso Riservato</h1>
+  <div class="login-container">
+    <div class="input-group">
+      <i class="fas fa-user"></i>
+      <input type="text" id="username" placeholder="Nome utente">
     </div>
-
-    <div id="content" class="hidden-content">
-        <h1>Galleria Immagini</h1>
-
-        <section class="gallery">
-            <img src="https://imagecdn.spazioweb.it/ba/fd/bafd9cb4-b894-40d7-8041-2bc9f007b2dc.png" alt="New Drop" onclick="openModal(this)">
-            <img src="https://via.placeholder.com/400" alt="Immagine 2" onclick="openModal(this)">
-            <img src="https://via.placeholder.com/400" alt="Immagine 3" onclick="openModal(this)">
-            <img src="https://via.placeholder.com/400" alt="Immagine 4" onclick="openModal(this)">
-            <img src="https://via.placeholder.com/400" alt="Immagine 5" onclick="openModal(this)">
-            <img src="https://via.placeholder.com/400" alt="Immagine 6" onclick="openModal(this)">
-        </section>
-
-        <!-- Finestra modale -->
-        <div id="myModal" class="modal">
-            <span class="close" onclick="closeModal()">&times;</span>
-            <img class="modal-content" id="modalImage">
-        </div>
+    <div class="input-group">
+      <i class="fas fa-lock"></i>
+      <input type="password" id="password" placeholder="Password">
+      <i class="fas fa-eye toggle-password" id="togglePassword"></i>
     </div>
+    <button class="btn" onclick="checkPassword()">Accedi</button>
+    <div class="error-message" id="error-message">Credenziali non valide</div>
+  </div>
 
-    <script>
-        // Funzione per aprire l'immagine in schermo intero
-        function openModal(imgElement) {
-            var modal = document.getElementById("myModal");
-            var modalImg = document.getElementById("modalImage");
-            modal.style.display = "block";
-            modalImg.src = imgElement.src;
-        }
+  <div id="content" class="hidden-content">
+    <h1>Galleria Privata</h1>
+    <div class="gallery">
+      <img src="https://imagecdn.spazioweb.it/ba/fd/bafd9cb4-b894-40d7-8041-2bc9f007b2dc.png" onclick="openModal(this)">
+      <img src="https://via.placeholder.com/400" onclick="openModal(this)">
+      <img src="https://via.placeholder.com/400" onclick="openModal(this)">
+    </div>
+    <div id="myModal" class="modal" onclick="closeModal()">
+      <span class="close">&times;</span>
+      <img class="modal-content" id="modalImage">
+    </div>
+  </div>
 
-        // Funzione per chiudere la finestra modale
-        function closeModal() {
-            var modal = document.getElementById("myModal");
-            modal.style.display = "none";
-        }
+  <script>
+    const users = {
+      "tobia": "Amad3us",
+      "fabio": "Amad3us",
+      "masca": "mixtapepluto",
+      "delo": "Minkione",
+      "utente5": "secret987"
+    };
 
-        // Utenti e password associati
-        const users = {
-            "tobia": "Amad3us",
-            "fabio": "Amad3us",
-            "masca": "mixtapepluto",
-            "delo": "Minkione",
-            "utente5": "secret987"
-        };
+    document.getElementById("togglePassword").addEventListener("click", function () {
+      const password = document.getElementById("password");
+      this.classList.toggle("fa-eye");
+      this.classList.toggle("fa-eye-slash");
+      password.type = password.type === "password" ? "text" : "password";
+    });
 
-        // Funzione per mostrare/nascondere la password
-        document.getElementById("togglePassword").addEventListener("click", function() {
-            var passwordField = document.getElementById("password");
-            var icon = this;
-            if (passwordField.type === "password") {
-                passwordField.type = "text";
-                icon.classList.remove("fa-eye");
-                icon.classList.add("fa-eye-slash");
-            } else {
-                passwordField.type = "password";
-                icon.classList.remove("fa-eye-slash");
-                icon.classList.add("fa-eye");
-            }
-        });
+    function checkPassword() {
+      const username = document.getElementById("username").value.toLowerCase();
+      const password = document.getElementById("password").value;
+      const content = document.getElementById("content");
+      const error = document.getElementById("error-message");
 
-        // Funzione per controllare utente e password
-        function checkPassword() {
-            var username = document.getElementById("username").value.toLowerCase();
-            var password = document.getElementById("password").value;
-            var content = document.getElementById("content");
-            var errorMessage = document.getElementById("error-message");
+      if (users[username] === password) {
+        content.classList.add("active");
+        error.style.display = "none";
+        window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+      } else {
+        error.style.display = "block";
+      }
+    }
 
-            // Verifica se l'utente esiste e la password Ã¨ corretta
-            if (users[username] && users[username] === password) {
-                content.classList.add("active"); // Aggiunge la classe "active" per mostrare il contenuto nascosto
-                errorMessage.style.display = "none"; // Nasconde il messaggio di errore
-            } else {
-                errorMessage.style.display = "block"; // Mostra il messaggio di errore
-            }
-        }
-    </script>
+    function openModal(img) {
+      document.getElementById("modalImage").src = img.src;
+      document.getElementById("myModal").style.display = "flex";
+    }
 
+    function closeModal() {
+      document.getElementById("myModal").style.display = "none";
+    }
+  </script>
 </body>
 </html>
