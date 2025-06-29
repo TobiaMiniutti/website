@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Accesso Riservato - MoonWolf</title>
+    <!-- Link alla libreria FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #000;
+            color: #fff;
+            text-align: center;
+            padding: 50px;
+        }
+
+        h1 {
+            color: #fff;
+            text-transform: uppercase;
+            font-size: 2.5em;
+            letter-spacing: 3px;
+            margin-bottom: 30px;
+        }
+
+        .login-container {
+            background-color: #111;
+            padding: 40px;
+            border-radius: 15px;
+            display: inline-block;
+            box-shadow: 0 0 30px rgba(255, 255, 255, 0.1);
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
+        .input-group {
+            position: relative;
+            margin-bottom: 20px;
+        }
+
+        .input-group input {
+            padding: 12px 40px 12px 40px; /* Padding left and right to accommodate icons */
+            font-size: 1em;
+            border: none;
+            border-radius: 5px;
+            background-color: #222;
+            color: #fff;
+            width: 100%;
+            box-sizing: border-box;
+            transition: background-color 0.3s ease;
+        }
+
+        .input-group input:focus {
+            background-color: #333;
+            outline: none;
+        }
+
+        .input-group i {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #777;
+            font-size: 1.2em;
+        }
+
+        .input-group .fa-user {
+            left: 12px; /* Allineamento icona utente */
+        }
+
+        .input-group .fa-lock {
+            left: 12px; /* Allineamento icona password */
+        }
+
+        .toggle-password {
+            position: absolute;
+            right: 12px; /* Posizione dell'icona dell'occhio */
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            color: #777;
+            font-size: 1.2em;
+        }
+
+        .btn {
+            padding: 12px 25px;
+            background-color: #28a745;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1.1em;
+            width: 100%;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn:hover {
+            background-color: #218838;
+        }
+
+        .hidden-content {
+            display: none;
+            margin-top: 40px;
+        }
+
+        .hidden-content.active {
+            display: block;
+        }
+
+        .hidden-content h2 {
+            font-size: 2em;
+            color: #fff;
+            margin-bottom: 20px;
+        }
+
+        .hidden-content p {
+            font-size: 1.2em;
+            color: #bbb;
+        }
+
+        .error-message {
+            color: red;
+            margin-top: 10px;
+            display: none;
+        }
+
+        /* Stile per la galleria */
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .gallery img {
+            width: 100%;
+            height: auto;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+            cursor: pointer;
+        }
+
+        .gallery img:hover {
+            transform: scale(1.05);
+        }
+
+        /* Finestra modale */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            padding-top: 60px;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+        }
+
+        .modal-content {
+            margin: auto;
+            display: block;
+            max-width: 80%;
+            max-height: 80%;
+        }
+
+        .modal-content {
+            animation-name: zoom;
+            animation-duration: 0.6s;
+        }
+
+        @keyframes zoom {
+            from {transform: scale(0)}
+            to {transform: scale(1)}
+        }
+
+        .close {
+            position: absolute;
+            top: 20px;
+            right: 35px;
+            color: #fff;
+            font-size: 40px;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: #bbb;
+            text-decoration: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Accesso Riservato</h1>
+    <div class="login-container">
+        <div class="input-group">
+            <i class="fas fa-user"></i>
+            <input type="text" id="username" placeholder="Nome utente" aria-label="Nome utente">
+        </div>
+        <div class="input-group">
+            <i class="fas fa-lock"></i>
+            <input type="password" id="password" placeholder="Password" aria-label="Password">
+            <i class="fas fa-eye toggle-password" id="togglePassword"></i>
+        </div>
+        
+        <button class="btn" onclick="checkPassword()">Accedi</button>
+        <div class="error-message" id="error-message">Nome utente o password errati. Riprova.</div>
+    </div>
+
+    <div id="content" class="hidden-content">
+        <h1>Galleria Immagini</h1>
+
+        <section class="gallery">
+            <img src="https://imagecdn.spazioweb.it/ba/fd/bafd9cb4-b894-40d7-8041-2bc9f007b2dc.png" alt="New Drop" onclick="openModal(this)">
+            <img src="https://via.placeholder.com/400" alt="Immagine 2" onclick="openModal(this)">
+            <img src="https://via.placeholder.com/400" alt="Immagine 3" onclick="openModal(this)">
+            <img src="https://via.placeholder.com/400" alt="Immagine 4" onclick="openModal(this)">
+            <img src="https://via.placeholder.com/400" alt="Immagine 5" onclick="openModal(this)">
+            <img src="https://via.placeholder.com/400" alt="Immagine 6" onclick="openModal(this)">
+        </section>
+
+        <!-- Finestra modale -->
+        <div id="myModal" class="modal">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <img class="modal-content" id="modalImage">
+        </div>
+    </div>
+
+    <script>
+        // Funzione per aprire l'immagine in schermo intero
+        function openModal(imgElement) {
+            var modal = document.getElementById("myModal");
+            var modalImg = document.getElementById("modalImage");
+            modal.style.display = "block";
+            modalImg.src = imgElement.src;
+        }
+
+        // Funzione per chiudere la finestra modale
+        function closeModal() {
+            var modal = document.getElementById("myModal");
+            modal.style.display = "none";
+        }
+
+        // Utenti e password associati
+        const users = {
+            "tobia": "Amad3us",
+            "fabio": "Amad3us",
+            "masca": "mixtapepluto",
+            "delo": "Minkione",
+            "utente5": "secret987"
+        };
+
+        // Funzione per mostrare/nascondere la password
+        document.getElementById("togglePassword").addEventListener("click", function() {
+            var passwordField = document.getElementById("password");
+            var icon = this;
+            if (passwordField.type === "password") {
+                passwordField.type = "text";
+                icon.classList.remove("fa-eye");
+                icon.classList.add("fa-eye-slash");
+            } else {
+                passwordField.type = "password";
+                icon.classList.remove("fa-eye-slash");
+                icon.classList.add("fa-eye");
+            }
+        });
+
+        // Funzione per controllare utente e password
+        function checkPassword() {
+            var username = document.getElementById("username").value.toLowerCase();
+            var password = document.getElementById("password").value;
+            var content = document.getElementById("content");
+            var errorMessage = document.getElementById("error-message");
+
+            // Verifica se l'utente esiste e la password Ã¨ corretta
+            if (users[username] && users[username] === password) {
+                content.classList.add("active"); // Aggiunge la classe "active" per mostrare il contenuto nascosto
+                errorMessage.style.display = "none"; // Nasconde il messaggio di errore
+            } else {
+                errorMessage.style.display = "block"; // Mostra il messaggio di errore
+            }
+        }
+    </script>
+
+</body>
+</html>
