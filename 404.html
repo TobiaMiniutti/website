@@ -1,128 +1,343 @@
 <!DOCTYPE html>
 <html lang="it">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Miniutti.it - Pagina non trovata (404)</title>
+  <link rel="icon" href="favicon.png" />
+  <script src="sbbUhr-1.3.js" defer></script>
+
   <style>
+    /* ======================= RESET & VARIABILI ======================= */
+    *,
+    *::before,
+    *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --col-purple: #76237f;
+      --col-purple-dark: #5c1a64;
+      --col-white: #ffffff;
+      --col-gray-light: #f5f5f7;
+      --col-gray-medium: #888888;
+      --col-gray-dark: #222222;
+      --shadow-light: rgba(0, 0, 0, 0.08);
+      --shadow-heavy: rgba(0, 0, 0, 0.12);
+      --ease: cubic-bezier(0.4, 0, 0.2, 1);
+      --tricolor-gradient: linear-gradient(90deg, #00703c, #ffffff, #d62f27);
+      --border-radius: 14px;
+      --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      --transition-fast: 0.25s var(--ease);
+      --transition-medium: 0.4s var(--ease);
+      --transition-slow: 0.6s var(--ease);
+
+      /* Liquid glass effect */
+      --glass-bg: rgba(255, 255, 255, 0.7);
+      --glass-border: rgba(255, 255, 255, 0.4);
+      --glass-shadow: rgba(255, 255, 255, 0.6);
+    }
+
+    /* ======================= BODY ======================= */
     body {
-      font-family: Arial, sans-serif;
-      background: #f5f5f7;
-      color: #222;
+      font-family: var(--font-sans);
+      background: var(--col-gray-light);
+      color: var(--col-gray-dark);
+      scroll-behavior: smooth;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      user-select: none;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
       text-align: center;
-      padding: 5rem 1rem;
+      padding: 4rem 2rem;
+    }
+
+    a,
+    span,
+    div {
       user-select: none;
     }
+
+    /* ======================= NAVBAR ======================= */
     nav {
       position: fixed;
-      top: 0; left: 50%;
+      top: 0;
+      left: 50%;
       transform: translateX(-50%);
-      background: rgba(255,255,255,0.8);
-      padding: 1rem 2rem;
-      border-radius: 0 0 14px 14px;
-      box-shadow: 0 8px 20px rgba(0,0,0,0.1);
-      font-weight: 600;
-      display: flex;
-      gap: 2rem;
-      user-select: none;
-      z-index: 1000;
-    }
-    nav a {
-      color: #76237f;
-      text-decoration: none;
-      font-size: 1.1rem;
-      transition: color 0.3s ease;
-    }
-    nav a:hover {
-      color: #5c1a64;
-    }
-    #logo {
-      position: fixed;
-      top: 8px; left: 16px;
-      width: 64px; height: 64px;
-      background: rgba(255,255,255,0.8);
-      border-radius: 36px;
-      box-shadow: 0 12px 24px rgba(0,0,0,0.1);
+      height: 64px;
+      background: var(--glass-bg);
+      backdrop-filter: saturate(180%) blur(12px);
+      -webkit-backdrop-filter: saturate(180%) blur(12px);
       display: flex;
       align-items: center;
       justify-content: center;
-      cursor: pointer;
+      gap: 2rem;
+      padding: 0 2rem;
+      z-index: 1100;
+      font-weight: 600;
+      font-size: 1.125rem;
+      letter-spacing: 0.02em;
+      border-radius: 0 0 var(--border-radius) var(--border-radius);
+      box-shadow:
+        0 8px 32px var(--shadow-light),
+        inset 0 0 0 1px var(--glass-border);
+      transition: box-shadow var(--transition-medium);
       user-select: none;
-      z-index: 1001;
+      width: 100%;
+      max-width: 800px;
     }
-    #logo img {
-      max-width: 90%;
-      max-height: 90%;
+
+    nav:hover {
+      box-shadow:
+        0 12px 48px var(--shadow-heavy),
+        inset 0 0 0 1px var(--glass-border);
+    }
+
+    nav a {
+      color: var(--col-gray-dark);
+      text-decoration: none;
+      padding: 0.7rem 1.25rem;
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      cursor: pointer;
+      transition:
+        color var(--transition-fast),
+        transform var(--transition-fast),
+        text-shadow var(--transition-fast);
+      border-radius: var(--border-radius);
+      backdrop-filter: saturate(180%) blur(12px);
+      -webkit-backdrop-filter: saturate(180%) blur(12px);
+      box-shadow: inset 0 0 8px rgba(255 255 255 / 0.35);
+      background: rgba(255 255 255 / 0.5);
+      user-select: none;
+    }
+
+    nav a:hover {
+      color: var(--col-purple);
+      transform: scale(1.07) translateZ(0);
+      text-shadow: 0 0 6px var(--col-purple);
+      background: rgba(118, 35, 127, 0.1);
+      box-shadow: 0 0 8px rgba(118, 35, 127, 0.3);
+      backdrop-filter: saturate(180%) blur(20px);
+      -webkit-backdrop-filter: saturate(180%) blur(20px);
+    }
+
+    nav a::after {
+      content: "";
+      position: absolute;
+      left: 10%;
+      bottom: 0;
+      width: 80%;
+      height: 3px;
+      background: var(--tricolor-gradient);
+      opacity: 0;
+      transition: opacity var(--transition-fast);
+      border-radius: 3px;
       pointer-events: none;
       user-select: none;
     }
-    h1 {
-      font-size: 4rem;
-      margin-bottom: 1rem;
-      color: #76237f;
+
+    nav a:hover::after {
+      opacity: 1;
     }
-    p {
-      font-size: 1.25rem;
-      margin-bottom: 2rem;
-      color: #555;
-    }
-    button {
-      background-color: #76237f;
-      color: white;
-      border: none;
-      border-radius: 14px;
-      padding: 0.8rem 2rem;
-      font-size: 1.1rem;
-      font-weight: 700;
-      cursor: pointer;
-      box-shadow: 0 6px 16px rgba(118,35,127,0.5);
-      transition: background-color 0.3s ease;
-      user-select: none;
-    }
-    button:hover {
-      background-color: #5c1a64;
-    }
-    /* Mini clock placeholder */
-    #mini-clock {
+
+    /* ======================= LOGO ======================= */
+    #logo {
       position: fixed;
-      top: 12px; right: 22px;
-      width: 56px; height: 56px;
-      background: rgba(255,255,255,0.8);
-      border-radius: 50%;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+      top: 8px;
+      left: 16px;
+      width: 64px;
+      height: 64px;
+      background: var(--glass-bg);
+      border-radius: 36px;
+      box-shadow:
+        0 12px 24px rgba(0, 0, 0, 0.12),
+        inset 0 2px 10px rgba(255, 255, 255, 0.7);
+      padding: 8px;
+      z-index: 1101;
+      cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-weight: 700;
-      color: #76237f;
-      font-size: 1.2rem;
       user-select: none;
-      z-index: 1001;
+      transition:
+        transform var(--transition-medium),
+        box-shadow var(--transition-medium);
+      border: 1px solid var(--glass-border);
+    }
+
+    #logo img {
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain;
+      user-select: none;
+      pointer-events: none;
+    }
+
+    #logo:hover {
+      transform: rotateY(8deg) scale(1.08);
+      box-shadow: 0 18px 48px var(--col-purple);
+    }
+
+    /* ======================= CONTENUTO 404 ======================= */
+    main {
+      max-width: 600px;
+      margin-top: 4rem;
+      user-select: none;
+    }
+
+    main h1 {
+      font-size: 7rem;
+      font-weight: 900;
+      background: linear-gradient(45deg, var(--col-purple), var(--col-purple-dark));
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
+      letter-spacing: 0.05em;
+      margin-bottom: 1rem;
+      user-select: none;
+    }
+
+    main p {
+      font-size: 1.5rem;
+      margin-bottom: 2.5rem;
+      color: var(--col-gray-medium);
+      user-select: none;
+    }
+
+    main button {
+      font-weight: 700;
+      font-size: 1.25rem;
+      padding: 1rem 2.5rem;
+      border-radius: var(--border-radius);
+      border: none;
+      background: var(--col-purple);
+      color: var(--col-white);
+      cursor: pointer;
+      box-shadow: 0 4px 14px rgba(118, 35, 127, 0.6);
+      transition: background 0.3s ease, box-shadow 0.3s ease;
+      user-select: none;
+    }
+
+    main button:hover {
+      background: var(--col-purple-dark);
+      box-shadow: 0 8px 28px var(--col-purple-dark);
+    }
+
+    /* ======================= MINI CLOCK ======================= */
+    #mini-clock {
+      position: fixed;
+      top: 12px;
+      right: 22px;
+      width: 56px;
+      height: 56px;
+      background: var(--glass-bg);
+      border-radius: 50%;
+      padding: 8px;
+      box-shadow:
+        0 10px 30px rgba(0, 0, 0, 0.1),
+        inset 0 2px 10px rgba(255, 255, 255, 0.7);
+      cursor: pointer;
+      z-index: 1101;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition:
+        transform var(--transition-medium),
+        box-shadow var(--transition-medium);
+      perspective: 600px;
+      user-select: none;
+      will-change: transform, box-shadow;
+      backdrop-filter: saturate(180%) blur(12px);
+      -webkit-backdrop-filter: saturate(180%) blur(12px);
+      border: 1px solid var(--glass-border);
+    }
+
+    #mini-clock:hover {
+      transform: rotateY(8deg) scale(1.08);
+      box-shadow: 0 18px 48px var(--col-purple);
+    }
+
+    /* ======================= RESPONSIVE ======================= */
+    @media (max-width: 620px) {
+      main h1 {
+        font-size: 5rem;
+      }
+
+      main p {
+        font-size: 1.2rem;
+      }
+
+      main button {
+        font-size: 1.1rem;
+        padding: 0.8rem 2rem;
+      }
     }
   </style>
 </head>
+
 <body>
 
-  <nav>
-    <a href="index.html">Home</a>
-    <a href="clock.html">SBB Clock</a>
-    <a href="diritti.html">Diritti</a>
+  <!-- LOGO -->
+  <div id="logo" tabindex="0" role="button" aria-label="Vai alla home" onclick="window.location.href='index.html'">
+    <img src="favicon.png" alt="Miniutti Logo" />
+  </div>
+
+  <!-- NAVBAR -->
+  <nav role="navigation" aria-label="Menu principale">
+    <a href="index.html" tabindex="0">Home</a>
+    <a href="clock.html" tabindex="0">SBB Clock</a>
+    <a href="diritti.html" tabindex="0">Diritti</a>
   </nav>
 
-  <div id="logo" onclick="location.href='index.html'">
-    <!-- Inserisci qui il tuo logo, esempio: -->
-    <img src="logo.png" alt="Miniutti Logo" />
-  </div>
-
-  <div id="mini-clock">
-    12:00
-  </div>
-
-  <main>
+  <!-- CONTENUTO 404 -->
+  <main role="main" aria-label="Pagina non trovata 404">
     <h1>404</h1>
-    <p>Ops! La pagina che cerchi non esiste.</p>
-    <button onclick="location.href='index.html'">Torna alla Home</button>
+    <p>Ops! La pagina che stai cercando non esiste.</p>
+    <button type="button" aria-label="Torna alla home" onclick="window.location.href='index.html'">Torna alla Home</button>
   </main>
 
+  <!-- MINI SBB CLOCK -->
+  <div id="mini-clock" tabindex="0" aria-label="Orologio digitale SBB"></div>
+
+  <script>
+    window.addEventListener("DOMContentLoaded", () => {
+      // Mini SBB Uhr clock
+      const miniClock = document.getElementById("mini-clock");
+      if (typeof SBBUhr !== "undefined" && miniClock) {
+        new SBBUhr({
+          target: miniClock,
+          type: "digital",
+          size: 56,
+          showSeconds: false,
+          showDate: false,
+          fullScreenBtn: false,
+          fullScreenKey: false,
+        });
+      }
+
+      // Click e tastiera per aprire pagina clock
+      miniClock.addEventListener("click", () => {
+        window.location.href = "clock.html";
+      });
+      miniClock.addEventListener("keydown", (e) => {
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          window.location.href = "clock.html";
+        }
+      });
+    });
+  </script>
+
 </body>
+
 </html>
