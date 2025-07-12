@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Flight Tracker</title>
+  <style>
+    body { font-family: sans-serif; padding:2rem; max-width:600px; margin:auto; }
+    input, button { padding:0.5rem; font-size:1rem; }
+    table { width:100%; border-collapse:collapse; margin-top:1rem; }
+    th, td { border:1px solid #ccc; padding:0.5rem; text-align:left; }
+  </style>
+</head>
+<body>
+  <h1>Traccia il tuo volo</h1>
+  <input id="flight-input" placeholder="Codice volo (es. UA2402)" />
+  <button id="search-btn">Cerca</button>
+  <div id="output"></div>
+
+  <script>
+    const API_KEY = 'TUO_API_KEY';
+    const out = document.getElementById('output');
+    document.getElementById('search-btn').onclick = () => {
+      const code = document.getElementById('flight-input').value.trim();
+      if (!code) return alert('Inserisci un codice volo!');
+      clearInterval(window.refreshInterval);
+      fetchFlight(code);
+      window.refreshInterval = setInterval(() => fetchFlight(code), 5000);
+    };
+    async function fetchFlight(code) {
+      try {
+        const res = await fetch(`http://api.aviationstack.com/v1/flights?access_key=${API_KEY}&flight_iata=${code}`);
+        const { data } = await res.json();
+        if (!data || data.length === 0) { out.innerHTML = '<p>Nessun volo trovato.</p>'; return; }
+        const f = data[0];
+        out.innerHTML = `
+          <table>
+            <tr><th>Compagnia</th><td>${f.airline.name} (${f.flight.number})</td></tr>
+            <tr><th>Da → A</th><td>${f.departure.iata} → ${f.arrival.iata}</td></tr>
+            <tr><th>Term. / Gate partenza</th><td>${f.departure.terminal} / ${f.departure.gate}</td></tr>
+            <tr><th>Orario previsto / reale</th><td>${f.departure.scheduled} / ${f.departure.actual || '-'}</td></tr>
+            <tr><th>Stato</th><td>${f.flight_status}</td></tr>
+          </table>`;
+      } catch(e) { out.innerHTML = '<p>Errore nel recupero dati.</p>'; console.error(e); }
+    }
+  </script>
+</body>
+</html>
