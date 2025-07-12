@@ -1,48 +1,65 @@
-<!DOCTYPE html>
-<html lang="it">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Flight Tracker</title>
-  <style>
-    body { font-family: sans-serif; padding:2rem; max-width:600px; margin:auto; }
-    input, button { padding:0.5rem; font-size:1rem; }
-    table { width:100%; border-collapse:collapse; margin-top:1rem; }
-    th, td { border:1px solid #ccc; padding:0.5rem; text-align:left; }
-  </style>
-</head>
-<body>
-  <h1>Traccia il tuo volo</h1>
-  <input id="flight-input" placeholder="Codice volo (es. UA2402)" />
-  <button id="search-btn">Cerca</button>
-  <div id="output"></div>
+<!DOCTYPE html><html lang="it"><head>
+<meta charset="UTF-8"/><meta name="viewport" content="width=device‑width, initial‑scale=1"/>
+<title>Flight Tracker</title>
+<style>
+body{font-family:sans-serif;padding:1rem;max-width:600px;margin:auto;}
+input,button{font-size:1rem;padding:0.5rem;margin:0.25rem;}
+.hidden{display:none;}
+table{width:100%;border-collapse:collapse;margin-top:1rem;}
+th,td{border:1px solid #ddd;padding:0.5rem;text-align:left;}
+.delayed{color:red;}
+.on‑time{color:green;}
+</style>
+</head><body>
+<h1>Traccia volo</h1>
+<input id="flight" placeholder="Codice volo (es. UA2402)"/>
+<button id="start">Avvia monitoraggio</button>
+<div id="board" class="hidden">
+<table>
+<thead><tr><th>Campo</th><th>Info</th></tr></thead><tbody id="rows"></tbody></table>
+</div>
 
-  <script>
-    const API_KEY = '255738634bfc73e9fd24fa491aed4d60';
-    const out = document.getElementById('output');
-    document.getElementById('search-btn').onclick = () => {
-      const code = document.getElementById('flight-input').value.trim();
-      if (!code) return alert('Inserisci un codice volo!');
-      clearInterval(window.refreshInterval);
-      fetchFlight(code);
-      window.refreshInterval = setInterval(() => fetchFlight(code), 5000);
-    };
-    async function fetchFlight(code) {
-      try {
-        const res = await fetch(`http://api.aviationstack.com/v1/flights?access_key=${API_KEY}&flight_iata=${code}`);
-        const { data } = await res.json();
-        if (!data || data.length === 0) { out.innerHTML = '<p>Nessun volo trovato.</p>'; return; }
-        const f = data[0];
-        out.innerHTML = `
-          <table>
-            <tr><th>Compagnia</th><td>${f.airline.name} (${f.flight.number})</td></tr>
-            <tr><th>Da → A</th><td>${f.departure.iata} → ${f.arrival.iata}</td></tr>
-            <tr><th>Term. / Gate partenza</th><td>${f.departure.terminal} / ${f.departure.gate}</td></tr>
-            <tr><th>Orario previsto / reale</th><td>${f.departure.scheduled} / ${f.departure.actual || '-'}</td></tr>
-            <tr><th>Stato</th><td>${f.flight_status}</td></tr>
-          </table>`;
-      } catch(e) { out.innerHTML = '<p>Errore nel recupero dati.</p>'; console.error(e); }
-    }
-  </script>
-</body>
-</html>
+<script>
+const API_KEY = '6f4d3dcd374a5696d9a5966956d498d0';
+const rows = document.getElementById('rows');
+const board = document.getElementById('board');
+let timer = null;
+
+document.getElementById('start').onclick = ()=>{
+  const code = document.getElementById('flight').value.trim().toUpperCase();
+  if(!code) return alert('Inserisci codice volo!');
+  if(timer) clearInterval(timer);
+  fetchUpdate(code);
+  timer = setInterval(()=>fetchUpdate(code), 1000);
+};
+
+async function fetchUpdate(code){
+  try{
+    const today = new Date().toISOString().slice(0,10);
+    const url = `https://api.aviationstack.com/v1/flights?access_key=${API_KEY}&flight_iata=${code}&flight_date=${today}&limit=1`;
+    const res = await fetch(url);
+    const txt = await res.text();
+    const json = JSON.parse(txt);
+    if(!json.data.length) throw 'Nessun volo trovato';
+    const f = json.data[0];
+    board.classList.remove('hidden');
+    rows.innerHTML = `
+      <tr><th>Compagnia</th><td>${f.airline.name} (${f.airline.iata})</td></tr>
+      <tr><th>Volo</th><td>${f.flight.iata} / ${f.flight.icao}</td></tr>
+      <tr><th>Da → A</th><td>${f.departure.iata} → ${f.arrival.iata}</td></tr>
+      <tr><th>Terminal / Gate Part.</th><td>${f.departure.terminal||'-'} / ${f.departure.gate||'-'}</td></tr>
+      <tr><th>Schedulati</th><td>${f.departure.scheduled||'-'} → ${f.arrival.scheduled||'-'}</td></tr>
+      <tr><th>Stimati</th><td>${f.departure.estimated||'-'} → ${f.arrival.estimated||'-'}</td></tr>
+      <tr><th>Reali</th><td>${f.departure.actual||'-'} → ${f.arrival.actual||'-'}</td></tr>
+      <tr><th>Stato</th><td class="${f.flight_status==='active'?'on‑time':'delayed'}">${f.flight_status}</td></tr>
+      <tr><th>Ritardo (min)</th><td>${f.departure.delay||0}</td></tr>
+      <tr><th>Posizione</th><td>Lat ${f.live.latitude.toFixed(4)}, Lon ${f.live.longitude.toFixed(4)}</td></tr>
+      <tr><th>Quota / Velocità</th><td>${f.live.altitude||'-'}m, ${f.live.speed_horizontal||'-'} km/h</td></tr>
+      <tr><th>Aereo</th><td>${f.aircraft.registration||f.aircraft.icao24||'-'} (${f.aircraft.iata})</td></tr>`;
+  }catch(err){
+    board.classList.add('hidden');
+    rows.innerHTML = `<tr><td colspan="2">${err}</td></tr>`;
+  }
+}
+</script>
+</body></html>
