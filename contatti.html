@@ -6,7 +6,428 @@
   <title>Contatti - Miniutti.it</title>
   <link rel="icon" href="favicon.png" />
   <script src="sbbUhr-1.3.js" defer></script>
-  <link rel="stylesheet" href="style.css" />
+  <style>
+    /* RESET + VARIABILI */
+    *, *::before, *::after {
+      margin: 0; padding: 0; box-sizing: border-box;
+    }
+    :root {
+      --col-purple: #76237f;
+      --col-purple-dark: #5c1a64;
+      --col-white: #fff;
+      --col-gray-light: #f5f5f7;
+      --col-gray-medium: #888;
+      --col-gray-dark: #222;
+      --shadow-light: rgba(0,0,0,0.08);
+      --shadow-heavy: rgba(0,0,0,0.12);
+      --ease: cubic-bezier(0.4,0,0.2,1);
+      --tricolor-gradient: linear-gradient(90deg, #00703c, #fff, #d62f27);
+      --border-radius: 14px;
+      --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      --transition-fast: 0.25s var(--ease);
+      --transition-medium: 0.4s var(--ease);
+      --transition-slow: 0.6s var(--ease);
+      --glass-bg: rgba(255,255,255,0.7);
+      --glass-border: rgba(255,255,255,0.4);
+      --glass-shadow: rgba(255,255,255,0.6);
+    }
+
+    /* BODY */
+    body {
+      font-family: var(--font-sans);
+      background: var(--col-gray-light);
+      color: var(--col-gray-dark);
+      scroll-behavior: smooth;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      user-select: none;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    a, span, div {
+      user-select: none;
+    }
+
+    /* LOGO */
+    #logo {
+      position: fixed;
+      top: 8px;
+      left: 16px;
+      width: 64px;
+      height: 64px;
+      background: var(--glass-bg);
+      border-radius: 36px;
+      box-shadow:
+        0 12px 24px rgba(0,0,0,0.12),
+        inset 0 2px 10px rgba(255,255,255,0.7);
+      padding: 8px;
+      z-index: 1101;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform var(--transition-medium), box-shadow var(--transition-medium);
+      border: 1px solid var(--glass-border);
+    }
+    #logo img {
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain;
+      user-select: none;
+      pointer-events: none;
+    }
+    #logo:hover {
+      transform: rotateY(8deg) scale(1.08);
+      box-shadow: 0 18px 48px var(--col-purple);
+    }
+
+    /* NAVBAR */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      height: 64px;
+      background: var(--glass-bg);
+      backdrop-filter: saturate(180%) blur(12px);
+      -webkit-backdrop-filter: saturate(180%) blur(12px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 2rem;
+      padding: 0 2rem;
+      z-index: 1100;
+      font-weight: 600;
+      font-size: 1.125rem;
+      letter-spacing: 0.02em;
+      user-select: none;
+      border-radius: 0 0 var(--border-radius) var(--border-radius);
+      box-shadow:
+        0 8px 32px var(--shadow-light),
+        inset 0 0 0 1px var(--glass-border);
+      transition: box-shadow var(--transition-medium);
+    }
+    nav:hover {
+      box-shadow:
+        0 12px 48px var(--shadow-heavy),
+        inset 0 0 0 1px var(--glass-border);
+    }
+    nav a, .dropbtn {
+      color: var(--col-gray-dark);
+      text-decoration: none;
+      padding: 0.7rem 1.25rem;
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      cursor: pointer;
+      transition: color var(--transition-fast), transform var(--transition-fast), text-shadow var(--transition-fast);
+      border-radius: var(--border-radius);
+      backdrop-filter: saturate(180%) blur(12px);
+      -webkit-backdrop-filter: saturate(180%) blur(12px);
+      box-shadow: inset 0 0 8px rgba(255 255 255 / 0.35);
+      background: rgba(255 255 255 / 0.5);
+      user-select: none;
+    }
+    nav a:hover, .dropbtn:hover {
+      color: var(--col-purple);
+      transform: scale(1.07) translateZ(0);
+      text-shadow: 0 0 6px var(--col-purple);
+      background: rgba(118, 35, 127, 0.1);
+      box-shadow: 0 0 8px rgba(118, 35, 127, 0.3);
+      backdrop-filter: saturate(180%) blur(20px);
+      -webkit-backdrop-filter: saturate(180%) blur(20px);
+    }
+    nav a::after, .dropbtn::after {
+      content: "";
+      position: absolute;
+      left: 10%;
+      bottom: 0;
+      width: 80%;
+      height: 3px;
+      background: var(--tricolor-gradient);
+      opacity: 0;
+      transition: opacity var(--transition-fast);
+      border-radius: 3px;
+      pointer-events: none;
+    }
+    nav a:hover::after, .dropbtn:hover::after {
+      opacity: 1;
+    }
+    .dropbtn::after {
+      content: " \25BE";
+      font-size: 0.75rem;
+      position: static;
+      margin-left: 0.5rem;
+      opacity: 1;
+      background: none;
+      user-select: none;
+    }
+
+    .dropdown {
+      position: relative;
+      z-index: 1110;
+      user-select: none;
+    }
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      background: var(--glass-bg);
+      backdrop-filter: saturate(180%) blur(16px);
+      -webkit-backdrop-filter: saturate(180%) blur(16px);
+      box-shadow:
+        0 12px 36px var(--shadow-heavy),
+        inset 0 0 0 1px var(--glass-border);
+      border-radius: var(--border-radius);
+      padding: 0.75rem 0;
+      min-width: 220px;
+      transform-origin: top center;
+      animation: fadeSlideDown 0.4s ease forwards;
+      font-weight: 500;
+      color: var(--col-gray-dark);
+      letter-spacing: 0.01em;
+    }
+    nav .dropdown:hover > .dropdown-content,
+    nav .dropdown:focus-within > .dropdown-content {
+      display: block;
+      opacity: 1;
+      visibility: visible;
+    }
+    .dropdown-content a,
+    .dropdown-content .not-selectable {
+      padding: 0.9rem 1.75rem;
+      display: block;
+      white-space: nowrap;
+      border-radius: var(--border-radius);
+      transition: background var(--transition-fast), color var(--transition-fast), transform var(--transition-fast);
+      color: var(--col-gray-dark);
+      cursor: pointer;
+    }
+    .dropdown-content a:hover {
+      background: rgba(118, 35, 127, 0.12);
+      color: var(--col-purple);
+      transform: translateX(7px);
+      box-shadow: 0 0 8px rgba(118, 35, 127, 0.25);
+    }
+    .dropdown-content .not-selectable {
+      color: #aaa;
+      cursor: default;
+      pointer-events: none;
+      font-style: italic;
+      font-weight: 400;
+    }
+    .dropdown-content .btn-progetti {
+      margin-top: 0.4rem;
+      background: var(--col-purple);
+      color: var(--col-white);
+      border-radius: var(--border-radius);
+      font-weight: 700;
+      text-align: center;
+      box-shadow: 0 0 6px rgba(118, 35, 127, 0.35);
+      cursor: pointer;
+      transition: background var(--transition-medium);
+    }
+    .dropdown-content .btn-progetti:hover {
+      background: var(--col-purple-dark);
+      box-shadow: 0 0 14px var(--col-purple-dark);
+      transform: scale(1.06);
+      color: var(--col-white);
+    }
+
+    @keyframes fadeSlideDown {
+      0% {
+        opacity: 0;
+        transform: scaleY(0.8) translateY(-10px);
+      }
+      100% {
+        opacity: 1;
+        transform: scaleY(1) translateY(0);
+      }
+    }
+
+    /* MINI CLOCK */
+    #mini-clock {
+      position: fixed;
+      top: 12px;
+      right: 22px;
+      width: 56px;
+      height: 56px;
+      background: var(--glass-bg);
+      border-radius: 50%;
+      padding: 8px;
+      box-shadow:
+        0 10px 30px rgba(0, 0, 0, 0.1),
+        inset 0 2px 10px rgba(255, 255, 255, 0.7);
+      cursor: pointer;
+      z-index: 1101;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform var(--transition-medium), box-shadow var(--transition-medium);
+      perspective: 600px;
+      user-select: none;
+      will-change: transform, box-shadow;
+      backdrop-filter: saturate(180%) blur(12px);
+      -webkit-backdrop-filter: saturate(180%) blur(12px);
+      border: 1px solid var(--glass-border);
+    }
+    #mini-clock:hover {
+      transform: rotateY(8deg) scale(1.08);
+      box-shadow: 0 18px 48px var(--col-purple);
+    }
+
+    /* HERO */
+    .hero {
+      max-width: 760px;
+      margin: 110px auto 2.5rem auto;
+      text-align: center;
+      padding: 1rem 2rem;
+      animation: fadePop 1.2s ease forwards;
+      opacity: 0;
+      animation-delay: 0.3s;
+      animation-fill-mode: forwards;
+      user-select: none;
+    }
+    .hero h1 {
+      font-size: 3.8rem;
+      font-weight: 900;
+      margin-bottom: 0.6rem;
+      background: linear-gradient(45deg, var(--col-purple), var(--col-purple-dark));
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
+      animation: gradientShift 7s infinite alternate;
+      user-select: none;
+      letter-spacing: 0.02em;
+    }
+    .hero p {
+      font-size: 1.45rem;
+      color: var(--col-gray-medium);
+      animation: fadeIn 2s ease forwards;
+      animation-delay: 0.7s;
+      opacity: 0;
+      user-select: none;
+      line-height: 1.6;
+      max-width: 550px;
+      margin: 0 auto;
+    }
+    @keyframes fadePop {
+      0% {
+        opacity: 0;
+        transform: scale(0.92) translateY(28px);
+      }
+      100% {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+      }
+    }
+    @keyframes fadeIn {
+      from {opacity: 0;}
+      to {opacity: 1;}
+    }
+    @keyframes gradientShift {
+      0% {background-position: 0% 50%;}
+      100% {background-position: 100% 50%;}
+    }
+
+    /* SEZIONE CONTATTI */
+    .contact-section {
+      max-width: 420px;
+      margin: 0 auto 5rem auto;
+      text-align: left;
+      padding: 0 1rem;
+      user-select: none;
+    }
+    .contact-section h2 {
+      font-weight: 700;
+      font-size: 1.8rem;
+      margin-bottom: 1rem;
+      text-align: center;
+      color: var(--col-purple-dark);
+    }
+    .contact-form {
+      display: flex;
+      flex-direction: column;
+      gap: 1.1rem;
+    }
+    .contact-form label {
+      font-weight: 600;
+      font-size: 1rem;
+      color: var(--col-gray-dark);
+    }
+    .contact-form input[type="text"],
+    .contact-form input[type="email"],
+    .contact-form textarea {
+      font-size: 1rem;
+      padding: 0.85rem 1.1rem;
+      border-radius: var(--border-radius);
+      border: 1.8px solid var(--col-gray-medium);
+      font-family: var(--font-sans);
+      transition: border-color 0.3s ease;
+      resize: vertical;
+    }
+    .contact-form input[type="text"]:focus,
+    .contact-form input[type="email"]:focus,
+    .contact-form textarea:focus {
+      outline: none;
+      border-color: var(--col-purple);
+      background-color: #f9f7ff;
+    }
+    .contact-form input[type="email"]:invalid {
+      border-color: #d62f27;
+      background-color: #fef0f0;
+    }
+    .contact-form input[type="email"]:valid {
+      border-color: #00703c;
+      background-color: #f0fef5;
+    }
+    .email-info {
+      font-size: 0.9rem;
+      color: var(--col-gray-medium);
+      margin-top: -0.8rem;
+      margin-bottom: 0.6rem;
+      font-style: italic;
+    }
+    .contact-form button {
+      padding: 0.9rem 1.2rem;
+      font-weight: 700;
+      font-size: 1.1rem;
+      color: var(--col-white);
+      background: var(--col-purple);
+      border: none;
+      border-radius: var(--border-radius);
+      cursor: pointer;
+      box-shadow: 0 4px 14px rgba(118,35,127,0.6);
+      transition: background 0.3s ease, box-shadow 0.3s ease;
+      user-select: none;
+    }
+    .contact-form button:hover {
+      background: var(--col-purple-dark);
+      box-shadow: 0 8px 28px var(--col-purple-dark);
+    }
+
+    /* MEDIA QUERIES */
+    @media (max-width: 620px) {
+      nav {
+        font-size: 1rem;
+        gap: 1.2rem;
+        padding: 0 1rem;
+      }
+      .hero h1 {
+        font-size: 2.8rem;
+      }
+      .hero p {
+        font-size: 1.1rem;
+      }
+      .contact-section {
+        max-width: 90vw;
+      }
+    }
+  </style>
 </head>
 <body>
   <!-- LOGO -->
@@ -17,95 +438,193 @@
   <!-- NAVBAR -->
   <nav role="navigation" aria-label="Menu principale">
     <a href="index.html" tabindex="0">Home</a>
-
     <div class="dropdown" role="menu" aria-haspopup="true" aria-expanded="false" aria-label="Menu Progetti" tabindex="0">
-      <div class="dropbtn" tabindex="0" role="button" aria-haspopup="true" aria-expanded="false" aria-controls="dropdown-menu">
-        Progetti
-      </div>
+      <div class="dropbtn" tabindex="0" role="button" aria-haspopup="true" aria-expanded="false" aria-controls="dropdown-menu">Progetti</div>
       <div class="dropdown-content" id="dropdown-menu" role="menu" aria-label="Sottomenu Progetti">
         <a href="clock.html" role="menuitem" tabindex="0">SBB Clock</a>
         <span class="not-selectable" tabindex="-1">In arrivo...</span>
         <a href="progetti.html" role="menuitem" tabindex="0">Altri Progetti</a>
       </div>
     </div>
-
     <a href="clock.html" tabindex="0">SBB Clock</a>
-    <a href="contatti.html" tabindex="0">Contatti</a>
   </nav>
 
   <!-- HERO -->
-  <section class="hero" aria-label="Titolo contatti">
-    <h1>Contatti</h1>
-    <p>Hai domande, proposte o vuoi collaborare a un progetto? Compila il modulo e ti risponderò il prima possibile.</p>
+  <section class="hero" aria-label="Introduzione">
+    <h1>Contattami</h1>
+    <p>Per qualsiasi richiesta o informazione usa il modulo qui sotto, oppure scegli un metodo di contatto diretto dalla scheda accanto.</p>
   </section>
 
-  <!-- SEZIONE CONTATTI -->
+  <!-- FORM CONTATTI -->
   <section class="contact-section" aria-label="Modulo contatti">
-    <h2>Scrivimi</h2>
+    <h2>Modulo di contatto</h2>
     <form class="contact-form" action="mailto:info@miniutti.it" method="POST" enctype="text/plain" novalidate>
       <label for="name">Nome</label>
       <input id="name" name="name" type="text" placeholder="Inserisci il tuo nome" required autocomplete="name" />
 
       <label for="email">Email</label>
       <input id="email" name="email" type="email" placeholder="esempio@mail.com" required autocomplete="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" />
-      <div class="email-info">La tua email verrà usata solo per rispondere, nessun dato sarà conservato.</div>
+      <div class="email-info">L’email è usata solo per risponderti, nessun dato sarà condiviso.</div>
 
       <label for="message">Messaggio</label>
-      <textarea id="message" name="message" rows="6" placeholder="Scrivi qui il tuo messaggio" required></textarea>
+      <textarea id="message" name="message" rows="5" placeholder="Scrivi qui il tuo messaggio" required></textarea>
 
-      <button type="submit" aria-label="Invia messaggio a info@miniutti.it">Invia</button>
+      <button type="submit" aria-label="Invia messaggio a info@miniutti.it">Invia email</button>
     </form>
   </section>
+    <!-- SCHEDA CONTATTI -->
+  <section class="contact-section" aria-label="Scheda contatti diretti" style="margin-top: 3rem;">
+    <h2>Contatti diretti</h2>
+    <div class="contact-card">
+      <p><strong>📞 Telefono:</strong> <a href="tel:+390512345678" aria-label="Chiama il numero +39 051 2345678">+39 051 2345678</a></p>
+      <p><strong>📱 WhatsApp:</strong> <a href="https://wa.me/390512345678" target="_blank" rel="noopener noreferrer" aria-label="Chatta su WhatsApp con +39 051 2345678">+39 051 2345678</a></p>
+      <p><strong>✉️ Email:</strong> <a href="mailto:info@miniutti.it" aria-label="Invia email a info@miniutti.it">info@miniutti.it</a></p>
+      <p><strong>🏢 Indirizzo:</strong> Via Esempio 123, 40100 Bologna, Italia</p>
 
-  <!-- MINI SBB CLOCK -->
-  <div id="mini-clock" tabindex="0" aria-label="Orologio digitale SBB"></div>
+      <div class="social-icons" aria-label="Link social media">
+        <a href="https://twitter.com/miniutti" target="_blank" rel="noopener noreferrer" aria-label="Twitter di Miniutti">
+          <img src="icons/twitter.svg" alt="Twitter" />
+        </a>
+        <a href="https://www.linkedin.com/in/miniutti" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn di Miniutti">
+          <img src="icons/linkedin.svg" alt="LinkedIn" />
+        </a>
+        <a href="https://github.com/miniutti" target="_blank" rel="noopener noreferrer" aria-label="GitHub di Miniutti">
+          <img src="icons/github.svg" alt="GitHub" />
+        </a>
+        <a href="https://www.instagram.com/miniutti" target="_blank" rel="noopener noreferrer" aria-label="Instagram di Miniutti">
+          <img src="icons/instagram.svg" alt="Instagram" />
+        </a>
+      </div>
+
+      <!-- QR Code vCard -->
+      <div class="qr-code-section" aria-label="QR code contatto vCard">
+        <p>Scansiona per salvare i contatti:</p>
+        <img src="qr-code-vcard.png" alt="QR code con scheda contatto vCard" />
+      </div>
+
+      <!-- MAPPA -->
+      <div class="map-section" aria-label="Mappa dell’indirizzo">
+        <iframe
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2881.837565215699!2d11.342616315498735!3d44.49488787910213!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x477fd6e0511d0e4d%3A0x73f3d91601234567!2sVia%20Esempio%20123%2C%2040100%20Bologna!5e0!3m2!1sit!2sit!4v1234567890123!5m2!1sit!2sit"
+          width="100%"
+          height="260"
+          style="border:0; border-radius: var(--border-radius);"
+          allowfullscreen=""
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+          title="Mappa Via Esempio 123, Bologna">
+        </iframe>
+      </div>
+    </div>
+  </section>
 
   <script>
-    window.addEventListener("DOMContentLoaded", () => {
-      const dropdown = document.querySelector(".dropdown");
-      const dropbtn = dropdown.querySelector(".dropbtn");
+    // Accessibilità: gestisci aria-expanded del dropdown nav
+    const dropdown = document.querySelector('.dropdown');
+    const dropbtn = dropdown.querySelector('.dropbtn');
+    const menu = dropdown.querySelector('.dropdown-content');
 
-      dropdown.addEventListener("mouseenter", () => {
-        dropdown.setAttribute("aria-expanded", "true");
-        dropbtn.setAttribute("aria-expanded", "true");
-      });
-      dropdown.addEventListener("mouseleave", () => {
-        dropdown.setAttribute("aria-expanded", "false");
-        dropbtn.setAttribute("aria-expanded", "false");
-      });
-
-      dropbtn.addEventListener("keydown", (e) => {
-        if (e.key === "Enter" || e.key === " ") {
-          e.preventDefault();
-          const expanded = dropdown.getAttribute("aria-expanded") === "true";
-          dropdown.setAttribute("aria-expanded", expanded ? "false" : "true");
-          dropbtn.setAttribute("aria-expanded", expanded ? "false" : "true");
-        }
-      });
-
-      const miniClock = document.getElementById("mini-clock");
-      if (typeof SBBUhr !== "undefined" && miniClock) {
-        new SBBUhr({
-          target: miniClock,
-          type: "digital",
-          size: 56,
-          showSeconds: false,
-          showDate: false,
-          fullScreenBtn: false,
-          fullScreenKey: false,
-        });
-      }
-
-      miniClock.addEventListener("click", () => {
-        window.location.href = "clock.html";
-      });
-      miniClock.addEventListener("keydown", (e) => {
-        if (e.key === "Enter" || e.key === " ") {
-          e.preventDefault();
-          window.location.href = "clock.html";
-        }
-      });
+    dropdown.addEventListener('mouseenter', () => {
+      dropdown.setAttribute('aria-expanded', 'true');
+    });
+    dropdown.addEventListener('mouseleave', () => {
+      dropdown.setAttribute('aria-expanded', 'false');
+    });
+    dropbtn.addEventListener('focus', () => {
+      dropdown.setAttribute('aria-expanded', 'true');
+    });
+    dropbtn.addEventListener('blur', () => {
+      dropdown.setAttribute('aria-expanded', 'false');
     });
   </script>
+
+  <style>
+    /* CONTATTI AVANZATI */
+    .contact-card {
+      background: var(--glass-bg);
+      padding: 1.8rem 2.2rem;
+      border-radius: var(--border-radius);
+      box-shadow:
+        0 12px 28px var(--shadow-heavy),
+        inset 0 0 0 1px var(--glass-border);
+      user-select: text;
+      max-width: 420px;
+      margin: 0 auto;
+    }
+    .contact-card p {
+      font-size: 1rem;
+      margin-bottom: 0.8rem;
+      line-height: 1.4;
+      color: var(--col-gray-dark);
+    }
+    .contact-card a {
+      color: var(--col-purple);
+      text-decoration: none;
+      font-weight: 600;
+      transition: color 0.3s ease;
+    }
+    .contact-card a:hover,
+    .contact-card a:focus {
+      color: var(--col-purple-dark);
+      text-decoration: underline;
+      outline-offset: 2px;
+    }
+
+    /* SOCIAL ICONS */
+    .social-icons {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      margin-top: 1.8rem;
+      margin-bottom: 1.8rem;
+    }
+    .social-icons a {
+      display: inline-block;
+      width: 28px;
+      height: 28px;
+      transition: transform 0.3s ease;
+      filter: grayscale(100%) opacity(0.6);
+    }
+    .social-icons a:hover,
+    .social-icons a:focus {
+      filter: none;
+      transform: scale(1.15);
+      outline-offset: 3px;
+    }
+    .social-icons img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      pointer-events: none;
+      user-select: none;
+    }
+
+    /* QR CODE */
+    .qr-code-section {
+      text-align: center;
+      margin-top: 1.2rem;
+      margin-bottom: 2rem;
+      font-size: 0.9rem;
+      color: var(--col-gray-medium);
+      font-style: italic;
+    }
+    .qr-code-section img {
+      width: 140px;
+      height: 140px;
+      border-radius: var(--border-radius);
+      box-shadow: 0 6px 18px rgba(0,0,0,0.1);
+      user-select: none;
+      margin-top: 0.6rem;
+    }
+
+    /* MAPPA */
+    .map-section {
+      margin-top: 1rem;
+      border-radius: var(--border-radius);
+      overflow: hidden;
+      box-shadow:
+        0 10px 28px rgba(0, 0, 0, 0.12);
+    }
+  </style>
 </body>
 </html>
