@@ -4,198 +4,235 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Miniutti Store</title>
-  <link rel="icon" href="favicon.png" />
+  <link rel="icon" href="favicon.png" type="image/png" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
   <style>
     :root {
+      --primary: #0e0e0e;
+      --accent: #007fff;
       --bg: #f9f9f9;
-      --text: #111;
-      --primary: #007aff;
-      --hover: #005bb5;
-      --card: #fff;
-      --shadow: rgba(0, 0, 0, 0.05);
+      --hover: #e8e8e8;
+      --border: #ddd;
     }
 
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
+      font-family: 'Inter', sans-serif;
     }
 
     body {
-      font-family: 'Inter', sans-serif;
       background-color: var(--bg);
-      color: var(--text);
+      color: var(--primary);
       line-height: 1.6;
     }
 
     header {
-      background-color: #ffffff;
-      padding: 1rem 2rem;
-      box-shadow: 0 2px 10px var(--shadow);
       display: flex;
-      align-items: center;
       justify-content: space-between;
-    }
-
-    .logo {
-      display: flex;
       align-items: center;
-      text-decoration: none;
-      color: var(--text);
-      font-size: 1.5rem;
-      font-weight: 600;
-      transition: transform 0.3s ease;
+      padding: 1.2rem 2rem;
+      background-color: white;
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      z-index: 999;
     }
 
-    .logo img {
-      height: 32px;
-      margin-right: 0.5rem;
+    header img {
+      height: 40px;
+      cursor: pointer;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 1.5rem;
     }
 
     nav a {
       text-decoration: none;
-      color: var(--text);
-      margin-left: 2rem;
-      position: relative;
-      font-weight: 500;
-      transition: color 0.2s ease;
-    }
-
-    nav a:hover {
       color: var(--primary);
+      position: relative;
+      font-weight: 600;
     }
 
     nav a:hover::after {
       content: '';
       position: absolute;
-      left: 0;
-      bottom: -5px;
       width: 100%;
       height: 3px;
-      background: linear-gradient(to right, green, white, red);
+      background: linear-gradient(to right, #008c45, #f4f5f0, #cd212a); /* tricolore */
+      bottom: -4px;
+      left: 0;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 3rem auto;
+      padding: 0 2rem;
     }
 
     .hero {
       text-align: center;
-      padding: 4rem 2rem;
+      padding: 2rem 1rem;
     }
 
     .hero h1 {
-      font-size: 2.8rem;
+      font-size: 3rem;
       margin-bottom: 1rem;
     }
 
     .hero p {
       font-size: 1.2rem;
-      color: #444;
+      color: #555;
     }
 
     .products {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
       gap: 2rem;
-      padding: 2rem;
-      max-width: 1200px;
-      margin: auto;
+      margin-top: 3rem;
     }
 
-    .product-card {
-      background-color: var(--card);
-      padding: 1.5rem;
-      border-radius: 1rem;
-      box-shadow: 0 4px 12px var(--shadow);
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    .card {
+      background-color: white;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.05);
+      transition: all 0.3s ease;
     }
 
-    .product-card:hover {
+    .card:hover {
       transform: translateY(-4px);
-      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
     }
 
-    .product-card img {
-      max-width: 100%;
-      border-radius: 0.5rem;
-      margin-bottom: 1rem;
+    .card img {
+      width: 100%;
+      object-fit: cover;
+      height: 180px;
     }
 
-    .product-card h3 {
+    .card-content {
+      padding: 1rem;
+    }
+
+    .card-content h3 {
       font-size: 1.2rem;
       margin-bottom: 0.5rem;
     }
 
-    .product-card p {
+    .card-content p {
+      color: #777;
       font-size: 0.95rem;
-      color: #555;
     }
 
-    .product-card a {
+    .card-content a {
       display: inline-block;
       margin-top: 1rem;
-      color: #fff;
-      background-color: var(--primary);
-      padding: 0.5rem 1rem;
-      border-radius: 0.5rem;
+      padding: 0.6rem 1.2rem;
+      background-color: var(--accent);
+      color: white;
+      border-radius: 10px;
       text-decoration: none;
-      transition: background 0.2s ease;
+      transition: background 0.3s;
     }
 
-    .product-card a:hover {
-      background-color: var(--hover);
+    .card-content a:hover {
+      background-color: #005bb5;
     }
 
     footer {
-      text-align: center;
+      margin-top: 4rem;
+      background: white;
+      border-top: 1px solid var(--border);
       padding: 2rem;
-      font-size: 0.9rem;
-      color: #999;
+      text-align: center;
+    }
+
+    footer p {
+      margin-bottom: 0.5rem;
+      color: #666;
+    }
+
+    .socials {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+
+    .socials a {
+      text-decoration: none;
+      color: var(--primary);
+      font-size: 1.3rem;
+      transition: color 0.2s;
+    }
+
+    .socials a:hover {
+      color: var(--accent);
     }
   </style>
 </head>
-<body>
 
+<body>
   <header>
-    <a href="https://store.miniutti.it" class="logo">
-      <img src="favicon.png" alt="Logo Miniutti" />
-      Miniutti
-    </a>
+    <a href="https://store.miniutti.it"><img src="favicon.png" alt="Logo Miniutti" /></a>
     <nav>
-      <a href="#">Home</a>
-      <a href="#">Prodotti</a>
-      <a href="#">Contatti</a>
+      <ul>
+        <li><a href="https://store.miniutti.it/home">Home</a></li>
+        <li><a href="https://store.miniutti.it/prodotti">Prodotti</a></li>
+        <li><a href="https://store.miniutti.it/diritti">Diritti</a></li>
+      </ul>
     </nav>
   </header>
 
-  <section class="hero">
-    <h1>Benvenuto nel Miniutti Store</h1>
-    <p>Prodotti elettronici selezionati, qualità garantita. Scopri il nostro catalogo.</p>
+  <section class="container hero">
+    <h1>Benvenuto nello Store Miniutti</h1>
+    <p>Elettronica di qualità, al miglior prezzo. Scopri i nostri prodotti selezionati.</p>
   </section>
 
-  <section class="products">
-    <div class="product-card">
-      <img src="img/prodotto1.jpg" alt="Prodotto 1">
-      <h3>Mini Drone A1</h3>
-      <p>Droncino tascabile con videocamera HD e modalità volo assistito.</p>
-      <a href="prodotti/drone-a1.html">Scopri</a>
+  <section class="container products">
+    <div class="card">
+      <img src="img/prodotto1.jpg" alt="Prodotto 1" />
+      <div class="card-content">
+        <h3>Mini Powerbank 10.000mAh</h3>
+        <p>Compatto, veloce, universale.</p>
+        <a href="https://store.miniutti.it/powerbank">Scopri di più</a>
+      </div>
     </div>
-    <div class="product-card">
-      <img src="img/prodotto2.jpg" alt="Prodotto 2">
-      <h3>Power Bank 20000mAh</h3>
-      <p>Alta capacità, ricarica rapida USB-C e compatibilità universale.</p>
-      <a href="prodotti/powerbank.html">Scopri</a>
+
+    <div class="card">
+      <img src="img/prodotto2.jpg" alt="Prodotto 2" />
+      <div class="card-content">
+        <h3>Cuffie Bluetooth Pro</h3>
+        <p>Audio nitido e comfort assoluto.</p>
+        <a href="https://store.miniutti.it/cuffie">Scopri di più</a>
+      </div>
     </div>
-    <div class="product-card">
-      <img src="img/prodotto3.jpg" alt="Prodotto 3">
-      <h3>Cuffie Wireless Pro</h3>
-      <p>Suono cristallino, Bluetooth 5.3 e autonomia di 40 ore.</p>
-      <a href="prodotti/cuffie.html">Scopri</a>
+
+    <div class="card">
+      <img src="img/prodotto3.jpg" alt="Prodotto 3" />
+      <div class="card-content">
+        <h3>Smartwatch 2.0</h3>
+        <p>Controllo e stile, sempre con te.</p>
+        <a href="https://store.miniutti.it/smartwatch">Scopri di più</a>
+      </div>
     </div>
-    <!-- Aggiungi altri prodotti qui -->
+
+    <!-- Aggiungi altri prodotti come card -->
   </section>
 
   <footer>
-    © 2025 Miniutti – Tutti i diritti riservati
+    <p>© 2025 Miniutti. Tutti i diritti riservati.</p>
+    <p>Contatti: <a href="mailto:info@miniutti.it">info@miniutti.it</a></p>
+    <div class="socials">
+      <a href="https://instagram.com" target="_blank">📸</a>
+      <a href="https://facebook.com" target="_blank">📘</a>
+      <a href="https://t.me" target="_blank">✈️</a>
+    </div>
   </footer>
-
 </body>
 </html>
