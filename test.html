@@ -4,6 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Miniutti.it – Catalogo Prodotti</title>
+  <link rel="icon" href="favicon.png" type="image/png" />
   <style>
     /* ===== Reset & base ===== */
     * {
@@ -22,7 +23,7 @@
       text-decoration: none;
       outline-offset: 3px;
       outline-color: transparent;
-      transition: outline-color 0.3s ease;
+      transition: outline-color 0.3s ease, color 0.3s ease;
       user-select: none;
       position: relative;
       font-weight: 600;
@@ -44,12 +45,41 @@
       align-items: center;
       border-bottom: 1px solid #222;
       user-select: none;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.7);
+      position: sticky;
+      top: 0;
+      z-index: 10;
     }
-    header h1 {
-      font-size: 1.5rem;
-      letter-spacing: 0.05em;
-      color: #eee;
+
+    /* Logo container */
+    .logo-link {
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+      transition: filter 0.3s ease;
+      user-select: none;
     }
+    .logo-link img {
+      width: 44px;
+      height: 44px;
+      object-fit: contain;
+      filter: drop-shadow(0 0 2px #00cc66);
+      transition: filter 0.3s ease, transform 0.3s ease;
+    }
+    .logo-link:hover img,
+    .logo-link:focus-visible img {
+      filter: drop-shadow(0 0 8px #00ff88);
+      transform: scale(1.1);
+    }
+    .sr-only {
+      position: absolute;
+      width: 1px; height: 1px;
+      padding: 0; margin: -1px;
+      overflow: hidden;
+      clip: rect(0,0,0,0);
+      border: 0;
+    }
+
     nav {
       display: flex;
       gap: 1.75rem;
@@ -179,7 +209,10 @@
 
 <body>
   <header>
-    <h1>Miniutti.it</h1>
+    <a href="https://store.miniutti.it" class="logo-link" aria-label="Vai allo store Miniutti">
+      <img src="favicon.png" alt="Logo Miniutti" />
+      <span class="sr-only">Miniutti Store</span>
+    </a>
     <nav role="navigation" aria-label="Menu principale">
       <a href="index.html" tabindex="0">Catalogo</a>
       <a href="clock.html" tabindex="0">SBB Clock</a>
