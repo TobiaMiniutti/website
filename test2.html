@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Miniutti Store - Contatti</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
+<style>
+  /* Stesso stile del sito */
+  * {
+    margin: 0; padding: 0; box-sizing: border-box;
+    font-family: 'Inter', sans-serif;
+  }
+
+  body {
+    background: #f7f9fc;
+    color: #222;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+
+  header {
+    position: sticky;
+    top: 0;
+    background: rgba(255 255 255 / 0.98);
+    backdrop-filter: saturate(180%) blur(10px);
+    box-shadow: 0 3px 15px rgb(0 0 0 / 0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    z-index: 100;
+  }
+  header a.logo-link {
+    display: inline-flex;
+    align-items: center;
+    text-decoration: none;
+  }
+  header a.logo-link img {
+    height: 48px;
+    border-radius: 14px;
+    box-shadow: 0 8px 15px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease;
+  }
+  header a.logo-link img:hover {
+    transform: scale(1.08);
+  }
+
+  nav {
+    display: flex;
+    gap: 2.8rem;
+  }
+  nav a {
+    text-decoration: none;
+    color: #334e68;
+    font-weight: 600;
+    font-size: 1.1rem;
+    position: relative;
+    padding-bottom: 5px;
+    transition: color 0.35s ease;
+    cursor: pointer;
+  }
+  nav a:hover {
+    color: #1d3557;
+  }
+  nav a::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    right: 100%;
+    width: 0;
+    height: 4px;
+    border-radius: 12px;
+    background: linear-gradient(to right, #008C45, #F4F5F0, #CD212A);
+    transition: right 0.35s ease, width 0.35s ease;
+  }
+  nav a:hover::after {
+    right: 0;
+    width: 100%;
+  }
+
+  main {
+    max-width: 700px;
+    margin: 3rem auto 5rem auto;
+    padding: 0 1rem;
+  }
+
+  h1 {
+    font-size: 2.8rem;
+    font-weight: 700;
+    color: #1a2e47;
+    margin-bottom: 1rem;
+    text-align: center;
+  }
+  p.description {
+    font-size: 1.2rem;
+    color: #556877;
+    text-align: center;
+    margin-bottom: 3rem;
+  }
+
+  form {
+    background: #fff;
+    padding: 2rem 2.5rem;
+    border-radius: 28px;
+    box-shadow: 0 16px 40px rgba(0,0,0,0.06);
+    display: flex;
+    flex-direction: column;
+    gap: 1.6rem;
+  }
+
+  label {
+    font-weight: 600;
+    color: #264653;
+    margin-bottom: 0.4rem;
+  }
+  input[type="text"],
+  input[type="email"],
+  textarea {
+    padding: 0.85rem 1rem;
+    border-radius: 12px;
+    border: 1.5px solid #ccc;
+    font-size: 1rem;
+    transition: border-color 0.3s ease;
+    font-family: 'Inter', sans-serif;
+    resize: vertical;
+  }
+  input[type="text"]:focus,
+  input[type="email"]:focus,
+  textarea:focus {
+    outline: none;
+    border-color: #2a9d8f;
+    box-shadow: 0 0 5px #2a9d8f;
+  }
+
+  textarea {
+    min-height: 120px;
+  }
+
+  button {
+    margin-top: 1rem;
+    background: #2a9d8f;
+    color: white;
+    border: none;
+    padding: 1rem;
+    font-size: 1.1rem;
+    font-weight: 700;
+    border-radius: 18px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  button:hover {
+    background: #1e6f6a;
+  }
+
+  footer {
+    background: #fefefe;
+    box-shadow: inset 0 1px 0 0 #ddd;
+    padding: 2.8rem 1rem 3rem 1rem;
+    text-align: center;
+    margin-top: auto;
+    user-select: none;
+  }
+  footer p {
+    font-size: 0.95rem;
+    color: #8d99ae;
+    margin-bottom: 1rem;
+  }
+  .socials {
+    margin-top: 1.2rem;
+    display: flex;
+    justify-content: center;
+    gap: 1.4rem;
+  }
+  .socials a {
+    display: inline-block;
+    border-radius: 14px;
+    overflow: hidden;
+    transition: transform 0.25s ease;
+  }
+  .socials a img {
+    width: 32px;
+    height: 32px;
+    object-fit: contain;
+    display: block;
+    filter: grayscale(60%);
+    transition: filter 0.3s ease;
+  }
+  .socials a:hover img {
+    filter: none;
+  }
+  .socials a:hover {
+    transform: scale(1.45);
+  }
+
+  @media (max-width: 600px) {
+    nav {
+      gap: 1.6rem;
+    }
+    h1 {
+      font-size: 2.2rem;
+    }
+    main {
+      margin: 2rem 1rem 4rem 1rem;
+    }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <a href="https://store.miniutti.it" class="logo-link" aria-label="Miniutti Store">
+    <img src="favicon.png" alt="Miniutti Store Logo" />
+  </a>
+  <nav>
+    <a href="https://store.miniutti.it" tabindex="0">Home</a>
+    <a href="https://store.miniutti.it/prodotti.html" tabindex="0">Prodotti</a>
+    <a href="https://store.miniutti.it/contatti.html" tabindex="0">Contatti</a>
+  </nav>
+</header>
+
+<main>
+  <h1>Contattaci</h1>
+  <p class="description">Hai domande o richieste? Compila il modulo qui sotto e ti risponderemo al più presto.</p>
+
+  <form action="mailto:tuoindirizzo@email.it" method="post" enctype="text/plain" novalidate>
+    <label for="nome">Nome</label>
+    <input type="text" id="nome" name="nome" required placeholder="Il tuo nome" />
+
+    <label for="email">Email</label>
+    <input type="email" id="email" name="email" required placeholder="La tua email" />
+
+    <label for="messaggio">Messaggio</label>
+    <textarea id="messaggio" name="messaggio" required placeholder="Scrivi qui il tuo messaggio..."></textarea>
+
+    <button type="submit">Invia</button>
+  </form>
+</main>
+
+<footer>
+  <p>© 2025 Miniutti Store — Tutti i diritti riservati</p>
+  <div class="socials" role="contentinfo" aria-label="Link ai social di vendita">
+    <a href="https://www.vinted.it/member/227244406" target="_blank" rel="noopener" aria-label="Vinted">
+      <img src="https://cdn-icons-png.flaticon.com/512/5968/5968705.png" alt="Icona Vinted" />
+    </a>
+    <a href="https://www.subito.it/utente/127182597" target="_blank" rel="noopener" aria-label="Subito">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/29/Subito.it_logo_2020.svg/128px-Subito.it_logo_2020.svg.png" alt="Icona Subito" />
+    </a>
+    <a href="https://www.ebay.it/usr/tuo_utente" target="_blank" rel="noopener" aria-label="eBay">
+      <img src="https://cdn-icons-png.flaticon.com/512/888/888853.png" alt="Icona eBay" />
+    </a>
+  </div>
+</footer>
+
+</body>
+</html>
