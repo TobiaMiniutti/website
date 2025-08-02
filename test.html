@@ -113,83 +113,79 @@
     margin: 0 auto;
   }
 
-  /* PRODUCTS GRID */
-  .products {
-    max-width: 1200px;
-    margin: 3.5rem auto 6rem auto;
+  /* Nuove sezioni */
+  section.why-us,
+  section.novita,
+  section.testimonianze,
+  section.chi-siamo {
+    max-width: 900px;
+    margin: 2.5rem auto;
     padding: 0 1rem;
-    display: grid;
-    grid-template-columns: repeat(auto-fit,minmax(320px,1fr));
-    gap: 2.8rem;
-  }
-  .product {
-    background: #fff;
-    border-radius: 28px;
-    box-shadow:
-      0 16px 40px rgba(0,0,0,0.06),
-      inset 0 0 0 1px rgba(0,0,0,0.05);
-    padding: 1.3rem 1.3rem 2.2rem 1.3rem;
-    text-align: center;
-    transition:
-      transform 0.45s cubic-bezier(0.4,0,0.2,1),
-      box-shadow 0.45s cubic-bezier(0.4,0,0.2,1);
-    cursor: pointer;
-    display: flex;
-    flex-direction: column;
-    user-select: none;
-    position: relative;
-    overflow: hidden;
-  }
-  .product:hover {
-    transform: translateY(-8px) scale(1.07);
-    box-shadow:
-      0 22px 50px rgba(0,0,0,0.12),
-      inset 0 0 0 1px rgba(0,0,0,0.07);
-  }
-
-  /* Bandiera italiana animata da destra a sinistra per prodotti */
-  .product::after {
-    content: "";
-    position: absolute;
-    bottom: 20px;
-    right: 100%;
-    width: 0;
-    height: 5px;
-    border-radius: 18px;
-    background: linear-gradient(to right, #008C45, #F4F5F0, #CD212A);
-    transition:
-      right 0.4s ease,
-      width 0.4s ease;
-  }
-  .product:hover::after {
-    right: 20px;
-    width: calc(100% - 40px);
-  }
-
-  .product img {
-    width: 100%;
-    border-radius: 18px;
-    margin-bottom: 1.2rem;
-    box-shadow:
-      0 12px 25px rgba(0,0,0,0.12);
-    transition: box-shadow 0.4s ease;
-  }
-  .product:hover img {
-    box-shadow:
-      0 22px 50px rgba(0,0,0,0.24);
-  }
-  .product h3 {
-    font-weight: 700;
-    margin-bottom: 0.4rem;
     color: #264653;
-    font-size: 1.35rem;
+    text-align: center;
+  }
+
+  section.why-us h2,
+  section.novita h2,
+  section.testimonianze h2,
+  section.chi-siamo h2 {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    color: #1a2e47;
+  }
+
+  section.why-us ul {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    gap: 2.5rem;
+    flex-wrap: wrap;
+  }
+  section.why-us ul li {
+    background: #e0f0f4;
+    border-radius: 18px;
+    padding: 1rem 1.8rem;
+    font-weight: 600;
+    font-size: 1.15rem;
+    color: #2a9d8f;
+    box-shadow:
+      0 4px 12px rgba(42, 157, 143, 0.25);
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    user-select: none;
+  }
+
+  section.novita p {
+    font-size: 1.1rem;
+    color: #556877;
+  }
+  section.novita a {
+    color: #2a9d8f;
+    font-weight: 700;
+    text-decoration: none;
+    border-bottom: 2px solid transparent;
+    transition: border-color 0.3s ease;
+  }
+  section.novita a:hover {
+    border-color: #2a9d8f;
+  }
+
+  section.testimonianze blockquote {
+    font-style: italic;
+    font-weight: 600;
+    color: #556877;
+    margin: 1rem auto;
+    max-width: 600px;
     user-select: text;
   }
-  .product p {
-    font-weight: 700;
-    color: #2a9d8f;
-    font-size: 1.2rem;
-    user-select: text;
+
+  section.chi-siamo p {
+    font-size: 1.1rem;
+    color: #556877;
+    max-width: 650px;
+    margin: 0 auto;
   }
 
   /* FOOTER */
@@ -253,9 +249,9 @@
     .hero p {
       font-size: 1.1rem;
     }
-    .products {
-      grid-template-columns: 1fr;
-      gap: 2rem;
+    section.why-us ul {
+      flex-direction: column;
+      gap: 1.2rem;
     }
   }
 </style>
@@ -278,22 +274,30 @@
   <p>Selezione esclusiva di prodotti elettronici di qualità. Affidabilità, design e prezzi imbattibili.</p>
 </section>
 
-<section class="products" aria-label="Prodotti in vendita">
-  <a href="https://store.miniutti.it/prodotto1.html" class="product" aria-describedby="desc-prod1" tabindex="0">
-    <img src="https://via.placeholder.com/340x220?text=MSI+GT710" alt="MSI GeForce GT710 2GB" />
-    <h3>MSI GeForce GT710 2GB</h3>
-    <p id="desc-prod1">€39,99</p>
-  </a>
-  <a href="https://store.miniutti.it/prodotto2.html" class="product" aria-describedby="desc-prod2" tabindex="0">
-    <img src="https://via.placeholder.com/340x220?text=SSD+Lexar" alt="SSD Lexar 1TB" />
-    <h3>SSD Lexar 1TB</h3>
-    <p id="desc-prod2">€49,90</p>
-  </a>
-  <a href="https://store.miniutti.it/prodotto3.html" class="product" aria-describedby="desc-prod3" tabindex="0">
-    <img src="https://via.placeholder.com/340x220?text=Alimentatore+Corsair" alt="Alimentatore Corsair 650W" />
-    <h3>Alimentatore Corsair 650W</h3>
-    <p id="desc-prod3">€69,90</p>
-  </a>
+<section class="why-us" aria-label="Perché scegliere Miniutti Store?">
+  <h2>Perché scegliere Miniutti Store?</h2>
+  <ul>
+    <li>✅ Qualità garantita</li>
+    <li>🚚 Spedizione veloce</li>
+    <li>📞 Supporto clienti dedicato</li>
+    <li>💰 Prezzi competitivi</li>
+  </ul>
+</section>
+
+<section class="novita" aria-label="Novità e offerte">
+  <h2>Novità & Offerte</h2>
+  <p>Scopri i nostri ultimi prodotti e le offerte speciali. <a href="prodotti.html">Vedi tutti i prodotti</a></p>
+</section>
+
+<section class="testimonianze" aria-label="Cosa dicono i clienti">
+  <h2>Cosa dicono i clienti</h2>
+  <blockquote>“Prodotti eccellenti e servizio impeccabile.” – Mario R.</blockquote>
+  <blockquote>“Spedizione rapidissima e assistenza sempre disponibile.” – Laura B.</blockquote>
+</section>
+
+<section class="chi-siamo" aria-label="Chi siamo">
+  <h2>Chi siamo</h2>
+  <p>Miniutti Store nasce dalla passione per l’elettronica di qualità e l’attenzione al cliente. Offriamo prodotti selezionati con cura e un servizio affidabile.</p>
 </section>
 
 <footer>
