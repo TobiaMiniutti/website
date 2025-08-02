@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Miniutti.it – Catalogo Prodotti</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #0a0a0a;
+      color: white;
+    }
+    header {
+      background-color: #000;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid #222;
+    }
+    header h1 {
+      margin: 0;
+      font-size: 1.5rem;
+      letter-spacing: 0.05em;
+    }
+    nav a {
+      margin-left: 1.5rem;
+      color: #ccc;
+      text-decoration: none;
+      position: relative;
+    }
+    nav a:hover {
+      color: white;
+    }
+    .tricolore::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: -4px;
+      width: 100%;
+      height: 3px;
+      background: linear-gradient(to right, #008C45, #F4F5F0, #CD212A);
+    }
+    .container {
+      padding: 2rem;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem;
+    }
+    .card {
+      background-color: #121212;
+      border-radius: 1.5rem;
+      overflow: hidden;
+      box-shadow: 0 0 12px rgba(255,255,255,0.05);
+      transition: transform 0.3s, box-shadow 0.3s;
+      display: flex;
+      flex-direction: column;
+    }
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 0 20px rgba(255,255,255,0.1);
+    }
+    .card img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+    }
+    .card-content {
+      padding: 1rem;
+    }
+    .card-content h2 {
+      margin-top: 0;
+      font-size: 1.1rem;
+      margin-bottom: 0.5rem;
+    }
+    .card-content p {
+      font-size: 0.95rem;
+      color: #bbb;
+    }
+    .card-content .prezzo {
+      margin-top: 0.5rem;
+      font-weight: bold;
+      color: #00cc66;
+    }
+    footer {
+      text-align: center;
+      padding: 2rem 0;
+      font-size: 0.8rem;
+      color: #888;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Miniutti.it</h1>
+    <nav>
+      <a href="index.html" class="tricolore">Catalogo</a>
+      <a href="clock.html">SBB Clock</a>
+      <a href="diritti.html">Diritti</a>
+    </nav>
+  </header>
+
+  <main class="container">
+    <div class="card">
+      <img src="img/jblvibe.jpg" alt="JBL Vibe Flex">
+      <div class="card-content">
+        <h2>JBL Vibe Flex</h2>
+        <p>Perfette per musica e chiamate, usate 6 mesi, piccoli segni di ossidazione sui contatti.</p>
+        <p class="prezzo">€20</p>
+      </div>
+    </div>
+
+    <div class="card">
+      <img src="img/gt710.jpg" alt="MSI GT710 2GB">
+      <div class="card-content">
+        <h2>MSI GeForce GT710 2GB</h2>
+        <p>In scatola originale, come nuova, perfetta per ufficio o HTPC.</p>
+        <p class="prezzo">€15</p>
+      </div>
+    </div>
+
+    <div class="card">
+      <img src="img/gtx780.jpg" alt="NVIDIA GTX 780 4GB">
+      <div class="card-content">
+        <h2>NVIDIA GTX 780 4GB</h2>
+        <p>Con graffio e piccola scheggiatura su vetro, testata e funzionante. VGA, DVI, HDMI.</p>
+        <p class="prezzo">€40</p>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    © 2025 Miniutti.it – Tutti i diritti riservati
+  </footer>
+</body>
+</html>
