@@ -2,346 +2,229 @@
 <html lang="it">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Miniutti.it – Catalogo Prodotti</title>
-  <link rel="icon" href="favicon.png" type="image/png" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Miniutti Store</title>
+  <link rel="icon" type="image/png" href="favicon.png" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Playfair+Display:wght@600&display=swap" rel="stylesheet">
   <style>
-    /* ===== RESET & BASE ===== */
-    *, *::before, *::after {
-      box-sizing: border-box;
-    }
-    body {
-      margin: 0; padding: 0;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: linear-gradient(135deg, #050505 0%, #0f0f0f 100%);
-      color: #eee;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      scroll-behavior: smooth;
-      user-select: none;
-    }
-    a {
-      color: inherit;
-      text-decoration: none;
-      position: relative;
-      cursor: pointer;
-      transition: color 0.35s ease, filter 0.35s ease;
-      font-weight: 600;
-      font-size: 1rem;
-      outline-offset: 3px;
-    }
-    a:focus-visible,
-    a:hover {
-      color: #00cc66;
-      outline: none;
-      filter: drop-shadow(0 0 5px #00cc66);
-    }
-    img {
-      display: block;
-      max-width: 100%;
-      height: auto;
-      user-select: none;
-      pointer-events: none;
-      border-radius: 1rem 1rem 0 0;
-      transition: transform 0.35s ease;
+    :root {
+      --main-color: #0e2f20; /* Verde bosco */
+      --accent: #d4af37;      /* Oro tenue */
+      --light-bg: #f9f9f9;
+      --text-color: #111;
+      --hover-tricolor: linear-gradient(to right, #008C45, #F4F5F0, #CD212A);
     }
 
-    /* ===== HEADER ===== */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--light-bg);
+      color: var(--text-color);
+      line-height: 1.6;
+    }
+
     header {
-      background-color: #000;
-      padding: 1rem 3rem;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      border-bottom: 1px solid #222;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.8);
+      padding: 1.5rem 2rem;
+      background: white;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
       position: sticky;
       top: 0;
-      z-index: 999;
-      user-select: none;
+      z-index: 1000;
     }
 
-    /* LOGO */
-    .logo-link {
+    .logo {
       display: flex;
       align-items: center;
-      gap: 0.75rem;
-      transition: transform 0.3s ease, filter 0.3s ease;
-      filter: drop-shadow(0 0 3px #00cc66);
-    }
-    .logo-link img {
-      width: 48px;
-      height: 48px;
-      border-radius: 12px;
-      transition: transform 0.35s ease, filter 0.35s ease;
-    }
-    .logo-link:hover, .logo-link:focus-visible {
-      transform: scale(1.12);
-      filter: drop-shadow(0 0 15px #00ff88);
-      outline: none;
-    }
-    .logo-text {
-      font-size: 1.6rem;
-      font-weight: 800;
-      letter-spacing: 0.08em;
-      color: #00cc66;
-      user-select: none;
-      text-shadow: 0 0 5px #00cc66;
-    }
-    .sr-only {
-      position: absolute;
-      width: 1px; height: 1px;
-      padding: 0; margin: -1px;
-      overflow: hidden;
-      clip: rect(0,0,0,0);
-      border: 0;
+      gap: 10px;
     }
 
-    /* NAVIGATION */
-    nav {
-      display: flex;
-      gap: 2rem;
-      font-weight: 600;
-      letter-spacing: 0.03em;
-      user-select: none;
+    .logo img {
+      height: 36px;
     }
+
     nav a {
-      padding: 0.5rem 0;
+      margin: 0 1rem;
+      text-decoration: none;
+      color: var(--text-color);
       position: relative;
+      font-weight: 500;
+      transition: color 0.3s;
     }
-    /* Underline tricolore animato */
-    nav a::after {
+
+    nav a:hover::after {
       content: "";
       position: absolute;
-      bottom: -6px;
+      bottom: -4px;
       left: 0;
       width: 100%;
       height: 3px;
-      border-radius: 4px;
-      background: linear-gradient(90deg, #008C45, #F4F5F0, #CD212A);
-      opacity: 0;
-      transform: translateY(8px);
-      transition: opacity 0.3s ease, transform 0.3s ease;
-      pointer-events: none;
-    }
-    nav a:hover::after,
-    nav a:focus-visible::after {
-      opacity: 1;
-      transform: translateY(0);
+      background: var(--hover-tricolor);
+      border-radius: 2px;
     }
 
-    /* ===== MAIN CONTENT ===== */
-    main.container {
-      flex-grow: 1;
-      max-width: 1300px;
-      margin: 3rem auto 5rem;
-      padding: 0 1.5rem;
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 2.5rem;
-      user-select: none;
+    nav a:hover {
+      color: var(--main-color);
     }
 
-    /* PRODUCT CARDS */
-    .card {
-      background: #121212;
-      border-radius: 1.75rem;
-      box-shadow: 0 0 10px rgba(0,0,0,0.3);
-      overflow: hidden;
-      display: flex;
-      flex-direction: column;
-      cursor: pointer;
-      transition: box-shadow 0.4s ease, transform 0.4s ease;
-      color: #ccc;
-      text-decoration: none;
-      will-change: transform;
-      user-select: none;
-      border: 1px solid transparent;
-      outline-offset: 4px;
-    }
-    .card:hover,
-    .card:focus-visible {
-      transform: translateY(-10px);
-      box-shadow:
-        0 10px 20px rgba(0, 204, 102, 0.3),
-        0 0 25px rgba(0, 204, 102, 0.7);
-      color: #00cc66;
-      border-color: #00cc66;
-      outline: none;
-      z-index: 2;
-    }
-    .card:hover img,
-    .card:focus-visible img {
-      transform: scale(1.07);
-      filter: drop-shadow(0 0 10px #00cc66);
-    }
-
-    .card-content {
-      padding: 1.5rem 2rem 2rem 2rem;
-      display: flex;
-      flex-direction: column;
-      flex-grow: 1;
-      justify-content: space-between;
-    }
-    .card-content h2 {
-      font-size: 1.3rem;
-      font-weight: 800;
-      margin-bottom: 0.5rem;
-      color: #00cc66;
-      user-select: text;
-    }
-    .card-content p {
-      font-size: 1rem;
-      line-height: 1.5;
-      color: #aaa;
-      flex-grow: 1;
-      user-select: text;
-    }
-    .card-content .prezzo {
-      font-weight: 900;
-      font-size: 1.2rem;
-      margin-top: 1.2rem;
-      color: #00cc66;
-      user-select: text;
-      letter-spacing: 0.04em;
-      text-shadow: 0 0 5px #00cc66;
-    }
-
-    /* ===== FOOTER ===== */
-    footer {
+    .hero {
+      padding: 5rem 2rem;
       text-align: center;
-      padding: 2.5rem 1rem;
-      font-size: 0.85rem;
-      color: #555;
-      border-top: 1px solid #222;
-      user-select: none;
-      background-color: #000;
-      box-shadow: inset 0 2px 8px rgba(0,0,0,0.4);
-      letter-spacing: 0.02em;
+      background: white;
     }
 
-    /* ===== "TORNA SU" BUTTON ===== */
-    #scrollTopBtn {
-      position: fixed;
-      bottom: 2.5rem;
-      right: 2.5rem;
-      width: 48px;
-      height: 48px;
-      background-color: #00cc66;
+    .hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 3rem;
+      margin-bottom: 1rem;
+    }
+
+    .hero p {
+      max-width: 600px;
+      margin: 0 auto;
+      font-size: 1.2rem;
+      color: #444;
+    }
+
+    .btn {
+      margin-top: 2rem;
+      padding: 0.75rem 2rem;
+      background: var(--main-color);
+      color: white;
       border: none;
-      border-radius: 50%;
-      box-shadow: 0 4px 12px rgba(0,204,102,0.7);
-      color: #000;
-      font-size: 2rem;
+      border-radius: 6px;
+      font-size: 1rem;
       cursor: pointer;
-      opacity: 0;
-      visibility: hidden;
-      pointer-events: none;
-      transition: opacity 0.3s ease, visibility 0.3s ease;
-      user-select: none;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      z-index: 9999;
-    }
-    #scrollTopBtn.show {
-      opacity: 1;
-      visibility: visible;
-      pointer-events: auto;
-    }
-    #scrollTopBtn:hover {
-      filter: brightness(1.2);
+      transition: background 0.3s;
     }
 
-    /* ===== RESPONSIVE ===== */
-    @media (max-width: 700px) {
-      header {
-        padding: 1rem 1.5rem;
-      }
+    .btn:hover {
+      background: #0b241a;
+    }
+
+    .products {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2rem;
+      padding: 4rem 2rem;
+      background: #fff;
+    }
+
+    .product-card {
+      background: var(--light-bg);
+      padding: 1.5rem;
+      border-radius: 12px;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.04);
+    }
+
+    .product-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+    }
+
+    .product-card img {
+      max-width: 100%;
+      border-radius: 8px;
+      margin-bottom: 1rem;
+    }
+
+    .product-card h3 {
+      font-size: 1.2rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .product-card p {
+      color: #666;
+      font-size: 0.95rem;
+    }
+
+    .product-card .price {
+      margin-top: 0.8rem;
+      font-weight: bold;
+      color: var(--main-color);
+    }
+
+    footer {
+      padding: 3rem 2rem;
+      text-align: center;
+      background: var(--main-color);
+      color: white;
+    }
+
+    footer a {
+      color: var(--accent);
+      text-decoration: none;
+      margin: 0 0.5rem;
+    }
+
+    @media (max-width: 600px) {
       nav {
-        gap: 1.25rem;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
       }
-      main.container {
-        padding: 0 1rem;
-        gap: 1.8rem;
-        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-      }
-      .card-content h2 {
-        font-size: 1.1rem;
-      }
-      .card-content p {
-        font-size: 0.9rem;
-      }
-      .card-content .prezzo {
-        font-size: 1.1rem;
+
+      nav a {
+        margin: 0.5rem 0;
       }
     }
   </style>
 </head>
 <body>
-
-  <header role="banner">
-    <a href="https://store.miniutti.it" class="logo-link" aria-label="Vai allo store Miniutti" tabindex="0">
-      <img src="favicon.png" alt="Logo Miniutti" />
-      <span class="logo-text">Miniutti</span>
-    </a>
-    <nav role="navigation" aria-label="Menu principale">
-      <a href="index.html" tabindex="0">Catalogo</a>
-      <a href="clock.html" tabindex="0">SBB Clock</a>
-      <a href="diritti.html" tabindex="0">Diritti</a>
+  <header>
+    <div class="logo">
+      <a href="https://store.miniutti.it">
+        <img src="favicon.png" alt="Miniutti Logo">
+      </a>
+    </div>
+    <nav>
+      <a href="#">Home</a>
+      <a href="#">Prodotti</a>
+      <a href="#">Contatti</a>
+      <a href="#">Account</a>
     </nav>
   </header>
 
-  <main class="container" role="main" aria-label="Catalogo prodotti">
-    <a href="prodotti/jbl-vibe-flex.html" class="card" tabindex="0" aria-label="Scheda prodotto JBL Vibe Flex">
-      <img src="img/jblvibe.jpg" alt="JBL Vibe Flex" />
-      <div class="card-content">
-        <h2>JBL Vibe Flex</h2>
-        <p>Perfette per musica e chiamate, usate 6 mesi, piccoli segni di ossidazione sui contatti.</p>
-        <p class="prezzo">€20</p>
-      </div>
-    </a>
+  <section class="hero">
+    <h1>Eleganza, qualità, Miniutti.</h1>
+    <p>Scopri la nostra selezione esclusiva di articoli curati nei minimi dettagli, pensati per distinguerti.</p>
+    <button class="btn">Scopri ora</button>
+  </section>
 
-    <a href="prodotti/msi-gt710.html" class="card" tabindex="0" aria-label="Scheda prodotto MSI GeForce GT710 2GB">
-      <img src="img/gt710.jpg" alt="MSI GeForce GT710 2GB" />
-      <div class="card-content">
-        <h2>MSI GeForce GT710 2GB</h2>
-        <p>In scatola originale, come nuova, perfetta per ufficio o HTPC.</p>
-        <p class="prezzo">€15</p>
-      </div>
-    </a>
+  <section class="products">
+    <div class="product-card">
+      <img src="https://placehold.co/400x300" alt="Prodotto 1">
+      <h3>Nome Prodotto</h3>
+      <p>Descrizione breve del prodotto con dettagli raffinati.</p>
+      <div class="price">€199,00</div>
+    </div>
+    <div class="product-card">
+      <img src="https://placehold.co/400x300" alt="Prodotto 2">
+      <h3>Altro Prodotto</h3>
+      <p>Design moderno, materiali pregiati, cura nei particolari.</p>
+      <div class="price">€249,00</div>
+    </div>
+    <div class="product-card">
+      <img src="https://placehold.co/400x300" alt="Prodotto 3">
+      <h3>Prodotto Premium</h3>
+      <p>Un pezzo unico che parla di te. Edizione limitata.</p>
+      <div class="price">€349,00</div>
+    </div>
+  </section>
 
-    <a href="prodotti/nvidia-gtx780.html" class="card" tabindex="0" aria-label="Scheda prodotto NVIDIA GTX 780 4GB">
-      <img src="img/gtx780.jpg" alt="NVIDIA GTX 780 4GB" />
-      <div class="card-content">
-        <h2>NVIDIA GTX 780 4GB</h2>
-        <p>Con graffio e piccola scheggiatura su vetro, testata e funzionante. VGA, DVI, HDMI.</p>
-        <p class="prezzo">€40</p>
-      </div>
-    </a>
-  </main>
-
-  <footer role="contentinfo">
-    © 2025 Miniutti.it – Tutti i diritti riservati
+  <footer>
+    <p>&copy; 2025 Miniutti Store – Tutti i diritti riservati.</p>
+    <p>
+      <a href="#">Privacy</a> | <a href="#">Termini</a> | <a href="#">Contattaci</a>
+    </p>
   </footer>
-
-  <button id="scrollTopBtn" aria-label="Torna su" title="Torna su" tabindex="0">&#8679;</button>
-
-  <script>
-    // Mostra bottone "torna su" se si scrolla oltre 300px
-    const scrollBtn = document.getElementById('scrollTopBtn');
-    window.addEventListener('scroll', () => {
-      if (window.scrollY > 300) {
-        scrollBtn.classList.add('show');
-      } else {
-        scrollBtn.classList.remove('show');
-      }
-    });
-    scrollBtn.addEventListener('click', () => {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    });
-  </script>
-
 </body>
 </html>
