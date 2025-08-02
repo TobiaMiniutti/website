@@ -6,70 +6,88 @@
   <title>Miniutti.it – Catalogo Prodotti</title>
   <link rel="icon" href="favicon.png" type="image/png" />
   <style>
-    /* ===== Reset & base ===== */
-    * {
-      margin: 0; padding: 0; box-sizing: border-box;
+    /* ===== RESET & BASE ===== */
+    *, *::before, *::after {
+      box-sizing: border-box;
     }
     body {
+      margin: 0; padding: 0;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background-color: #0a0a0a;
+      background: linear-gradient(135deg, #050505 0%, #0f0f0f 100%);
       color: #eee;
       min-height: 100vh;
       display: flex;
       flex-direction: column;
+      scroll-behavior: smooth;
+      user-select: none;
     }
     a {
       color: inherit;
       text-decoration: none;
-      outline-offset: 3px;
-      outline-color: transparent;
-      transition: outline-color 0.3s ease, color 0.3s ease;
-      user-select: none;
       position: relative;
+      cursor: pointer;
+      transition: color 0.35s ease, filter 0.35s ease;
       font-weight: 600;
       font-size: 1rem;
-      padding: 0.4rem 0.6rem;
+      outline-offset: 3px;
     }
     a:focus-visible,
     a:hover {
-      outline-color: transparent;
       color: #00cc66;
+      outline: none;
+      filter: drop-shadow(0 0 5px #00cc66);
+    }
+    img {
+      display: block;
+      max-width: 100%;
+      height: auto;
+      user-select: none;
+      pointer-events: none;
+      border-radius: 1rem 1rem 0 0;
+      transition: transform 0.35s ease;
     }
 
-    /* ===== Header & Nav ===== */
+    /* ===== HEADER ===== */
     header {
       background-color: #000;
-      padding: 1rem 2rem;
+      padding: 1rem 3rem;
       display: flex;
-      justify-content: space-between;
       align-items: center;
+      justify-content: space-between;
       border-bottom: 1px solid #222;
-      user-select: none;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.7);
+      box-shadow: 0 4px 8px rgba(0,0,0,0.8);
       position: sticky;
       top: 0;
-      z-index: 10;
+      z-index: 999;
+      user-select: none;
     }
 
-    /* Logo container */
+    /* LOGO */
     .logo-link {
       display: flex;
       align-items: center;
-      cursor: pointer;
-      transition: filter 0.3s ease;
-      user-select: none;
+      gap: 0.75rem;
+      transition: transform 0.3s ease, filter 0.3s ease;
+      filter: drop-shadow(0 0 3px #00cc66);
     }
     .logo-link img {
-      width: 44px;
-      height: 44px;
-      object-fit: contain;
-      filter: drop-shadow(0 0 2px #00cc66);
-      transition: filter 0.3s ease, transform 0.3s ease;
+      width: 48px;
+      height: 48px;
+      border-radius: 12px;
+      transition: transform 0.35s ease, filter 0.35s ease;
     }
-    .logo-link:hover img,
-    .logo-link:focus-visible img {
-      filter: drop-shadow(0 0 8px #00ff88);
-      transform: scale(1.1);
+    .logo-link:hover, .logo-link:focus-visible {
+      transform: scale(1.12);
+      filter: drop-shadow(0 0 15px #00ff88);
+      outline: none;
+    }
+    .logo-text {
+      font-size: 1.6rem;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      color: #00cc66;
+      user-select: none;
+      text-shadow: 0 0 5px #00cc66;
     }
     .sr-only {
       position: absolute;
@@ -80,26 +98,32 @@
       border: 0;
     }
 
+    /* NAVIGATION */
     nav {
       display: flex;
-      gap: 1.75rem;
+      gap: 2rem;
+      font-weight: 600;
+      letter-spacing: 0.03em;
+      user-select: none;
     }
-
-    /* Tricolore underline animata solo su hover */
+    nav a {
+      padding: 0.5rem 0;
+      position: relative;
+    }
+    /* Underline tricolore animato */
     nav a::after {
-      content: '';
+      content: "";
       position: absolute;
+      bottom: -6px;
       left: 0;
-      bottom: -5px;
       width: 100%;
-      height: 4px;
-      background: linear-gradient(to right, #008C45, #F4F5F0, #CD212A);
-      border-radius: 3px;
+      height: 3px;
+      border-radius: 4px;
+      background: linear-gradient(90deg, #008C45, #F4F5F0, #CD212A);
       opacity: 0;
-      transform: translateY(6px);
+      transform: translateY(8px);
       transition: opacity 0.3s ease, transform 0.3s ease;
       pointer-events: none;
-      user-select: none;
     }
     nav a:hover::after,
     nav a:focus-visible::after {
@@ -107,111 +131,160 @@
       transform: translateY(0);
     }
 
-    /* ===== Main container ===== */
+    /* ===== MAIN CONTENT ===== */
     main.container {
       flex-grow: 1;
-      padding: 2rem;
+      max-width: 1300px;
+      margin: 3rem auto 5rem;
+      padding: 0 1.5rem;
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 2rem;
-      max-width: 1200px;
-      margin: 2rem auto 4rem;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2.5rem;
       user-select: none;
     }
 
-    /* ===== Cards ===== */
+    /* PRODUCT CARDS */
     .card {
-      background-color: #121212;
-      border-radius: 1.5rem;
+      background: #121212;
+      border-radius: 1.75rem;
+      box-shadow: 0 0 10px rgba(0,0,0,0.3);
       overflow: hidden;
-      box-shadow: 0 0 12px rgba(255,255,255,0.05);
       display: flex;
       flex-direction: column;
-      transition: transform 0.35s ease, box-shadow 0.35s ease;
       cursor: pointer;
-      color: #ddd;
+      transition: box-shadow 0.4s ease, transform 0.4s ease;
+      color: #ccc;
       text-decoration: none;
-    }
-    .card:hover, .card:focus-visible {
-      transform: translateY(-7px);
-      box-shadow: 0 0 28px rgba(0, 140, 69, 0.6);
-      color: #00cc66;
-    }
-    .card img {
-      width: 100%;
-      height: 180px;
-      object-fit: cover;
+      will-change: transform;
       user-select: none;
-      pointer-events: none;
-      transition: transform 0.35s ease;
+      border: 1px solid transparent;
+      outline-offset: 4px;
+    }
+    .card:hover,
+    .card:focus-visible {
+      transform: translateY(-10px);
+      box-shadow:
+        0 10px 20px rgba(0, 204, 102, 0.3),
+        0 0 25px rgba(0, 204, 102, 0.7);
+      color: #00cc66;
+      border-color: #00cc66;
+      outline: none;
+      z-index: 2;
     }
     .card:hover img,
     .card:focus-visible img {
-      transform: scale(1.05);
+      transform: scale(1.07);
+      filter: drop-shadow(0 0 10px #00cc66);
     }
+
     .card-content {
-      padding: 1.2rem 1.5rem 1.8rem 1.5rem;
-      flex-grow: 1;
+      padding: 1.5rem 2rem 2rem 2rem;
       display: flex;
       flex-direction: column;
+      flex-grow: 1;
       justify-content: space-between;
     }
     .card-content h2 {
-      font-size: 1.2rem;
-      margin-bottom: 0.5rem;
-      font-weight: 700;
-    }
-    .card-content p {
-      font-size: 0.95rem;
-      color: #bbb;
-      line-height: 1.4;
-      flex-grow: 1;
-    }
-    .card-content .prezzo {
-      margin-top: 1rem;
+      font-size: 1.3rem;
       font-weight: 800;
+      margin-bottom: 0.5rem;
       color: #00cc66;
-      font-size: 1.1rem;
       user-select: text;
     }
+    .card-content p {
+      font-size: 1rem;
+      line-height: 1.5;
+      color: #aaa;
+      flex-grow: 1;
+      user-select: text;
+    }
+    .card-content .prezzo {
+      font-weight: 900;
+      font-size: 1.2rem;
+      margin-top: 1.2rem;
+      color: #00cc66;
+      user-select: text;
+      letter-spacing: 0.04em;
+      text-shadow: 0 0 5px #00cc66;
+    }
 
-    /* ===== Footer ===== */
+    /* ===== FOOTER ===== */
     footer {
       text-align: center;
-      padding: 2rem 1rem;
-      font-size: 0.8rem;
+      padding: 2.5rem 1rem;
+      font-size: 0.85rem;
       color: #555;
       border-top: 1px solid #222;
       user-select: none;
+      background-color: #000;
+      box-shadow: inset 0 2px 8px rgba(0,0,0,0.4);
+      letter-spacing: 0.02em;
     }
 
-    /* ===== Responsive ===== */
-    @media (max-width: 620px) {
+    /* ===== "TORNA SU" BUTTON ===== */
+    #scrollTopBtn {
+      position: fixed;
+      bottom: 2.5rem;
+      right: 2.5rem;
+      width: 48px;
+      height: 48px;
+      background-color: #00cc66;
+      border: none;
+      border-radius: 50%;
+      box-shadow: 0 4px 12px rgba(0,204,102,0.7);
+      color: #000;
+      font-size: 2rem;
+      cursor: pointer;
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+      transition: opacity 0.3s ease, visibility 0.3s ease;
+      user-select: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+    }
+    #scrollTopBtn.show {
+      opacity: 1;
+      visibility: visible;
+      pointer-events: auto;
+    }
+    #scrollTopBtn:hover {
+      filter: brightness(1.2);
+    }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 700px) {
       header {
-        padding: 1rem;
+        padding: 1rem 1.5rem;
       }
       nav {
-        gap: 1rem;
-      }
-      nav a {
-        font-size: 0.95rem;
+        gap: 1.25rem;
       }
       main.container {
-        padding: 1rem;
-        gap: 1.5rem;
+        padding: 0 1rem;
+        gap: 1.8rem;
+        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
       }
-      .card img {
-        height: 150px;
+      .card-content h2 {
+        font-size: 1.1rem;
+      }
+      .card-content p {
+        font-size: 0.9rem;
+      }
+      .card-content .prezzo {
+        font-size: 1.1rem;
       }
     }
   </style>
 </head>
-
 <body>
-  <header>
-    <a href="https://store.miniutti.it" class="logo-link" aria-label="Vai allo store Miniutti">
+
+  <header role="banner">
+    <a href="https://store.miniutti.it" class="logo-link" aria-label="Vai allo store Miniutti" tabindex="0">
       <img src="favicon.png" alt="Logo Miniutti" />
-      <span class="sr-only">Miniutti Store</span>
+      <span class="logo-text">Miniutti</span>
     </a>
     <nav role="navigation" aria-label="Menu principale">
       <a href="index.html" tabindex="0">Catalogo</a>
@@ -220,7 +293,7 @@
     </nav>
   </header>
 
-  <main class="container" aria-label="Catalogo prodotti">
+  <main class="container" role="main" aria-label="Catalogo prodotti">
     <a href="prodotti/jbl-vibe-flex.html" class="card" tabindex="0" aria-label="Scheda prodotto JBL Vibe Flex">
       <img src="img/jblvibe.jpg" alt="JBL Vibe Flex" />
       <div class="card-content">
@@ -249,8 +322,26 @@
     </a>
   </main>
 
-  <footer>
+  <footer role="contentinfo">
     © 2025 Miniutti.it – Tutti i diritti riservati
   </footer>
+
+  <button id="scrollTopBtn" aria-label="Torna su" title="Torna su" tabindex="0">&#8679;</button>
+
+  <script>
+    // Mostra bottone "torna su" se si scrolla oltre 300px
+    const scrollBtn = document.getElementById('scrollTopBtn');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 300) {
+        scrollBtn.classList.add('show');
+      } else {
+        scrollBtn.classList.remove('show');
+      }
+    });
+    scrollBtn.addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  </script>
+
 </body>
 </html>
