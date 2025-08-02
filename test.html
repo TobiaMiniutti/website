@@ -3,9 +3,8 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Miniutti Store — Usato & Nuovo Selezionato</title>
+<title>Componenti Elettronici - Usato & Nuovo</title>
 
-<link rel="icon" href="favicon.png" type="image/png" />
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
 
 <style>
@@ -21,40 +20,36 @@
     display: flex;
     flex-direction: column;
     line-height: 1.6;
+    text-align: center;
+    padding: 2rem 1rem;
   }
 
-  /* Header */
   header {
-    position: sticky;
-    top: 0;
-    background: rgba(255 255 255 / 0.95);
-    backdrop-filter: saturate(150%) blur(10px);
     border-bottom: 1px solid #ddd;
-    padding: 1rem 3rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    z-index: 100;
+    padding-bottom: 1rem;
+    margin-bottom: 3rem;
   }
-  header a.logo-link img {
+
+  header img {
     height: 44px;
-    cursor: pointer;
-    transition: transform 0.3s ease;
+    cursor: default;
+    user-select: none;
   }
-  header a.logo-link img:hover {
-    transform: scale(1.05);
-  }
+
   nav {
+    margin-top: 1.5rem;
     display: flex;
-    gap: 2.5rem;
+    justify-content: center;
+    gap: 3rem;
   }
   nav a {
     color: #333;
     font-weight: 600;
-    font-size: 1.05rem;
+    font-size: 1.1rem;
     text-decoration: none;
     position: relative;
     padding-bottom: 5px;
+    user-select: none;
     transition: color 0.3s ease;
   }
   nav a:hover,
@@ -77,62 +72,32 @@
     width: 100%;
   }
 
-  /* Hero */
-  .hero {
-    padding: 6rem 2rem 4rem;
-    max-width: 900px;
-    margin: 0 auto;
-    text-align: center;
-    color: #111;
-  }
-  .hero h1 {
-    font-size: 3.6rem;
+  h1 {
+    font-size: 3rem;
     font-weight: 700;
-    line-height: 1.05;
     margin-bottom: 1rem;
-  }
-  .hero p {
-    font-size: 1.25rem;
-    font-weight: 400;
-    color: #555;
-    max-width: 560px;
-    margin: 0 auto;
+    color: #111;
+    user-select: none;
   }
 
-  /* Sezioni principali */
-  section {
-    max-width: 850px;
-    margin: 3.5rem auto;
-    padding: 0 1rem;
-    color: #222;
-  }
-  section h2 {
-    font-weight: 700;
-    font-size: 2rem;
-    margin-bottom: 1.25rem;
-    color: #111;
-    border-bottom: 2px solid #0071e3;
-    padding-bottom: 0.25rem;
-    width: fit-content;
-  }
-  section p {
+  p, ul, li {
     font-size: 1.1rem;
     color: #444;
-    margin-bottom: 1.5rem;
-    max-width: 720px;
+    max-width: 640px;
+    margin-left: auto;
+    margin-right: auto;
+    user-select: none;
   }
-
-  /* Lista punti */
   ul {
     list-style: none;
     padding-left: 0;
+    margin-bottom: 2rem;
   }
   ul li {
     margin-bottom: 1rem;
     font-weight: 600;
-    padding-left: 1.6rem;
     position: relative;
-    color: #333;
+    padding-left: 1.6rem;
   }
   ul li::before {
     content: "✓";
@@ -142,113 +107,107 @@
     font-weight: 700;
   }
 
-  /* Link */
   a {
     color: #0071e3;
     text-decoration: none;
     font-weight: 600;
+    user-select: text; /* link copiabili */
   }
   a:hover,
   a:focus-visible {
     text-decoration: underline;
   }
 
-  /* Footer */
+  section {
+    margin-bottom: 3.5rem;
+  }
+
   footer {
-    margin-top: auto;
-    background: #f9f9f9;
     border-top: 1px solid #ddd;
     padding: 2rem 1rem;
-    text-align: center;
     font-size: 0.9rem;
     color: #666;
     user-select: none;
   }
 
-  /* Social */
   .socials {
-    margin-top: 1rem;
     display: flex;
     justify-content: center;
-    gap: 1.8rem;
+    gap: 2rem;
+    margin-top: 1rem;
   }
   .socials a img {
-    width: 28px;
-    height: 28px;
+    width: 30px;
+    height: 30px;
     filter: grayscale(60%);
     transition: filter 0.3s ease;
+    user-select: none;
   }
   .socials a:hover img,
   .socials a:focus-visible img {
     filter: none;
   }
 
-  /* Responsive */
   @media (max-width: 600px) {
-    .hero h1 {
-      font-size: 2.6rem;
-    }
-    section {
-      margin: 2.5rem auto;
+    h1 {
+      font-size: 2.4rem;
     }
   }
 </style>
+
 </head>
 <body>
 
 <header>
-  <a href="https://store.miniutti.it" class="logo-link" aria-label="Miniutti Store">
-    <img src="favicon.png" alt="Logo Miniutti Store" />
-  </a>
-  <nav>
-    <a href="https://store.miniutti.it" tabindex="0">Home</a>
-    <a href="https://store.miniutti.it/prodotti.html" tabindex="0">Prodotti</a>
-    <a href="https://store.miniutti.it/contatti.html" tabindex="0">Contatti</a>
+  <img src="favicon.png" alt="Logo" aria-hidden="true" />
+  <nav role="navigation" aria-label="Menu principale">
+    <a href="index.html" tabindex="0">Home</a>
+    <a href="prodotti.html" tabindex="0">Prodotti</a>
+    <a href="contatti.html" tabindex="0">Contatti</a>
   </nav>
 </header>
 
-<section class="hero" role="banner">
-  <h1>Miniutti Store</h1>
-  <p>Usato e nuovo selezionato con cura. Qualità garantita, prezzi trasparenti e servizio affidabile per liberare il magazzino in modo semplice e sicuro.</p>
-</section>
+<main>
+  <h1>Componenti elettronici selezionati</h1>
 
-<section aria-label="Cosa offro">
-  <h2>Cosa offro</h2>
-  <ul>
-    <li>Componenti nuovi e usati testati personalmente</li>
-    <li>Garanzia di corretto funzionamento</li>
-    <li>Prezzi chiari, nessuna sorpresa</li>
-    <li>Spedizioni rapide e tracciabili</li>
-  </ul>
-</section>
+  <section aria-label="Informazioni sulla vendita">
+    <p>
+      La vendita si svolge esclusivamente tramite piattaforme esterne affidabili. 
+      Trova e acquista i prodotti disponibili su: 
+      <a href="https://www.ebay.it/usr/tuo_utente" target="_blank" rel="noopener noreferrer">eBay</a>, 
+      <a href="https://www.subito.it/utente/127182597" target="_blank" rel="noopener noreferrer">Subito</a> e 
+      <a href="https://www.vinted.it/member/227244406" target="_blank" rel="noopener noreferrer">Vinted</a>.
+    </p>
+  </section>
 
-<section aria-label="Come acquistare">
-  <h2>Come acquistare</h2>
-  <p>
-    Pagamenti sicuri tramite bonifico o PayPal. Spedizioni con corrieri affidabili e sempre tracciate. Per ogni acquisto, supporto e risposte rapide.
-  </p>
-  <p>
-    Per dettagli o richieste particolari, contattami direttamente tramite la pagina <a href="contatti.html">Contatti</a>.
-  </p>
-</section>
+  <section aria-label="Cosa offro">
+    <ul>
+      <li>Prodotti nuovi e usati accuratamente selezionati</li>
+      <li>Controllo qualità e corretto funzionamento garantiti</li>
+      <li>Prezzi chiari e competitivi</li>
+      <li>Spedizioni rapide tramite corrieri tracciabili</li>
+    </ul>
+  </section>
 
-<section aria-label="Chi sono">
-  <h2>Chi sono</h2>
-  <p>
-    Sono un privato appassionato di tecnologia che desidera liberare scorte di magazzino, offrendo prodotti selezionati con attenzione. Vendita trasparente, senza scuse.
-  </p>
-</section>
+  <section aria-label="Modalità di acquisto e contatti">
+    <p>
+      Per informazioni o richieste specifiche, utilizza la pagina 
+      <a href="contatti.html">Contatti</a>. 
+      Pagamenti sicuri tramite le piattaforme indicate.
+    </p>
+  </section>
+</main>
 
 <footer>
-  <p>© 2025 Miniutti Store — Vendita privata di usato e nuovo</p>
-  <div class="socials" role="contentinfo" aria-label="Link ai social">
-    <a href="https://www.vinted.it/member/227244406" target="_blank" rel="noopener" aria-label="Vinted">
+  <p>Vendita privata di usato e nuovo. Tutti i prodotti sono venduti tramite piattaforme esterne.</p>
+  <div class="socials" role="contentinfo" aria-label="Link ai profili di vendita">
+    <a href="https://www.vinted.it/member/227244406" target="_blank" rel="noopener noreferrer" aria-label="Vinted">
       <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQHeBXcXSaIbpJd0DMZ4kWSx_DvR40eDhsHfA&s" alt="Icona Vinted" />
     </a>
-    <a href="https://www.subito.it/utente/127182597" target="_blank" rel="noopener" aria-label="Subito">
+    <a href="https://www.subito.it/utente/127182597" target="_blank" rel="noopener noreferrer" aria-label="Subito">
       <img src="https://play-lh.googleusercontent.com/uwzR5jlfHajawujhaPGz4qAUr5VrSYikAEiOVroFKnfFKlsoBU7BlAP7vLcrYy77U_M" alt="Icona Subito" />
     </a>
-    <a href="https://www.ebay.it/usr/tuo_utente" target="_blank" rel="noopener" aria-label="eBay">
+    <a href="https://www.ebay.it/usr/tuo_utente" target="_blank" rel="noopener noreferrer" aria-label="eBay">
       <img src="https://www.salvatorepumo.it/wp-content/uploads/2023/02/logo-ebay-oggi.png" alt="Icona eBay" />
     </a>
   </div>
