@@ -13,8 +13,8 @@
   }
 
   body {
-    background: #f9f9fa;
-    color: #111;
+    background: #fafbfc;
+    color: #212121;
     min-height: 100vh;
     display: flex;
     flex-direction: column;
@@ -24,14 +24,14 @@
   header {
     position: sticky;
     top: 0;
-    background: rgba(255 255 255 / 0.9);
+    background: rgba(255 255 255 / 0.95);
     backdrop-filter: saturate(180%) blur(10px);
-    box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+    box-shadow: 0 3px 12px rgba(0,0,0,0.08);
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 1rem 2rem;
-    z-index: 10;
+    z-index: 100;
   }
 
   header a.logo-link {
@@ -41,13 +41,14 @@
   }
 
   header a.logo-link img {
-    height: 42px;
-    border-radius: 8px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-    transition: transform 0.25s ease;
+    height: 44px;
+    border-radius: 12px;
+    box-shadow:
+      0 6px 12px rgb(0 0 0 / 0.07);
+    transition: transform 0.3s ease;
   }
   header a.logo-link img:hover {
-    transform: scale(1.05);
+    transform: scale(1.07);
   }
 
   nav {
@@ -56,24 +57,35 @@
   }
   nav a {
     text-decoration: none;
-    color: #222;
+    color: #2a2a2a;
     font-weight: 600;
-    font-size: 1rem;
+    font-size: 1.05rem;
     position: relative;
-    padding-bottom: 3px;
+    padding-bottom: 5px;
     transition: color 0.3s ease;
+    cursor: pointer;
   }
   nav a:hover {
-    color: #007aff;
+    color: #0066cc;
   }
-  nav a:hover::after {
+
+  /* Bandiera italiana animata da destra a sinistra */
+  nav a::after {
     content: "";
     position: absolute;
-    left: 0; bottom: 0;
-    width: 100%;
-    height: 3px;
-    border-radius: 6px;
+    bottom: 0;
+    left: 100%;
+    width: 0;
+    height: 4px;
+    border-radius: 8px;
     background: linear-gradient(to right, #008C45, #F4F5F0, #CD212A);
+    transition:
+      left 0.35s ease,
+      width 0.35s ease;
+  }
+  nav a:hover::after {
+    left: 0;
+    width: 100%;
   }
 
   /* HERO */
@@ -84,81 +96,109 @@
     margin: 0 auto;
   }
   .hero h1 {
-    font-size: 2.8rem;
+    font-size: 3rem;
     font-weight: 700;
-    margin-bottom: 0.8rem;
+    color: #1a1a1a;
+    margin-bottom: 0.75rem;
   }
   .hero p {
-    font-size: 1.2rem;
+    font-size: 1.25rem;
     color: #555;
-    line-height: 1.5;
+    line-height: 1.6;
+    max-width: 600px;
+    margin: 0 auto;
   }
 
   /* PRODUCTS GRID */
   .products {
     max-width: 1200px;
-    margin: 2rem auto 4rem auto;
+    margin: 3rem auto 5rem auto;
     padding: 0 1rem;
     display: grid;
-    grid-template-columns: repeat(auto-fit,minmax(280px,1fr));
-    gap: 2rem;
+    grid-template-columns: repeat(auto-fit,minmax(300px,1fr));
+    gap: 2.5rem;
   }
   .product {
-    background: rgba(255 255 255 / 0.9);
-    border-radius: 20px;
+    background: #fff;
+    border-radius: 22px;
     box-shadow:
-      0 8px 30px rgb(0 0 0 / 0.07),
-      inset 0 0 0 1px rgb(0 0 0 / 0.03);
-    padding: 1rem;
+      0 10px 30px rgb(0 0 0 / 0.05),
+      inset 0 0 0 1px rgb(0 0 0 / 0.05);
+    padding: 1rem 1rem 2rem 1rem;
     text-align: center;
     transition:
-      transform 0.3s ease,
-      box-shadow 0.3s ease;
+      transform 0.4s cubic-bezier(0.4,0,0.2,1),
+      box-shadow 0.4s cubic-bezier(0.4,0,0.2,1);
     cursor: pointer;
     display: flex;
     flex-direction: column;
     user-select: none;
+    position: relative;
+    overflow: hidden;
   }
   .product:hover {
-    transform: scale(1.07);
+    transform: translateY(-6px) scale(1.04);
     box-shadow:
-      0 14px 40px rgb(0 0 0 / 0.12),
-      inset 0 0 0 1px rgb(0 0 0 / 0.05);
+      0 16px 40px rgb(0 0 0 / 0.12),
+      inset 0 0 0 1px rgb(0 0 0 / 0.08);
   }
+
+  /* Bandiera italiana animata da destra a sinistra per prodotti */
+  .product::after {
+    content: "";
+    position: absolute;
+    bottom: 16px;
+    left: 100%;
+    width: 0;
+    height: 5px;
+    border-radius: 12px;
+    background: linear-gradient(to right, #008C45, #F4F5F0, #CD212A);
+    transition:
+      left 0.4s ease,
+      width 0.4s ease;
+  }
+  .product:hover::after {
+    left: 20px;
+    width: calc(100% - 40px);
+  }
+
   .product img {
     width: 100%;
     border-radius: 16px;
     margin-bottom: 1rem;
     box-shadow:
-      0 8px 20px rgb(0 0 0 / 0.1);
+      0 10px 20px rgb(0 0 0 / 0.1);
     transition: box-shadow 0.3s ease;
   }
   .product:hover img {
     box-shadow:
-      0 14px 40px rgb(0 0 0 / 0.18);
+      0 16px 40px rgb(0 0 0 / 0.2);
   }
   .product h3 {
     font-weight: 700;
     margin-bottom: 0.5rem;
-    color: #111;
+    color: #222;
+    font-size: 1.3rem;
   }
   .product p {
-    font-weight: 600;
-    color: #007aff;
-    font-size: 1.1rem;
+    font-weight: 700;
+    color: #007acc;
+    font-size: 1.15rem;
   }
 
   /* FOOTER */
   footer {
     background: #fff;
-    box-shadow: inset 0 1px 0 0 #eee;
+    box-shadow: inset 0 1px 0 0 #ddd;
     padding: 2rem 1rem 3rem 1rem;
     text-align: center;
     margin-top: auto;
+    user-select: none;
   }
   footer p {
     font-size: 0.9rem;
-    color: #777;
+    color: #666;
+    margin-bottom: 1rem;
   }
 
   /* SOCIAL ICONS */
@@ -170,18 +210,23 @@
   }
   .socials a {
     display: inline-block;
-    border-radius: 12px;
+    border-radius: 14px;
     overflow: hidden;
     transition: transform 0.25s ease;
   }
   .socials a img {
-    width: 28px;
-    height: 28px;
+    width: 30px;
+    height: 30px;
     object-fit: contain;
     display: block;
+    filter: grayscale(60%);
+    transition: filter 0.3s ease;
+  }
+  .socials a:hover img {
+    filter: none;
   }
   .socials a:hover {
-    transform: scale(1.3);
+    transform: scale(1.4);
   }
 
   /* Responsive */
@@ -190,10 +235,14 @@
       gap: 1.2rem;
     }
     .hero h1 {
-      font-size: 2rem;
+      font-size: 2.2rem;
     }
     .hero p {
-      font-size: 1rem;
+      font-size: 1.05rem;
+    }
+    .products {
+      grid-template-columns: 1fr;
+      gap: 2rem;
     }
   }
 
@@ -206,9 +255,9 @@
     <img src="favicon.png" alt="Miniutti Store Logo" />
   </a>
   <nav>
-    <a href="https://store.miniutti.it">Home</a>
-    <a href="https://store.miniutti.it/prodotti.html">Prodotti</a>
-    <a href="https://store.miniutti.it/contatti.html">Contatti</a>
+    <a href="https://store.miniutti.it" tabindex="0">Home</a>
+    <a href="https://store.miniutti.it/prodotti.html" tabindex="0">Prodotti</a>
+    <a href="https://store.miniutti.it/contatti.html" tabindex="0">Contatti</a>
   </nav>
 </header>
 
@@ -218,18 +267,18 @@
 </section>
 
 <section class="products" aria-label="Prodotti in vendita">
-  <a href="https://store.miniutti.it/prodotto1.html" class="product" aria-describedby="desc-prod1">
-    <img src="https://via.placeholder.com/300x200?text=MSI+GT710" alt="MSI GeForce GT710 2GB" />
+  <a href="https://store.miniutti.it/prodotto1.html" class="product" aria-describedby="desc-prod1" tabindex="0">
+    <img src="https://via.placeholder.com/320x210?text=MSI+GT710" alt="MSI GeForce GT710 2GB" />
     <h3>MSI GeForce GT710 2GB</h3>
     <p id="desc-prod1">€39,99</p>
   </a>
-  <a href="https://store.miniutti.it/prodotto2.html" class="product" aria-describedby="desc-prod2">
-    <img src="https://via.placeholder.com/300x200?text=SSD+Lexar" alt="SSD Lexar 1TB" />
+  <a href="https://store.miniutti.it/prodotto2.html" class="product" aria-describedby="desc-prod2" tabindex="0">
+    <img src="https://via.placeholder.com/320x210?text=SSD+Lexar" alt="SSD Lexar 1TB" />
     <h3>SSD Lexar 1TB</h3>
     <p id="desc-prod2">€49,90</p>
   </a>
-  <a href="https://store.miniutti.it/prodotto3.html" class="product" aria-describedby="desc-prod3">
-    <img src="https://via.placeholder.com/300x200?text=Alimentatore+Corsair" alt="Alimentatore Corsair 650W" />
+  <a href="https://store.miniutti.it/prodotto3.html" class="product" aria-describedby="desc-prod3" tabindex="0">
+    <img src="https://via.placeholder.com/320x210?text=Alimentatore+Corsair" alt="Alimentatore Corsair 650W" />
     <h3>Alimentatore Corsair 650W</h3>
     <p id="desc-prod3">€69,90</p>
   </a>
