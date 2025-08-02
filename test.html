@@ -2,222 +2,211 @@
 <html lang="it">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Miniutti Store</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
   <style>
-    :root {
-      --glass: rgba(255, 255, 255, 0.35);
-      --border: rgba(255, 255, 255, 0.2);
-      --hover: rgba(255, 255, 255, 0.45);
-      --text: #1a1a1a;
-      --accent: #0066ff;
-      --shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
-      --hover-scale: scale(1.05);
-    }
-
     * {
-      box-sizing: border-box;
       margin: 0;
       padding: 0;
+      box-sizing: border-box;
       font-family: 'Inter', sans-serif;
     }
 
     body {
-      background: linear-gradient(145deg, #f3f6fc, #e6ecf5);
-      color: var(--text);
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
+      background: #f9f9fa;
+      color: #111;
     }
 
     header {
-      width: 100%;
-      background: var(--glass);
-      backdrop-filter: blur(12px);
-      border-bottom: 1px solid var(--border);
-      box-shadow: var(--shadow);
-      position: sticky;
-      top: 0;
-      z-index: 999;
-    }
-
-    nav {
+      backdrop-filter: blur(10px);
+      background: rgba(255, 255, 255, 0.9);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
       display: flex;
       justify-content: space-between;
       align-items: center;
       padding: 1rem 2rem;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
     }
 
-    .logo {
-      font-size: 1.5rem;
-      font-weight: 600;
+    header img {
+      height: 40px;
     }
 
-    .menu {
+    nav {
       display: flex;
-      gap: 1.5rem;
-    }
-
-    .menu a {
-      position: relative;
-      text-decoration: none;
-      color: var(--text);
-      font-weight: 500;
-      transition: all 0.2s ease;
-    }
-
-    .menu a:hover {
-      color: var(--accent);
-      transform: var(--hover-scale);
-    }
-
-    .menu a::after {
-      content: "";
-      position: absolute;
-      left: 0;
-      bottom: -5px;
-      width: 0;
-      height: 3px;
-      background: linear-gradient(90deg, #008c45, #f4f5f0, #cd212a);
-      border-radius: 2px;
-      transition: width 0.3s ease;
-    }
-
-    .menu a:hover::after {
-      width: 100%;
-    }
-
-    main {
-      width: 100%;
-      max-width: 1000px;
-      padding: 2rem;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
       gap: 2rem;
     }
 
-    .card {
-      background: var(--glass);
-      backdrop-filter: blur(10px);
-      border-radius: 20px;
-      box-shadow: var(--shadow);
-      padding: 1.5rem;
+    nav a {
+      text-decoration: none;
+      color: #222;
+      font-weight: 600;
+      position: relative;
+      transition: 0.3s;
+    }
+
+    nav a:hover {
+      color: #007aff;
+    }
+
+    nav a:hover::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: -4px;
       width: 100%;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      height: 3px;
+      background: linear-gradient(to right, green, white, red);
+      border-radius: 5px;
     }
 
-    .card:hover {
-      transform: var(--hover-scale);
-      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.15);
+    .hero {
+      text-align: center;
+      padding: 4rem 2rem;
     }
 
-    .card h2 {
-      font-size: 1.4rem;
+    .hero h1 {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+    }
+
+    .hero p {
+      font-size: 1.25rem;
+      color: #666;
+    }
+
+    .products {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 2rem;
+      padding: 3rem 2rem;
+    }
+
+    .product {
+      background: rgba(255, 255, 255, 0.8);
+      border-radius: 20px;
+      padding: 1rem;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.05);
+      transition: 0.3s ease;
+      backdrop-filter: blur(5px);
+      text-align: center;
+    }
+
+    .product:hover {
+      transform: scale(1.05);
+      box-shadow: 0 12px 32px rgba(0,0,0,0.1);
+    }
+
+    .product img {
+      width: 100%;
+      border-radius: 16px;
+      margin-bottom: 1rem;
+    }
+
+    .product h3 {
+      font-size: 1.1rem;
       margin-bottom: 0.5rem;
     }
 
-    .card p {
-      font-size: 1rem;
+    .product p {
       color: #444;
+      font-weight: 600;
+    }
+
+    footer {
+      background: #fff;
+      padding: 2rem;
+      text-align: center;
+      border-top: 1px solid #eee;
+      margin-top: 2rem;
     }
 
     .socials {
       display: flex;
+      justify-content: center;
       gap: 1.5rem;
-      margin-top: 2rem;
-      justify-content: center;
+      margin-top: 1rem;
     }
 
-    .socials a {
-      display: inline-block;
-      width: 50px;
-      height: 50px;
-      background: var(--glass);
-      border: 1px solid var(--border);
-      border-radius: 50%;
-      backdrop-filter: blur(8px);
-      box-shadow: var(--shadow);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    .socials a img {
+      width: 32px;
+      transition: transform 0.2s ease;
     }
 
-    .socials a:hover {
-      transform: var(--hover-scale);
-      box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
-    }
-
-    .socials img {
-      width: 60%;
-      height: 60%;
-      object-fit: contain;
-      filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.2));
-    }
-
-    footer {
-      text-align: center;
-      font-size: 0.85rem;
-      color: #777;
-      margin-top: auto;
-      padding: 1rem;
+    .socials a:hover img {
+      transform: scale(1.2);
     }
 
     @media (max-width: 600px) {
       nav {
-        flex-direction: column;
-        gap: 0.5rem;
+        gap: 1rem;
+        font-size: 0.9rem;
       }
 
-      .menu {
-        flex-direction: column;
-        gap: 0.5rem;
-        align-items: center;
+      .hero h1 {
+        font-size: 2rem;
+      }
+
+      .hero p {
+        font-size: 1rem;
       }
     }
   </style>
 </head>
 <body>
+
   <header>
+    <a href="https://store.miniutti.it">
+      <img src="logo.png" alt="Miniutti Store Logo" />
+    </a>
     <nav>
-      <div class="logo">Miniutti Store</div>
-      <div class="menu">
-        <a href="https://store.miniutti.it">Home</a>
-        <a href="https://store.miniutti.it/prodotti">Prodotti</a>
-        <a href="https://store.miniutti.it/contatti">Contatti</a>
-      </div>
+      <a href="https://store.miniutti.it">Home</a>
+      <a href="https://store.miniutti.it/prodotti.html">Prodotti</a>
+      <a href="https://store.miniutti.it/contatti.html">Contatti</a>
     </nav>
   </header>
 
-  <main>
-    <div class="card">
-      <h2>Ultimi Arrivi</h2>
-      <p>Scopri i prodotti di elettronica selezionati con cura, pronti per la spedizione. Garanzia, affidabilità e qualità.</p>
-    </div>
+  <section class="hero">
+    <h1>Benvenuto su Miniutti Store</h1>
+    <p>Prodotti di elettronica selezionati con cura, spedizione rapida e massima affidabilità.</p>
+  </section>
 
-    <div class="card">
-      <h2>Perché scegliere noi?</h2>
-      <p>Ogni prodotto è testato e garantito. Consegna rapida e comunicazione trasparente.</p>
-    </div>
-
-    <div class="socials">
-      <a href="https://www.subito.it/utente/127182597" target="_blank">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/3/33/Subito_Logo_2021.png" alt="Subito">
-      </a>
-      <a href="https://www.vinted.it/member/227244406" target="_blank">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/6/61/Vinted_logo_2022.svg" alt="Vinted">
-      </a>
-      <a href="https://www.ebay.it/usr/username" target="_blank">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/1/1b/EBay_logo.svg" alt="eBay">
-      </a>
-    </div>
-  </main>
+  <section class="products">
+    <a href="https://store.miniutti.it/prodotto1.html" class="product">
+      <img src="https://via.placeholder.com/300x200?text=Prodotto+1" alt="Prodotto 1" />
+      <h3>MSI GT710 2GB</h3>
+      <p>39,99 €</p>
+    </a>
+    <a href="https://store.miniutti.it/prodotto2.html" class="product">
+      <img src="https://via.placeholder.com/300x200?text=Prodotto+2" alt="Prodotto 2" />
+      <h3>SSD Lexar 1TB</h3>
+      <p>49,90 €</p>
+    </a>
+    <a href="https://store.miniutti.it/prodotto3.html" class="product">
+      <img src="https://via.placeholder.com/300x200?text=Prodotto+3" alt="Prodotto 3" />
+      <h3>Alimentatore Corsair 650W</h3>
+      <p>69,90 €</p>
+    </a>
+  </section>
 
   <footer>
-    © 2025 Miniutti Store. Tutti i diritti riservati.
+    <p>Miniutti Store © 2025 • Tutti i diritti riservati</p>
+    <div class="socials">
+      <a href="https://www.vinted.it/member/227244406" target="_blank">
+        <img src="https://cdn-icons-png.flaticon.com/512/5968/5968705.png" alt="Vinted" />
+      </a>
+      <a href="https://www.subito.it/utente/127182597" target="_blank">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/29/Subito.it_logo_2020.svg/512px-Subito.it_logo_2020.svg.png" alt="Subito" />
+      </a>
+      <a href="https://www.ebay.it/usr/tuo_utente" target="_blank">
+        <img src="https://cdn-icons-png.flaticon.com/512/888/888853.png" alt="eBay" />
+      </a>
+    </div>
   </footer>
+
 </body>
 </html>
