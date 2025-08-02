@@ -1,20 +1,13 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Miniutti Store</title>
-  <link rel="icon" href="favicon.png" type="image/png" />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
+  <link rel="icon" href="favicon.png" type="image/png">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <script src="https://kit.fontawesome.com/a2f0c5c7aa.js" crossorigin="anonymous"></script>
   <style>
-    :root {
-      --primary: #0e0e0e;
-      --accent: #007fff;
-      --bg: #f9f9f9;
-      --hover: #e8e8e8;
-      --border: #ddd;
-    }
-
     * {
       margin: 0;
       padding: 0;
@@ -23,60 +16,70 @@
     }
 
     body {
-      background-color: var(--bg);
-      color: var(--primary);
-      line-height: 1.6;
+      background: #f8f9fa;
+      color: #333;
     }
 
     header {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 1.2rem 2rem;
-      background-color: white;
-      border-bottom: 1px solid var(--border);
+      background: rgba(255, 255, 255, 0.8);
+      backdrop-filter: blur(10px);
+      padding: 1rem 2rem;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
       position: sticky;
       top: 0;
-      z-index: 999;
+      z-index: 1000;
     }
 
-    header img {
+    .logo img {
       height: 40px;
-      cursor: pointer;
+      border-radius: 12px;
+      transition: transform 0.3s;
+    }
+
+    .logo img:hover {
+      transform: scale(1.05);
     }
 
     nav ul {
       list-style: none;
       display: flex;
-      gap: 1.5rem;
+      gap: 2rem;
     }
 
     nav a {
       text-decoration: none;
-      color: var(--primary);
+      color: #222;
+      font-weight: 500;
       position: relative;
-      font-weight: 600;
+      transition: color 0.3s;
+    }
+
+    nav a::after {
+      content: "";
+      position: absolute;
+      bottom: -5px;
+      left: 0;
+      width: 0%;
+      height: 3px;
+      background: linear-gradient(to right, #008000, #ffffff, #ff0000);
+      transition: width 0.3s;
+      border-radius: 3px;
+    }
+
+    nav a:hover {
+      color: #000;
     }
 
     nav a:hover::after {
-      content: '';
-      position: absolute;
       width: 100%;
-      height: 3px;
-      background: linear-gradient(to right, #008c45, #f4f5f0, #cd212a); /* tricolore */
-      bottom: -4px;
-      left: 0;
-    }
-
-    .container {
-      max-width: 1200px;
-      margin: 3rem auto;
-      padding: 0 2rem;
     }
 
     .hero {
       text-align: center;
-      padding: 2rem 1rem;
+      padding: 6rem 2rem;
     }
 
     .hero h1 {
@@ -86,153 +89,81 @@
 
     .hero p {
       font-size: 1.2rem;
-      color: #555;
-    }
-
-    .products {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 2rem;
-      margin-top: 3rem;
-    }
-
-    .card {
-      background-color: white;
-      border-radius: 16px;
-      overflow: hidden;
-      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.05);
-      transition: all 0.3s ease;
-    }
-
-    .card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-    }
-
-    .card img {
-      width: 100%;
-      object-fit: cover;
-      height: 180px;
-    }
-
-    .card-content {
-      padding: 1rem;
-    }
-
-    .card-content h3 {
-      font-size: 1.2rem;
-      margin-bottom: 0.5rem;
-    }
-
-    .card-content p {
-      color: #777;
-      font-size: 0.95rem;
-    }
-
-    .card-content a {
-      display: inline-block;
-      margin-top: 1rem;
-      padding: 0.6rem 1.2rem;
-      background-color: var(--accent);
-      color: white;
-      border-radius: 10px;
-      text-decoration: none;
-      transition: background 0.3s;
-    }
-
-    .card-content a:hover {
-      background-color: #005bb5;
-    }
-
-    footer {
-      margin-top: 4rem;
-      background: white;
-      border-top: 1px solid var(--border);
-      padding: 2rem;
-      text-align: center;
-    }
-
-    footer p {
-      margin-bottom: 0.5rem;
       color: #666;
     }
 
     .socials {
       display: flex;
       justify-content: center;
-      gap: 1rem;
-      margin-top: 1rem;
+      gap: 2rem;
+      margin-top: 3rem;
     }
 
     .socials a {
-      text-decoration: none;
-      color: var(--primary);
-      font-size: 1.3rem;
-      transition: color 0.2s;
+      font-size: 2rem;
+      color: #222;
+      transition: transform 0.3s, color 0.3s;
     }
 
     .socials a:hover {
-      color: var(--accent);
+      transform: scale(1.2);
+      color: #007aff;
+    }
+
+    footer {
+      text-align: center;
+      padding: 2rem;
+      background: #fff;
+      box-shadow: 0 -1px 8px rgba(0, 0, 0, 0.05);
+      border-top-left-radius: 2rem;
+      border-top-right-radius: 2rem;
+      margin-top: 4rem;
+      font-size: 0.9rem;
+      color: #666;
+    }
+
+    @media (max-width: 768px) {
+      nav ul {
+        flex-direction: column;
+        gap: 1rem;
+      }
+
+      .hero h1 {
+        font-size: 2.2rem;
+      }
     }
   </style>
 </head>
-
 <body>
-  <header>
-    <a href="https://store.miniutti.it"><img src="favicon.png" alt="Logo Miniutti" /></a>
-    <nav>
-      <ul>
-        <li><a href="https://store.miniutti.it/home">Home</a></li>
-        <li><a href="https://store.miniutti.it/prodotti">Prodotti</a></li>
-        <li><a href="https://store.miniutti.it/diritti">Diritti</a></li>
-      </ul>
-    </nav>
-  </header>
 
-  <section class="container hero">
-    <h1>Benvenuto nello Store Miniutti</h1>
-    <p>Elettronica di qualità, al miglior prezzo. Scopri i nostri prodotti selezionati.</p>
-  </section>
+<header>
+  <a href="https://store.miniutti.it" class="logo">
+    <img src="favicon.png" alt="Miniutti Logo">
+  </a>
+  <nav>
+    <ul>
+      <li><a href="https://store.miniutti.it">Home</a></li>
+      <li><a href="https://store.miniutti.it/prodotti">Prodotti</a></li>
+      <li><a href="https://store.miniutti.it/contatti">Contatti</a></li>
+    </ul>
+  </nav>
+</header>
 
-  <section class="container products">
-    <div class="card">
-      <img src="img/prodotto1.jpg" alt="Prodotto 1" />
-      <div class="card-content">
-        <h3>Mini Powerbank 10.000mAh</h3>
-        <p>Compatto, veloce, universale.</p>
-        <a href="https://store.miniutti.it/powerbank">Scopri di più</a>
-      </div>
-    </div>
+<section class="hero">
+  <h1>Benvenuto nel Miniutti Store</h1>
+  <p>Rivendita professionale di elettronica selezionata, ricondizionata e garantita.</p>
 
-    <div class="card">
-      <img src="img/prodotto2.jpg" alt="Prodotto 2" />
-      <div class="card-content">
-        <h3>Cuffie Bluetooth Pro</h3>
-        <p>Audio nitido e comfort assoluto.</p>
-        <a href="https://store.miniutti.it/cuffie">Scopri di più</a>
-      </div>
-    </div>
+  <div class="socials">
+    <a href="https://www.subito.it/utente/127182597" target="_blank"><i class="fab fa-subway"></i></a>
+    <a href="https://www.vinted.it/member/227244406" target="_blank"><i class="fab fa-vimeo"></i></a>
+    <a href="https://www.ebay.it/usr/miniu.store" target="_blank"><i class="fab fa-ebay"></i></a>
+  </div>
+</section>
 
-    <div class="card">
-      <img src="img/prodotto3.jpg" alt="Prodotto 3" />
-      <div class="card-content">
-        <h3>Smartwatch 2.0</h3>
-        <p>Controllo e stile, sempre con te.</p>
-        <a href="https://store.miniutti.it/smartwatch">Scopri di più</a>
-      </div>
-    </div>
+<footer>
+  © 2025 Miniutti Store · Tutti i diritti riservati · Powered with ♥ in Italy
+</footer>
 
-    <!-- Aggiungi altri prodotti come card -->
-  </section>
-
-  <footer>
-    <p>© 2025 Miniutti. Tutti i diritti riservati.</p>
-    <p>Contatti: <a href="mailto:info@miniutti.it">info@miniutti.it</a></p>
-    <div class="socials">
-      <a href="https://instagram.com" target="_blank">📸</a>
-      <a href="https://facebook.com" target="_blank">📘</a>
-      <a href="https://t.me" target="_blank">✈️</a>
-    </div>
-  </footer>
 </body>
 </html>
+
