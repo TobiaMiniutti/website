@@ -3,77 +3,58 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Miniutti Store - Eccellenza nell’Elettronica</title>
+<title>Miniutti Store - Qualità e Affidabilità</title>
 
-<!-- Favicon -->
 <link rel="icon" href="favicon.png" type="image/png" />
-
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
 <style>
-  /* Reset */
   * {
     margin: 0; padding: 0; box-sizing: border-box;
     font-family: 'Inter', sans-serif;
   }
-
   body {
-    background: #ffffff;
-    color: #1a2e47;
+    background: #f9fafb;
+    color: #222;
     min-height: 100vh;
     display: flex;
     flex-direction: column;
   }
-
-  /* HEADER */
   header {
     position: sticky;
     top: 0;
-    background: #ffffffcc;
-    backdrop-filter: saturate(180%) blur(12px);
-    box-shadow: 0 2px 10px rgb(0 0 0 / 0.1);
+    background: rgba(255 255 255 / 0.95);
+    backdrop-filter: saturate(150%) blur(8px);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 1.2rem 3rem;
-    z-index: 200;
+    padding: 1rem 2rem;
+    z-index: 100;
   }
-
-  header a.logo-link {
-    display: inline-flex;
-    align-items: center;
-    text-decoration: none;
-  }
-
   header a.logo-link img {
-    height: 52px;
-    border-radius: 6px;
-    box-shadow:
-      0 6px 20px rgba(0, 0, 0, 0.12);
+    height: 48px;
+    border-radius: 12px;
     transition: transform 0.3s ease;
   }
   header a.logo-link img:hover {
     transform: scale(1.05);
   }
-
   nav {
     display: flex;
-    gap: 3.5rem;
+    gap: 2.5rem;
   }
   nav a {
+    color: #334e68;
+    font-weight: 600;
+    font-size: 1.1rem;
     text-decoration: none;
-    color: #1a2e47;
-    font-weight: 700;
-    font-size: 1.15rem;
     position: relative;
-    padding-bottom: 7px;
-    transition: color 0.3s ease;
-    cursor: pointer;
+    padding-bottom: 4px;
   }
   nav a:hover,
   nav a:focus-visible {
-    color: #00778b;
+    color: #1d3557;
   }
-
   nav a::after {
     content: "";
     position: absolute;
@@ -81,237 +62,133 @@
     left: 0;
     width: 0;
     height: 3px;
-    border-radius: 8px;
-    background: #00778b;
-    transition: width 0.35s ease;
+    background: #1d3557;
+    border-radius: 6px;
+    transition: width 0.3s ease;
   }
   nav a:hover::after,
   nav a:focus-visible::after {
     width: 100%;
   }
-
-  /* HERO */
   .hero {
     text-align: center;
-    padding: 6rem 2rem 3rem 2rem;
-    max-width: 850px;
+    padding: 5rem 2rem 3rem 2rem;
+    max-width: 800px;
     margin: 0 auto;
+    color: #1a2e47;
   }
   .hero h1 {
-    font-size: 3.8rem;
-    font-weight: 800;
-    color: #0c2035;
-    margin-bottom: 1rem;
-    line-height: 1.1;
-    letter-spacing: -0.02em;
+    font-size: 3rem;
+    font-weight: 700;
+    margin-bottom: 0.8rem;
   }
   .hero p {
-    font-size: 1.3rem;
-    color: #435a6b;
-    line-height: 1.8;
-    max-width: 720px;
-    margin: 0 auto;
-    font-weight: 500;
+    font-size: 1.2rem;
+    color: #556877;
+    line-height: 1.6;
   }
-
-  /* WHY US SECTION */
-  section.why-us {
+  section {
     max-width: 800px;
-    margin: 4rem auto 5rem auto;
+    margin: 3rem auto;
     padding: 0 1rem;
-    color: #264653;
-    text-align: center;
+    color: #334e68;
   }
-  section.why-us h2 {
-    font-size: 2.6rem;
-    font-weight: 900;
-    color: #0c2035;
-    margin-bottom: 2rem;
-    letter-spacing: -0.03em;
+  section h2 {
+    font-weight: 700;
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    color: #1a2e47;
   }
-  section.why-us ul {
+  ul.reasons {
     list-style: none;
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 2.8rem;
+    display: flex;
+    gap: 1.8rem;
+    justify-content: space-between;
     padding: 0;
   }
-  section.why-us ul li {
-    background: #e8f1f4;
-    border-radius: 14px;
-    padding: 2rem 1.5rem;
+  ul.reasons li {
+    background: #e9f0f4;
+    border-radius: 16px;
+    padding: 1rem 1.5rem;
     font-weight: 600;
-    font-size: 1.2rem;
-    color: #00778b;
-    box-shadow: 0 6px 18px rgba(0, 119, 139, 0.15);
-    user-select: none;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 1rem;
-  }
-  section.why-us ul li svg {
-    width: 28px;
-    height: 28px;
-    fill: #00778b;
-  }
-
-  /* NOVITA & OFFERTE */
-  section.novita {
-    max-width: 800px;
-    margin: 3rem auto 5rem auto;
-    padding: 0 1rem;
-    text-align: center;
-  }
-  section.novita h2 {
-    font-size: 2.4rem;
-    font-weight: 900;
-    color: #0c2035;
-    margin-bottom: 1.4rem;
-  }
-  section.novita p {
-    font-size: 1.15rem;
-    color: #4a5a6a;
-    font-weight: 500;
-    max-width: 700px;
-    margin: 0 auto 1.2rem auto;
-  }
-  section.novita a {
-    font-weight: 700;
     font-size: 1.1rem;
-    color: #00778b;
+    flex: 1;
+    text-align: center;
+    user-select: none;
+  }
+  section p {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    margin-bottom: 1rem;
+  }
+  section a {
+    color: #1d3557;
+    font-weight: 600;
     text-decoration: none;
     border-bottom: 2px solid transparent;
-    transition: border-color 0.25s ease;
+    transition: border-color 0.3s ease;
   }
-  section.novita a:hover,
-  section.novita a:focus-visible {
-    border-color: #00778b;
+  section a:hover,
+  section a:focus-visible {
+    border-bottom-color: #1d3557;
   }
-
-  /* TESTIMONIANZE */
-  section.testimonianze {
-    max-width: 780px;
-    margin: 4rem auto 5rem auto;
-    padding: 0 1rem;
-    color: #3b4a5a;
-    font-style: normal;
-    text-align: center;
-  }
-  section.testimonianze h2 {
-    font-size: 2.4rem;
-    font-weight: 900;
-    color: #0c2035;
-    margin-bottom: 2rem;
-  }
-  section.testimonianze blockquote {
+  blockquote {
     font-style: italic;
-    font-weight: 600;
-    font-size: 1.15rem;
-    line-height: 1.6;
-    color: #546d82;
-    margin-bottom: 2rem;
+    color: #556877;
+    margin: 1rem auto 2rem auto;
     max-width: 650px;
-    margin-left: auto;
-    margin-right: auto;
     user-select: text;
     position: relative;
-    padding-left: 2.8rem;
+    padding-left: 1.5rem;
   }
-  section.testimonianze blockquote::before {
+  blockquote::before {
     content: "“";
     position: absolute;
-    left: 0.5rem;
+    left: 0;
     top: 0;
-    font-size: 3.5rem;
-    color: #00778b;
-    font-weight: 900;
-    line-height: 1;
+    font-size: 2.5rem;
+    color: #1d3557;
+    font-weight: 700;
   }
-  section.testimonianze blockquote:last-child {
-    margin-bottom: 0;
-  }
-
-  /* CHI SIAMO */
-  section.chi-siamo {
-    max-width: 720px;
-    margin: 4rem auto 6rem auto;
-    padding: 0 1rem;
-    text-align: center;
-    color: #435a6b;
-  }
-  section.chi-siamo h2 {
-    font-size: 2.6rem;
-    font-weight: 900;
-    color: #0c2035;
-    margin-bottom: 1.6rem;
-  }
-  section.chi-siamo p {
-    font-size: 1.18rem;
-    line-height: 1.7;
-    font-weight: 500;
-    max-width: 680px;
-    margin: 0 auto;
-  }
-
-  /* FOOTER */
   footer {
-    background: #f8f9fa;
-    box-shadow: inset 0 1px 0 0 #ddd;
-    padding: 3rem 2rem 3rem 2rem;
+    background: #fff;
+    box-shadow: inset 0 1px 0 #ddd;
+    padding: 2.5rem 1rem;
     text-align: center;
     margin-top: auto;
-    user-select: none;
-    color: #7a8a9e;
+    color: #8899aa;
     font-weight: 500;
-    font-size: 0.95rem;
+    font-size: 0.9rem;
   }
-
-  /* SOCIAL ICONS */
   .socials {
-    margin-top: 1.5rem;
+    margin-top: 1rem;
     display: flex;
     justify-content: center;
-    gap: 2rem;
-  }
-  .socials a {
-    display: inline-block;
-    border-radius: 14px;
-    overflow: hidden;
-    transition: transform 0.3s ease;
+    gap: 1.5rem;
   }
   .socials a img {
-    width: 36px;
-    height: 36px;
-    object-fit: contain;
-    display: block;
-    filter: grayscale(80%);
-    transition: filter 0.35s ease;
+    width: 30px;
+    height: 30px;
+    filter: grayscale(60%);
+    transition: filter 0.3s ease;
   }
   .socials a:hover img,
   .socials a:focus-visible img {
     filter: none;
   }
-  .socials a:hover,
-  .socials a:focus-visible {
-    transform: scale(1.4);
-    outline: none;
-  }
-
-  /* Responsive */
   @media (max-width: 600px) {
     nav {
-      gap: 1.8rem;
+      gap: 1.2rem;
     }
     .hero h1 {
-      font-size: 2.8rem;
+      font-size: 2.4rem;
     }
-    .hero p {
-      font-size: 1.15rem;
+    ul.reasons {
+      flex-direction: column;
+      gap: 1rem;
     }
-    section.why-us ul {
-      grid-template-columns: 1fr;
-      gap: 1.5rem;
+    ul.reasons li {
+      font-size: 1rem;
     }
   }
 </style>
@@ -330,49 +207,39 @@
 </header>
 
 <section class="hero" role="banner">
-  <h1>Miniutti Store: Eccellenza e Innovazione nell’Elettronica</h1>
-  <p>
-    Da oltre un decennio, Miniutti Store si distingue per l’eccellenza nella selezione e distribuzione di componenti elettronici all’avanguardia, garantendo affidabilità, design superiore e supporto professionale.
-  </p>
+  <h1>Miniutti Store</h1>
+  <p>Componenti elettronici selezionati con cura per offrire qualità, affidabilità e un servizio puntuale.</p>
 </section>
 
-<section class="why-us" aria-label="Motivi per scegliere Miniutti Store">
+<section aria-label="Perché scegliere Miniutti Store?">
   <h2>Perché scegliere Miniutti Store?</h2>
-  <ul>
-    <li>✔️ <strong>Qualità Certificata:</strong> solo prodotti rigorosamente testati e garantiti dai migliori produttori.</li>
-    <li>✔️ <strong>Spedizioni Tempestive:</strong> consegna puntuale in tempi rapidi, monitorata e sicura.</li>
-    <li>✔️ <strong>Assistenza Dedicata:</strong> team di esperti sempre disponibile per consulenza e supporto tecnico.</li>
-    <li>✔️ <strong>Prezzi Competitivi:</strong> offerte trasparenti e vantaggiose, senza compromessi sulla qualità.</li>
+  <ul class="reasons">
+    <li>Qualità garantita</li>
+    <li>Spedizioni rapide</li>
+    <li>Assistenza dedicata</li>
+    <li>Prezzi trasparenti</li>
   </ul>
 </section>
 
-<section class="novita" aria-label="Novità e offerte speciali">
-  <h2>Novità & Offerte Esclusive</h2>
-  <p>
-    Scoprite le ultime innovazioni tecnologiche selezionate dal nostro team e approfittate delle offerte dedicate. <a href="prodotti.html">Visualizza il catalogo completo</a>.
-  </p>
+<section aria-label="Novità e offerte">
+  <h2>Novità e Offerte</h2>
+  <p>Scopri i nuovi prodotti e le promozioni attive sul nostro catalogo. <a href="prodotti.html">Vai ai prodotti</a>.</p>
 </section>
 
-<section class="testimonianze" aria-label="Testimonianze dei clienti">
-  <h2>Cosa Dicono i Nostri Clienti</h2>
-  <blockquote>
-    “Miniutti Store ha superato ogni aspettativa: prodotti di altissima qualità, consegne puntuali e un supporto clienti senza pari.” – <em>Mario R.</em>
-  </blockquote>
-  <blockquote>
-    “Professionalità e attenzione al dettaglio: un partner affidabile per ogni esigenza elettronica.” – <em>Laura B.</em>
-  </blockquote>
+<section aria-label="Testimonianze clienti">
+  <h2>Cosa dicono i clienti</h2>
+  <blockquote>“Prodotti di ottima qualità, consegna puntuale e supporto sempre disponibile.” – Marco P.</blockquote>
+  <blockquote>“Acquisti semplici e affidabili, consigliato.” – Elisa M.</blockquote>
 </section>
 
-<section class="chi-siamo" aria-label="Informazioni su Miniutti Store">
-  <h2>Chi Siamo</h2>
-  <p>
-    Miniutti Store è una realtà consolidata nel panorama dell’elettronica italiana, fondata sulla passione per l’innovazione e la qualità. Il nostro impegno è offrire soluzioni tecnologiche all’avanguardia accompagnate da un servizio clienti impeccabile, per soddisfare le esigenze più esigenti.
-  </p>
+<section aria-label="Chi siamo">
+  <h2>Chi siamo</h2>
+  <p>Miniutti Store è un punto di riferimento per chi cerca componenti elettronici di qualità con un servizio attento e professionale.</p>
 </section>
 
 <footer>
   <p>© 2025 Miniutti Store — Tutti i diritti riservati</p>
-  <div class="socials" role="contentinfo" aria-label="Link ai social di vendita">
+  <div class="socials" role="contentinfo" aria-label="Link ai social">
     <a href="https://www.vinted.it/member/227244406" target="_blank" rel="noopener" aria-label="Vinted">
       <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQHeBXcXSaIbpJd0DMZ4kWSx_DvR40eDhsHfA&s" alt="Icona Vinted" />
     </a>
