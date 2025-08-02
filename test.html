@@ -4,6 +4,10 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Miniutti Store</title>
+
+<!-- Favicon -->
+<link rel="icon" href="favicon.png" type="image/png" />
+
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
 <style>
   /* Reset */
@@ -231,6 +235,13 @@
     transform: scale(1.45);
   }
 
+  /* Rimuove sottolineatura blu permanente dai link nelle schede prodotti */
+  .product,
+  .product a {
+    text-decoration: none !important;
+    color: inherit;
+  }
+
   /* Responsive */
   @media (max-width: 600px) {
     nav {
@@ -247,7 +258,6 @@
       gap: 2rem;
     }
   }
-
 </style>
 </head>
 <body>
@@ -290,13 +300,13 @@
   <p>© 2025 Miniutti Store — Tutti i diritti riservati</p>
   <div class="socials" role="contentinfo" aria-label="Link ai social di vendita">
     <a href="https://www.vinted.it/member/227244406" target="_blank" rel="noopener" aria-label="Vinted">
-      <img src="https://cdn-icons-png.flaticon.com/512/5968/5968705.png" alt="Icona Vinted" />
+      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQHeBXcXSaIbpJd0DMZ4kWSx_DvR40eDhsHfA&s" alt="Icona Vinted" />
     </a>
     <a href="https://www.subito.it/utente/127182597" target="_blank" rel="noopener" aria-label="Subito">
-      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/29/Subito.it_logo_2020.svg/128px-Subito.it_logo_2020.svg.png" alt="Icona Subito" />
+      <img src="https://play-lh.googleusercontent.com/uwzR5jlfHajawujhaPGz4qAUr5VrSYikAEiOVroFKnfFKlsoBU7BlAP7vLcrYy77U_M" alt="Icona Subito" />
     </a>
     <a href="https://www.ebay.it/usr/tuo_utente" target="_blank" rel="noopener" aria-label="eBay">
-      <img src="https://cdn-icons-png.flaticon.com/512/888/888853.png" alt="Icona eBay" />
+      <img src="https://www.salvatorepumo.it/wp-content/uploads/2023/02/logo-ebay-oggi.png" alt="Icona eBay" />
     </a>
   </div>
 </footer>
