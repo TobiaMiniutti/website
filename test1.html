@@ -101,7 +101,9 @@
     box-shadow: 0 16px 40px rgba(0,0,0,0.06), inset 0 0 0 1px rgba(0,0,0,0.05);
     padding: 1.3rem 1.3rem 2.2rem 1.3rem;
     text-align: center;
-    transition: transform 0.45s cubic-bezier(0.4,0,0.2,1), box-shadow 0.45s cubic-bezier(0.4,0,0.2,1);
+    /* Rimosso effetto hover */
+    /* transition rimosso o mantenuto per fluidità senza hover */
+    transition: box-shadow 0.3s ease;
     cursor: pointer;
     display: flex;
     flex-direction: column;
@@ -109,9 +111,17 @@
     position: relative;
     overflow: hidden;
   }
+  /* Togli effetto hover */
   .product:hover {
-    transform: translateY(-8px) scale(1.07);
-    box-shadow: 0 22px 50px rgba(0,0,0,0.12), inset 0 0 0 1px rgba(0,0,0,0.07);
+    transform: none;
+    box-shadow: 0 16px 40px rgba(0,0,0,0.06), inset 0 0 0 1px rgba(0,0,0,0.05);
+  }
+  .product:hover::after {
+    right: 100%;
+    width: 0;
+  }
+  .product:hover img {
+    box-shadow: 0 12px 25px rgba(0,0,0,0.12);
   }
   .product::after {
     content: "";
@@ -124,19 +134,12 @@
     background: linear-gradient(to right, #008C45, #F4F5F0, #CD212A);
     transition: right 0.4s ease, width 0.4s ease;
   }
-  .product:hover::after {
-    right: 20px;
-    width: calc(100% - 40px);
-  }
   .product img {
     width: 100%;
     border-radius: 18px;
     margin-bottom: 1.2rem;
     box-shadow: 0 12px 25px rgba(0,0,0,0.12);
     transition: box-shadow 0.4s ease;
-  }
-  .product:hover img {
-    box-shadow: 0 22px 50px rgba(0,0,0,0.24);
   }
   .product h3 {
     font-weight: 700;
