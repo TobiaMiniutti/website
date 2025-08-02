@@ -1,17 +1,35 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="it">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Miniutti.it – Catalogo Prodotti</title>
-  <link rel="stylesheet" href="style.css" />
   <style>
+    /* ===== Reset & base ===== */
+    * {
+      margin: 0; padding: 0; box-sizing: border-box;
+    }
     body {
-      margin: 0;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       background-color: #0a0a0a;
-      color: white;
+      color: #eee;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
     }
+    a {
+      color: inherit;
+      text-decoration: none;
+      outline-offset: 3px;
+      outline-color: transparent;
+      transition: outline-color 0.3s ease;
+      user-select: none;
+    }
+    a:focus, a:hover {
+      outline-color: #008C45;
+    }
+
+    /* ===== Header & Nav ===== */
     header {
       background-color: #000;
       padding: 1rem 2rem;
@@ -19,95 +37,148 @@
       justify-content: space-between;
       align-items: center;
       border-bottom: 1px solid #222;
+      user-select: none;
     }
     header h1 {
-      margin: 0;
       font-size: 1.5rem;
       letter-spacing: 0.05em;
+      color: #eee;
     }
     nav a {
       margin-left: 1.5rem;
-      color: #ccc;
-      text-decoration: none;
+      color: #bbb;
       position: relative;
+      font-weight: 600;
+      font-size: 1rem;
+      transition: color 0.3s ease;
     }
-    nav a:hover {
-      color: white;
+    nav a:hover,
+    nav a.tricolore {
+      color: #fff;
     }
     .tricolore::after {
       content: '';
       position: absolute;
       left: 0;
-      bottom: -4px;
+      bottom: -5px;
       width: 100%;
-      height: 3px;
+      height: 4px;
       background: linear-gradient(to right, #008C45, #F4F5F0, #CD212A);
+      border-radius: 3px;
     }
-    .container {
+
+    /* ===== Main container ===== */
+    main.container {
+      flex-grow: 1;
       padding: 2rem;
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
       gap: 2rem;
+      max-width: 1200px;
+      margin: 2rem auto 4rem;
+      user-select: none;
     }
+
+    /* ===== Cards ===== */
     .card {
       background-color: #121212;
       border-radius: 1.5rem;
       overflow: hidden;
       box-shadow: 0 0 12px rgba(255,255,255,0.05);
-      transition: transform 0.3s, box-shadow 0.3s;
-      text-decoration: none;
-      color: inherit;
       display: flex;
       flex-direction: column;
+      transition: transform 0.35s ease, box-shadow 0.35s ease;
+      cursor: pointer;
+      color: #ddd;
     }
-    .card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 0 20px rgba(255,255,255,0.1);
+    .card:hover, .card:focus-visible {
+      transform: translateY(-7px);
+      box-shadow: 0 0 28px rgba(0, 140, 69, 0.6);
+      color: #00cc66;
     }
+
     .card img {
       width: 100%;
       height: 180px;
       object-fit: cover;
+      user-select: none;
+      pointer-events: none;
+      transition: transform 0.35s ease;
     }
+    .card:hover img,
+    .card:focus-visible img {
+      transform: scale(1.05);
+    }
+
     .card-content {
-      padding: 1rem;
+      padding: 1.2rem 1.5rem 1.8rem 1.5rem;
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
     }
     .card-content h2 {
-      margin-top: 0;
-      font-size: 1.1rem;
+      font-size: 1.2rem;
       margin-bottom: 0.5rem;
+      font-weight: 700;
     }
     .card-content p {
       font-size: 0.95rem;
       color: #bbb;
+      line-height: 1.4;
+      flex-grow: 1;
     }
     .card-content .prezzo {
-      margin-top: 0.5rem;
-      font-weight: bold;
+      margin-top: 1rem;
+      font-weight: 800;
       color: #00cc66;
+      font-size: 1.1rem;
+      user-select: text;
     }
+
+    /* ===== Footer ===== */
     footer {
       text-align: center;
-      padding: 2rem 0;
+      padding: 2rem 1rem;
       font-size: 0.8rem;
-      color: #888;
+      color: #555;
+      border-top: 1px solid #222;
+      user-select: none;
+    }
+
+    /* ===== Responsive ===== */
+    @media (max-width: 620px) {
+      header {
+        padding: 1rem;
+      }
+      nav a {
+        margin-left: 1rem;
+        font-size: 0.95rem;
+      }
+      main.container {
+        padding: 1rem;
+        gap: 1.5rem;
+      }
+      .card img {
+        height: 150px;
+      }
     }
   </style>
 </head>
+
 <body>
   <header>
     <h1>Miniutti.it</h1>
-    <nav>
-      <a href="index.html" class="tricolore">Catalogo</a>
-      <a href="clock.html">SBB Clock</a>
-      <a href="diritti.html">Diritti</a>
+    <nav role="navigation" aria-label="Menu principale">
+      <a href="index.html" class="tricolore" tabindex="0">Catalogo</a>
+      <a href="clock.html" tabindex="0">SBB Clock</a>
+      <a href="diritti.html" tabindex="0">Diritti</a>
     </nav>
   </header>
 
-  <main class="container">
-
-    <a href="prodotti/jbl-vibe-flex.html" class="card">
-      <img src="img/jblvibe.jpg" alt="JBL Vibe Flex">
+  <main class="container" aria-label="Catalogo prodotti">
+    <a href="prodotti/jbl-vibe-flex.html" class="card" tabindex="0" aria-label="Scheda prodotto JBL Vibe Flex">
+      <img src="img/jblvibe.jpg" alt="JBL Vibe Flex" />
       <div class="card-content">
         <h2>JBL Vibe Flex</h2>
         <p>Perfette per musica e chiamate, usate 6 mesi, piccoli segni di ossidazione sui contatti.</p>
@@ -115,8 +186,8 @@
       </div>
     </a>
 
-    <a href="prodotti/gt710.html" class="card">
-      <img src="img/gt710.jpg" alt="MSI GT710 2GB">
+    <a href="prodotti/msi-gt710.html" class="card" tabindex="0" aria-label="Scheda prodotto MSI GeForce GT710 2GB">
+      <img src="img/gt710.jpg" alt="MSI GeForce GT710 2GB" />
       <div class="card-content">
         <h2>MSI GeForce GT710 2GB</h2>
         <p>In scatola originale, come nuova, perfetta per ufficio o HTPC.</p>
@@ -124,17 +195,14 @@
       </div>
     </a>
 
-    <a href="prodotti/gtx780.html" class="card">
-      <img src="img/gtx780.jpg" alt="NVIDIA GTX 780 4GB">
+    <a href="prodotti/nvidia-gtx780.html" class="card" tabindex="0" aria-label="Scheda prodotto NVIDIA GTX 780 4GB">
+      <img src="img/gtx780.jpg" alt="NVIDIA GTX 780 4GB" />
       <div class="card-content">
         <h2>NVIDIA GTX 780 4GB</h2>
         <p>Con graffio e piccola scheggiatura su vetro, testata e funzionante. VGA, DVI, HDMI.</p>
         <p class="prezzo">€40</p>
       </div>
     </a>
-
-    <!-- Altri prodotti qui sotto -->
-    
   </main>
 
   <footer>
