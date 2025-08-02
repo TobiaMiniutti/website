@@ -24,9 +24,15 @@
       outline-color: transparent;
       transition: outline-color 0.3s ease;
       user-select: none;
+      position: relative;
+      font-weight: 600;
+      font-size: 1rem;
+      padding: 0.4rem 0.6rem;
     }
-    a:focus, a:hover {
-      outline-color: #008C45;
+    a:focus-visible,
+    a:hover {
+      outline-color: transparent;
+      color: #00cc66;
     }
 
     /* ===== Header & Nav ===== */
@@ -44,19 +50,13 @@
       letter-spacing: 0.05em;
       color: #eee;
     }
-    nav a {
-      margin-left: 1.5rem;
-      color: #bbb;
-      position: relative;
-      font-weight: 600;
-      font-size: 1rem;
-      transition: color 0.3s ease;
+    nav {
+      display: flex;
+      gap: 1.75rem;
     }
-    nav a:hover,
-    nav a.tricolore {
-      color: #fff;
-    }
-    .tricolore::after {
+
+    /* Tricolore underline animata solo su hover */
+    nav a::after {
       content: '';
       position: absolute;
       left: 0;
@@ -65,6 +65,16 @@
       height: 4px;
       background: linear-gradient(to right, #008C45, #F4F5F0, #CD212A);
       border-radius: 3px;
+      opacity: 0;
+      transform: translateY(6px);
+      transition: opacity 0.3s ease, transform 0.3s ease;
+      pointer-events: none;
+      user-select: none;
+    }
+    nav a:hover::after,
+    nav a:focus-visible::after {
+      opacity: 1;
+      transform: translateY(0);
     }
 
     /* ===== Main container ===== */
@@ -90,13 +100,13 @@
       transition: transform 0.35s ease, box-shadow 0.35s ease;
       cursor: pointer;
       color: #ddd;
+      text-decoration: none;
     }
     .card:hover, .card:focus-visible {
       transform: translateY(-7px);
       box-shadow: 0 0 28px rgba(0, 140, 69, 0.6);
       color: #00cc66;
     }
-
     .card img {
       width: 100%;
       height: 180px;
@@ -109,7 +119,6 @@
     .card:focus-visible img {
       transform: scale(1.05);
     }
-
     .card-content {
       padding: 1.2rem 1.5rem 1.8rem 1.5rem;
       flex-grow: 1;
@@ -151,8 +160,10 @@
       header {
         padding: 1rem;
       }
+      nav {
+        gap: 1rem;
+      }
       nav a {
-        margin-left: 1rem;
         font-size: 0.95rem;
       }
       main.container {
@@ -170,7 +181,7 @@
   <header>
     <h1>Miniutti.it</h1>
     <nav role="navigation" aria-label="Menu principale">
-      <a href="index.html" class="tricolore" tabindex="0">Catalogo</a>
+      <a href="index.html" tabindex="0">Catalogo</a>
       <a href="clock.html" tabindex="0">SBB Clock</a>
       <a href="diritti.html" tabindex="0">Diritti</a>
     </nav>
