@@ -1,181 +1,323 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Miniutti Store</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
-  <link rel="icon" href="favicon.png" type="image/png" />
-  <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Miniutti Store</title>
 
-    body {
-      font-family: 'Inter', sans-serif;
-      background: #f9f9f9;
-      color: #111;
-      line-height: 1.6;
-    }
+<!-- Favicon -->
+<link rel="icon" href="favicon.png" type="image/png" />
 
-    header {
-      background: #111;
-      color: white;
-      padding: 2rem;
-      text-align: center;
-    }
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
+<style>
+  /* Reset */
+  * {
+    margin: 0; padding: 0; box-sizing: border-box;
+    font-family: 'Inter', sans-serif;
+  }
 
-    header h1 {
+  body {
+    background: #f7f9fc;
+    color: #222;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* HEADER */
+  header {
+    position: sticky;
+    top: 0;
+    background: rgba(255 255 255 / 0.98);
+    backdrop-filter: saturate(180%) blur(10px);
+    box-shadow: 0 3px 15px rgb(0 0 0 / 0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    z-index: 100;
+  }
+
+  header a.logo-link {
+    display: inline-flex;
+    align-items: center;
+    text-decoration: none;
+  }
+
+  header a.logo-link img {
+    height: 48px;
+    border-radius: 14px;
+    box-shadow:
+      0 8px 15px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+  }
+  header a.logo-link img:hover {
+    transform: scale(1.08);
+  }
+
+  nav {
+    display: flex;
+    gap: 2.8rem;
+  }
+  nav a {
+    text-decoration: none;
+    color: #334e68;
+    font-weight: 600;
+    font-size: 1.1rem;
+    position: relative;
+    padding-bottom: 5px;
+    transition: color 0.35s ease;
+    cursor: pointer;
+  }
+  nav a:hover {
+    color: #1d3557;
+  }
+
+  /* Bandiera italiana animata da destra a sinistra */
+  nav a::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    right: 100%;
+    width: 0;
+    height: 4px;
+    border-radius: 12px;
+    background: linear-gradient(to right, #008C45, #F4F5F0, #CD212A);
+    transition:
+      right 0.35s ease,
+      width 0.35s ease;
+  }
+  nav a:hover::after {
+    right: 0;
+    width: 100%;
+  }
+
+  /* HERO */
+  .hero {
+    text-align: center;
+    padding: 4rem 2rem 2rem 2rem;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+  .hero h1 {
+    font-size: 3.2rem;
+    font-weight: 700;
+    color: #1a2e47;
+    margin-bottom: 0.8rem;
+  }
+  .hero p {
+    font-size: 1.25rem;
+    color: #556877;
+    line-height: 1.6;
+    max-width: 650px;
+    margin: 0 auto;
+  }
+
+  /* PRODUCTS GRID */
+  .products {
+    max-width: 1200px;
+    margin: 3.5rem auto 6rem auto;
+    padding: 0 1rem;
+    display: grid;
+    grid-template-columns: repeat(auto-fit,minmax(320px,1fr));
+    gap: 2.8rem;
+  }
+  .product {
+    background: #fff;
+    border-radius: 28px;
+    box-shadow:
+      0 16px 40px rgba(0,0,0,0.06),
+      inset 0 0 0 1px rgba(0,0,0,0.05);
+    padding: 1.3rem 1.3rem 2.2rem 1.3rem;
+    text-align: center;
+    transition:
+      transform 0.45s cubic-bezier(0.4,0,0.2,1),
+      box-shadow 0.45s cubic-bezier(0.4,0,0.2,1);
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    user-select: none;
+    position: relative;
+    overflow: hidden;
+  }
+  .product:hover {
+    transform: translateY(-8px) scale(1.07);
+    box-shadow:
+      0 22px 50px rgba(0,0,0,0.12),
+      inset 0 0 0 1px rgba(0,0,0,0.07);
+  }
+
+  /* Bandiera italiana animata da destra a sinistra per prodotti */
+  .product::after {
+    content: "";
+    position: absolute;
+    bottom: 20px;
+    right: 100%;
+    width: 0;
+    height: 5px;
+    border-radius: 18px;
+    background: linear-gradient(to right, #008C45, #F4F5F0, #CD212A);
+    transition:
+      right 0.4s ease,
+      width 0.4s ease;
+  }
+  .product:hover::after {
+    right: 20px;
+    width: calc(100% - 40px);
+  }
+
+  .product img {
+    width: 100%;
+    border-radius: 18px;
+    margin-bottom: 1.2rem;
+    box-shadow:
+      0 12px 25px rgba(0,0,0,0.12);
+    transition: box-shadow 0.4s ease;
+  }
+  .product:hover img {
+    box-shadow:
+      0 22px 50px rgba(0,0,0,0.24);
+  }
+  .product h3 {
+    font-weight: 700;
+    margin-bottom: 0.4rem;
+    color: #264653;
+    font-size: 1.35rem;
+    user-select: text;
+  }
+  .product p {
+    font-weight: 700;
+    color: #2a9d8f;
+    font-size: 1.2rem;
+    user-select: text;
+  }
+
+  /* FOOTER */
+  footer {
+    background: #fefefe;
+    box-shadow: inset 0 1px 0 0 #ddd;
+    padding: 2.8rem 1rem 3rem 1rem;
+    text-align: center;
+    margin-top: auto;
+    user-select: none;
+  }
+  footer p {
+    font-size: 0.95rem;
+    color: #8d99ae;
+    margin-bottom: 1rem;
+  }
+
+  /* SOCIAL ICONS */
+  .socials {
+    margin-top: 1.2rem;
+    display: flex;
+    justify-content: center;
+    gap: 1.4rem;
+  }
+  .socials a {
+    display: inline-block;
+    border-radius: 14px;
+    overflow: hidden;
+    transition: transform 0.25s ease;
+  }
+  .socials a img {
+    width: 32px;
+    height: 32px;
+    object-fit: contain;
+    display: block;
+    filter: grayscale(60%);
+    transition: filter 0.3s ease;
+  }
+  .socials a:hover img {
+    filter: none;
+  }
+  .socials a:hover {
+    transform: scale(1.45);
+  }
+
+  /* Rimuove sottolineatura blu permanente dai link nelle schede prodotti */
+  .product,
+  .product a {
+    text-decoration: none !important;
+    color: inherit;
+  }
+
+  /* Responsive */
+  @media (max-width: 600px) {
+    nav {
+      gap: 1.6rem;
+    }
+    .hero h1 {
       font-size: 2.5rem;
-      margin-bottom: 0.5rem;
-      letter-spacing: -1px;
     }
-
-    header p {
+    .hero p {
       font-size: 1.1rem;
-      color: #ccc;
     }
-
-    main {
-      max-width: 960px;
-      margin: 2rem auto;
-      padding: 1rem;
+    .products {
+      grid-template-columns: 1fr;
+      gap: 2rem;
     }
-
-    section {
-      background: white;
-      border-radius: 16px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.07);
-      padding: 2rem;
-      margin-bottom: 2rem;
-      transition: transform 0.3s ease;
-    }
-
-    section:hover {
-      transform: translateY(-4px);
-    }
-
-    h2 {
-      font-size: 1.6rem;
-      margin-bottom: 1rem;
-      color: #222;
-    }
-
-    .product-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-      gap: 1.5rem;
-    }
-
-    .product {
-      border: 1px solid #ddd;
-      border-radius: 12px;
-      overflow: hidden;
-      background: #fff;
-      transition: box-shadow 0.2s;
-    }
-
-    .product:hover {
-      box-shadow: 0 4px 16px rgba(0,0,0,0.1);
-    }
-
-    .product img {
-      width: 100%;
-      height: 180px;
-      object-fit: cover;
-    }
-
-    .product-details {
-      padding: 1rem;
-    }
-
-    .product-details h3 {
-      font-size: 1.2rem;
-      margin-bottom: 0.5rem;
-    }
-
-    .product-details a {
-      display: inline-block;
-      margin-top: 0.5rem;
-      background: #222;
-      color: white;
-      padding: 0.5rem 1rem;
-      border-radius: 6px;
-      text-decoration: none;
-      transition: background 0.2s;
-    }
-
-    .product-details a:hover {
-      background: #444;
-    }
-
-    footer {
-      background: #111;
-      color: white;
-      padding: 2rem;
-      text-align: center;
-      font-size: 0.9rem;
-    }
-
-    footer p {
-      max-width: 800px;
-      margin: 0 auto;
-      color: #bbb;
-    }
-
-    @media (max-width: 600px) {
-      header h1 {
-        font-size: 1.8rem;
-      }
-    }
-  </style>
+  }
+</style>
 </head>
 <body>
 
-  <header>
-    <h1>Miniutti Store</h1>
-    <p>Disfarsi del superfluo, con stile.</p>
-  </header>
+<header>
+  <a href="https://store.miniutti.it" class="logo-link" aria-label="Miniutti Store">
+    <img src="favicon.png" alt="Miniutti Store Logo" />
+  </a>
+  <nav>
+    <a href="https://store.miniutti.it" tabindex="0">Home</a>
+    <a href="https://store.miniutti.it/prodotti.html" tabindex="0">Prodotti</a>
+    <a href="https://store.miniutti.it/contatti.html" tabindex="0">Contatti</a>
+  </nav>
+</header>
 
-  <main>
-    <section>
-      <h2>Cos'è questo sito?</h2>
-      <p>
-        Non un vero store. Miniutti Store è una vetrina personale dove espongo ciò che non mi serve più: elettronica, gadget e altri articoli, nuovi o poco usati. Nessuna vendita diretta: cliccando sui prodotti verrai reindirizzato su piattaforme terze affidabili.
-      </p>
-    </section>
+<section class="hero" role="banner">
+  <h1>Benvenuto su Miniutti Store</h1>
+  <p>Vendita occasionale di prodotti elettronici di qualità. Non un negozio professionale, ma una vetrina per disfarmi delle mie scorte personali.</p>
+</section>
 
-    <section>
-      <h2>Prodotti disponibili</h2>
-      <div class="product-grid">
-        <div class="product">
-          <img src="example-product.jpg" alt="Prodotto 1">
-          <div class="product-details">
-            <h3>Nome prodotto</h3>
-            <p>Descrizione breve, condizioni ottime, prezzo competitivo.</p>
-            <a href="#">Vedi su Subito</a>
-          </div>
-        </div>
+<section class="products" aria-label="Prodotti in vendita">
+  <a href="https://store.miniutti.it/prodotto1.html" class="product" aria-describedby="desc-prod1" tabindex="0">
+    <img src="https://via.placeholder.com/340x220?text=MSI+GT710" alt="MSI GeForce GT710 2GB" />
+    <h3>MSI GeForce GT710 2GB</h3>
+    <p id="desc-prod1">€39,99</p>
+  </a>
+  <a href="https://store.miniutti.it/prodotto2.html" class="product" aria-describedby="desc-prod2" tabindex="0">
+    <img src="https://via.placeholder.com/340x220?text=SSD+Lexar" alt="SSD Lexar 1TB" />
+    <h3>SSD Lexar 1TB</h3>
+    <p id="desc-prod2">€49,90</p>
+  </a>
+  <a href="https://store.miniutti.it/prodotto3.html" class="product" aria-describedby="desc-prod3" tabindex="0">
+    <img src="https://via.placeholder.com/340x220?text=Alimentatore+Corsair" alt="Alimentatore Corsair 650W" />
+    <h3>Alimentatore Corsair 650W</h3>
+    <p id="desc-prod3">€69,90</p>
+  </a>
+</section>
 
-        <div class="product">
-          <img src="example-product.jpg" alt="Prodotto 2">
-          <div class="product-details">
-            <h3>Altro prodotto</h3>
-            <p>Un altro oggetto messo in vendita, usato pochissimo.</p>
-            <a href="#">Vedi su eBay</a>
-          </div>
-        </div>
-      </div>
-    </section>
-  </main>
+<footer>
+  <p>© 2025 Miniutti Store — Tutti i diritti riservati</p>
+  <div class="socials" role="contentinfo" aria-label="Link ai social di vendita">
+    <a href="https://www.vinted.it/member/227244406" target="_blank" rel="noopener" aria-label="Vinted">
+      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQHeBXcXSaIbpJd0DMZ4kWSx_DvR40eDhsHfA&s" alt="Icona Vinted" />
+    </a>
+    <a href="https://www.subito.it/utente/127182597" target="_blank" rel="noopener" aria-label="Subito">
+      <img src="https://play-lh.googleusercontent.com/uwzR5jlfHajawujhaPGz4qAUr5VrSYikAEiOVroFKnfFKlsoBU7BlAP7vLcrYy77U_M" alt="Icona Subito" />
+    </a>
+    <a href="https://www.ebay.it/usr/tuo_utente" target="_blank" rel="noopener" aria-label="eBay">
+      <img src="https://www.salvatorepumo.it/wp-content/uploads/2023/02/logo-ebay-oggi.png" alt="Icona eBay" />
+    </a>
+  </div>
 
-  <footer>
-    <p>
-      Miniutti Store non è un’attività commerciale. Tutti i prodotti presenti su questo sito provengono da scorte personali o articoli usati acquistati a titolo privato, venduti occasionalmente tramite piattaforme terze come Subito.it, Vinted, eBay o Wallapop. Non vi è alcun sistema di pagamento diretto né possibilità di acquistare da questo sito. I loghi, i nomi e i riferimenti ai marchi dei prodotti sono usati solo per finalità descrittive e appartengono ai rispettivi proprietari. Questo sito non è affiliato con nessuna delle piattaforme di vendita menzionate.
-    </p>
-  </footer>
+  <div style="margin-top: 3rem; max-width: 920px; margin-left: auto; margin-right: auto; padding: 1rem; text-align: left; font-size: 0.85rem; color: #6c757d; line-height: 1.6;">
+    <strong>Disclaimer legale:</strong> Questo sito web non rappresenta un’attività commerciale, né un negozio professionale. I prodotti visualizzati provengono da scorte personali, doppioni o oggetti inutilizzati e sono venduti occasionalmente su piattaforme terze come <em>Vinted</em>, <em>Subito.it</em> o <em>eBay</em>. L'acquisto non avviene direttamente su questo sito, il quale ha esclusivamente funzione di vetrina/catalogo.<br><br>
+    Non viene emessa fattura né ricevuta fiscale. Non è presente alcuna partita IVA.<br>
+    Miniutti Store non è affiliato né sponsorizzato da alcun marchio presente nei prodotti, le immagini e i loghi appartengono ai rispettivi proprietari e sono utilizzati unicamente a scopo descrittivo secondo l’art. 21 Codice della Proprietà Industriale.<br><br>
+    Eventuali problemi relativi a pagamenti, spedizioni o reclami devono essere gestiti esclusivamente tramite le piattaforme esterne dove avviene la compravendita.<br>
+    Per ulteriori informazioni, contattare l’utente attraverso i canali ufficiali presenti nelle piattaforme indicate.
+  </div>
+</footer>
 
 </body>
 </html>
