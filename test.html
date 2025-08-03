@@ -3,138 +3,131 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Miniutti Store – Vendi ciò che non ti serve più</title>
-  <link rel="icon" href="favicon.png" type="image/png" />
+  <title>Miniutti Store</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
+  <link rel="icon" href="favicon.png" type="image/png" />
   <style>
-    :root {
-      --accent: #2a9d8f;
-      --bg: #f3f4f6;
-      --text: #1e293b;
-      --muted: #64748b;
-    }
-
     * {
+      box-sizing: border-box;
       margin: 0;
       padding: 0;
-      box-sizing: border-box;
-      font-family: 'Inter', sans-serif;
     }
 
     body {
-      background: var(--bg);
-      color: var(--text);
-      display: flex;
-      flex-direction: column;
-      min-height: 100vh;
-    }
-
-    header {
-      background: white;
-      padding: 1.2rem 2rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
-    }
-
-    .logo {
-      font-weight: 700;
-      font-size: 1.6rem;
-      color: var(--accent);
-      text-decoration: none;
-    }
-
-    nav {
-      display: flex;
-      gap: 1.8rem;
-    }
-
-    nav a {
-      text-decoration: none;
-      color: var(--text);
-      font-weight: 500;
-      transition: color 0.3s ease;
-    }
-
-    nav a:hover {
-      color: var(--accent);
-    }
-
-    .hero {
-      padding: 4rem 2rem 2rem;
-      text-align: center;
-      max-width: 800px;
-      margin: 0 auto;
-    }
-
-    .hero h1 {
-      font-size: 2.8rem;
-      font-weight: 700;
-      margin-bottom: 1rem;
-    }
-
-    .hero p {
-      font-size: 1.2rem;
-      color: var(--muted);
+      font-family: 'Inter', sans-serif;
+      background: #f9f9f9;
+      color: #111;
       line-height: 1.6;
     }
 
-    .platforms {
-      display: flex;
-      justify-content: center;
-      gap: 2.5rem;
-      margin: 3rem auto 1.5rem;
-      flex-wrap: wrap;
-    }
-
-    .platform {
-      background: white;
-      padding: 1.5rem 2rem;
-      border-radius: 16px;
-      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05);
+    header {
+      background: #111;
+      color: white;
+      padding: 2rem;
       text-align: center;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-      width: 240px;
     }
 
-    .platform:hover {
-      transform: translateY(-6px);
-      box-shadow: 0 16px 30px rgba(0, 0, 0, 0.08);
+    header h1 {
+      font-size: 2.5rem;
+      margin-bottom: 0.5rem;
+      letter-spacing: -1px;
     }
 
-    .platform img {
-      width: 50px;
-      height: 50px;
+    header p {
+      font-size: 1.1rem;
+      color: #ccc;
+    }
+
+    main {
+      max-width: 960px;
+      margin: 2rem auto;
+      padding: 1rem;
+    }
+
+    section {
+      background: white;
+      border-radius: 16px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.07);
+      padding: 2rem;
+      margin-bottom: 2rem;
+      transition: transform 0.3s ease;
+    }
+
+    section:hover {
+      transform: translateY(-4px);
+    }
+
+    h2 {
+      font-size: 1.6rem;
       margin-bottom: 1rem;
+      color: #222;
     }
 
-    .platform a {
-      display: block;
-      margin-top: 0.6rem;
-      color: var(--accent);
-      font-weight: 600;
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .product {
+      border: 1px solid #ddd;
+      border-radius: 12px;
+      overflow: hidden;
+      background: #fff;
+      transition: box-shadow 0.2s;
+    }
+
+    .product:hover {
+      box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+    }
+
+    .product img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+    }
+
+    .product-details {
+      padding: 1rem;
+    }
+
+    .product-details h3 {
+      font-size: 1.2rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .product-details a {
+      display: inline-block;
+      margin-top: 0.5rem;
+      background: #222;
+      color: white;
+      padding: 0.5rem 1rem;
+      border-radius: 6px;
       text-decoration: none;
+      transition: background 0.2s;
     }
 
-    .platform a:hover {
-      text-decoration: underline;
+    .product-details a:hover {
+      background: #444;
     }
 
     footer {
+      background: #111;
+      color: white;
+      padding: 2rem;
       text-align: center;
       font-size: 0.9rem;
-      color: #94a3b8;
-      margin-top: auto;
-      padding: 2rem 1rem;
+    }
+
+    footer p {
+      max-width: 800px;
+      margin: 0 auto;
+      color: #bbb;
     }
 
     @media (max-width: 600px) {
-      .hero h1 {
-        font-size: 2.2rem;
-      }
-      .platform {
-        width: 100%;
+      header h1 {
+        font-size: 1.8rem;
       }
     }
   </style>
@@ -142,39 +135,46 @@
 <body>
 
   <header>
-    <a href="#" class="logo">Miniutti Store</a>
-    <nav>
-      <a href="#">Home</a>
-      <a href="prodotti.html">Prodotti</a>
-      <a href="contatti.html">Contatti</a>
-    </nav>
+    <h1>Miniutti Store</h1>
+    <p>Disfarsi del superfluo, con stile.</p>
   </header>
 
-  <section class="hero">
-    <h1>Vendi ciò che non usi più</h1>
-    <p>Miniutti Store è il mio spazio personale dove raccolgo scorte di magazzino inutilizzate. Non è un’attività commerciale: vendo solo tramite piattaforme affidabili come Vinted, eBay e Subito.</p>
-  </section>
+  <main>
+    <section>
+      <h2>Cos'è questo sito?</h2>
+      <p>
+        Non un vero store. Miniutti Store è una vetrina personale dove espongo ciò che non mi serve più: elettronica, gadget e altri articoli, nuovi o poco usati. Nessuna vendita diretta: cliccando sui prodotti verrai reindirizzato su piattaforme terze affidabili.
+      </p>
+    </section>
 
-  <section class="platforms" aria-label="Piattaforme di vendita">
-    <div class="platform">
-      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQHeBXcXSaIbpJd0DMZ4kWSx_DvR40eDhsHfA&s" alt="Logo Vinted">
-      <strong>Vinted</strong>
-      <a href="https://www.vinted.it/member/227244406" target="_blank">Vai al profilo</a>
-    </div>
-    <div class="platform">
-      <img src="https://play-lh.googleusercontent.com/uwzR5jlfHajawujhaPGz4qAUr5VrSYikAEiOVroFKnfFKlsoBU7BlAP7vLcrYy77U_M" alt="Logo Subito">
-      <strong>Subito</strong>
-      <a href="https://www.subito.it/utente/127182597" target="_blank">Vai al profilo</a>
-    </div>
-    <div class="platform">
-      <img src="https://www.salvatorepumo.it/wp-content/uploads/2023/02/logo-ebay-oggi.png" alt="Logo eBay">
-      <strong>eBay</strong>
-      <a href="https://www.ebay.it/usr/tuo_utente" target="_blank">Vai al profilo</a>
-    </div>
-  </section>
+    <section>
+      <h2>Prodotti disponibili</h2>
+      <div class="product-grid">
+        <div class="product">
+          <img src="example-product.jpg" alt="Prodotto 1">
+          <div class="product-details">
+            <h3>Nome prodotto</h3>
+            <p>Descrizione breve, condizioni ottime, prezzo competitivo.</p>
+            <a href="#">Vedi su Subito</a>
+          </div>
+        </div>
+
+        <div class="product">
+          <img src="example-product.jpg" alt="Prodotto 2">
+          <div class="product-details">
+            <h3>Altro prodotto</h3>
+            <p>Un altro oggetto messo in vendita, usato pochissimo.</p>
+            <a href="#">Vedi su eBay</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
 
   <footer>
-    © 2025 Miniutti Store – Vendita occasionale da magazzino personale. Nessuna partita IVA. Nessun negozio.
+    <p>
+      Miniutti Store non è un’attività commerciale. Tutti i prodotti presenti su questo sito provengono da scorte personali o articoli usati acquistati a titolo privato, venduti occasionalmente tramite piattaforme terze come Subito.it, Vinted, eBay o Wallapop. Non vi è alcun sistema di pagamento diretto né possibilità di acquistare da questo sito. I loghi, i nomi e i riferimenti ai marchi dei prodotti sono usati solo per finalità descrittive e appartengono ai rispettivi proprietari. Questo sito non è affiliato con nessuna delle piattaforme di vendita menzionate.
+    </p>
   </footer>
 
 </body>
