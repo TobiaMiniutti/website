@@ -5,131 +5,132 @@
 <meta name="viewport" content="width=device-width,initial-scale=1" />
 <title>Miniutti.it — Home</title>
 <link rel="icon" href="favicon.png" />
-<!-- Assicurati che sbbUhr-1.3.js sia presente nella stessa cartella -->
 <script src="sbbUhr-1.3.js" defer></script>
 
+<!-- ========================= STILI ========================= -->
 <style>
-  /* ======================= RESET & VARS ======================= */
+  /* Reset minimale */
   *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
   html,body{height:100%}
   :root{
     --nav-h:72px;
-    --bg-1:#071428; /* profondità */
-    --bg-2:#081025;
-    --accent-1:#6f2df0; /* viola profondo */
-    --accent-2:#00d8ff; /* ciano */
-    --muted:#9fb1bd;
-    --glass:rgba(255,255,255,0.04);
-    --glass-2:rgba(255,255,255,0.03);
+    --bg-0:#071022;      /* sfondo principale (profondo) */
+    --bg-1:#0b1a2b;      /* sfondo secondario */
+    --accent:#7b3cff;    /* viola brillante (titoli/CTA) */
+    --accent-2:#8ef0ff;  /* ghiaccio/ciano per highlights */
+    --muted:#9fb0bf;
+    --glass:rgba(255,255,255,0.03);
     --radius:14px;
     --ease:cubic-bezier(.16,.84,.3,1);
-    --tricolor:linear-gradient(90deg,#00703c,#ffffff,#d62f27);
-    --max-width:1200px;
+    --max-w:1180px;
   }
   body{
-    font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial;
-    -webkit-font-smoothing:antialiased;
-    -moz-osx-font-smoothing:grayscale;
-    color:#e8f0f8;background:linear-gradient(180deg,var(--bg-1),var(--bg-2));
+    font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale;
+    background: radial-gradient(900px 500px at 8% 12%, rgba(123,60,255,0.06), transparent),
+                radial-gradient(700px 420px at 92% 84%, rgba(142,240,255,0.03), transparent),
+                linear-gradient(180deg,var(--bg-0),var(--bg-1));
+    color:#e6f2fb;
     min-height:100vh;overflow-x:hidden;
-    -webkit-font-smoothing:antialiased;
   }
-  a{color:inherit;text-decoration:none}
 
-  /* ======================= PRELOADER ======================= */
-  #loader{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;background:linear-gradient(180deg,rgba(3,6,12,0.98),rgba(3,6,12,0.96));z-index:9999;transition:opacity .35s var(--ease)}
+  /* ===== preloader ===== */
+  #loader{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;background:linear-gradient(180deg,rgba(2,6,12,0.96),rgba(2,8,18,0.94));z-index:9999;transition:opacity .35s var(--ease)}
   #loader.hidden{opacity:0;pointer-events:none}
-  .loader-dot{width:64px;height:64px;border-radius:50%;display:grid;place-items:center;position:relative;filter:drop-shadow(0 10px 30px rgba(0,0,0,0.6))}
-  .loader-ring{width:48px;height:48px;border-radius:50%;border:4px solid rgba(255,255,255,0.06);border-top-color:var(--accent-1);animation:spin 1s linear infinite}
+  .loader-wrap{display:grid;place-items:center;gap:10px}
+  .loader-ring{width:64px;height:64px;border-radius:50%;border:4px solid rgba(255,255,255,0.06);border-top-color:var(--accent);animation:spin 1s linear infinite}
   @keyframes spin{to{transform:rotate(360deg)}}
+  .loader-text{color:var(--muted);font-weight:600;font-size:0.95rem}
 
-  /* ======================= NAVBAR ======================= */
-  nav{position:fixed;left:50%;transform:translateX(-50%);top:14px;height:var(--nav-h);display:flex;align-items:center;gap:16px;padding:8px 18px;border-radius:999px;background:linear-gradient(180deg,rgba(255,255,255,0.03),rgba(255,255,255,0.02));backdrop-filter:blur(8px);box-shadow:0 10px 40px rgba(2,6,18,0.6);z-index:1100}
-  nav a, nav .dropbtn{color:#eaf6ff;padding:10px 14px;border-radius:12px;font-weight:700;position:relative;display:inline-flex;align-items:center;gap:8px}
-  nav a:hover, nav .dropbtn:hover{transform:translateY(-3px);filter:brightness(1.05)}
-  /* tricolore underline only on hover */
+  /* ===== NAVBAR ===== */
+  nav{
+    position:fixed;left:50%;transform:translateX(-50%);top:14px;height:var(--nav-h);
+    display:flex;align-items:center;gap:14px;padding:8px 18px;border-radius:999px;
+    background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+    backdrop-filter:blur(8px);box-shadow:0 12px 40px rgba(0,0,0,0.6);z-index:1100;
+  }
+  nav a, nav .dropbtn{
+    color:#e8f6ff;padding:10px 14px;border-radius:12px;font-weight:700;position:relative;display:inline-flex;align-items:center;gap:8px;cursor:pointer;
+  }
+  nav a:focus, nav .dropbtn:focus{outline:3px solid rgba(123,60,255,0.12);outline-offset:4px;border-radius:10px}
+  nav a:hover{transform:translateY(-3px)}
+  /* tricolor underline only on hover */
   nav a::after, nav .dropbtn::after{content:"";position:absolute;left:12%;right:12%;height:3px;bottom:-8px;border-radius:6px;opacity:0;transition:opacity .22s var(--ease)}
-  nav a[data-tricolor="true"]:hover::after{background:var(--tricolor);opacity:1}
-  .dropbtn.has-sub::after{content:"▾";position:static;margin-left:6px;font-size:0.72rem;opacity:.95}
+  nav a[data-tricolor="true"]:hover::after{background:linear-gradient(90deg,#00703c,#ffffff,#d62f27);opacity:1}
+  /* freccia solo per dropdown */
+  .dropbtn.has-sub::after{content:"▾";position:static;margin-left:6px;font-size:0.78rem;opacity:.95}
 
   .dropdown{position:relative}
-  .dropdown-menu{position:absolute;top:calc(100% + 10px);left:0;min-width:220px;background:linear-gradient(180deg, rgba(6,12,20,0.95), rgba(10,16,26,0.98));border-radius:12px;padding:8px;border:1px solid rgba(255,255,255,0.03);box-shadow:0 12px 40px rgba(0,0,0,0.6);display:none}
+  .dropdown-menu{
+    position:absolute;top:calc(100% + 10px);left:0;min-width:220px;
+    background:linear-gradient(180deg, rgba(10,16,26,0.96), rgba(8,12,18,0.98));
+    border-radius:12px;padding:8px;border:1px solid rgba(255,255,255,0.03);box-shadow:0 12px 36px rgba(0,0,0,0.6);
+    display:none;
+  }
   .dropdown:focus-within .dropdown-menu, .dropdown:hover .dropdown-menu{display:block;animation:pop .16s var(--ease)}
   .dropdown-menu a{display:block;padding:10px 12px;color:#dbeffd;border-radius:8px;font-weight:700}
-  .dropdown-menu a:hover{background:linear-gradient(90deg, rgba(111,45,240,0.12), rgba(0,216,255,0.06));color:#fff;transform:translateX(6px)}
-
+  .dropdown-menu a:hover{background:linear-gradient(90deg, rgba(123,60,255,0.12), rgba(142,240,255,0.05));color:#fff;transform:translateX(6px)}
   @keyframes pop{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:translateY(0)}}
 
-  /* ======================= FLOATING LOGO & MINI CLOCK ======================= */
-  #logo{position:fixed;left:18px;top:12px;width:64px;height:64px;border-radius:16px;background:linear-gradient(180deg,rgba(255,255,255,0.02),rgba(255,255,255,0.01));display:grid;place-items:center;z-index:1100;border:1px solid rgba(255,255,255,0.03);cursor:pointer}
-  #logo img{width:44px;height:44px;object-fit:contain;filter:drop-shadow(0 8px 22px rgba(0,0,0,0.6))}
+  /* ===== LOGO e MINI CLOCK (floating) ===== */
+  #logo{position:fixed;left:16px;top:12px;width:64px;height:64px;border-radius:14px;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));display:grid;place-items:center;z-index:1100;border:1px solid rgba(255,255,255,0.03);cursor:pointer}
+  #logo img{width:44px;height:44px;object-fit:contain;filter:drop-shadow(0 10px 28px rgba(0,0,0,0.6))}
+  #mini-clock{position:fixed;right:16px;top:12px;width:64px;height:64px;border-radius:14px;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));display:flex;align-items:center;justify-content:center;z-index:1100;border:1px solid rgba(255,255,255,0.03);cursor:pointer}
+  #mini-clock:focus{outline:3px solid rgba(123,60,255,0.12);outline-offset:3px}
 
-  #mini-clock{position:fixed;right:18px;top:12px;width:64px;height:64px;border-radius:16px;background:linear-gradient(180deg,rgba(255,255,255,0.02),rgba(255,255,255,0.01));display:flex;align-items:center;justify-content:center;z-index:1100;border:1px solid rgba(255,255,255,0.03);cursor:pointer}
-  #mini-clock:focus{outline:3px solid rgba(111,45,240,0.16);outline-offset:3px}
-
-  /* small control pill below clock */
-  .clock-controls{position:fixed;right:18px;top:86px;display:flex;gap:8px;z-index:1100}
-  .btn{background:linear-gradient(90deg,var(--accent-1),var(--accent-2));color:#021420;padding:9px 12px;border-radius:999px;font-weight:800;border:none;cursor:pointer;box-shadow:0 10px 30px rgba(111,45,240,0.12);transition:transform .18s var(--ease)}
+  /* small control pill */
+  .clock-controls{position:fixed;right:16px;top:90px;display:flex;gap:8px;z-index:1100}
+  .btn{background:linear-gradient(90deg,var(--accent),var(--accent-2));color:#031021;padding:9px 12px;border-radius:999px;font-weight:800;border:none;cursor:pointer;box-shadow:0 10px 30px rgba(123,60,255,0.12);transition:transform .18s var(--ease)}
   .btn:active{transform:translateY(1px)}
 
-  /* ======================= LAYOUT WRAPPER ======================= */
-  .wrap{max-width:var(--max-width);margin:0 auto;padding:calc(var(--nav-h) + 36px) 20px 80px;display:flex;flex-direction:column;gap:36px;min-height:70vh}
+  /* ===== CONTAINER ===== */
+  .wrap{max-width:var(--max-w);margin:0 auto;padding:calc(var(--nav-h) + 36px) 22px 88px;display:flex;flex-direction:column;gap:36px;min-height:70vh}
 
-  /* ======================= HERO with centered clock ======================= */
-  .hero{display:grid;grid-template-columns:1fr 420px;gap:36px;align-items:center;position:relative}
-  .hero-left{padding:28px;border-radius:14px;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));box-shadow:0 20px 60px rgba(0,0,0,0.45);backdrop-filter:blur(6px)}
-  .hero h1{font-size:clamp(2.1rem,4vw,3.4rem);line-height:1.02;background:linear-gradient(45deg,var(--accent-1),var(--accent-2));-webkit-background-clip:text;background-clip:text;color:transparent;font-weight:900;margin-bottom:10px}
-  .hero p{color:var(--muted);font-size:1.05rem;max-width:56ch}
+  /* ===== HERO con clock centrato rispetto alla navbar ===== */
+  .hero{display:grid;grid-template-columns:1fr 420px;gap:30px;align-items:center}
+  .hero-left{padding:28px;border-radius:12px;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));box-shadow:0 18px 60px rgba(0,0,0,0.5)}
+  .hero h1{font-size:clamp(2rem,4vw,3.4rem);line-height:1.02;background:linear-gradient(45deg,var(--accent),var(--accent-2));-webkit-background-clip:text;color:transparent;font-weight:900;margin-bottom:10px}
+  .hero p{color:var(--muted);font-size:1.05rem;max-width:66ch}
+  .clock-wrap{display:flex;align-items:center;justify-content:center;height:100%;min-height:240px}
+  #sbb-clock-large{width:360px;height:150px;border-radius:12px;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));display:flex;align-items:center;justify-content:center;box-shadow:0 24px 80px rgba(0,0,0,0.55);border:1px solid rgba(255,255,255,0.03);cursor:pointer}
 
-  /* central clock container (considers navbar height) */
-  .clock-wrap{display:flex;align-items:center;justify-content:center;height:100%;min-height:260px}
-  #sbb-clock-large{width:320px;height:140px;border-radius:14px;background:linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.02));display:flex;align-items:center;justify-content:center;box-shadow:0 20px 60px rgba(0,0,0,0.5);border:1px solid rgba(255,255,255,0.03);cursor:pointer}
-  #sbb-clock-large.small{width:220px;height:100px}
-
-  /* ======================= PROJECTS grid ======================= */
+  /* ===== PROGETTI ===== */
   .projects{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:20px}
   .card{padding:18px;border-radius:12px;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));border:1px solid rgba(255,255,255,0.03);transition:transform .32s var(--ease),box-shadow .32s var(--ease);cursor:pointer}
   .card:hover{transform:translateY(-10px);box-shadow:0 30px 80px rgba(0,0,0,0.6)}
   .card h3{color:#eaf6ff;margin-bottom:8px;font-size:1.05rem}
-  .card p{color:var(--muted);font-size:.96rem;line-height:1.45}
-  .card .link{display:inline-block;margin-top:12px;padding:8px 12px;border-radius:10px;background:rgba(255,255,255,0.02);color:var(--accent-1);font-weight:800;border:1px solid rgba(111,45,240,0.08)}
-
+  .card p{color:var(--muted);font-size:.98rem;line-height:1.45}
+  .card .link{display:inline-block;margin-top:12px;padding:8px 12px;border-radius:10px;background:rgba(255,255,255,0.02);color:var(--accent);font-weight:800;border:1px solid rgba(123,60,255,0.08)}
   .card.soon{opacity:.6;pointer-events:none;filter:grayscale(.05)}
 
-  /* ======================= CONTACT section ======================= */
+  /* ===== CONTATTI ===== */
   .contact{max-width:720px;margin:0 auto;padding:18px;border-radius:12px;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));border:1px solid rgba(255,255,255,0.03)}
   .contact h2{color:#eaf6ff;margin-bottom:10px}
   .form-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
   input,textarea{background:transparent;border:1px solid rgba(255,255,255,0.06);padding:10px;border-radius:10px;color:#eaf6ff;font-weight:700}
-  input:focus,textarea:focus{outline:none;border-color:rgba(111,45,240,0.45);box-shadow:0 8px 28px rgba(111,45,240,0.06)}
+  input:focus,textarea:focus{outline:none;border-color:rgba(123,60,255,0.45);box-shadow:0 8px 28px rgba(123,60,255,0.06)}
   textarea{min-height:120px;resize:vertical}
   .muted{color:var(--muted);font-size:.95rem;margin-top:8px}
 
-  /* ======================= UTILITIES & RESPONSIVE ======================= */
-  .visually-hidden{position:absolute!important;height:1px;width:1px;overflow:hidden;clip:rect(1px,1px,1px,1px);white-space:nowrap;border:0;padding:0;margin:-1px}
-  @media (max-width:980px){
-    .hero{grid-template-columns:1fr;gap:18px}
-    .clock-wrap{order: -1}
-  }
-  @media (max-width:520px){
-    nav{left:12px;transform:none}
-    #logo{left:12px}
-    #mini-clock{right:12px}
-    .wrap{padding:calc(var(--nav-h) + 14px) 14px 60px}
-    #sbb-clock-large{width:240px;height:110px}
-  }
+  /* VISUALLY-HIDDEN helper */
+  .vh{position:absolute!important;height:1px;width:1px;overflow:hidden;clip:rect(1px,1px,1px,1px);white-space:nowrap;border:0;padding:0;margin:-1px}
+
+  /* responsive */
+  @media (max-width:980px){.hero{grid-template-columns:1fr;gap:18px}.clock-wrap{order:-1}}
+  @media (max-width:520px){nav{left:12px;transform:none}#logo{left:12px}#mini-clock{right:12px}.wrap{padding:calc(var(--nav-h) + 14px) 14px 70px}#sbb-clock-large{width:280px;height:120px}}
 </style>
 </head>
 <body>
 
 <!-- PRELOADER -->
 <div id="loader" role="status" aria-live="polite">
-  <div class="loader-dot" aria-hidden="true">
-    <div class="loader-ring"></div>
+  <div class="loader-wrap">
+    <div class="loader-ring" aria-hidden="true"></div>
+    <div class="loader-text">Caricamento…</div>
   </div>
 </div>
 
-<!-- NAV -->
+<!-- NAVBAR -->
 <nav role="navigation" aria-label="Menu principale">
   <a href="index.html" data-tricolor="true" aria-current="page">Home</a>
 
@@ -144,28 +145,28 @@
   <a href="clock.html" data-tricolor="true">SBB Clock</a>
 </nav>
 
-<!-- floating logo & mini clock -->
+<!-- FLOATING LOGO & MINI CLOCK -->
 <div id="logo" role="link" aria-label="Vai alla home" tabindex="0" onclick="location.href='index.html'">
   <img src="favicon.png" alt="Miniutti logo">
 </div>
 
-<div id="mini-clock" tabindex="0" role="button" aria-label="Orologio SBB — Apri orologio (Enter)">
-  <!-- SBBUhr renderer -->
+<div id="mini-clock" tabindex="0" role="button" aria-label="Orologio SBB — Apri orologio">
+  <!-- SBBUhr render target -->
 </div>
 
 <div class="clock-controls" aria-hidden="false">
   <button class="btn" id="open-clock">Apri orologio</button>
-  <button class="btn" id="fs-toggle" title="Fullscreen — tasto F">Fullscreen (F)</button>
+  <button class="btn" id="fs-toggle" title="Fullscreen (F)">Fullscreen (F)</button>
 </div>
 
-<!-- MAIN -->
+<!-- CONTENT -->
 <main class="wrap" id="main">
 
   <!-- HERO -->
   <section class="hero" aria-labelledby="hero-title">
     <div class="hero-left">
       <h1 id="hero-title">Miniutti.it — progetti & strumenti</h1>
-      <p>Progetti curati, UI rifinita e componenti replicabili. Qui trovi il mio SBB clock, altri widget e demo di design con attenzione a performance e accessibilità.</p>
+      <p>Progetti curati, UI rifinita e componenti replicabili. Qui trovi il mio SBB Clock, widget e demo con attenzione a performance e accessibilità.</p>
     </div>
 
     <div class="clock-wrap" aria-hidden="false">
@@ -175,22 +176,22 @@
 
   <!-- PROJECTS -->
   <section aria-labelledby="sec-projects">
-    <h2 id="sec-projects" class="visually-hidden">Progetti</h2>
+    <h2 id="sec-projects" class="vh">Progetti</h2>
     <div class="projects" role="list">
-      <article class="card" role="listitem" tabindex="0" aria-labelledby="p1">
-        <h3 id="p1">SBB Clock</h3>
-        <p>Riproduzione fedele dell'orologio svizzero, animazioni originali e supporto fullscreen + scorciatoia tastiera.</p>
-        <a class="link" href="clock.html" aria-label="Apri pagina orologio">Apri →</a>
+      <article class="card" role="listitem" tabindex="0" aria-labelledby="p-sbb">
+        <h3 id="p-sbb">SBB Clock</h3>
+        <p>Riproduzione fedele dell’orologio svizzero, animazioni fluide, supporto fullscreen e scorciatoia tastiera.</p>
+        <a class="link" href="clock.html" aria-label="Apri SBB Clock">Apri →</a>
       </article>
 
-      <article class="card soon" role="listitem" aria-labelledby="p2">
-        <h3 id="p2">In arrivo</h3>
-        <p>Nuovi widget e miglioramenti UI. Documentazione e repo disponibili a richiesta.</p>
+      <article class="card soon" role="listitem" aria-labelledby="p-soon">
+        <h3 id="p-soon">In arrivo</h3>
+        <p>Nuovi widget e componenti; pubblicherò aggiornamenti sulla pagina progetti.</p>
       </article>
 
-      <article class="card" role="listitem" tabindex="0" aria-labelledby="p3">
-        <h3 id="p3">Altri Progetti</h3>
-        <p>Tooling, script e sperimentazioni con attenzione a UX, accessibilità e performance.</p>
+      <article class="card" role="listitem" tabindex="0" aria-labelledby="p-other">
+        <h3 id="p-other">Altri Progetti</h3>
+        <p>Utility, script e sperimentazioni UI/UX. Documentazione e repo su richiesta.</p>
         <a class="link" href="progetti.html">Vedi altri →</a>
       </article>
     </div>
@@ -225,91 +226,73 @@
 
 </main>
 
-<!-- SCRIPTS -->
+<!-- ========================= SCRIPT ========================= -->
 <script>
+/* ===== load behaviors ===== */
 document.addEventListener('DOMContentLoaded', ()=> {
-  // hide loader
+  // PRELOADER
   const loader = document.getElementById('loader');
-  setTimeout(()=> loader.classList.add('hidden'), 320);
+  setTimeout(()=> loader.classList.add('hidden'), 300);
 
-  // init SBB clocks
-  const miniClockEl = document.getElementById('mini-clock');
-  const largeClockEl = document.getElementById('sbb-clock-large');
-
+  // SBB clocks: mini + large
+  const mini = document.getElementById('mini-clock');
+  const large = document.getElementById('sbb-clock-large');
   if (typeof SBBUhr !== 'undefined') {
-    // mini
-    try {
-      new SBBUhr({ target: miniClockEl, type: 'digital', size: 56, showSeconds: false, showDate: false, fullScreenBtn:false, fullScreenKey:false });
-    } catch(e){}
-    // large (centered)
-    try {
-      new SBBUhr({ target: largeClockEl, type: 'digital', size: 220, showSeconds: true, showDate: true, fullScreenBtn:false, fullScreenKey:false });
-    } catch(e){}
+    try { new SBBUhr({ target: mini, type: 'digital', size: 56, showSeconds:false, showDate:false, fullScreenBtn:false, fullScreenKey:false }); } catch(e){}
+    try { new SBBUhr({ target: large, type: 'digital', size: 220, showSeconds:true, showDate:true, fullScreenBtn:false, fullScreenKey:false }); } catch(e){}
   }
 
-  // actions
+  // interactions: open clock page
   const openClock = ()=> location.href = 'clock.html';
-  miniClockEl.addEventListener('click', openClock);
-  miniClockEl.addEventListener('keydown', (e)=> { if(e.key==='Enter' || e.key===' ') { e.preventDefault(); openClock(); } });
-
+  mini.addEventListener('click', openClock);
+  mini.addEventListener('keydown', (e)=> { if(e.key==='Enter' || e.key===' ') { e.preventDefault(); openClock(); } });
   document.getElementById('open-clock').addEventListener('click', openClock);
 
   // fullscreen toggle for large clock
   const fsBtn = document.getElementById('fs-toggle');
-  const sbbContainer = largeClockEl;
-  async function toggleFullscreen(){
+  const sbbEl = large;
+  async function toggleFS(){
     try{
-      if(!document.fullscreenElement){
-        if(sbbContainer.requestFullscreen) await sbbContainer.requestFullscreen();
-      } else {
-        if(document.exitFullscreen) await document.exitFullscreen();
-      }
+      if(!document.fullscreenElement){ if(sbbEl.requestFullscreen) await sbbEl.requestFullscreen(); }
+      else { if(document.exitFullscreen) await document.exitFullscreen(); }
     }catch(e){}
   }
-  fsBtn.addEventListener('click', toggleFullscreen);
+  fsBtn.addEventListener('click', toggleFS);
 
-  // key 'F' toggles fullscreen (ignore typing)
+  // keyboard shortcuts: F = fullscreen, O = open clock (ignore when typing)
   window.addEventListener('keydown', (e)=>{
     const tag = document.activeElement.tagName.toLowerCase();
     if(tag==='input' || tag==='textarea') return;
-    if(e.key==='f' || e.key==='F') { e.preventDefault(); toggleFullscreen(); }
-    if(e.key==='o' || e.key==='O') { openClock(); }
+    if(e.key==='f' || e.key==='F'){ e.preventDefault(); toggleFS(); }
+    if(e.key==='o' || e.key==='O'){ openClock(); }
   });
 
-  // dropdown accessible aria toggles
+  // accessible dropdown aria
   document.querySelectorAll('.dropdown').forEach(dd=>{
     dd.addEventListener('mouseenter', ()=> dd.setAttribute('aria-expanded','true'));
     dd.addEventListener('mouseleave', ()=> dd.setAttribute('aria-expanded','false'));
     dd.addEventListener('keydown', (ev)=> {
-      if(ev.key==='Enter' || ev.key===' '){
-        ev.preventDefault();
-        const expanded = dd.getAttribute('aria-expanded') === 'true';
-        dd.setAttribute('aria-expanded', (!expanded).toString());
-      }
+      if(ev.key==='Enter' || ev.key===' '){ ev.preventDefault(); const expanded = dd.getAttribute('aria-expanded') === 'true'; dd.setAttribute('aria-expanded', (!expanded).toString()); }
     });
   });
 
-  // simple form handler — client-side only
+  // contact form (client-side only)
   const form = document.getElementById('contact-form');
-  const formMsg = document.getElementById('form-msg');
-  const mailtoBtn = document.getElementById('mailto-fallback');
-
+  const msg = document.getElementById('form-msg');
   form.addEventListener('submit', (e)=>{
     e.preventDefault();
-    const name = form.name?.value?.trim() || form.querySelector('#name')?.value?.trim();
-    const email = form.email?.value?.trim() || form.querySelector('#email')?.value?.trim();
-    const message = form.message?.value?.trim() || form.querySelector('#message')?.value?.trim();
+    const name = form.name.value.trim(), email = form.email.value.trim(), message = form.message.value.trim();
     if(!name || !email || !message){
-      formMsg.style.display='block'; formMsg.style.color='tomato'; formMsg.textContent = 'Compila tutti i campi prima di inviare.';
+      msg.style.display='block'; msg.style.color='tomato'; msg.textContent='Completa tutti i campi.';
       return;
     }
-    // default behavior: show ready-to-send and clear; integrate server after
-    formMsg.style.display='block'; formMsg.style.color='var(--accent-2)'; formMsg.textContent='Messaggio pronto — integra qui il tuo backend o servizio email.';
+    // placeholder: integrate server-side or service later
+    msg.style.display='block'; msg.style.color='var(--accent-2)'; msg.textContent='Messaggio pronto — integra qui il backend.';
     form.reset();
   });
 
-  // mailto fallback: opens user's client with prefilled mail
-  mailtoBtn.addEventListener('click', ()=>{
+  // mailto fallback
+  document.getElementById('mailto-fallback').addEventListener('click', ()=>{
     const name = encodeURIComponent(document.getElementById('name').value || '');
     const email = encodeURIComponent(document.getElementById('email').value || '');
     const message = encodeURIComponent(document.getElementById('message').value || '');
