@@ -1,213 +1,324 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="it">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Miniutti.it - Home</title>
-  <link rel="icon" href="favicon.png">
-  <script src="sbbUhr-1.3.js" defer></script>
-  <style>
-    /* ===== RESET ===== */
-    *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
-    html{scroll-behavior:smooth}
-    body{
-      font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
-      background: #f5f5f7;
-      color:#222;
-      overflow-x:hidden;
-      -webkit-font-smoothing:antialiased;
-      display:flex;flex-direction:column;min-height:100vh;
-      user-select:none;
-    }
-    a{text-decoration:none;color:inherit;user-select:none}
-    img{max-width:100%;display:block}
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Miniutti.it — Home</title>
+<link rel="icon" href="favicon.png" />
+<script src="sbbUhr-1.3.js" defer></script>
 
-    :root{
-      --col-primary:#76237f;
-      --col-primary-dark:#5c1a64;
-      --col-white:#fff;
-      --col-gray:#888;
-      --radius:14px;
-      --glass-bg:rgba(255,255,255,0.65);
-      --glass-border:rgba(255,255,255,0.4);
-      --tricolor:linear-gradient(90deg,#00703c,#fff,#d62f27);
-      --transition:0.3s ease;
-    }
+<!-- ===== Styles (single file, ready-to-use) ===== -->
+<style>
+  /* ===== reset ===== */
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+  html,body{height:100%}
+  body{
+    font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial;
+    -webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;
+    color:#0f1724; background:linear-gradient(180deg,#0f1724 0%, #071022 100%);
+    min-height:100vh; overflow-x:hidden;
+  }
 
-    /* ===== NAVBAR ===== */
-    nav{
-      position:fixed;top:0;left:50%;transform:translateX(-50%);
-      display:flex;align-items:center;gap:2rem;padding:0 2rem;height:64px;
-      background:var(--glass-bg);backdrop-filter:blur(12px);
-      border-radius:0 0 var(--radius) var(--radius);
-      box-shadow:0 8px 32px rgba(0,0,0,0.08), inset 0 0 0 1px var(--glass-border);
-      font-weight:600;font-size:1.1rem;z-index:1000;
-    }
-    nav a,nav .dropbtn{
-      padding:0.7rem 1.25rem;border-radius:var(--radius);
-      background:rgba(255,255,255,0.5);box-shadow:inset 0 0 8px rgba(255,255,255,0.35);
-      transition:var(--transition);
-    }
-    nav a:hover,nav .dropbtn:hover{
-      color:var(--col-primary);background:rgba(118,35,127,0.1);
-      box-shadow:0 0 8px rgba(118,35,127,0.3);
-      transform:scale(1.05);
-    }
-    nav a::after,nav .dropbtn.has-sub::after{
-      content:"";position:absolute;left:10%;bottom:0;width:80%;height:3px;
-      background:var(--tricolor);opacity:0;transition:opacity var(--transition);
-      border-radius:3px;
-    }
-    nav a:hover::after,nav .dropbtn.has-sub:hover::after{opacity:1}
+  :root{
+    --nav-h:72px;
+    --radius:16px;
+    --glass:rgba(255,255,255,0.06);
+    --glass-2:rgba(255,255,255,0.06);
+    --accent:#7e2cf7; /* viola profondo */
+    --accent-2:#00e5ff; /* ciano neon */
+    --muted:#9aa6b2;
+    --card-bg:linear-gradient(135deg, rgba(255,255,255,0.03), rgba(255,255,255,0.02));
+    --ease:cubic-bezier(.2,.9,.3,1);
+  }
 
-    /* ===== DROPDOWN ===== */
-    .dropdown{position:relative}
-    .dropdown-content{
-      display:none;position:absolute;top:100%;left:0;
-      background:var(--glass-bg);backdrop-filter:blur(16px);
-      min-width:220px;padding:0.75rem 0;border-radius:var(--radius);
-      box-shadow:0 12px 36px rgba(0,0,0,0.12), inset 0 0 0 1px var(--glass-border);
-    }
-    .dropdown:hover .dropdown-content{display:block;animation:fadeIn 0.3s ease}
-    .dropdown-content a{
-      display:block;padding:0.9rem 1.5rem;transition:var(--transition);
-    }
-    .dropdown-content a:hover{
-      background:rgba(118,35,127,0.12);color:var(--col-primary);transform:translateX(6px);
-    }
+  /* ===== animated subtle background (GPU friendly) ===== */
+  :root::before{
+    content:"";position:fixed;inset:0;z-index:-2;pointer-events:none;
+    background:
+      radial-gradient(1200px 600px at 10% 10%, rgba(126,44,247,0.14), transparent 12%),
+      radial-gradient(900px 500px at 90% 80%, rgba(0,229,255,0.06), transparent 12%);
+    filter:blur(40px);transform:translateZ(0);opacity:0.95;
+    animation:slowShift 18s linear infinite;
+  }
+  @keyframes slowShift{0%{transform:translateX(-10px) translateY(0)}50%{transform:translateX(10px) translateY(-6px)}100%{transform:translateX(-10px) translateY(0)}}
 
-    /* ===== LOGO & CLOCK ===== */
-    #logo,#mini-clock{
-      position:fixed;top:10px;width:56px;height:56px;
-      background:var(--glass-bg);border-radius:50%;
-      box-shadow:0 10px 30px rgba(0,0,0,0.1),inset 0 2px 10px rgba(255,255,255,0.7);
-      display:flex;align-items:center;justify-content:center;
-      border:1px solid var(--glass-border);
-      transition:var(--transition);cursor:pointer;z-index:1001;
-    }
-    #logo{left:16px} #mini-clock{right:22px}
-    #logo:hover,#mini-clock:hover{
-      transform:scale(1.08);box-shadow:0 18px 48px var(--col-primary);
-    }
+  /* ===== page container ===== */
+  .wrap{max-width:1200px;margin:0 auto;padding:calc(var(--nav-h) + 28px) 20px 80px;display:flex;flex-direction:column;gap:36px}
 
-    /* ===== HERO ===== */
-    .hero{text-align:center;padding:7rem 1.5rem 2rem;max-width:760px;margin:auto}
-    .hero h1{
-      font-size:3.5rem;font-weight:900;
-      background:linear-gradient(45deg,var(--col-primary),var(--col-primary-dark));
-      -webkit-background-clip:text;color:transparent;
-    }
-    .hero p{font-size:1.3rem;color:var(--col-gray);margin-top:0.6rem}
+  /* ===== preloader ===== */
+  #loader{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;background:linear-gradient(180deg, rgba(2,6,23,0.98), rgba(2,6,18,0.96));z-index:9999;transition:opacity .4s var(--ease)}
+  #loader.hidden{opacity:0;pointer-events:none}
+  .spinner{width:64px;height:64px;border-radius:50%;display:grid;place-items:center;position:relative}
+  .spinner::before{content:"";position:absolute;width:48px;height:48px;border-radius:50%;border:4px solid rgba(255,255,255,0.08);border-top-color:var(--accent);animation:spin 1s linear infinite}
+  .spinner .mark{color:var(--accent-2);font-weight:700;font-family:monospace}
+  @keyframes spin{to{transform:rotate(360deg)}}
 
-    /* ===== PROJECTS ===== */
-    .projects{
-      display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
-      gap:2rem;max-width:1200px;margin:3rem auto;padding:0 1.5rem;
-    }
-    .project-card{
-      background:var(--glass-bg);backdrop-filter:blur(20px);
-      padding:1.8rem;border-radius:var(--radius);
-      box-shadow:0 12px 32px rgba(0,0,0,0.08),inset 0 0 0 1px var(--glass-border);
-      transition:var(--transition);cursor:pointer;text-align:center;
-    }
-    .project-card:hover{
-      transform:scale(1.05);box-shadow:0 20px 60px rgba(118,35,127,0.3);
-      color:var(--col-primary);
-    }
-    .project-card.not-selectable{opacity:0.5;cursor:default}
+  /* ===== navbar ===== */
+  nav{position:fixed;top:12px;left:50%;transform:translateX(-50%);height:var(--nav-h);display:flex;align-items:center;gap:18px;padding:6px 18px;border-radius:999px;background:linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.02));backdrop-filter:blur(10px);box-shadow:0 10px 30px rgba(2,6,23,0.6);z-index:1001}
+  nav a, nav .dropbtn{color:#e6eef8;padding:10px 14px;border-radius:12px;font-weight:600;position:relative;display:inline-flex;align-items:center;gap:8px}
+  nav a:hover, nav .dropbtn:hover{transform:translateY(-3px);filter:brightness(1.1)}
+  /* tricolor underline (only visible on hover) */
+  nav a::after, nav .dropbtn::after{content:"";position:absolute;left:10%;right:10%;height:3px;bottom:-8px;border-radius:6px;background:transparent;transition:all .25s var(--ease);opacity:0}
+  nav a[data-tricolor="true"]:hover::after{background:linear-gradient(90deg,#00703c,#fff,#d62f27);opacity:1}
+  /* arrow only for dropdown */
+  .dropbtn.has-sub::after{content:"▾";position:static;margin-left:6px;font-size:0.72rem;opacity:.9}
 
-    /* ===== CONTACT ===== */
-    .contact-section{
-      max-width:400px;margin:4rem auto;padding:0 1rem;
-    }
-    .contact-section h2{text-align:center;color:var(--col-primary-dark);margin-bottom:1rem}
-    .contact-form{display:flex;flex-direction:column;gap:1rem}
-    .contact-form input,.contact-form textarea{
-      padding:0.85rem 1rem;border-radius:var(--radius);border:1.8px solid #ccc;
-      font-family:inherit;font-size:1rem;transition:border-color var(--transition);
-    }
-    .contact-form input:focus,.contact-form textarea:focus{
-      border-color:var(--col-primary);outline:none;background:#faf7ff;
-    }
-    .contact-form button{
-      padding:0.9rem 1.2rem;border:none;border-radius:var(--radius);
-      background:var(--col-primary);color:#fff;font-weight:700;
-      cursor:pointer;transition:var(--transition);
-    }
-    .contact-form button:hover{
-      background:var(--col-primary-dark);box-shadow:0 8px 28px var(--col-primary-dark);
-    }
+  .dropdown{position:relative}
+  .dropdown-menu{position:absolute;top:calc(100% + 10px);left:0;min-width:220px;background:linear-gradient(180deg, rgba(8,12,20,0.92), rgba(12,16,26,0.94));border-radius:12px;padding:8px;border:1px solid rgba(255,255,255,0.03);box-shadow:0 10px 30px rgba(2,6,23,0.6);display:none}
+  .dropdown:focus-within .dropdown-menu, .dropdown:hover .dropdown-menu{display:block;animation:pop .18s ease}
+  .dropdown-menu a{display:block;padding:10px 12px;color:#dfe9f5;border-radius:10px;font-weight:600}
+  .dropdown-menu a:hover{background:linear-gradient(90deg, rgba(126,44,247,0.12), rgba(0,229,255,0.06));color:#fff;transform:translateX(6px)}
 
-    /* ===== ANIMATIONS ===== */
-    @keyframes fadeIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+  @keyframes pop{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:translateY(0)}}
 
-    /* ===== RESPONSIVE ===== */
-    @media(max-width:620px){
-      nav{gap:1rem;padding:0 1rem;font-size:1rem}
-      .hero h1{font-size:2.4rem}
-      .hero p{font-size:1.05rem}
-    }
-  </style>
+  /* ===== logo & mini-clock floating controls ===== */
+  #logo{position:fixed;left:18px;top:10px;width:64px;height:64px;border-radius:18px;background:linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.02));display:grid;place-items:center;z-index:1001;border:1px solid rgba(255,255,255,0.03);cursor:pointer}
+  #logo img{width:44px;height:44px;object-fit:contain;filter:drop-shadow(0 6px 18px rgba(0,0,0,0.45))}
+
+  #mini-clock{
+    position:fixed;right:18px;top:12px;width:64px;height:64px;border-radius:18px;background:linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.02));
+    display:flex;align-items:center;justify-content:center;z-index:1001;border:1px solid rgba(255,255,255,0.03);cursor:pointer
+  }
+  #mini-clock:focus{outline:3px solid rgba(126,44,247,0.18);outline-offset:4px}
+
+  /* fullscreen control pill (hidden small) */
+  .clock-controls{position:fixed;right:18px;top:86px;display:flex;gap:8px;z-index:1001}
+  .btn{background:linear-gradient(90deg,var(--accent),var(--accent-2));color:#fff;padding:8px 12px;border-radius:999px;font-weight:700;border:none;cursor:pointer;box-shadow:0 8px 30px rgba(126,44,247,0.12);transition:transform .18s var(--ease)}
+  .btn:active{transform:translateY(1px)}
+
+  /* ===== hero ===== */
+  .hero{display:grid;place-items:center;text-align:center;padding:36px 18px;border-radius:18px;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));box-shadow:0 10px 40px rgba(2,6,23,0.6);backdrop-filter:blur(6px)}
+  .hero h1{font-size:clamp(2.2rem,4vw,3.6rem);line-height:1.02;background:linear-gradient(45deg,var(--accent),var(--accent-2));-webkit-background-clip:text;background-clip:text;color:transparent;font-weight:900}
+  .hero p{color:var(--muted);max-width:780px;margin-top:10px;font-size:1.05rem}
+
+  /* ===== projects grid ===== */
+  .projects{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:22px}
+  .card{
+    position:relative;padding:20px;border-radius:14px;background:var(--card-bg);border:1px solid rgba(255,255,255,0.03);
+    transition:transform .35s var(--ease),box-shadow .35s var(--ease);cursor:pointer;overflow:hidden;
+  }
+  .card:hover{transform:translateY(-8px) rotateX(2deg);box-shadow:0 30px 80px rgba(2,6,23,0.6)}
+  .card h3{font-size:1.2rem;margin-bottom:8px;color:#eaf4ff}
+  .card p{color:var(--muted);line-height:1.45;font-size:.98rem}
+  .card .cta{display:inline-block;margin-top:14px;padding:8px 12px;border-radius:10px;background:rgba(255,255,255,0.02);color:var(--accent);font-weight:800;border:1px solid rgba(126,44,247,0.12)}
+
+  .card.soon{opacity:.6;filter:grayscale(.1);pointer-events:none}
+
+  /* ===== contact ===== */
+  .contact{max-width:520px;margin:0 auto;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));padding:20px;border-radius:14px;border:1px solid rgba(255,255,255,0.03)}
+  .contact h2{color:#eaf4ff;margin-bottom:8px}
+  .form-row{display:flex;gap:10px}
+  .form-row .field{flex:1;display:flex;flex-direction:column;gap:6px}
+  input,textarea{background:transparent;border:1px solid rgba(255,255,255,0.06);padding:10px;border-radius:10px;color:#eaf4ff;font-weight:600}
+  input:focus,textarea:focus{outline:none;border-color:rgba(126,44,247,0.45);box-shadow:0 6px 28px rgba(126,44,247,0.08)}
+  textarea{min-height:110px;resize:vertical}
+  .form-note{font-size:.88rem;color:var(--muted);margin-top:8px}
+  .submit-row{display:flex;justify-content:space-between;align-items:center;margin-top:12px}
+  .checkbox{display:inline-flex;align-items:center;gap:8px;color:var(--muted);font-size:.95rem}
+
+  /* ===== small screens ===== */
+  @media (max-width:720px){
+    nav{gap:8px;padding:8px 12px;left:12px;transform:none}
+    #logo{left:12px}
+    .wrap{padding:calc(var(--nav-h) + 16px) 14px 60px}
+    .clock-controls{right:12px;top:86px}
+  }
+</style>
 </head>
 <body>
 
-  <div id="logo" onclick="location.href='index.html'">
-    <img src="favicon.png" alt="Miniutti Logo">
+<!-- PRELOADER -->
+<div id="loader" role="status" aria-live="polite">
+  <div class="spinner" aria-hidden="true"><span class="mark">·</span></div>
+</div>
+
+<!-- NAVBAR -->
+<nav role="navigation" aria-label="Menu principale">
+  <a href="index.html" data-tricolor="true" aria-current="page">Home</a>
+
+  <div class="dropdown" tabindex="0" aria-haspopup="true" aria-expanded="false">
+    <button class="dropbtn has-sub" aria-controls="proj-menu">Progetti</button>
+    <div id="proj-menu" class="dropdown-menu" role="menu" aria-label="Sottomenu progetti">
+      <a href="clock.html" role="menuitem">SBB Clock</a>
+      <a href="progetti.html" role="menuitem">Altri Progetti</a>
+    </div>
   </div>
 
-  <nav>
-    <a href="index.html">Home</a>
-    <div class="dropdown">
-      <div class="dropbtn has-sub">Progetti</div>
-      <div class="dropdown-content">
-        <a href="clock.html">SBB Clock</a>
-        <span style="display:block;padding:0.9rem 1.5rem;color:#aaa;font-style:italic">In arrivo...</span>
-        <a href="progetti.html">Altri Progetti</a>
+  <a href="clock.html" data-tricolor="true">SBB Clock</a>
+</nav>
+
+<!-- floating logo and mini clock -->
+<div id="logo" role="link" aria-label="Vai alla home" tabindex="0" onclick="location.href='index.html'">
+  <img src="favicon.png" alt="logo miniutti">
+</div>
+
+<div id="mini-clock" tabindex="0" role="button" aria-label="Orologio SBB — Apri pagina orologio">
+  <!-- SBBUhr will render inside -->
+</div>
+
+<div class="clock-controls" aria-hidden="false">
+  <button class="btn" id="open-clock">Apri orologio</button>
+  <button class="btn" id="fs-toggle" title="Fullscreen (F)">Fullscreen (F)</button>
+</div>
+
+<!-- PAGE CONTENT -->
+<main class="wrap" id="main">
+
+  <!-- HERO -->
+  <header class="hero" role="banner" aria-labelledby="hero-title">
+    <h1 id="hero-title">Miniutti.it — progetti & idee</h1>
+    <p>Progetti soliti, curati nei dettagli: orologi SBB, utility, e piccoli esperimenti web. Design pulito, animazioni sottili, e performance come priorità.</p>
+  </header>
+
+  <!-- PROJECTS -->
+  <section aria-labelledby="sec-projects">
+    <h2 id="sec-projects" class="visually-hidden">Progetti</h2>
+    <div class="projects" role="list">
+      <article class="card" role="listitem" tabindex="0" aria-labelledby="p-sbb">
+        <h3 id="p-sbb">SBB Clock</h3>
+        <p>Riproduzione fedele dell'orologio svizzero, animazioni fluide, supporto fullscreen e tasto rapido 'F'.</p>
+        <a class="cta" href="clock.html" aria-label="Vai alla pagina dell'orologio">Apri SBB Clock →</a>
+      </article>
+
+      <article class="card soon" role="listitem" aria-labelledby="p-soon">
+        <h3 id="p-soon">In arrivo</h3>
+        <p>Nuovi widget e componenti responsive. Aggiornamenti continui pubblicati sulla pagina progetti.</p>
+      </article>
+
+      <article class="card" role="listitem" tabindex="0" aria-labelledby="p-other">
+        <h3 id="p-other">Altri Progetti</h3>
+        <p>Utility, script e sperimentazioni di UI/UX. Documentazione e codice su richiesta.</p>
+        <a class="cta" href="progetti.html">Vedi altri →</a>
+      </article>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section class="contact" aria-labelledby="contact-title">
+    <h2 id="contact-title">Contattami</h2>
+    <form id="contact-form" novalidate>
+      <div class="form-row">
+        <div class="field">
+          <label for="name" class="visually-hidden">Nome</label>
+          <input id="name" name="name" type="text" placeholder="Nome" autocomplete="name" required aria-required="true">
+        </div>
+        <div class="field">
+          <label for="email" class="visually-hidden">Email</label>
+          <input id="email" name="email" type="email" placeholder="email@esempio.com" autocomplete="email" required aria-required="true">
+        </div>
       </div>
-    </div>
-    <a href="clock.html">SBB Clock</a>
-  </nav>
 
-  <section class="hero">
-    <h1>Miniutti.it</h1>
-    <p>Benvenuto nel mio sito personale, dove condivido i miei progetti e idee.</p>
-  </section>
+      <div style="margin-top:12px">
+        <label for="message" class="visually-hidden">Messaggio</label>
+        <textarea id="message" name="message" placeholder="Scrivi il tuo messaggio..." required aria-required="true"></textarea>
+      </div>
 
-  <section class="projects">
-    <div class="project-card">
-      <h2>SBB Clock</h2>
-      <p>Riproduzione fedele dell’orologio ufficiale SBB, con animazioni fluide e design responsive.</p>
-    </div>
-    <div class="project-card not-selectable">
-      <h2>Progetto in arrivo</h2>
-      <p>In fase di sviluppo. Resta sintonizzato per le novità.</p>
-    </div>
-    <div class="project-card">
-      <h2>Altri Progetti</h2>
-      <p>Visita la pagina dedicata per scoprire altri lavori e aggiornamenti.</p>
-      <a href="progetti.html" style="color:var(--col-primary);font-weight:700">Vai alla pagina</a>
-    </div>
-  </section>
+      <div class="submit-row">
+        <div>
+          <label class="checkbox"><input type="checkbox" id="newsletter" name="newsletter"> Iscrivimi alla newsletter</label>
+          <div class="form-note">L'email serve solo per risponderti o inviare aggiornamenti se acconsenti.</div>
+        </div>
 
-  <section class="contact-section">
-    <h2>Contattami</h2>
-    <form class="contact-form" action="mailto:info@miniutti.it" method="POST" enctype="text/plain">
-      <input type="text" name="name" placeholder="Nome" required>
-      <input type="email" name="email" placeholder="Email" required>
-      <textarea name="message" rows="5" placeholder="Messaggio" required></textarea>
-      <button type="submit">Invia</button>
+        <div>
+          <button type="submit" class="btn" id="send">Invia</button>
+        </div>
+      </div>
+
+      <div id="form-msg" role="status" aria-live="polite" style="margin-top:10px;color:var(--accent-2);display:none"></div>
     </form>
   </section>
 
-  <div id="mini-clock"></div>
+</main>
 
-  <script>
-    document.addEventListener("DOMContentLoaded", () => {
-      const miniClock = document.getElementById("mini-clock");
-      if (typeof SBBUhr !== "undefined" && miniClock) {
-        new SBBUhr({target: miniClock, type: "digital", size: 56});
+<!-- ===== Scripts (behavior) ===== -->
+<script>
+/* ===== hide loader ===== */
+document.addEventListener('DOMContentLoaded', () => {
+  const loader = document.getElementById('loader');
+  setTimeout(()=> loader.classList.add('hidden'), 350); // slight delay for polish
+
+  /* SBB Uhr init */
+  const miniClock = document.getElementById('mini-clock');
+  if (typeof SBBUhr !== 'undefined' && miniClock) {
+    new SBBUhr({
+      target: miniClock,
+      type: 'digital',
+      size: 56,
+      showSeconds: false,
+      showDate: false,
+      fullScreenBtn: false,
+      fullScreenKey: false
+    });
+  }
+
+  /* interazioni mini-clock */
+  const openClockBtn = document.getElementById('open-clock');
+  const fsBtn = document.getElementById('fs-toggle');
+
+  function openClockPage(){ location.href = 'clock.html' }
+  miniClock.addEventListener('click', openClockPage);
+  miniClock.addEventListener('keydown', (e)=> { if(e.key==='Enter' || e.key===' ') { e.preventDefault(); openClockPage(); } });
+  openClockBtn.addEventListener('click', openClockPage);
+
+  /* fullscreen toggle for the mini-clock container */
+  function toggleFullscreen(){
+    const el = document.getElementById('mini-clock');
+    if(!document.fullscreenElement){
+      if(el.requestFullscreen) el.requestFullscreen();
+    } else {
+      if(document.exitFullscreen) document.exitFullscreen();
+    }
+  }
+  fsBtn.addEventListener('click', toggleFullscreen);
+
+  /* keyboard shortcut F (case-insensitive) */
+  window.addEventListener('keydown', (e)=>{
+    if(e.key==='f' || e.key==='F'){
+      // only trigger when not typing into inputs
+      const tag = document.activeElement.tagName.toLowerCase();
+      if(tag !== 'input' && tag !== 'textarea') {
+        toggleFullscreen();
+      }
+    }
+    // quick open with "o" (optional)
+    if(e.key==='o' || e.key==='O'){ openClockPage(); }
+  });
+
+  /* accessible dropdown toggling (aria) */
+  document.querySelectorAll('.dropdown').forEach(dd=>{
+    dd.addEventListener('mouseenter', ()=> dd.setAttribute('aria-expanded','true'));
+    dd.addEventListener('mouseleave', ()=> dd.setAttribute('aria-expanded','false'));
+    // keyboard toggling
+    dd.addEventListener('keydown', (ev)=>{
+      if(ev.key==='Enter' || ev.key===' '){
+        const expanded = dd.getAttribute('aria-expanded') === 'true';
+        dd.setAttribute('aria-expanded', (!expanded).toString());
       }
     });
-  </script>
+  });
+
+  /* simple form handling (demo) */
+  const form = document.getElementById('contact-form');
+  const msg = document.getElementById('form-msg');
+  form.addEventListener('submit', (e)=>{
+    e.preventDefault();
+    // basic validation
+    const name = form.name.value.trim();
+    const email = form.email.value.trim();
+    const message = form.message.value.trim();
+    if(!name || !email || !message){
+      msg.textContent = 'Per favore compila tutti i campi.'; msg.style.display='block'; msg.style.color='tomato'; return;
+    }
+    // If you want real email sending, integrate server endpoint or form service.
+    msg.style.color = 'var(--accent-2)';
+    msg.textContent = 'Messaggio pronto — qui puoi integrarlo con mailto o endpoint server.';
+    msg.style.display='block';
+    form.reset();
+  });
+});
+</script>
+
+<!-- small helper to hide visually but keep for screenreaders -->
+<style>.visually-hidden{position:absolute!important;height:1px;width:1px;overflow:hidden;clip:rect(1px,1px,1px,1px);white-space:nowrap;border:0;padding:0;margin:-1px}</style>
 </body>
 </html>
