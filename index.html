@@ -5,123 +5,118 @@
 <meta name="viewport" content="width=device-width,initial-scale=1" />
 <title>Miniutti.it — Home</title>
 <link rel="icon" href="favicon.png" />
+<!-- Assicurati che sbbUhr-1.3.js sia presente nella stessa cartella -->
 <script src="sbbUhr-1.3.js" defer></script>
 
-<!-- ===== Styles (single file, ready-to-use) ===== -->
 <style>
-  /* ===== reset ===== */
+  /* ======================= RESET & VARS ======================= */
   *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
   html,body{height:100%}
-  body{
-    font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial;
-    -webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;
-    color:#0f1724; background:linear-gradient(180deg,#0f1724 0%, #071022 100%);
-    min-height:100vh; overflow-x:hidden;
-  }
-
   :root{
     --nav-h:72px;
-    --radius:16px;
-    --glass:rgba(255,255,255,0.06);
-    --glass-2:rgba(255,255,255,0.06);
-    --accent:#7e2cf7; /* viola profondo */
-    --accent-2:#00e5ff; /* ciano neon */
-    --muted:#9aa6b2;
-    --card-bg:linear-gradient(135deg, rgba(255,255,255,0.03), rgba(255,255,255,0.02));
-    --ease:cubic-bezier(.2,.9,.3,1);
+    --bg-1:#071428; /* profondità */
+    --bg-2:#081025;
+    --accent-1:#6f2df0; /* viola profondo */
+    --accent-2:#00d8ff; /* ciano */
+    --muted:#9fb1bd;
+    --glass:rgba(255,255,255,0.04);
+    --glass-2:rgba(255,255,255,0.03);
+    --radius:14px;
+    --ease:cubic-bezier(.16,.84,.3,1);
+    --tricolor:linear-gradient(90deg,#00703c,#ffffff,#d62f27);
+    --max-width:1200px;
   }
-
-  /* ===== animated subtle background (GPU friendly) ===== */
-  :root::before{
-    content:"";position:fixed;inset:0;z-index:-2;pointer-events:none;
-    background:
-      radial-gradient(1200px 600px at 10% 10%, rgba(126,44,247,0.14), transparent 12%),
-      radial-gradient(900px 500px at 90% 80%, rgba(0,229,255,0.06), transparent 12%);
-    filter:blur(40px);transform:translateZ(0);opacity:0.95;
-    animation:slowShift 18s linear infinite;
+  body{
+    font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial;
+    -webkit-font-smoothing:antialiased;
+    -moz-osx-font-smoothing:grayscale;
+    color:#e8f0f8;background:linear-gradient(180deg,var(--bg-1),var(--bg-2));
+    min-height:100vh;overflow-x:hidden;
+    -webkit-font-smoothing:antialiased;
   }
-  @keyframes slowShift{0%{transform:translateX(-10px) translateY(0)}50%{transform:translateX(10px) translateY(-6px)}100%{transform:translateX(-10px) translateY(0)}}
+  a{color:inherit;text-decoration:none}
 
-  /* ===== page container ===== */
-  .wrap{max-width:1200px;margin:0 auto;padding:calc(var(--nav-h) + 28px) 20px 80px;display:flex;flex-direction:column;gap:36px}
-
-  /* ===== preloader ===== */
-  #loader{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;background:linear-gradient(180deg, rgba(2,6,23,0.98), rgba(2,6,18,0.96));z-index:9999;transition:opacity .4s var(--ease)}
+  /* ======================= PRELOADER ======================= */
+  #loader{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;background:linear-gradient(180deg,rgba(3,6,12,0.98),rgba(3,6,12,0.96));z-index:9999;transition:opacity .35s var(--ease)}
   #loader.hidden{opacity:0;pointer-events:none}
-  .spinner{width:64px;height:64px;border-radius:50%;display:grid;place-items:center;position:relative}
-  .spinner::before{content:"";position:absolute;width:48px;height:48px;border-radius:50%;border:4px solid rgba(255,255,255,0.08);border-top-color:var(--accent);animation:spin 1s linear infinite}
-  .spinner .mark{color:var(--accent-2);font-weight:700;font-family:monospace}
+  .loader-dot{width:64px;height:64px;border-radius:50%;display:grid;place-items:center;position:relative;filter:drop-shadow(0 10px 30px rgba(0,0,0,0.6))}
+  .loader-ring{width:48px;height:48px;border-radius:50%;border:4px solid rgba(255,255,255,0.06);border-top-color:var(--accent-1);animation:spin 1s linear infinite}
   @keyframes spin{to{transform:rotate(360deg)}}
 
-  /* ===== navbar ===== */
-  nav{position:fixed;top:12px;left:50%;transform:translateX(-50%);height:var(--nav-h);display:flex;align-items:center;gap:18px;padding:6px 18px;border-radius:999px;background:linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.02));backdrop-filter:blur(10px);box-shadow:0 10px 30px rgba(2,6,23,0.6);z-index:1001}
-  nav a, nav .dropbtn{color:#e6eef8;padding:10px 14px;border-radius:12px;font-weight:600;position:relative;display:inline-flex;align-items:center;gap:8px}
-  nav a:hover, nav .dropbtn:hover{transform:translateY(-3px);filter:brightness(1.1)}
-  /* tricolor underline (only visible on hover) */
-  nav a::after, nav .dropbtn::after{content:"";position:absolute;left:10%;right:10%;height:3px;bottom:-8px;border-radius:6px;background:transparent;transition:all .25s var(--ease);opacity:0}
-  nav a[data-tricolor="true"]:hover::after{background:linear-gradient(90deg,#00703c,#fff,#d62f27);opacity:1}
-  /* arrow only for dropdown */
-  .dropbtn.has-sub::after{content:"▾";position:static;margin-left:6px;font-size:0.72rem;opacity:.9}
+  /* ======================= NAVBAR ======================= */
+  nav{position:fixed;left:50%;transform:translateX(-50%);top:14px;height:var(--nav-h);display:flex;align-items:center;gap:16px;padding:8px 18px;border-radius:999px;background:linear-gradient(180deg,rgba(255,255,255,0.03),rgba(255,255,255,0.02));backdrop-filter:blur(8px);box-shadow:0 10px 40px rgba(2,6,18,0.6);z-index:1100}
+  nav a, nav .dropbtn{color:#eaf6ff;padding:10px 14px;border-radius:12px;font-weight:700;position:relative;display:inline-flex;align-items:center;gap:8px}
+  nav a:hover, nav .dropbtn:hover{transform:translateY(-3px);filter:brightness(1.05)}
+  /* tricolore underline only on hover */
+  nav a::after, nav .dropbtn::after{content:"";position:absolute;left:12%;right:12%;height:3px;bottom:-8px;border-radius:6px;opacity:0;transition:opacity .22s var(--ease)}
+  nav a[data-tricolor="true"]:hover::after{background:var(--tricolor);opacity:1}
+  .dropbtn.has-sub::after{content:"▾";position:static;margin-left:6px;font-size:0.72rem;opacity:.95}
 
   .dropdown{position:relative}
-  .dropdown-menu{position:absolute;top:calc(100% + 10px);left:0;min-width:220px;background:linear-gradient(180deg, rgba(8,12,20,0.92), rgba(12,16,26,0.94));border-radius:12px;padding:8px;border:1px solid rgba(255,255,255,0.03);box-shadow:0 10px 30px rgba(2,6,23,0.6);display:none}
-  .dropdown:focus-within .dropdown-menu, .dropdown:hover .dropdown-menu{display:block;animation:pop .18s ease}
-  .dropdown-menu a{display:block;padding:10px 12px;color:#dfe9f5;border-radius:10px;font-weight:600}
-  .dropdown-menu a:hover{background:linear-gradient(90deg, rgba(126,44,247,0.12), rgba(0,229,255,0.06));color:#fff;transform:translateX(6px)}
+  .dropdown-menu{position:absolute;top:calc(100% + 10px);left:0;min-width:220px;background:linear-gradient(180deg, rgba(6,12,20,0.95), rgba(10,16,26,0.98));border-radius:12px;padding:8px;border:1px solid rgba(255,255,255,0.03);box-shadow:0 12px 40px rgba(0,0,0,0.6);display:none}
+  .dropdown:focus-within .dropdown-menu, .dropdown:hover .dropdown-menu{display:block;animation:pop .16s var(--ease)}
+  .dropdown-menu a{display:block;padding:10px 12px;color:#dbeffd;border-radius:8px;font-weight:700}
+  .dropdown-menu a:hover{background:linear-gradient(90deg, rgba(111,45,240,0.12), rgba(0,216,255,0.06));color:#fff;transform:translateX(6px)}
 
   @keyframes pop{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:translateY(0)}}
 
-  /* ===== logo & mini-clock floating controls ===== */
-  #logo{position:fixed;left:18px;top:10px;width:64px;height:64px;border-radius:18px;background:linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.02));display:grid;place-items:center;z-index:1001;border:1px solid rgba(255,255,255,0.03);cursor:pointer}
-  #logo img{width:44px;height:44px;object-fit:contain;filter:drop-shadow(0 6px 18px rgba(0,0,0,0.45))}
+  /* ======================= FLOATING LOGO & MINI CLOCK ======================= */
+  #logo{position:fixed;left:18px;top:12px;width:64px;height:64px;border-radius:16px;background:linear-gradient(180deg,rgba(255,255,255,0.02),rgba(255,255,255,0.01));display:grid;place-items:center;z-index:1100;border:1px solid rgba(255,255,255,0.03);cursor:pointer}
+  #logo img{width:44px;height:44px;object-fit:contain;filter:drop-shadow(0 8px 22px rgba(0,0,0,0.6))}
 
-  #mini-clock{
-    position:fixed;right:18px;top:12px;width:64px;height:64px;border-radius:18px;background:linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.02));
-    display:flex;align-items:center;justify-content:center;z-index:1001;border:1px solid rgba(255,255,255,0.03);cursor:pointer
-  }
-  #mini-clock:focus{outline:3px solid rgba(126,44,247,0.18);outline-offset:4px}
+  #mini-clock{position:fixed;right:18px;top:12px;width:64px;height:64px;border-radius:16px;background:linear-gradient(180deg,rgba(255,255,255,0.02),rgba(255,255,255,0.01));display:flex;align-items:center;justify-content:center;z-index:1100;border:1px solid rgba(255,255,255,0.03);cursor:pointer}
+  #mini-clock:focus{outline:3px solid rgba(111,45,240,0.16);outline-offset:3px}
 
-  /* fullscreen control pill (hidden small) */
-  .clock-controls{position:fixed;right:18px;top:86px;display:flex;gap:8px;z-index:1001}
-  .btn{background:linear-gradient(90deg,var(--accent),var(--accent-2));color:#fff;padding:8px 12px;border-radius:999px;font-weight:700;border:none;cursor:pointer;box-shadow:0 8px 30px rgba(126,44,247,0.12);transition:transform .18s var(--ease)}
+  /* small control pill below clock */
+  .clock-controls{position:fixed;right:18px;top:86px;display:flex;gap:8px;z-index:1100}
+  .btn{background:linear-gradient(90deg,var(--accent-1),var(--accent-2));color:#021420;padding:9px 12px;border-radius:999px;font-weight:800;border:none;cursor:pointer;box-shadow:0 10px 30px rgba(111,45,240,0.12);transition:transform .18s var(--ease)}
   .btn:active{transform:translateY(1px)}
 
-  /* ===== hero ===== */
-  .hero{display:grid;place-items:center;text-align:center;padding:36px 18px;border-radius:18px;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));box-shadow:0 10px 40px rgba(2,6,23,0.6);backdrop-filter:blur(6px)}
-  .hero h1{font-size:clamp(2.2rem,4vw,3.6rem);line-height:1.02;background:linear-gradient(45deg,var(--accent),var(--accent-2));-webkit-background-clip:text;background-clip:text;color:transparent;font-weight:900}
-  .hero p{color:var(--muted);max-width:780px;margin-top:10px;font-size:1.05rem}
+  /* ======================= LAYOUT WRAPPER ======================= */
+  .wrap{max-width:var(--max-width);margin:0 auto;padding:calc(var(--nav-h) + 36px) 20px 80px;display:flex;flex-direction:column;gap:36px;min-height:70vh}
 
-  /* ===== projects grid ===== */
-  .projects{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:22px}
-  .card{
-    position:relative;padding:20px;border-radius:14px;background:var(--card-bg);border:1px solid rgba(255,255,255,0.03);
-    transition:transform .35s var(--ease),box-shadow .35s var(--ease);cursor:pointer;overflow:hidden;
+  /* ======================= HERO with centered clock ======================= */
+  .hero{display:grid;grid-template-columns:1fr 420px;gap:36px;align-items:center;position:relative}
+  .hero-left{padding:28px;border-radius:14px;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));box-shadow:0 20px 60px rgba(0,0,0,0.45);backdrop-filter:blur(6px)}
+  .hero h1{font-size:clamp(2.1rem,4vw,3.4rem);line-height:1.02;background:linear-gradient(45deg,var(--accent-1),var(--accent-2));-webkit-background-clip:text;background-clip:text;color:transparent;font-weight:900;margin-bottom:10px}
+  .hero p{color:var(--muted);font-size:1.05rem;max-width:56ch}
+
+  /* central clock container (considers navbar height) */
+  .clock-wrap{display:flex;align-items:center;justify-content:center;height:100%;min-height:260px}
+  #sbb-clock-large{width:320px;height:140px;border-radius:14px;background:linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.02));display:flex;align-items:center;justify-content:center;box-shadow:0 20px 60px rgba(0,0,0,0.5);border:1px solid rgba(255,255,255,0.03);cursor:pointer}
+  #sbb-clock-large.small{width:220px;height:100px}
+
+  /* ======================= PROJECTS grid ======================= */
+  .projects{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:20px}
+  .card{padding:18px;border-radius:12px;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));border:1px solid rgba(255,255,255,0.03);transition:transform .32s var(--ease),box-shadow .32s var(--ease);cursor:pointer}
+  .card:hover{transform:translateY(-10px);box-shadow:0 30px 80px rgba(0,0,0,0.6)}
+  .card h3{color:#eaf6ff;margin-bottom:8px;font-size:1.05rem}
+  .card p{color:var(--muted);font-size:.96rem;line-height:1.45}
+  .card .link{display:inline-block;margin-top:12px;padding:8px 12px;border-radius:10px;background:rgba(255,255,255,0.02);color:var(--accent-1);font-weight:800;border:1px solid rgba(111,45,240,0.08)}
+
+  .card.soon{opacity:.6;pointer-events:none;filter:grayscale(.05)}
+
+  /* ======================= CONTACT section ======================= */
+  .contact{max-width:720px;margin:0 auto;padding:18px;border-radius:12px;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));border:1px solid rgba(255,255,255,0.03)}
+  .contact h2{color:#eaf6ff;margin-bottom:10px}
+  .form-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  input,textarea{background:transparent;border:1px solid rgba(255,255,255,0.06);padding:10px;border-radius:10px;color:#eaf6ff;font-weight:700}
+  input:focus,textarea:focus{outline:none;border-color:rgba(111,45,240,0.45);box-shadow:0 8px 28px rgba(111,45,240,0.06)}
+  textarea{min-height:120px;resize:vertical}
+  .muted{color:var(--muted);font-size:.95rem;margin-top:8px}
+
+  /* ======================= UTILITIES & RESPONSIVE ======================= */
+  .visually-hidden{position:absolute!important;height:1px;width:1px;overflow:hidden;clip:rect(1px,1px,1px,1px);white-space:nowrap;border:0;padding:0;margin:-1px}
+  @media (max-width:980px){
+    .hero{grid-template-columns:1fr;gap:18px}
+    .clock-wrap{order: -1}
   }
-  .card:hover{transform:translateY(-8px) rotateX(2deg);box-shadow:0 30px 80px rgba(2,6,23,0.6)}
-  .card h3{font-size:1.2rem;margin-bottom:8px;color:#eaf4ff}
-  .card p{color:var(--muted);line-height:1.45;font-size:.98rem}
-  .card .cta{display:inline-block;margin-top:14px;padding:8px 12px;border-radius:10px;background:rgba(255,255,255,0.02);color:var(--accent);font-weight:800;border:1px solid rgba(126,44,247,0.12)}
-
-  .card.soon{opacity:.6;filter:grayscale(.1);pointer-events:none}
-
-  /* ===== contact ===== */
-  .contact{max-width:520px;margin:0 auto;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));padding:20px;border-radius:14px;border:1px solid rgba(255,255,255,0.03)}
-  .contact h2{color:#eaf4ff;margin-bottom:8px}
-  .form-row{display:flex;gap:10px}
-  .form-row .field{flex:1;display:flex;flex-direction:column;gap:6px}
-  input,textarea{background:transparent;border:1px solid rgba(255,255,255,0.06);padding:10px;border-radius:10px;color:#eaf4ff;font-weight:600}
-  input:focus,textarea:focus{outline:none;border-color:rgba(126,44,247,0.45);box-shadow:0 6px 28px rgba(126,44,247,0.08)}
-  textarea{min-height:110px;resize:vertical}
-  .form-note{font-size:.88rem;color:var(--muted);margin-top:8px}
-  .submit-row{display:flex;justify-content:space-between;align-items:center;margin-top:12px}
-  .checkbox{display:inline-flex;align-items:center;gap:8px;color:var(--muted);font-size:.95rem}
-
-  /* ===== small screens ===== */
-  @media (max-width:720px){
-    nav{gap:8px;padding:8px 12px;left:12px;transform:none}
+  @media (max-width:520px){
+    nav{left:12px;transform:none}
     #logo{left:12px}
-    .wrap{padding:calc(var(--nav-h) + 16px) 14px 60px}
-    .clock-controls{right:12px;top:86px}
+    #mini-clock{right:12px}
+    .wrap{padding:calc(var(--nav-h) + 14px) 14px 60px}
+    #sbb-clock-large{width:240px;height:110px}
   }
 </style>
 </head>
@@ -129,10 +124,12 @@
 
 <!-- PRELOADER -->
 <div id="loader" role="status" aria-live="polite">
-  <div class="spinner" aria-hidden="true"><span class="mark">·</span></div>
+  <div class="loader-dot" aria-hidden="true">
+    <div class="loader-ring"></div>
+  </div>
 </div>
 
-<!-- NAVBAR -->
+<!-- NAV -->
 <nav role="navigation" aria-label="Menu principale">
   <a href="index.html" data-tricolor="true" aria-current="page">Home</a>
 
@@ -147,48 +144,54 @@
   <a href="clock.html" data-tricolor="true">SBB Clock</a>
 </nav>
 
-<!-- floating logo and mini clock -->
+<!-- floating logo & mini clock -->
 <div id="logo" role="link" aria-label="Vai alla home" tabindex="0" onclick="location.href='index.html'">
-  <img src="favicon.png" alt="logo miniutti">
+  <img src="favicon.png" alt="Miniutti logo">
 </div>
 
-<div id="mini-clock" tabindex="0" role="button" aria-label="Orologio SBB — Apri pagina orologio">
-  <!-- SBBUhr will render inside -->
+<div id="mini-clock" tabindex="0" role="button" aria-label="Orologio SBB — Apri orologio (Enter)">
+  <!-- SBBUhr renderer -->
 </div>
 
 <div class="clock-controls" aria-hidden="false">
   <button class="btn" id="open-clock">Apri orologio</button>
-  <button class="btn" id="fs-toggle" title="Fullscreen (F)">Fullscreen (F)</button>
+  <button class="btn" id="fs-toggle" title="Fullscreen — tasto F">Fullscreen (F)</button>
 </div>
 
-<!-- PAGE CONTENT -->
+<!-- MAIN -->
 <main class="wrap" id="main">
 
   <!-- HERO -->
-  <header class="hero" role="banner" aria-labelledby="hero-title">
-    <h1 id="hero-title">Miniutti.it — progetti & idee</h1>
-    <p>Progetti soliti, curati nei dettagli: orologi SBB, utility, e piccoli esperimenti web. Design pulito, animazioni sottili, e performance come priorità.</p>
-  </header>
+  <section class="hero" aria-labelledby="hero-title">
+    <div class="hero-left">
+      <h1 id="hero-title">Miniutti.it — progetti & strumenti</h1>
+      <p>Progetti curati, UI rifinita e componenti replicabili. Qui trovi il mio SBB clock, altri widget e demo di design con attenzione a performance e accessibilità.</p>
+    </div>
+
+    <div class="clock-wrap" aria-hidden="false">
+      <div id="sbb-clock-large" role="region" aria-label="Orologio SBB grande" tabindex="0"></div>
+    </div>
+  </section>
 
   <!-- PROJECTS -->
   <section aria-labelledby="sec-projects">
     <h2 id="sec-projects" class="visually-hidden">Progetti</h2>
     <div class="projects" role="list">
-      <article class="card" role="listitem" tabindex="0" aria-labelledby="p-sbb">
-        <h3 id="p-sbb">SBB Clock</h3>
-        <p>Riproduzione fedele dell'orologio svizzero, animazioni fluide, supporto fullscreen e tasto rapido 'F'.</p>
-        <a class="cta" href="clock.html" aria-label="Vai alla pagina dell'orologio">Apri SBB Clock →</a>
+      <article class="card" role="listitem" tabindex="0" aria-labelledby="p1">
+        <h3 id="p1">SBB Clock</h3>
+        <p>Riproduzione fedele dell'orologio svizzero, animazioni originali e supporto fullscreen + scorciatoia tastiera.</p>
+        <a class="link" href="clock.html" aria-label="Apri pagina orologio">Apri →</a>
       </article>
 
-      <article class="card soon" role="listitem" aria-labelledby="p-soon">
-        <h3 id="p-soon">In arrivo</h3>
-        <p>Nuovi widget e componenti responsive. Aggiornamenti continui pubblicati sulla pagina progetti.</p>
+      <article class="card soon" role="listitem" aria-labelledby="p2">
+        <h3 id="p2">In arrivo</h3>
+        <p>Nuovi widget e miglioramenti UI. Documentazione e repo disponibili a richiesta.</p>
       </article>
 
-      <article class="card" role="listitem" tabindex="0" aria-labelledby="p-other">
-        <h3 id="p-other">Altri Progetti</h3>
-        <p>Utility, script e sperimentazioni di UI/UX. Documentazione e codice su richiesta.</p>
-        <a class="cta" href="progetti.html">Vedi altri →</a>
+      <article class="card" role="listitem" tabindex="0" aria-labelledby="p3">
+        <h3 id="p3">Altri Progetti</h3>
+        <p>Tooling, script e sperimentazioni con attenzione a UX, accessibilità e performance.</p>
+        <a class="link" href="progetti.html">Vedi altri →</a>
       </article>
     </div>
   </section>
@@ -197,128 +200,125 @@
   <section class="contact" aria-labelledby="contact-title">
     <h2 id="contact-title">Contattami</h2>
     <form id="contact-form" novalidate>
-      <div class="form-row">
-        <div class="field">
-          <label for="name" class="visually-hidden">Nome</label>
-          <input id="name" name="name" type="text" placeholder="Nome" autocomplete="name" required aria-required="true">
-        </div>
-        <div class="field">
-          <label for="email" class="visually-hidden">Email</label>
-          <input id="email" name="email" type="email" placeholder="email@esempio.com" autocomplete="email" required aria-required="true">
-        </div>
+      <div class="form-grid">
+        <input id="name" name="name" type="text" placeholder="Nome" autocomplete="name" required aria-required="true">
+        <input id="email" name="email" type="email" placeholder="email@esempio.com" autocomplete="email" required aria-required="true">
       </div>
 
       <div style="margin-top:12px">
-        <label for="message" class="visually-hidden">Messaggio</label>
-        <textarea id="message" name="message" placeholder="Scrivi il tuo messaggio..." required aria-required="true"></textarea>
+        <textarea id="message" name="message" placeholder="Messaggio..." required aria-required="true"></textarea>
       </div>
 
-      <div class="submit-row">
-        <div>
-          <label class="checkbox"><input type="checkbox" id="newsletter" name="newsletter"> Iscrivimi alla newsletter</label>
-          <div class="form-note">L'email serve solo per risponderti o inviare aggiornamenti se acconsenti.</div>
-        </div>
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-top:12px;gap:12px;flex-wrap:wrap">
+        <label style="color:var(--muted);font-weight:700"><input id="newsletter" name="newsletter" type="checkbox" style="margin-right:8px"> Iscrivimi alla newsletter</label>
 
-        <div>
+        <div style="display:flex;gap:10px;align-items:center">
           <button type="submit" class="btn" id="send">Invia</button>
+          <button type="button" class="btn" id="mailto-fallback" title="Apri mail client">Apri mail</button>
         </div>
       </div>
 
-      <div id="form-msg" role="status" aria-live="polite" style="margin-top:10px;color:var(--accent-2);display:none"></div>
+      <div id="form-msg" role="status" aria-live="polite" style="margin-top:10px;display:none;color:var(--accent-2)"></div>
+      <div class="muted" style="margin-top:8px">L'email serve solo per rispondere o inviare aggiornamenti se acconsenti. Nessuna condivisione.</div>
     </form>
   </section>
 
 </main>
 
-<!-- ===== Scripts (behavior) ===== -->
+<!-- SCRIPTS -->
 <script>
-/* ===== hide loader ===== */
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', ()=> {
+  // hide loader
   const loader = document.getElementById('loader');
-  setTimeout(()=> loader.classList.add('hidden'), 350); // slight delay for polish
+  setTimeout(()=> loader.classList.add('hidden'), 320);
 
-  /* SBB Uhr init */
-  const miniClock = document.getElementById('mini-clock');
-  if (typeof SBBUhr !== 'undefined' && miniClock) {
-    new SBBUhr({
-      target: miniClock,
-      type: 'digital',
-      size: 56,
-      showSeconds: false,
-      showDate: false,
-      fullScreenBtn: false,
-      fullScreenKey: false
-    });
+  // init SBB clocks
+  const miniClockEl = document.getElementById('mini-clock');
+  const largeClockEl = document.getElementById('sbb-clock-large');
+
+  if (typeof SBBUhr !== 'undefined') {
+    // mini
+    try {
+      new SBBUhr({ target: miniClockEl, type: 'digital', size: 56, showSeconds: false, showDate: false, fullScreenBtn:false, fullScreenKey:false });
+    } catch(e){}
+    // large (centered)
+    try {
+      new SBBUhr({ target: largeClockEl, type: 'digital', size: 220, showSeconds: true, showDate: true, fullScreenBtn:false, fullScreenKey:false });
+    } catch(e){}
   }
 
-  /* interazioni mini-clock */
-  const openClockBtn = document.getElementById('open-clock');
+  // actions
+  const openClock = ()=> location.href = 'clock.html';
+  miniClockEl.addEventListener('click', openClock);
+  miniClockEl.addEventListener('keydown', (e)=> { if(e.key==='Enter' || e.key===' ') { e.preventDefault(); openClock(); } });
+
+  document.getElementById('open-clock').addEventListener('click', openClock);
+
+  // fullscreen toggle for large clock
   const fsBtn = document.getElementById('fs-toggle');
-
-  function openClockPage(){ location.href = 'clock.html' }
-  miniClock.addEventListener('click', openClockPage);
-  miniClock.addEventListener('keydown', (e)=> { if(e.key==='Enter' || e.key===' ') { e.preventDefault(); openClockPage(); } });
-  openClockBtn.addEventListener('click', openClockPage);
-
-  /* fullscreen toggle for the mini-clock container */
-  function toggleFullscreen(){
-    const el = document.getElementById('mini-clock');
-    if(!document.fullscreenElement){
-      if(el.requestFullscreen) el.requestFullscreen();
-    } else {
-      if(document.exitFullscreen) document.exitFullscreen();
-    }
+  const sbbContainer = largeClockEl;
+  async function toggleFullscreen(){
+    try{
+      if(!document.fullscreenElement){
+        if(sbbContainer.requestFullscreen) await sbbContainer.requestFullscreen();
+      } else {
+        if(document.exitFullscreen) await document.exitFullscreen();
+      }
+    }catch(e){}
   }
   fsBtn.addEventListener('click', toggleFullscreen);
 
-  /* keyboard shortcut F (case-insensitive) */
+  // key 'F' toggles fullscreen (ignore typing)
   window.addEventListener('keydown', (e)=>{
-    if(e.key==='f' || e.key==='F'){
-      // only trigger when not typing into inputs
-      const tag = document.activeElement.tagName.toLowerCase();
-      if(tag !== 'input' && tag !== 'textarea') {
-        toggleFullscreen();
-      }
-    }
-    // quick open with "o" (optional)
-    if(e.key==='o' || e.key==='O'){ openClockPage(); }
+    const tag = document.activeElement.tagName.toLowerCase();
+    if(tag==='input' || tag==='textarea') return;
+    if(e.key==='f' || e.key==='F') { e.preventDefault(); toggleFullscreen(); }
+    if(e.key==='o' || e.key==='O') { openClock(); }
   });
 
-  /* accessible dropdown toggling (aria) */
+  // dropdown accessible aria toggles
   document.querySelectorAll('.dropdown').forEach(dd=>{
     dd.addEventListener('mouseenter', ()=> dd.setAttribute('aria-expanded','true'));
     dd.addEventListener('mouseleave', ()=> dd.setAttribute('aria-expanded','false'));
-    // keyboard toggling
-    dd.addEventListener('keydown', (ev)=>{
+    dd.addEventListener('keydown', (ev)=> {
       if(ev.key==='Enter' || ev.key===' '){
+        ev.preventDefault();
         const expanded = dd.getAttribute('aria-expanded') === 'true';
         dd.setAttribute('aria-expanded', (!expanded).toString());
       }
     });
   });
 
-  /* simple form handling (demo) */
+  // simple form handler — client-side only
   const form = document.getElementById('contact-form');
-  const msg = document.getElementById('form-msg');
+  const formMsg = document.getElementById('form-msg');
+  const mailtoBtn = document.getElementById('mailto-fallback');
+
   form.addEventListener('submit', (e)=>{
     e.preventDefault();
-    // basic validation
-    const name = form.name.value.trim();
-    const email = form.email.value.trim();
-    const message = form.message.value.trim();
+    const name = form.name?.value?.trim() || form.querySelector('#name')?.value?.trim();
+    const email = form.email?.value?.trim() || form.querySelector('#email')?.value?.trim();
+    const message = form.message?.value?.trim() || form.querySelector('#message')?.value?.trim();
     if(!name || !email || !message){
-      msg.textContent = 'Per favore compila tutti i campi.'; msg.style.display='block'; msg.style.color='tomato'; return;
+      formMsg.style.display='block'; formMsg.style.color='tomato'; formMsg.textContent = 'Compila tutti i campi prima di inviare.';
+      return;
     }
-    // If you want real email sending, integrate server endpoint or form service.
-    msg.style.color = 'var(--accent-2)';
-    msg.textContent = 'Messaggio pronto — qui puoi integrarlo con mailto o endpoint server.';
-    msg.style.display='block';
+    // default behavior: show ready-to-send and clear; integrate server after
+    formMsg.style.display='block'; formMsg.style.color='var(--accent-2)'; formMsg.textContent='Messaggio pronto — integra qui il tuo backend o servizio email.';
     form.reset();
+  });
+
+  // mailto fallback: opens user's client with prefilled mail
+  mailtoBtn.addEventListener('click', ()=>{
+    const name = encodeURIComponent(document.getElementById('name').value || '');
+    const email = encodeURIComponent(document.getElementById('email').value || '');
+    const message = encodeURIComponent(document.getElementById('message').value || '');
+    const subject = encodeURIComponent('Contatto da miniutti.it — ' + (name || ''));
+    const body = encodeURIComponent('Da: ' + name + ' (' + email + ')\n\n' + message);
+    window.location.href = `mailto:info@miniutti.it?subject=${subject}&body=${body}`;
   });
 });
 </script>
 
-<!-- small helper to hide visually but keep for screenreaders -->
-<style>.visually-hidden{position:absolute!important;height:1px;width:1px;overflow:hidden;clip:rect(1px,1px,1px,1px);white-space:nowrap;border:0;padding:0;margin:-1px}</style>
 </body>
 </html>
