@@ -3,114 +3,232 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Miniutti.it — Progetti & Orologio SBB</title>
+<title>Miniutti.it - Progetti & Orologio SBB</title>
+
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet" />
+
 <style>
   /* Reset base */
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-  html, body { height: 100%; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #0a1a33; color: #dbe9ff; }
+  *, *::before, *::after {
+    margin: 0; padding: 0; box-sizing: border-box;
+  }
+  html, body {
+    height: 100%;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+      Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+    background: linear-gradient(135deg, #0b1437, #1a214d);
+    color: #e0e6f3;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    user-select: none;
+  }
 
-  /* Navbar */
+  /* Variabili colori */
+  :root {
+    --purple-light: #a377ff;
+    --purple-dark: #5c37af;
+    --gray-light: #e0e6f3;
+    --gray-mid: #8a95b2;
+    --gray-dark: #2c2f48;
+    --green: #00703c;
+    --red: #d62f27;
+    --transition-fast: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    --border-radius: 14px;
+    --glass-bg: rgba(255 255 255 / 0.1);
+    --glass-border: rgba(255 255 255 / 0.3);
+    --glass-shadow: rgba(255 255 255 / 0.15);
+    --tricolor-gradient: linear-gradient(90deg, #00703c, #ffffff, #d62f27);
+  }
+
+  /* NAVBAR */
   nav {
-    position: fixed; top: 0; left: 50%; transform: translateX(-50%);
-    background: #07122e;
-    width: 100%; max-width: 1100px;
-    height: 60px; display: flex; align-items: center; gap: 24px;
-    padding: 0 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.6);
-    z-index: 1000;
+    position: fixed;
+    top: 0; left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    max-width: 1100px;
+    height: 64px;
+    padding: 0 2rem;
+    background: var(--glass-bg);
+    border-radius: 0 0 var(--border-radius) var(--border-radius);
+    backdrop-filter: saturate(180%) blur(16px);
+    -webkit-backdrop-filter: saturate(180%) blur(16px);
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 2rem;
+    box-shadow:
+      0 8px 32px rgba(0,0,0,0.1),
+      inset 0 0 0 1px var(--glass-border);
+    user-select: none;
+    font-weight: 600;
+    font-size: 1.125rem;
+    z-index: 1100;
   }
   nav a {
-    color: #aab9d6; text-decoration: none; font-weight: 600; position: relative;
-    padding: 6px 0; transition: color 0.25s ease;
-  }
-  nav a:hover,
-  nav a:focus {
-    color: #a377ff;
-    outline: none;
+    color: var(--gray-light);
+    text-decoration: none;
+    position: relative;
+    padding: 0.7rem 0;
+    transition: color var(--transition-fast);
   }
   nav a::after {
     content: "";
-    position: absolute; left: 0; bottom: -6px; width: 100%; height: 3px;
-    background: linear-gradient(90deg, #00703c, #fff, #d62f27);
-    opacity: 0; border-radius: 2px;
-    transition: opacity 0.3s ease;
+    position: absolute;
+    left: 10%;
+    bottom: 0;
+    width: 80%;
+    height: 3px;
+    background: var(--tricolor-gradient);
+    opacity: 0;
+    border-radius: 3px;
+    transition: opacity var(--transition-fast);
+  }
+  nav a:hover,
+  nav a:focus {
+    color: var(--purple-light);
+    outline: none;
   }
   nav a:hover::after,
   nav a:focus::after {
     opacity: 1;
   }
 
-  /* Main wrapper */
+  /* MAIN CONTAINER */
   main {
-    max-width: 1100px; margin: 100px auto 60px; padding: 0 20px;
-    display: flex; flex-direction: column; align-items: center; gap: 40px;
-  }
-
-  /* Hero section */
-  .hero {
-    width: 100%; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center;
-    gap: 30px;
-  }
-  .hero-text {
-    flex: 1 1 320px;
-    max-width: 520px;
-  }
-  .hero-text h1 {
-    font-size: 2.8rem;
-    color: #a377ff;
-    margin-bottom: 14px;
-    font-weight: 900;
-  }
-  .hero-text p {
-    font-size: 1.1rem;
-    color: #c0d1ffcc;
-    line-height: 1.45;
-  }
-
-  /* Clock container */
-  #sbb-clock {
-    flex: 0 0 360px;
-    height: 160px;
-    background: #16294b;
-    border-radius: 16px;
-    box-shadow: 0 10px 40px rgba(123,60,255,0.3);
+    margin: 120px auto 60px;
+    max-width: 900px;
+    padding: 0 1.5rem;
     display: flex;
+    flex-direction: column;
+    align-items: center;
+    user-select: none;
+  }
+
+  /* HERO */
+  .hero {
+    text-align: center;
+    max-width: 600px;
+    margin-bottom: 3rem;
+  }
+  .hero h1 {
+    font-weight: 900;
+    font-size: 3.8rem;
+    background: linear-gradient(45deg, var(--purple-light), var(--purple-dark));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    color: transparent;
+    letter-spacing: 0.02em;
+    user-select: none;
+    animation: gradientShift 6s ease-in-out infinite alternate;
+  }
+  .hero p {
+    margin-top: 1rem;
+    font-size: 1.3rem;
+    color: var(--gray-mid);
+    line-height: 1.5;
+  }
+
+  /* CLOCK */
+  #sbb-clock {
+    width: 320px;
+    height: 160px;
+    background: var(--glass-bg);
+    border-radius: var(--border-radius);
+    box-shadow:
+      0 12px 28px rgba(83, 37, 160, 0.3),
+      inset 0 0 0 1px var(--glass-border);
+    display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
+    position: relative;
     cursor: pointer;
     user-select: none;
-    position: relative;
+    transition: box-shadow 0.3s ease;
+  }
+  #sbb-clock:hover,
+  #sbb-clock:focus-visible {
+    box-shadow:
+      0 20px 48px rgba(83, 37, 160, 0.6),
+      inset 0 0 0 1.5px var(--purple-light);
+    outline: none;
+  }
+
+  /* Clock time */
+  #sbb-clock .time {
+    font-family: 'Swiss 721', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-weight: 900;
+    font-size: 4rem;
+    letter-spacing: 0.05em;
+    color: var(--purple-light);
+    user-select: none;
+    line-height: 1;
+  }
+  #sbb-clock .date {
+    margin-top: 8px;
+    font-weight: 600;
+    font-size: 1.3rem;
+    color: var(--gray-mid);
   }
 
   /* Fullscreen button */
   #btn-fullscreen {
     position: absolute;
-    bottom: 10px; right: 12px;
-    background: #7b3cff;
+    bottom: 12px;
+    right: 12px;
+    background: var(--purple-light);
     border: none;
-    color: #fff;
+    color: white;
     font-weight: 700;
     border-radius: 12px;
     padding: 6px 12px;
-    font-size: 0.9rem;
+    font-size: 0.85rem;
     cursor: pointer;
-    box-shadow: 0 6px 14px rgba(123,60,255,0.6);
+    box-shadow: 0 6px 16px rgba(163, 121, 255, 0.6);
     transition: background-color 0.25s ease;
   }
   #btn-fullscreen:hover,
   #btn-fullscreen:focus {
-    background-color: #5a28cc;
+    background-color: var(--purple-dark);
     outline: none;
   }
 
+  /* Footer */
+  footer {
+    margin-top: 3rem;
+    font-size: 0.9rem;
+    color: var(--gray-mid);
+    text-align: center;
+    user-select: none;
+  }
+
+  /* Animations */
+  @keyframes gradientShift {
+    0% {
+      background-position: 0% 50%;
+    }
+    100% {
+      background-position: 100% 50%;
+    }
+  }
+
   /* Responsive */
-  @media (max-width: 720px) {
-    .hero {
-      flex-direction: column; align-items: center;
+  @media (max-width: 480px) {
+    .hero h1 {
+      font-size: 2.8rem;
     }
     #sbb-clock {
-      width: 100%;
-      max-width: 360px;
+      width: 280px;
       height: 140px;
+    }
+    #sbb-clock .time {
+      font-size: 3.4rem;
+    }
+    #sbb-clock .date {
+      font-size: 1.1rem;
     }
   }
 </style>
@@ -124,53 +242,44 @@
 </nav>
 
 <main>
-  <section class="hero" aria-label="Introduzione ai progetti e orologio">
-    <div class="hero-text">
-      <h1>Miniutti.it — Progetti & Orologio SBB</h1>
-      <p>Riproduzione fedele dell’orologio svizzero con animazioni fluide e supporto fullscreen.  
-         Design semplice, accessibile e professionale, perfetto per i tuoi progetti.</p>
-    </div>
-    <div id="sbb-clock" role="region" aria-label="Orologio SBB digitale" tabindex="0">
-      <!-- Orologio digitale sarà inserito via JS -->
-      <button id="btn-fullscreen" aria-label="Attiva modalità fullscreen orologio">Fullscreen (F)</button>
-    </div>
+  <section class="hero" aria-label="Introduzione sito Miniutti.it">
+    <h1>Miniutti.it</h1>
+    <p>Progetti personali e riproduzione fedele dell’orologio svizzero ufficiale SBB con animazioni fluide e supporto fullscreen.</p>
+  </section>
+
+  <section id="sbb-clock" role="region" aria-label="Orologio digitale SBB" tabindex="0">
+    <div class="time" aria-live="polite" aria-atomic="true"></div>
+    <div class="date"></div>
+    <button id="btn-fullscreen" aria-label="Attiva modalità fullscreen orologio" tabindex="0" title="Fullscreen (tasto F)">Fullscreen</button>
   </section>
 </main>
 
+<footer>
+  &copy; 2025 Miniutti.it — Tutti i diritti riservati
+</footer>
+
 <script>
-  // Funzione orologio digitale SBB molto semplice e pulita
   const clockEl = document.getElementById('sbb-clock');
+  const timeEl = clockEl.querySelector('.time');
+  const dateEl = clockEl.querySelector('.date');
   const btnFS = document.getElementById('btn-fullscreen');
 
-  function pad(num){ return num.toString().padStart(2,'0'); }
+  // Padding numeri < 10
+  const pad = (n) => n.toString().padStart(2, '0');
 
+  // Aggiorna orario e data
   function updateClock() {
     const now = new Date();
-    // Formato HH:MM:SS
-    const timeStr = `${pad(now.getHours())}:${pad(now.getMinutes())}:${pad(now.getSeconds())}`;
-    // Data gg/mm/aaaa
-    const dateStr = `${pad(now.getDate())}/${pad(now.getMonth()+1)}/${now.getFullYear()}`;
-
-    // Visualizzazione pulita
-    clockEl.style.fontFamily = "'Helvetica Neue', Helvetica, Arial, sans-serif";
-    clockEl.style.fontWeight = "700";
-    clockEl.style.fontSize = "3.5rem";
-    clockEl.style.color = "#a377ff";
-    clockEl.style.textAlign = "center";
-    clockEl.style.userSelect = "none";
-    clockEl.style.lineHeight = "1";
-
-    clockEl.innerHTML = `<div aria-hidden="true">${timeStr}</div><div style="font-size:1.25rem;opacity:0.7;margin-top:4px;">${dateStr}</div>${btnFS.outerHTML}`;
+    const hh = pad(now.getHours());
+    const mm = pad(now.getMinutes());
+    const ss = pad(now.getSeconds());
+    timeEl.textContent = `${hh}:${mm}:${ss}`;
+    dateEl.textContent = `${pad(now.getDate())}/${pad(now.getMonth()+1)}/${now.getFullYear()}`;
   }
-
-  // Primo aggiornamento + intervallo
   updateClock();
   setInterval(updateClock, 1000);
 
-  // Riferimento nuovo bottone fullscreen dopo update
-  const newBtnFS = clockEl.querySelector('button');
-
-  // Funzione toggle fullscreen su div #sbb-clock
+  // Funzione toggle fullscreen
   function toggleFullscreen() {
     if (!document.fullscreenElement) {
       clockEl.requestFullscreen().catch(() => {});
@@ -179,30 +288,33 @@
     }
   }
 
-  // Eventi bottone fullscreen
-  newBtnFS.addEventListener('click', e => {
+  // Eventi click e tastiera sul clock
+  clockEl.addEventListener('click', toggleFullscreen);
+  clockEl.addEventListener('keydown', e => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      toggleFullscreen();
+    }
+  });
+
+  // Bottone fullscreen
+  btnFS.addEventListener('click', e => {
     e.stopPropagation();
     toggleFullscreen();
   });
-  newBtnFS.addEventListener('keydown', e => {
-    if (e.key === "Enter" || e.key === " ") {
+  btnFS.addEventListener('keydown', e => {
+    if (e.key === 'Enter' || e.key === ' ') {
       e.preventDefault();
       toggleFullscreen();
     }
   });
 
-  // Shortcut tastiera globale (F)
+  // Shortcut tastiera globale: tasto "F" per fullscreen
   window.addEventListener('keydown', e => {
-    if (document.activeElement.tagName === 'INPUT' || document.activeElement.tagName === 'TEXTAREA') return;
-    if (e.key.toLowerCase() === 'f') {
+    if (e.target.tagName !== 'INPUT' && e.target.tagName !== 'TEXTAREA' && e.key.toLowerCase() === 'f') {
       e.preventDefault();
       toggleFullscreen();
     }
-  });
-
-  // Click anywhere sul clock apre fullscreen
-  clockEl.addEventListener('click', () => {
-    toggleFullscreen();
   });
 </script>
 
