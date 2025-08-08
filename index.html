@@ -1,306 +1,209 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="it">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Miniutti.it — Home</title>
-<link rel="icon" href="favicon.png" />
-<script src="sbbUhr-1.3.js" defer></script>
-
-<!-- ========================= STILI ========================= -->
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Miniutti.it — Progetti & Orologio SBB</title>
 <style>
-  /* Reset minimale */
-  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-  html,body{height:100%}
-  :root{
-    --nav-h:72px;
-    --bg-0:#071022;      /* sfondo principale (profondo) */
-    --bg-1:#0b1a2b;      /* sfondo secondario */
-    --accent:#7b3cff;    /* viola brillante (titoli/CTA) */
-    --accent-2:#8ef0ff;  /* ghiaccio/ciano per highlights */
-    --muted:#9fb0bf;
-    --glass:rgba(255,255,255,0.03);
-    --radius:14px;
-    --ease:cubic-bezier(.16,.84,.3,1);
-    --max-w:1180px;
+  /* Reset base */
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { height: 100%; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #0a1a33; color: #dbe9ff; }
+
+  /* Navbar */
+  nav {
+    position: fixed; top: 0; left: 50%; transform: translateX(-50%);
+    background: #07122e;
+    width: 100%; max-width: 1100px;
+    height: 60px; display: flex; align-items: center; gap: 24px;
+    padding: 0 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.6);
+    z-index: 1000;
   }
-  body{
-    font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
-    -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale;
-    background: radial-gradient(900px 500px at 8% 12%, rgba(123,60,255,0.06), transparent),
-                radial-gradient(700px 420px at 92% 84%, rgba(142,240,255,0.03), transparent),
-                linear-gradient(180deg,var(--bg-0),var(--bg-1));
-    color:#e6f2fb;
-    min-height:100vh;overflow-x:hidden;
+  nav a {
+    color: #aab9d6; text-decoration: none; font-weight: 600; position: relative;
+    padding: 6px 0; transition: color 0.25s ease;
+  }
+  nav a:hover,
+  nav a:focus {
+    color: #a377ff;
+    outline: none;
+  }
+  nav a::after {
+    content: "";
+    position: absolute; left: 0; bottom: -6px; width: 100%; height: 3px;
+    background: linear-gradient(90deg, #00703c, #fff, #d62f27);
+    opacity: 0; border-radius: 2px;
+    transition: opacity 0.3s ease;
+  }
+  nav a:hover::after,
+  nav a:focus::after {
+    opacity: 1;
   }
 
-  /* ===== preloader ===== */
-  #loader{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;background:linear-gradient(180deg,rgba(2,6,12,0.96),rgba(2,8,18,0.94));z-index:9999;transition:opacity .35s var(--ease)}
-  #loader.hidden{opacity:0;pointer-events:none}
-  .loader-wrap{display:grid;place-items:center;gap:10px}
-  .loader-ring{width:64px;height:64px;border-radius:50%;border:4px solid rgba(255,255,255,0.06);border-top-color:var(--accent);animation:spin 1s linear infinite}
-  @keyframes spin{to{transform:rotate(360deg)}}
-  .loader-text{color:var(--muted);font-weight:600;font-size:0.95rem}
-
-  /* ===== NAVBAR ===== */
-  nav{
-    position:fixed;left:50%;transform:translateX(-50%);top:14px;height:var(--nav-h);
-    display:flex;align-items:center;gap:14px;padding:8px 18px;border-radius:999px;
-    background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
-    backdrop-filter:blur(8px);box-shadow:0 12px 40px rgba(0,0,0,0.6);z-index:1100;
+  /* Main wrapper */
+  main {
+    max-width: 1100px; margin: 100px auto 60px; padding: 0 20px;
+    display: flex; flex-direction: column; align-items: center; gap: 40px;
   }
-  nav a, nav .dropbtn{
-    color:#e8f6ff;padding:10px 14px;border-radius:12px;font-weight:700;position:relative;display:inline-flex;align-items:center;gap:8px;cursor:pointer;
+
+  /* Hero section */
+  .hero {
+    width: 100%; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center;
+    gap: 30px;
   }
-  nav a:focus, nav .dropbtn:focus{outline:3px solid rgba(123,60,255,0.12);outline-offset:4px;border-radius:10px}
-  nav a:hover{transform:translateY(-3px)}
-  /* tricolor underline only on hover */
-  nav a::after, nav .dropbtn::after{content:"";position:absolute;left:12%;right:12%;height:3px;bottom:-8px;border-radius:6px;opacity:0;transition:opacity .22s var(--ease)}
-  nav a[data-tricolor="true"]:hover::after{background:linear-gradient(90deg,#00703c,#ffffff,#d62f27);opacity:1}
-  /* freccia solo per dropdown */
-  .dropbtn.has-sub::after{content:"▾";position:static;margin-left:6px;font-size:0.78rem;opacity:.95}
-
-  .dropdown{position:relative}
-  .dropdown-menu{
-    position:absolute;top:calc(100% + 10px);left:0;min-width:220px;
-    background:linear-gradient(180deg, rgba(10,16,26,0.96), rgba(8,12,18,0.98));
-    border-radius:12px;padding:8px;border:1px solid rgba(255,255,255,0.03);box-shadow:0 12px 36px rgba(0,0,0,0.6);
-    display:none;
+  .hero-text {
+    flex: 1 1 320px;
+    max-width: 520px;
   }
-  .dropdown:focus-within .dropdown-menu, .dropdown:hover .dropdown-menu{display:block;animation:pop .16s var(--ease)}
-  .dropdown-menu a{display:block;padding:10px 12px;color:#dbeffd;border-radius:8px;font-weight:700}
-  .dropdown-menu a:hover{background:linear-gradient(90deg, rgba(123,60,255,0.12), rgba(142,240,255,0.05));color:#fff;transform:translateX(6px)}
-  @keyframes pop{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:translateY(0)}}
+  .hero-text h1 {
+    font-size: 2.8rem;
+    color: #a377ff;
+    margin-bottom: 14px;
+    font-weight: 900;
+  }
+  .hero-text p {
+    font-size: 1.1rem;
+    color: #c0d1ffcc;
+    line-height: 1.45;
+  }
 
-  /* ===== LOGO e MINI CLOCK (floating) ===== */
-  #logo{position:fixed;left:16px;top:12px;width:64px;height:64px;border-radius:14px;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));display:grid;place-items:center;z-index:1100;border:1px solid rgba(255,255,255,0.03);cursor:pointer}
-  #logo img{width:44px;height:44px;object-fit:contain;filter:drop-shadow(0 10px 28px rgba(0,0,0,0.6))}
-  #mini-clock{position:fixed;right:16px;top:12px;width:64px;height:64px;border-radius:14px;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));display:flex;align-items:center;justify-content:center;z-index:1100;border:1px solid rgba(255,255,255,0.03);cursor:pointer}
-  #mini-clock:focus{outline:3px solid rgba(123,60,255,0.12);outline-offset:3px}
+  /* Clock container */
+  #sbb-clock {
+    flex: 0 0 360px;
+    height: 160px;
+    background: #16294b;
+    border-radius: 16px;
+    box-shadow: 0 10px 40px rgba(123,60,255,0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    user-select: none;
+    position: relative;
+  }
 
-  /* small control pill */
-  .clock-controls{position:fixed;right:16px;top:90px;display:flex;gap:8px;z-index:1100}
-  .btn{background:linear-gradient(90deg,var(--accent),var(--accent-2));color:#031021;padding:9px 12px;border-radius:999px;font-weight:800;border:none;cursor:pointer;box-shadow:0 10px 30px rgba(123,60,255,0.12);transition:transform .18s var(--ease)}
-  .btn:active{transform:translateY(1px)}
+  /* Fullscreen button */
+  #btn-fullscreen {
+    position: absolute;
+    bottom: 10px; right: 12px;
+    background: #7b3cff;
+    border: none;
+    color: #fff;
+    font-weight: 700;
+    border-radius: 12px;
+    padding: 6px 12px;
+    font-size: 0.9rem;
+    cursor: pointer;
+    box-shadow: 0 6px 14px rgba(123,60,255,0.6);
+    transition: background-color 0.25s ease;
+  }
+  #btn-fullscreen:hover,
+  #btn-fullscreen:focus {
+    background-color: #5a28cc;
+    outline: none;
+  }
 
-  /* ===== CONTAINER ===== */
-  .wrap{max-width:var(--max-w);margin:0 auto;padding:calc(var(--nav-h) + 36px) 22px 88px;display:flex;flex-direction:column;gap:36px;min-height:70vh}
-
-  /* ===== HERO con clock centrato rispetto alla navbar ===== */
-  .hero{display:grid;grid-template-columns:1fr 420px;gap:30px;align-items:center}
-  .hero-left{padding:28px;border-radius:12px;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));box-shadow:0 18px 60px rgba(0,0,0,0.5)}
-  .hero h1{font-size:clamp(2rem,4vw,3.4rem);line-height:1.02;background:linear-gradient(45deg,var(--accent),var(--accent-2));-webkit-background-clip:text;color:transparent;font-weight:900;margin-bottom:10px}
-  .hero p{color:var(--muted);font-size:1.05rem;max-width:66ch}
-  .clock-wrap{display:flex;align-items:center;justify-content:center;height:100%;min-height:240px}
-  #sbb-clock-large{width:360px;height:150px;border-radius:12px;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));display:flex;align-items:center;justify-content:center;box-shadow:0 24px 80px rgba(0,0,0,0.55);border:1px solid rgba(255,255,255,0.03);cursor:pointer}
-
-  /* ===== PROGETTI ===== */
-  .projects{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:20px}
-  .card{padding:18px;border-radius:12px;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));border:1px solid rgba(255,255,255,0.03);transition:transform .32s var(--ease),box-shadow .32s var(--ease);cursor:pointer}
-  .card:hover{transform:translateY(-10px);box-shadow:0 30px 80px rgba(0,0,0,0.6)}
-  .card h3{color:#eaf6ff;margin-bottom:8px;font-size:1.05rem}
-  .card p{color:var(--muted);font-size:.98rem;line-height:1.45}
-  .card .link{display:inline-block;margin-top:12px;padding:8px 12px;border-radius:10px;background:rgba(255,255,255,0.02);color:var(--accent);font-weight:800;border:1px solid rgba(123,60,255,0.08)}
-  .card.soon{opacity:.6;pointer-events:none;filter:grayscale(.05)}
-
-  /* ===== CONTATTI ===== */
-  .contact{max-width:720px;margin:0 auto;padding:18px;border-radius:12px;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));border:1px solid rgba(255,255,255,0.03)}
-  .contact h2{color:#eaf6ff;margin-bottom:10px}
-  .form-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-  input,textarea{background:transparent;border:1px solid rgba(255,255,255,0.06);padding:10px;border-radius:10px;color:#eaf6ff;font-weight:700}
-  input:focus,textarea:focus{outline:none;border-color:rgba(123,60,255,0.45);box-shadow:0 8px 28px rgba(123,60,255,0.06)}
-  textarea{min-height:120px;resize:vertical}
-  .muted{color:var(--muted);font-size:.95rem;margin-top:8px}
-
-  /* VISUALLY-HIDDEN helper */
-  .vh{position:absolute!important;height:1px;width:1px;overflow:hidden;clip:rect(1px,1px,1px,1px);white-space:nowrap;border:0;padding:0;margin:-1px}
-
-  /* responsive */
-  @media (max-width:980px){.hero{grid-template-columns:1fr;gap:18px}.clock-wrap{order:-1}}
-  @media (max-width:520px){nav{left:12px;transform:none}#logo{left:12px}#mini-clock{right:12px}.wrap{padding:calc(var(--nav-h) + 14px) 14px 70px}#sbb-clock-large{width:280px;height:120px}}
+  /* Responsive */
+  @media (max-width: 720px) {
+    .hero {
+      flex-direction: column; align-items: center;
+    }
+    #sbb-clock {
+      width: 100%;
+      max-width: 360px;
+      height: 140px;
+    }
+  }
 </style>
 </head>
 <body>
 
-<!-- PRELOADER -->
-<div id="loader" role="status" aria-live="polite">
-  <div class="loader-wrap">
-    <div class="loader-ring" aria-hidden="true"></div>
-    <div class="loader-text">Caricamento…</div>
-  </div>
-</div>
-
-<!-- NAVBAR -->
 <nav role="navigation" aria-label="Menu principale">
-  <a href="index.html" data-tricolor="true" aria-current="page">Home</a>
-
-  <div class="dropdown" tabindex="0" aria-haspopup="true" aria-expanded="false">
-    <button class="dropbtn has-sub" aria-controls="proj-menu">Progetti</button>
-    <div id="proj-menu" class="dropdown-menu" role="menu" aria-label="Sottomenu progetti">
-      <a href="clock.html" role="menuitem">SBB Clock</a>
-      <a href="progetti.html" role="menuitem">Altri Progetti</a>
-    </div>
-  </div>
-
-  <a href="clock.html" data-tricolor="true">SBB Clock</a>
+  <a href="index.html" tabindex="0">Home</a>
+  <a href="clock.html" tabindex="0">SBB Clock</a>
+  <a href="progetti.html" tabindex="0">Progetti</a>
 </nav>
 
-<!-- FLOATING LOGO & MINI CLOCK -->
-<div id="logo" role="link" aria-label="Vai alla home" tabindex="0" onclick="location.href='index.html'">
-  <img src="favicon.png" alt="Miniutti logo">
-</div>
-
-<div id="mini-clock" tabindex="0" role="button" aria-label="Orologio SBB — Apri orologio">
-  <!-- SBBUhr render target -->
-</div>
-
-<div class="clock-controls" aria-hidden="false">
-  <button class="btn" id="open-clock">Apri orologio</button>
-  <button class="btn" id="fs-toggle" title="Fullscreen (F)">Fullscreen (F)</button>
-</div>
-
-<!-- CONTENT -->
-<main class="wrap" id="main">
-
-  <!-- HERO -->
-  <section class="hero" aria-labelledby="hero-title">
-    <div class="hero-left">
-      <h1 id="hero-title">Miniutti.it — progetti & strumenti</h1>
-      <p>Progetti curati, UI rifinita e componenti replicabili. Qui trovi il mio SBB Clock, widget e demo con attenzione a performance e accessibilità.</p>
+<main>
+  <section class="hero" aria-label="Introduzione ai progetti e orologio">
+    <div class="hero-text">
+      <h1>Miniutti.it — Progetti & Orologio SBB</h1>
+      <p>Riproduzione fedele dell’orologio svizzero con animazioni fluide e supporto fullscreen.  
+         Design semplice, accessibile e professionale, perfetto per i tuoi progetti.</p>
     </div>
-
-    <div class="clock-wrap" aria-hidden="false">
-      <div id="sbb-clock-large" role="region" aria-label="Orologio SBB grande" tabindex="0"></div>
+    <div id="sbb-clock" role="region" aria-label="Orologio SBB digitale" tabindex="0">
+      <!-- Orologio digitale sarà inserito via JS -->
+      <button id="btn-fullscreen" aria-label="Attiva modalità fullscreen orologio">Fullscreen (F)</button>
     </div>
   </section>
-
-  <!-- PROJECTS -->
-  <section aria-labelledby="sec-projects">
-    <h2 id="sec-projects" class="vh">Progetti</h2>
-    <div class="projects" role="list">
-      <article class="card" role="listitem" tabindex="0" aria-labelledby="p-sbb">
-        <h3 id="p-sbb">SBB Clock</h3>
-        <p>Riproduzione fedele dell’orologio svizzero, animazioni fluide, supporto fullscreen e scorciatoia tastiera.</p>
-        <a class="link" href="clock.html" aria-label="Apri SBB Clock">Apri →</a>
-      </article>
-
-      <article class="card soon" role="listitem" aria-labelledby="p-soon">
-        <h3 id="p-soon">In arrivo</h3>
-        <p>Nuovi widget e componenti; pubblicherò aggiornamenti sulla pagina progetti.</p>
-      </article>
-
-      <article class="card" role="listitem" tabindex="0" aria-labelledby="p-other">
-        <h3 id="p-other">Altri Progetti</h3>
-        <p>Utility, script e sperimentazioni UI/UX. Documentazione e repo su richiesta.</p>
-        <a class="link" href="progetti.html">Vedi altri →</a>
-      </article>
-    </div>
-  </section>
-
-  <!-- CONTACT -->
-  <section class="contact" aria-labelledby="contact-title">
-    <h2 id="contact-title">Contattami</h2>
-    <form id="contact-form" novalidate>
-      <div class="form-grid">
-        <input id="name" name="name" type="text" placeholder="Nome" autocomplete="name" required aria-required="true">
-        <input id="email" name="email" type="email" placeholder="email@esempio.com" autocomplete="email" required aria-required="true">
-      </div>
-
-      <div style="margin-top:12px">
-        <textarea id="message" name="message" placeholder="Messaggio..." required aria-required="true"></textarea>
-      </div>
-
-      <div style="display:flex;justify-content:space-between;align-items:center;margin-top:12px;gap:12px;flex-wrap:wrap">
-        <label style="color:var(--muted);font-weight:700"><input id="newsletter" name="newsletter" type="checkbox" style="margin-right:8px"> Iscrivimi alla newsletter</label>
-
-        <div style="display:flex;gap:10px;align-items:center">
-          <button type="submit" class="btn" id="send">Invia</button>
-          <button type="button" class="btn" id="mailto-fallback" title="Apri mail client">Apri mail</button>
-        </div>
-      </div>
-
-      <div id="form-msg" role="status" aria-live="polite" style="margin-top:10px;display:none;color:var(--accent-2)"></div>
-      <div class="muted" style="margin-top:8px">L'email serve solo per rispondere o inviare aggiornamenti se acconsenti. Nessuna condivisione.</div>
-    </form>
-  </section>
-
 </main>
 
-<!-- ========================= SCRIPT ========================= -->
 <script>
-/* ===== load behaviors ===== */
-document.addEventListener('DOMContentLoaded', ()=> {
-  // PRELOADER
-  const loader = document.getElementById('loader');
-  setTimeout(()=> loader.classList.add('hidden'), 300);
+  // Funzione orologio digitale SBB molto semplice e pulita
+  const clockEl = document.getElementById('sbb-clock');
+  const btnFS = document.getElementById('btn-fullscreen');
 
-  // SBB clocks: mini + large
-  const mini = document.getElementById('mini-clock');
-  const large = document.getElementById('sbb-clock-large');
-  if (typeof SBBUhr !== 'undefined') {
-    try { new SBBUhr({ target: mini, type: 'digital', size: 56, showSeconds:false, showDate:false, fullScreenBtn:false, fullScreenKey:false }); } catch(e){}
-    try { new SBBUhr({ target: large, type: 'digital', size: 220, showSeconds:true, showDate:true, fullScreenBtn:false, fullScreenKey:false }); } catch(e){}
+  function pad(num){ return num.toString().padStart(2,'0'); }
+
+  function updateClock() {
+    const now = new Date();
+    // Formato HH:MM:SS
+    const timeStr = `${pad(now.getHours())}:${pad(now.getMinutes())}:${pad(now.getSeconds())}`;
+    // Data gg/mm/aaaa
+    const dateStr = `${pad(now.getDate())}/${pad(now.getMonth()+1)}/${now.getFullYear()}`;
+
+    // Visualizzazione pulita
+    clockEl.style.fontFamily = "'Helvetica Neue', Helvetica, Arial, sans-serif";
+    clockEl.style.fontWeight = "700";
+    clockEl.style.fontSize = "3.5rem";
+    clockEl.style.color = "#a377ff";
+    clockEl.style.textAlign = "center";
+    clockEl.style.userSelect = "none";
+    clockEl.style.lineHeight = "1";
+
+    clockEl.innerHTML = `<div aria-hidden="true">${timeStr}</div><div style="font-size:1.25rem;opacity:0.7;margin-top:4px;">${dateStr}</div>${btnFS.outerHTML}`;
   }
 
-  // interactions: open clock page
-  const openClock = ()=> location.href = 'clock.html';
-  mini.addEventListener('click', openClock);
-  mini.addEventListener('keydown', (e)=> { if(e.key==='Enter' || e.key===' ') { e.preventDefault(); openClock(); } });
-  document.getElementById('open-clock').addEventListener('click', openClock);
+  // Primo aggiornamento + intervallo
+  updateClock();
+  setInterval(updateClock, 1000);
 
-  // fullscreen toggle for large clock
-  const fsBtn = document.getElementById('fs-toggle');
-  const sbbEl = large;
-  async function toggleFS(){
-    try{
-      if(!document.fullscreenElement){ if(sbbEl.requestFullscreen) await sbbEl.requestFullscreen(); }
-      else { if(document.exitFullscreen) await document.exitFullscreen(); }
-    }catch(e){}
-  }
-  fsBtn.addEventListener('click', toggleFS);
+  // Riferimento nuovo bottone fullscreen dopo update
+  const newBtnFS = clockEl.querySelector('button');
 
-  // keyboard shortcuts: F = fullscreen, O = open clock (ignore when typing)
-  window.addEventListener('keydown', (e)=>{
-    const tag = document.activeElement.tagName.toLowerCase();
-    if(tag==='input' || tag==='textarea') return;
-    if(e.key==='f' || e.key==='F'){ e.preventDefault(); toggleFS(); }
-    if(e.key==='o' || e.key==='O'){ openClock(); }
-  });
-
-  // accessible dropdown aria
-  document.querySelectorAll('.dropdown').forEach(dd=>{
-    dd.addEventListener('mouseenter', ()=> dd.setAttribute('aria-expanded','true'));
-    dd.addEventListener('mouseleave', ()=> dd.setAttribute('aria-expanded','false'));
-    dd.addEventListener('keydown', (ev)=> {
-      if(ev.key==='Enter' || ev.key===' '){ ev.preventDefault(); const expanded = dd.getAttribute('aria-expanded') === 'true'; dd.setAttribute('aria-expanded', (!expanded).toString()); }
-    });
-  });
-
-  // contact form (client-side only)
-  const form = document.getElementById('contact-form');
-  const msg = document.getElementById('form-msg');
-  form.addEventListener('submit', (e)=>{
-    e.preventDefault();
-    const name = form.name.value.trim(), email = form.email.value.trim(), message = form.message.value.trim();
-    if(!name || !email || !message){
-      msg.style.display='block'; msg.style.color='tomato'; msg.textContent='Completa tutti i campi.';
-      return;
+  // Funzione toggle fullscreen su div #sbb-clock
+  function toggleFullscreen() {
+    if (!document.fullscreenElement) {
+      clockEl.requestFullscreen().catch(() => {});
+    } else {
+      document.exitFullscreen().catch(() => {});
     }
-    // placeholder: integrate server-side or service later
-    msg.style.display='block'; msg.style.color='var(--accent-2)'; msg.textContent='Messaggio pronto — integra qui il backend.';
-    form.reset();
+  }
+
+  // Eventi bottone fullscreen
+  newBtnFS.addEventListener('click', e => {
+    e.stopPropagation();
+    toggleFullscreen();
+  });
+  newBtnFS.addEventListener('keydown', e => {
+    if (e.key === "Enter" || e.key === " ") {
+      e.preventDefault();
+      toggleFullscreen();
+    }
   });
 
-  // mailto fallback
-  document.getElementById('mailto-fallback').addEventListener('click', ()=>{
-    const name = encodeURIComponent(document.getElementById('name').value || '');
-    const email = encodeURIComponent(document.getElementById('email').value || '');
-    const message = encodeURIComponent(document.getElementById('message').value || '');
-    const subject = encodeURIComponent('Contatto da miniutti.it — ' + (name || ''));
-    const body = encodeURIComponent('Da: ' + name + ' (' + email + ')\n\n' + message);
-    window.location.href = `mailto:info@miniutti.it?subject=${subject}&body=${body}`;
+  // Shortcut tastiera globale (F)
+  window.addEventListener('keydown', e => {
+    if (document.activeElement.tagName === 'INPUT' || document.activeElement.tagName === 'TEXTAREA') return;
+    if (e.key.toLowerCase() === 'f') {
+      e.preventDefault();
+      toggleFullscreen();
+    }
   });
-});
+
+  // Click anywhere sul clock apre fullscreen
+  clockEl.addEventListener('click', () => {
+    toggleFullscreen();
+  });
 </script>
 
 </body>
