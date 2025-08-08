@@ -1,734 +1,213 @@
 <!DOCTYPE html>
 <html lang="it">
-
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Miniutti.it - Home</title>
-  <link rel="icon" href="favicon.png" />
+  <link rel="icon" href="favicon.png">
   <script src="sbbUhr-1.3.js" defer></script>
-
   <style>
-    /* ======================= RESET & VARIABILI ======================= */
-    *,
-    *::before,
-    *::after {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
+    /* ===== RESET ===== */
+    *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+      background: #f5f5f7;
+      color:#222;
+      overflow-x:hidden;
+      -webkit-font-smoothing:antialiased;
+      display:flex;flex-direction:column;min-height:100vh;
+      user-select:none;
+    }
+    a{text-decoration:none;color:inherit;user-select:none}
+    img{max-width:100%;display:block}
+
+    :root{
+      --col-primary:#76237f;
+      --col-primary-dark:#5c1a64;
+      --col-white:#fff;
+      --col-gray:#888;
+      --radius:14px;
+      --glass-bg:rgba(255,255,255,0.65);
+      --glass-border:rgba(255,255,255,0.4);
+      --tricolor:linear-gradient(90deg,#00703c,#fff,#d62f27);
+      --transition:0.3s ease;
     }
 
-    :root {
-      --col-purple: #76237f;
-      --col-purple-dark: #5c1a64;
-      --col-white: #ffffff;
-      --col-gray-light: #f5f5f7;
-      --col-gray-medium: #888888;
-      --col-gray-dark: #222222;
-      --shadow-light: rgba(0, 0, 0, 0.08);
-      --shadow-heavy: rgba(0, 0, 0, 0.12);
-      --ease: cubic-bezier(0.4, 0, 0.2, 1);
-      --tricolor-gradient: linear-gradient(90deg, #00703c, #ffffff, #d62f27);
-      --border-radius: 14px;
-      --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-      --transition-fast: 0.25s var(--ease);
-      --transition-medium: 0.4s var(--ease);
-      --transition-slow: 0.6s var(--ease);
+    /* ===== NAVBAR ===== */
+    nav{
+      position:fixed;top:0;left:50%;transform:translateX(-50%);
+      display:flex;align-items:center;gap:2rem;padding:0 2rem;height:64px;
+      background:var(--glass-bg);backdrop-filter:blur(12px);
+      border-radius:0 0 var(--radius) var(--radius);
+      box-shadow:0 8px 32px rgba(0,0,0,0.08), inset 0 0 0 1px var(--glass-border);
+      font-weight:600;font-size:1.1rem;z-index:1000;
+    }
+    nav a,nav .dropbtn{
+      padding:0.7rem 1.25rem;border-radius:var(--radius);
+      background:rgba(255,255,255,0.5);box-shadow:inset 0 0 8px rgba(255,255,255,0.35);
+      transition:var(--transition);
+    }
+    nav a:hover,nav .dropbtn:hover{
+      color:var(--col-primary);background:rgba(118,35,127,0.1);
+      box-shadow:0 0 8px rgba(118,35,127,0.3);
+      transform:scale(1.05);
+    }
+    nav a::after,nav .dropbtn.has-sub::after{
+      content:"";position:absolute;left:10%;bottom:0;width:80%;height:3px;
+      background:var(--tricolor);opacity:0;transition:opacity var(--transition);
+      border-radius:3px;
+    }
+    nav a:hover::after,nav .dropbtn.has-sub:hover::after{opacity:1}
 
-      /* Liquid glass effect */
-      --glass-bg: rgba(255, 255, 255, 0.7);
-      --glass-border: rgba(255, 255, 255, 0.4);
-      --glass-shadow: rgba(255, 255, 255, 0.6);
+    /* ===== DROPDOWN ===== */
+    .dropdown{position:relative}
+    .dropdown-content{
+      display:none;position:absolute;top:100%;left:0;
+      background:var(--glass-bg);backdrop-filter:blur(16px);
+      min-width:220px;padding:0.75rem 0;border-radius:var(--radius);
+      box-shadow:0 12px 36px rgba(0,0,0,0.12), inset 0 0 0 1px var(--glass-border);
+    }
+    .dropdown:hover .dropdown-content{display:block;animation:fadeIn 0.3s ease}
+    .dropdown-content a{
+      display:block;padding:0.9rem 1.5rem;transition:var(--transition);
+    }
+    .dropdown-content a:hover{
+      background:rgba(118,35,127,0.12);color:var(--col-primary);transform:translateX(6px);
     }
 
-    /* ======================= BODY ======================= */
-    body {
-      font-family: var(--font-sans);
-      background: var(--col-gray-light);
-      color: var(--col-gray-dark);
-      scroll-behavior: smooth;
-      overflow-x: hidden;
-      -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
-      user-select: none;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
+    /* ===== LOGO & CLOCK ===== */
+    #logo,#mini-clock{
+      position:fixed;top:10px;width:56px;height:56px;
+      background:var(--glass-bg);border-radius:50%;
+      box-shadow:0 10px 30px rgba(0,0,0,0.1),inset 0 2px 10px rgba(255,255,255,0.7);
+      display:flex;align-items:center;justify-content:center;
+      border:1px solid var(--glass-border);
+      transition:var(--transition);cursor:pointer;z-index:1001;
+    }
+    #logo{left:16px} #mini-clock{right:22px}
+    #logo:hover,#mini-clock:hover{
+      transform:scale(1.08);box-shadow:0 18px 48px var(--col-primary);
     }
 
-    a,
-    span,
-    div {
-      user-select: none;
+    /* ===== HERO ===== */
+    .hero{text-align:center;padding:7rem 1.5rem 2rem;max-width:760px;margin:auto}
+    .hero h1{
+      font-size:3.5rem;font-weight:900;
+      background:linear-gradient(45deg,var(--col-primary),var(--col-primary-dark));
+      -webkit-background-clip:text;color:transparent;
+    }
+    .hero p{font-size:1.3rem;color:var(--col-gray);margin-top:0.6rem}
+
+    /* ===== PROJECTS ===== */
+    .projects{
+      display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+      gap:2rem;max-width:1200px;margin:3rem auto;padding:0 1.5rem;
+    }
+    .project-card{
+      background:var(--glass-bg);backdrop-filter:blur(20px);
+      padding:1.8rem;border-radius:var(--radius);
+      box-shadow:0 12px 32px rgba(0,0,0,0.08),inset 0 0 0 1px var(--glass-border);
+      transition:var(--transition);cursor:pointer;text-align:center;
+    }
+    .project-card:hover{
+      transform:scale(1.05);box-shadow:0 20px 60px rgba(118,35,127,0.3);
+      color:var(--col-primary);
+    }
+    .project-card.not-selectable{opacity:0.5;cursor:default}
+
+    /* ===== CONTACT ===== */
+    .contact-section{
+      max-width:400px;margin:4rem auto;padding:0 1rem;
+    }
+    .contact-section h2{text-align:center;color:var(--col-primary-dark);margin-bottom:1rem}
+    .contact-form{display:flex;flex-direction:column;gap:1rem}
+    .contact-form input,.contact-form textarea{
+      padding:0.85rem 1rem;border-radius:var(--radius);border:1.8px solid #ccc;
+      font-family:inherit;font-size:1rem;transition:border-color var(--transition);
+    }
+    .contact-form input:focus,.contact-form textarea:focus{
+      border-color:var(--col-primary);outline:none;background:#faf7ff;
+    }
+    .contact-form button{
+      padding:0.9rem 1.2rem;border:none;border-radius:var(--radius);
+      background:var(--col-primary);color:#fff;font-weight:700;
+      cursor:pointer;transition:var(--transition);
+    }
+    .contact-form button:hover{
+      background:var(--col-primary-dark);box-shadow:0 8px 28px var(--col-primary-dark);
     }
 
-    /* ======================= LOADER ======================= */
-    #loader {
-      position: fixed;
-      inset: 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: var(--col-white);
-      z-index: 99999;
-    }
+    /* ===== ANIMATIONS ===== */
+    @keyframes fadeIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
 
-    .spinner {
-      width: 60px;
-      height: 60px;
-      border: 6px solid #ccc;
-      border-top: 6px solid var(--col-purple);
-      border-radius: 50%;
-      animation: spin 1.2s linear infinite;
-    }
-
-    @keyframes spin {
-      to {
-        transform: rotate(360deg);
-      }
-    }
-
-    /* ======================= NAVBAR ======================= */
-    nav {
-      position: fixed;
-      top: 0;
-      left: 50%;
-      transform: translateX(-50%);
-      height: 64px;
-      background: var(--glass-bg);
-      backdrop-filter: saturate(180%) blur(12px);
-      -webkit-backdrop-filter: saturate(180%) blur(12px);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 2rem;
-      padding: 0 2rem;
-      z-index: 1100;
-      font-weight: 600;
-      font-size: 1.125rem;
-      letter-spacing: 0.02em;
-      user-select: none;
-      border-radius: 0 0 var(--border-radius) var(--border-radius);
-      box-shadow:
-        0 8px 32px var(--shadow-light),
-        inset 0 0 0 1px var(--glass-border);
-      transition: box-shadow var(--transition-medium);
-    }
-
-    nav:hover {
-      box-shadow:
-        0 12px 48px var(--shadow-heavy),
-        inset 0 0 0 1px var(--glass-border);
-    }
-
-    nav a,
-    .dropbtn {
-      color: var(--col-gray-dark);
-      text-decoration: none;
-      padding: 0.7rem 1.25rem;
-      position: relative;
-      display: inline-flex;
-      align-items: center;
-      cursor: pointer;
-      transition:
-        color var(--transition-fast),
-        transform var(--transition-fast),
-        text-shadow var(--transition-fast);
-      user-select: none;
-      border-radius: var(--border-radius);
-      backdrop-filter: saturate(180%) blur(12px);
-      -webkit-backdrop-filter: saturate(180%) blur(12px);
-      box-shadow: inset 0 0 8px rgba(255 255 255 / 0.35);
-      background: rgba(255 255 255 / 0.5);
-    }
-
-    nav a:hover,
-    .dropbtn:hover {
-      color: var(--col-purple);
-      transform: scale(1.07) translateZ(0);
-      text-shadow: 0 0 6px var(--col-purple);
-      background: rgba(118, 35, 127, 0.1);
-      box-shadow: 0 0 8px rgba(118, 35, 127, 0.3);
-      backdrop-filter: saturate(180%) blur(20px);
-      -webkit-backdrop-filter: saturate(180%) blur(20px);
-    }
-
-    nav a::after,
-    .dropbtn::after {
-      content: "";
-      position: absolute;
-      left: 10%;
-      bottom: 0;
-      width: 80%;
-      height: 3px;
-      background: var(--tricolor-gradient);
-      opacity: 0;
-      transition: opacity var(--transition-fast);
-      border-radius: 3px;
-      pointer-events: none;
-      user-select: none;
-    }
-
-    nav a:hover::after,
-    .dropbtn:hover::after {
-      opacity: 1;
-    }
-
-    /* Freccia solo per dropdown */
-    .dropbtn::after {
-      content: " \25BE";
-      font-size: 0.75rem;
-      position: static;
-      margin-left: 0.5rem;
-      opacity: 1;
-      background: none;
-      user-select: none;
-    }
-
-    /* ======================= DROPDOWN ======================= */
-    .dropdown {
-      position: relative;
-      z-index: 1110;
-      user-select: none;
-    }
-
-    .dropdown-content {
-      display: none;
-      position: absolute;
-      top: 100%;
-      left: 0;
-      background: var(--glass-bg);
-      backdrop-filter: saturate(180%) blur(16px);
-      -webkit-backdrop-filter: saturate(180%) blur(16px);
-      box-shadow:
-        0 12px 36px var(--shadow-heavy),
-        inset 0 0 0 1px var(--glass-border);
-      border-radius: var(--border-radius);
-      padding: 0.75rem 0;
-      min-width: 220px;
-      transform-origin: top center;
-      animation: fadeSlideDown 0.4s ease forwards;
-      font-weight: 500;
-      color: var(--col-gray-dark);
-      letter-spacing: 0.01em;
-      user-select: none;
-    }
-
-    /* apertura SOLO hover o focus nel dropdown */
-    nav .dropdown:hover > .dropdown-content,
-    nav .dropdown:focus-within > .dropdown-content {
-      display: block;
-      opacity: 1;
-      visibility: visible;
-    }
-
-    .dropdown-content a,
-    .dropdown-content .not-selectable {
-      padding: 0.9rem 1.75rem;
-      display: block;
-      white-space: nowrap;
-      border-radius: var(--border-radius);
-      transition: background var(--transition-fast), color var(--transition-fast),
-        transform var(--transition-fast);
-      user-select: none;
-      color: var(--col-gray-dark);
-      cursor: pointer;
-    }
-
-    .dropdown-content a:hover {
-      background: rgba(118, 35, 127, 0.12);
-      color: var(--col-purple);
-      transform: translateX(7px);
-      box-shadow: 0 0 8px rgba(118, 35, 127, 0.25);
-    }
-
-    .dropdown-content .not-selectable {
-      color: #aaa;
-      cursor: default;
-      user-select: none;
-      pointer-events: none;
-      font-style: italic;
-      font-weight: 400;
-    }
-
-    /* Bottone "Altri Progetti" tematizzato */
-    .dropdown-content .btn-progetti {
-      margin-top: 0.4rem;
-      background: var(--col-purple);
-      color: var(--col-white);
-      border-radius: var(--border-radius);
-      font-weight: 700;
-      text-align: center;
-      user-select: none;
-      transition: background var(--transition-medium);
-      box-shadow: 0 0 6px rgba(118, 35, 127, 0.35);
-      cursor: pointer;
-    }
-
-    .dropdown-content .btn-progetti:hover {
-      background: var(--col-purple-dark);
-      box-shadow: 0 0 14px var(--col-purple-dark);
-      transform: scale(1.06);
-      color: var(--col-white);
-    }
-
-    @keyframes fadeSlideDown {
-      0% {
-        opacity: 0;
-        transform: scaleY(0.8) translateY(-10px);
-      }
-
-      100% {
-        opacity: 1;
-        transform: scaleY(1) translateY(0);
-      }
-    }
-
-    /* ======================= MINI CLOCK ======================= */
-    #mini-clock {
-      position: fixed;
-      top: 12px;
-      right: 22px;
-      width: 56px;
-      height: 56px;
-      background: var(--glass-bg);
-      border-radius: 50%;
-      padding: 8px;
-      box-shadow:
-        0 10px 30px rgba(0, 0, 0, 0.1),
-        inset 0 2px 10px rgba(255, 255, 255, 0.7);
-      cursor: pointer;
-      z-index: 1101;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition:
-        transform var(--transition-medium),
-        box-shadow var(--transition-medium);
-      perspective: 600px;
-      user-select: none;
-      will-change: transform, box-shadow;
-      backdrop-filter: saturate(180%) blur(12px);
-      -webkit-backdrop-filter: saturate(180%) blur(12px);
-      border: 1px solid var(--glass-border);
-    }
-
-    #mini-clock:hover {
-      transform: rotateY(8deg) scale(1.08);
-      box-shadow: 0 18px 48px var(--col-purple);
-    }
-
-    /* ======================= LOGO ======================= */
-    #logo {
-      position: fixed;
-      top: 8px;
-      left: 16px;
-      width: 64px;
-      height: 64px;
-      background: var(--glass-bg);
-      border-radius: 36px;
-      box-shadow:
-        0 12px 24px rgba(0, 0, 0, 0.12),
-        inset 0 2px 10px rgba(255, 255, 255, 0.7);
-      padding: 8px;
-      z-index: 1101;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      user-select: none;
-      transition:
-        transform var(--transition-medium),
-        box-shadow var(--transition-medium);
-      border: 1px solid var(--glass-border);
-    }
-
-    #logo img {
-      max-width: 100%;
-      max-height: 100%;
-      object-fit: contain;
-      user-select: none;
-      pointer-events: none;
-    }
-
-    #logo:hover {
-      transform: rotateY(8deg) scale(1.08);
-      box-shadow: 0 18px 48px var(--col-purple);
-    }
-
-    /* ======================= HERO ======================= */
-    .hero {
-      max-width: 760px;
-      margin: 110px auto 2.5rem auto;
-      text-align: center;
-      padding: 1rem 2rem;
-      animation: fadePop 1.2s ease forwards;
-      opacity: 0;
-      animation-delay: 0.3s;
-      animation-fill-mode: forwards;
-      user-select: none;
-    }
-
-    .hero h1 {
-      font-size: 3.8rem;
-      font-weight: 900;
-      margin-bottom: 0.6rem;
-      background: linear-gradient(45deg, var(--col-purple), var(--col-purple-dark));
-      background-clip: text;
-      -webkit-background-clip: text;
-      color: transparent;
-      animation: gradientShift 7s infinite alternate;
-      user-select: none;
-      letter-spacing: 0.02em;
-    }
-
-    .hero p {
-      font-size: 1.45rem;
-      color: var(--col-gray-medium);
-      animation: fadeIn 2s ease forwards;
-      animation-delay: 0.7s;
-      opacity: 0;
-      user-select: none;
-      line-height: 1.6;
-      max-width: 550px;
-      margin: 0 auto;
-    }
-
-    @keyframes fadePop {
-      0% {
-        opacity: 0;
-        transform: scale(0.92) translateY(28px);
-      }
-
-      100% {
-        opacity: 1;
-        transform: scale(1) translateY(0);
-      }
-    }
-
-    @keyframes fadeIn {
-      from {
-        opacity: 0;
-      }
-
-      to {
-        opacity: 1;
-      }
-    }
-
-    @keyframes gradientShift {
-      0% {
-        background-position: 0% 50%;
-      }
-
-      100% {
-        background-position: 100% 50%;
-      }
-    }
-
-    /* ======================= SEZIONE PROGETTI ======================= */
-    .projects {
-      max-width: 1200px;
-      margin: 4rem auto 5rem auto;
-      padding: 1rem 2rem;
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 2.8rem;
-      opacity: 0;
-      animation: fadeIn 1s ease forwards;
-      animation-delay: 1.2s;
-      user-select: none;
-    }
-
-    .project-card {
-      background: var(--glass-bg);
-      backdrop-filter: saturate(180%) blur(20px);
-      -webkit-backdrop-filter: saturate(180%) blur(20px);
-      border-radius: var(--border-radius);
-      padding: 2rem 1.75rem;
-      box-shadow:
-        0 12px 32px rgba(0, 0, 0, 0.08),
-        inset 0 0 0 1px var(--glass-border);
-      transition:
-        transform var(--transition-medium),
-        box-shadow var(--transition-medium),
-        color var(--transition-medium);
-      text-align: center;
-      font-weight: 600;
-      transform-style: preserve-3d;
-      position: relative;
-      overflow: hidden;
-      cursor: pointer;
-      user-select: none;
-      color: var(--col-gray-dark);
-      letter-spacing: 0.015em;
-      will-change: transform, box-shadow, color;
-    }
-
-    .project-card:hover:not(.not-selectable) {
-      transform: rotateX(7deg) rotateY(-3deg) scale(1.07);
-      box-shadow: 0 20px 72px rgba(118, 35, 127, 0.3);
-      color: var(--col-purple);
-    }
-
-    .project-card.not-selectable {
-      background: #f0f0f0;
-      cursor: default;
-      color: #aaa !important;
-      font-style: italic;
-      pointer-events: none;
-      user-select: none;
-    }
-
-    /* ======================= SEZIONE EXTRA ======================= */
-    .extra-content {
-      max-width: 760px;
-      margin: 0 auto 5rem auto;
-      padding: 0 2rem;
-      font-size: 1.125rem;
-      color: var(--col-gray-medium);
-      text-align: center;
-      letter-spacing: 0.02em;
-      user-select: none;
-      line-height: 1.7;
-    }
-
-    /* ======================= CONTATTI ======================= */
-    .contact-section {
-      max-width: 400px;
-      margin: 0 auto 5rem auto;
-      text-align: left;
-      user-select: none;
-      padding: 0 1rem;
-    }
-
-    .contact-section h2 {
-      font-weight: 700;
-      font-size: 1.8rem;
-      margin-bottom: 1rem;
-      text-align: center;
-      color: var(--col-purple-dark);
-    }
-
-    .contact-form {
-      display: flex;
-      flex-direction: column;
-      gap: 1.1rem;
-    }
-
-    .contact-form label {
-      font-weight: 600;
-      font-size: 1rem;
-      color: var(--col-gray-dark);
-      user-select: none;
-    }
-
-    .contact-form input[type="text"],
-    .contact-form input[type="email"],
-    .contact-form textarea {
-      font-size: 1rem;
-      padding: 0.85rem 1.1rem;
-      border-radius: var(--border-radius);
-      border: 1.8px solid var(--col-gray-medium);
-      font-family: var(--font-sans);
-      transition: border-color 0.3s ease;
-      resize: vertical;
-    }
-
-    .contact-form input[type="text"]:focus,
-    .contact-form input[type="email"]:focus,
-    .contact-form textarea:focus {
-      outline: none;
-      border-color: var(--col-purple);
-      background-color: #f9f7ff;
-    }
-
-    .contact-form input[type="email"]:invalid {
-      border-color: #d62f27;
-      background-color: #fef0f0;
-    }
-
-    .contact-form input[type="email"]:valid {
-      border-color: #00703c;
-      background-color: #f0fef5;
-    }
-
-    .email-info {
-      font-size: 0.9rem;
-      color: var(--col-gray-medium);
-      margin-top: -0.8rem;
-      margin-bottom: 0.6rem;
-      font-style: italic;
-      user-select: none;
-    }
-
-    .contact-form button {
-      padding: 0.9rem 1.2rem;
-      font-weight: 700;
-      font-size: 1.1rem;
-      color: var(--col-white);
-      background: var(--col-purple);
-      border: none;
-      border-radius: var(--border-radius);
-      cursor: pointer;
-      user-select: none;
-      box-shadow: 0 4px 14px rgba(118, 35, 127, 0.6);
-      transition: background 0.3s ease, box-shadow 0.3s ease;
-    }
-
-    .contact-form button:hover {
-      background: var(--col-purple-dark);
-      box-shadow: 0 8px 28px var(--col-purple-dark);
-    }
-
-    /* ======================= MEDIA ======================= */
-    @media (max-width: 620px) {
-      nav {
-        font-size: 1rem;
-        gap: 1.2rem;
-        padding: 0 1rem;
-      }
-
-      .hero h1 {
-        font-size: 2.8rem;
-      }
-
-      .hero p {
-        font-size: 1.1rem;
-      }
-
-      .projects {
-        grid-template-columns: 1fr;
-        margin: 6rem auto 4rem auto;
-      }
+    /* ===== RESPONSIVE ===== */
+    @media(max-width:620px){
+      nav{gap:1rem;padding:0 1rem;font-size:1rem}
+      .hero h1{font-size:2.4rem}
+      .hero p{font-size:1.05rem}
     }
   </style>
 </head>
-
 <body>
-  <!-- LOGO -->
-  <div id="logo" tabindex="0" role="button" aria-label="Vai alla home" onclick="window.location.href='index.html'">
-    <img src="favicon.png" alt="Miniutti Logo" />
+
+  <div id="logo" onclick="location.href='index.html'">
+    <img src="favicon.png" alt="Miniutti Logo">
   </div>
 
-  <!-- NAVBAR -->
-  <nav role="navigation" aria-label="Menu principale">
-    <a href="index.html" tabindex="0">Home</a>
-
-    <div class="dropdown" role="menu" aria-haspopup="true" aria-expanded="false" aria-label="Menu Progetti" tabindex="0">
-      <div class="dropbtn" tabindex="0" role="button" aria-haspopup="true" aria-expanded="false" aria-controls="dropdown-menu">
-        Progetti
-      </div>
-      <div class="dropdown-content" id="dropdown-menu" role="menu" aria-label="Sottomenu Progetti">
-        <a href="clock.html" role="menuitem" tabindex="0">SBB Clock</a>
-        <span class="not-selectable" tabindex="-1">In arrivo...</span>
-        <a href="progetti.html" role="menuitem" tabindex="0">Altri Progetti</a>
+  <nav>
+    <a href="index.html">Home</a>
+    <div class="dropdown">
+      <div class="dropbtn has-sub">Progetti</div>
+      <div class="dropdown-content">
+        <a href="clock.html">SBB Clock</a>
+        <span style="display:block;padding:0.9rem 1.5rem;color:#aaa;font-style:italic">In arrivo...</span>
+        <a href="progetti.html">Altri Progetti</a>
       </div>
     </div>
-
-    <a href="clock.html" tabindex="0">SBB Clock</a>
+    <a href="clock.html">SBB Clock</a>
   </nav>
 
-  <!-- HERO -->
-  <section class="hero" aria-label="Introduzione">
+  <section class="hero">
     <h1>Miniutti.it</h1>
-    <p>Benvenuto sul mio sito personale, all'interno del quale condivido i miei progetti.</p>
+    <p>Benvenuto nel mio sito personale, dove condivido i miei progetti e idee.</p>
   </section>
 
-  <!-- PROGETTI -->
-  <section class="projects" aria-label="Sezione Progetti">
-    <article class="project-card" tabindex="0" role="region" aria-labelledby="proj-sbb-clock">
-      <h2 id="proj-sbb-clock">SBB Clock</h2>
-      <p>Orologio digitale ufficiale SBB, fedele riproduzione con animazioni fluide e design responsive adattabile a ogni dispositivo. Ideale per chi ama l’eleganza e la precisione svizzera.</p>
-    </article>
-
-    <article class="project-card not-selectable" tabindex="-1" role="region" aria-labelledby="proj-in-arrivo">
-      <h2 id="proj-in-arrivo">Progetto in arrivo</h2>
-      <p>Questo progetto è in fase di sviluppo e sarà presto disponibile.</p>
-    </article>
-
-    <article class="project-card" tabindex="0" role="region" aria-labelledby="proj-altri">
-      <h2 id="proj-altri">Altri Progetti</h2>
-      <p>Scopri altri progetti realizzati da me visitando la pagina dedicata, dove pubblico aggiornamenti regolari e novità interessanti.</p>
-      <a href="progetti.html" tabindex="0" style="font-weight:700; color: var(--col-purple); text-decoration: underline;">Vai alla pagina progetti</a>
-    </article>
+  <section class="projects">
+    <div class="project-card">
+      <h2>SBB Clock</h2>
+      <p>Riproduzione fedele dell’orologio ufficiale SBB, con animazioni fluide e design responsive.</p>
+    </div>
+    <div class="project-card not-selectable">
+      <h2>Progetto in arrivo</h2>
+      <p>In fase di sviluppo. Resta sintonizzato per le novità.</p>
+    </div>
+    <div class="project-card">
+      <h2>Altri Progetti</h2>
+      <p>Visita la pagina dedicata per scoprire altri lavori e aggiornamenti.</p>
+      <a href="progetti.html" style="color:var(--col-primary);font-weight:700">Vai alla pagina</a>
+    </div>
   </section>
 
-  <!-- CONTATTI -->
-  <section class="contact-section" aria-label="Modulo contatti">
+  <section class="contact-section">
     <h2>Contattami</h2>
-    <form class="contact-form" action="mailto:info@miniutti.it" method="POST" enctype="text/plain" novalidate>
-      <label for="name">Nome</label>
-      <input id="name" name="name" type="text" placeholder="Inserisci il tuo nome" required autocomplete="name" />
-
-      <label for="email">Email</label>
-      <input id="email" name="email" type="email" placeholder="esempio@mail.com" required autocomplete="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" />
-      <div class="email-info">L’email è usata solo per risponderti, nessun dato sarà condiviso.</div>
-
-      <label for="message">Messaggio</label>
-      <textarea id="message" name="message" rows="5" placeholder="Scrivi qui il tuo messaggio" required></textarea>
-
-      <button type="submit" aria-label="Invia messaggio a info@miniutti.it">Invia email</button>
+    <form class="contact-form" action="mailto:info@miniutti.it" method="POST" enctype="text/plain">
+      <input type="text" name="name" placeholder="Nome" required>
+      <input type="email" name="email" placeholder="Email" required>
+      <textarea name="message" rows="5" placeholder="Messaggio" required></textarea>
+      <button type="submit">Invia</button>
     </form>
   </section>
 
-  <!-- MINI SBB CLOCK -->
-  <div id="mini-clock" tabindex="0" aria-label="Orologio digitale SBB"></div>
+  <div id="mini-clock"></div>
 
   <script>
-    window.addEventListener("DOMContentLoaded", () => {
-      // Dropdown aria-expanded gestione (solo hover su Progetti)
-      const dropdown = document.querySelector(".dropdown");
-      const dropbtn = dropdown.querySelector(".dropbtn");
-
-      dropdown.addEventListener("mouseenter", () => {
-        dropdown.setAttribute("aria-expanded", "true");
-        dropbtn.setAttribute("aria-expanded", "true");
-      });
-      dropdown.addEventListener("mouseleave", () => {
-        dropdown.setAttribute("aria-expanded", "false");
-        dropbtn.setAttribute("aria-expanded", "false");
-      });
-      dropbtn.addEventListener("keydown", (e) => {
-        if (e.key === "Enter" || e.key === " ") {
-          e.preventDefault();
-          const expanded = dropdown.getAttribute("aria-expanded") === "true";
-          if (expanded) {
-            dropdown.setAttribute("aria-expanded", "false");
-            dropbtn.setAttribute("aria-expanded", "false");
-          } else {
-            dropdown.setAttribute("aria-expanded", "true");
-            dropbtn.setAttribute("aria-expanded", "true");
-          }
-        }
-      });
-
-      // Mini SBB Uhr clock
+    document.addEventListener("DOMContentLoaded", () => {
       const miniClock = document.getElementById("mini-clock");
       if (typeof SBBUhr !== "undefined" && miniClock) {
-        new SBBUhr({
-          target: miniClock,
-          type: "digital",
-          size: 56,
-          showSeconds: false,
-          showDate: false,
-          fullScreenBtn: false,
-          fullScreenKey: false,
-        });
+        new SBBUhr({target: miniClock, type: "digital", size: 56});
       }
-
-      // Click e tastiera per aprire pagina clock
-      miniClock.addEventListener("click", () => {
-        window.location.href = "clock.html";
-      });
-      miniClock.addEventListener("keydown", (e) => {
-        if (e.key === "Enter" || e.key === " ") {
-          e.preventDefault();
-          window.location.href = "clock.html";
-        }
-      });
     });
   </script>
 </body>
-
 </html>
