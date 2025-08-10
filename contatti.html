@@ -13,8 +13,11 @@
       --golden: #c9a74c;
       --anthracite: #b3b3b3;
       --white: #ffffff;
-      --tricolor: linear-gradient(90deg, #008C45, #F4F5F0, #CD212A);
+      --tricolor-start: #008C45;
+      --tricolor-middle: #F4F5F0;
+      --tricolor-end: #CD212A;
       --transition: 0.3s ease-in-out;
+      --border-radius: 20px;
     }
 
     * {
@@ -30,182 +33,247 @@
       scroll-behavior: smooth;
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
+      min-height: 100vh;
     }
 
     /* Navbar */
     header {
-      backdrop-filter: blur(12px);
+      backdrop-filter: blur(14px);
       background: rgba(255 255 255 / 0.05);
-      padding: 1.2rem 2rem;
+      padding: 1.3rem 2rem;
       display: flex;
       justify-content: space-between;
       align-items: center;
       position: sticky;
       top: 0;
-      z-index: 1000;
-      box-shadow: 0 2px 25px rgba(0, 0, 0, 0.8);
+      z-index: 1100;
+      box-shadow: 0 2px 25px rgba(0, 0, 0, 0.85);
     }
+
     .logo {
-      height: 40px;
+      height: 42px;
+      filter: drop-shadow(0 0 1.5px rgba(0,0,0,0.6));
+      user-select: none;
     }
+
     nav a {
+      position: relative;
       color: var(--white);
       text-decoration: none;
-      margin-left: 2rem;
-      position: relative;
-      font-weight: 500;
-      transition: var(--transition);
+      font-weight: 600;
+      margin-left: 2.5rem;
       padding-bottom: 4px;
+      font-size: 1rem;
+      user-select: none;
+      transition: color var(--transition);
+      cursor: pointer;
     }
+
+    /* Effetto bandierina - solo hover/focus */
     nav a::after {
-      content: '';
+      content: "";
       position: absolute;
       bottom: 0;
       left: 0;
       width: 0;
       height: 3px;
-      background: var(--tricolor);
-      border-radius: 2px 2px 0 0;
+      background: linear-gradient(90deg, var(--tricolor-start), var(--tricolor-middle), var(--tricolor-end));
+      border-radius: 3px 3px 0 0;
       transition: width var(--transition);
+      pointer-events: none;
     }
+
     nav a:hover::after,
     nav a:focus-visible::after {
       width: 100%;
     }
+
+    /* Attivo solo al passaggio, no blocco */
     nav a[aria-current="page"]::after {
-      width: 100%;
+      width: 0;
     }
 
+    nav a:hover,
+    nav a:focus-visible {
+      color: var(--golden);
+      outline: none;
+    }
+
+    /* Main container */
     main {
-      max-width: 700px;
-      margin: 3rem auto 5rem;
+      max-width: 720px;
+      margin: 4rem auto 5rem;
       padding: 0 2rem;
     }
 
     h1 {
+      font-size: 3rem;
       color: var(--golden);
       margin-bottom: 2rem;
       text-align: center;
-      font-size: 3rem;
+      letter-spacing: 1.1px;
+      user-select: none;
     }
 
+    /* Form styling */
     form {
       background: var(--carbon-deep);
-      padding: 2.5rem 2rem;
-      border-radius: 20px;
-      box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+      border-radius: var(--border-radius);
+      box-shadow: 0 14px 50px rgba(0, 0, 0, 0.7);
+      padding: 2.8rem 3rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.8rem;
+      user-select: text;
     }
 
     label {
-      display: block;
-      margin-bottom: 0.5rem;
       font-weight: 600;
+      font-size: 1.05rem;
       color: var(--white);
+      cursor: pointer;
       user-select: none;
     }
 
     input[type="text"],
     input[type="email"],
     textarea {
-      width: 100%;
-      padding: 0.8rem 1rem;
-      margin-bottom: 1.5rem;
-      border-radius: 10px;
-      border: 2px solid var(--anthracite);
       background: var(--carbon);
-      color: var(--white);
+      border: 2.5px solid var(--anthracite);
+      border-radius: 12px;
+      padding: 1rem 1.2rem;
       font-size: 1rem;
-      transition: border-color var(--transition);
+      color: var(--white);
+      transition: border-color var(--transition), box-shadow var(--transition);
+      font-family: 'Outfit', sans-serif;
       resize: vertical;
     }
+
     input[type="text"]:focus,
     input[type="email"]:focus,
     textarea:focus {
-      border-color: var(--golden);
       outline: none;
+      border-color: var(--golden);
+      box-shadow: 0 0 10px var(--golden);
     }
 
     textarea {
-      min-height: 120px;
+      min-height: 140px;
     }
 
+    /* Validazione semplice */
+    input:invalid, textarea:invalid {
+      border-color: #cc4444;
+    }
+
+    /* Pulsante */
     button {
-      background-color: transparent;
-      border: 2px solid var(--golden);
-      color: var(--golden);
-      padding: 0.85rem 2rem;
-      font-weight: 600;
-      font-size: 1rem;
+      background: transparent;
+      border: 2.5px solid var(--golden);
       border-radius: 50px;
+      color: var(--golden);
+      padding: 1rem 2.8rem;
+      font-size: 1.1rem;
+      font-weight: 700;
+      letter-spacing: 0.07em;
       cursor: pointer;
+      align-self: center;
       transition: background-color var(--transition), color var(--transition), box-shadow var(--transition);
-      display: block;
-      margin: 1rem auto 0;
       user-select: none;
+      box-shadow: 0 0 0 rgba(0,0,0,0);
+      will-change: transform;
     }
     button:hover,
     button:focus-visible {
       background-color: var(--golden);
       color: var(--carbon);
-      box-shadow: 0 8px 18px rgba(201, 167, 76, 0.7);
-      outline: none;
+      box-shadow: 0 10px 30px rgba(201, 167, 76, 0.7);
+      outline-offset: 4px;
+      outline: 2px solid var(--golden);
+      transform: scale(1.05);
     }
 
+    /* Contatti aggiuntivi */
     .contact-info {
-      margin-top: 3rem;
+      margin-top: 3.8rem;
       background: var(--carbon-deep);
-      padding: 2rem;
-      border-radius: 20px;
-      box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+      border-radius: var(--border-radius);
+      padding: 2rem 2.5rem;
+      box-shadow: 0 14px 40px rgba(0,0,0,0.6);
+      font-size: 1.1rem;
       color: var(--anthracite);
-      font-size: 1.05rem;
+      user-select: text;
+      line-height: 1.6;
     }
     .contact-info strong {
       color: var(--golden);
+      user-select: none;
+    }
+    .contact-info a {
+      color: var(--golden);
+      text-decoration: none;
+      transition: color var(--transition);
+    }
+    .contact-info a:hover,
+    .contact-info a:focus-visible {
+      color: var(--white);
+      outline: none;
     }
 
+    /* Footer */
     footer {
       background: var(--carbon-deep);
       padding: 3rem 2rem;
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
       gap: 2rem;
       border-top: 1px solid rgba(255, 255, 255, 0.05);
+      user-select: none;
     }
+
     .footer-col h4 {
-      font-size: 1.2rem;
+      font-size: 1.25rem;
       margin-bottom: 1rem;
       color: var(--golden);
     }
     .footer-col ul {
       list-style: none;
+      padding-left: 0;
     }
     .footer-col ul li {
-      margin: 0.6rem 0;
+      margin: 0.55rem 0;
     }
     .footer-col ul li a {
       color: var(--anthracite);
       text-decoration: none;
-      transition: var(--transition);
+      transition: color var(--transition);
     }
-    .footer-col ul li a:hover {
+    .footer-col ul li a:hover,
+    .footer-col ul li a:focus-visible {
       color: var(--white);
+      outline: none;
     }
     .footer-bottom {
       grid-column: 1 / -1;
       text-align: center;
-      margin-top: 2rem;
+      margin-top: 2.5rem;
       font-size: 0.9rem;
       color: var(--anthracite);
+      user-select: none;
     }
 
+    /* Responsive */
     @media (max-width: 768px) {
       nav a {
-        margin-left: 1rem;
+        margin-left: 1.3rem;
+        font-size: 0.95rem;
       }
       main {
-        margin: 2rem 1rem 4rem;
+        margin: 3rem 1.2rem 4rem;
         padding: 0;
+      }
+      form {
+        padding: 2.2rem 1.5rem;
       }
     }
   </style>
@@ -213,7 +281,7 @@
 <body>
 
   <header>
-    <a href="index.html"><img src="favicon.png" alt="Logo miniutti.it" class="logo" /></a>
+    <a href="index.html" aria-label="miniutti.it - Home"><img src="favicon.png" alt="Logo miniutti.it" class="logo" /></a>
     <nav>
       <a href="index.html">Home</a>
       <a href="progetti.html">Progetti</a>
@@ -226,16 +294,38 @@
     <h1>Contattami</h1>
 
     <form action="mailto:tobia@miniutti.it" method="post" enctype="text/plain" novalidate>
-      <label for="nome">Nome e Cognome <span aria-hidden="true" style="color:var(--golden);">*</span></label>
-      <input type="text" id="nome" name="nome" required placeholder="Inserisci il tuo nome completo" />
+      <label for="nome">Nome e Cognome <span aria-hidden="true" style="color: var(--golden);">*</span></label>
+      <input
+        type="text"
+        id="nome"
+        name="nome"
+        placeholder="Inserisci il tuo nome completo"
+        required
+        autocomplete="name"
+        spellcheck="false"
+      />
 
-      <label for="email">Email <span aria-hidden="true" style="color:var(--golden);">*</span></label>
-      <input type="email" id="email" name="email" required placeholder="tuo@email.com" />
+      <label for="email">Email <span aria-hidden="true" style="color: var(--golden);">*</span></label>
+      <input
+        type="email"
+        id="email"
+        name="email"
+        placeholder="tuo@email.com"
+        required
+        autocomplete="email"
+        spellcheck="false"
+      />
 
-      <label for="messaggio">Messaggio <span aria-hidden="true" style="color:var(--golden);">*</span></label>
-      <textarea id="messaggio" name="messaggio" required placeholder="Scrivi il tuo messaggio qui..."></textarea>
+      <label for="messaggio">Messaggio <span aria-hidden="true" style="color: var(--golden);">*</span></label>
+      <textarea
+        id="messaggio"
+        name="messaggio"
+        placeholder="Scrivi il tuo messaggio qui..."
+        required
+        spellcheck="true"
+      ></textarea>
 
-      <button type="submit">Invia</button>
+      <button type="submit" aria-label="Invia messaggio">Invia</button>
     </form>
 
     <section class="contact-info" aria-label="Informazioni di contatto">
