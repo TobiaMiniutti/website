@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>miniutti.it | Portfolio</title>
   <link rel="icon" href="favicon.png" type="image/png" />
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600&display=swap" rel="stylesheet" />
   <style>
     :root {
       --carbon: #121212;
@@ -13,14 +13,18 @@
       --golden: #c9a74c;
       --anthracite: #b3b3b3;
       --white: #ffffff;
-      --glass: rgba(255, 255, 255, 0.05);
-      --glass-satin: rgba(255, 255, 255, 0.12);
+      --tricolor: linear-gradient(90deg, #008C45, #F4F5F0, #CD212A);
       --transition: 0.3s ease-in-out;
     }
 
-    * { margin: 0; padding: 0; box-sizing: border-box; }
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-    html, body {
+    html,
+    body {
       font-family: 'Outfit', sans-serif;
       background-color: var(--carbon);
       color: var(--white);
@@ -30,7 +34,7 @@
     /* Navbar */
     header {
       backdrop-filter: blur(12px);
-      background: var(--glass);
+      background: rgba(255 255 255 / 0.05);
       padding: 1.2rem 2rem;
       display: flex;
       justify-content: space-between;
@@ -40,7 +44,9 @@
       z-index: 1000;
       box-shadow: 0 2px 25px rgba(0, 0, 0, 0.8);
     }
-    .logo { height: 40px; }
+    .logo {
+      height: 40px;
+    }
 
     nav a {
       color: var(--white);
@@ -49,33 +55,31 @@
       position: relative;
       font-weight: 500;
       transition: var(--transition);
-      padding: 0.3rem 0.5rem;
-      border-radius: 6px;
-      backdrop-filter: blur(6px);
-      background: var(--glass-satin);
-      box-shadow: 0 0 15px rgba(255 255 255 / 0.1);
+      padding-bottom: 4px;
     }
+    /* Bandierina effetto solo su voci con sottomenu (qui nessuno, ma pronta per uso) */
     nav a::after {
-      content: "";
+      content: '';
       position: absolute;
-      bottom: -5px;
+      bottom: 0;
       left: 0;
-      width: 0%;
-      height: 2px;
-      background: var(--golden);
+      width: 0;
+      height: 3px;
+      background: var(--tricolor);
+      border-radius: 2px 2px 0 0;
       transition: width var(--transition);
-      border-radius: 2px;
     }
-    nav a:hover::after { width: 100%; }
-    nav a:hover {
-      background: rgba(255,255,255,0.18);
-      box-shadow: 0 0 20px rgba(255 255 255 / 0.2);
+    nav a:hover::after,
+    nav a:focus-visible::after {
+      width: 100%;
     }
 
     /* Hero */
     .hero {
       height: 100vh;
-      background: linear-gradient(rgba(0,0,0,0.55), rgba(0,0,0,0.75)), url('https://images.unsplash.com/photo-1534081333815-ae5019106622?auto=format&fit=crop&w=1600&q=80') center/cover no-repeat;
+      background: linear-gradient(rgba(0, 0, 0, 0.55), rgba(0, 0, 0, 0.75)),
+        url('https://images.unsplash.com/photo-1534081333815-ae5019106622?auto=format&fit=crop&w=1600&q=80')
+          center/cover no-repeat;
       display: flex;
       flex-direction: column;
       justify-content: center;
@@ -101,56 +105,65 @@
     }
 
     /* Sezioni */
-    main { max-width: 1100px; margin: auto; padding: 4rem 2rem; }
+    main {
+      max-width: 1100px;
+      margin: auto;
+      padding: 4rem 2rem;
+    }
     .section {
       background: var(--carbon-deep);
       border-radius: 20px;
       padding: 2.5rem;
-      box-shadow: 0 10px 50px rgba(0,0,0,0.4);
+      box-shadow: 0 10px 50px rgba(0, 0, 0, 0.4);
       margin-bottom: 4rem;
       backdrop-filter: blur(8px);
       transition: transform var(--transition), box-shadow var(--transition);
     }
     .section:hover {
       transform: translateY(-4px);
-      box-shadow: 0 15px 60px rgba(0,0,0,0.5);
+      box-shadow: 0 15px 60px rgba(0, 0, 0, 0.5);
     }
     .section h3 {
       font-size: 2.1rem;
       margin-bottom: 1.2rem;
       color: var(--white);
     }
-    .section p, .section li {
+    .section p,
+    .section li {
       font-size: 1.12rem;
       line-height: 1.9;
       color: var(--anthracite);
     }
-    ul { padding-left: 1.5rem; }
+    ul {
+      padding-left: 1.5rem;
+    }
 
-    /* Pulsanti eleganti con effetto vetro satinato */
+    /* Pulsanti migliorati con gradiente tricolore e ombra */
     .btn {
       display: inline-block;
       margin-top: 1.2rem;
-      padding: 0.9rem 1.8rem;
-      background: var(--glass-satin);
-      color: var(--white);
+      padding: 0.9rem 2.2rem;
+      background: var(--tricolor);
+      color: var(--carbon);
       border-radius: 50px;
-      font-weight: 600;
+      font-weight: 700;
       text-transform: uppercase;
-      font-size: 0.9rem;
-      letter-spacing: 0.5px;
+      font-size: 1rem;
+      letter-spacing: 0.6px;
       text-decoration: none;
-      box-shadow: 0 4px 14px rgba(255, 255, 255, 0.15);
-      backdrop-filter: blur(8px);
-      border: 1px solid rgba(255,255,255,0.2);
+      box-shadow: 0 4px 18px rgba(205, 33, 42, 0.5);
       transition: all var(--transition);
+      border: 2px solid transparent;
     }
     .btn:hover {
-      transform: translateY(-2px) scale(1.03);
-      box-shadow: 0 6px 20px rgba(255,255,255,0.3);
-      background: rgba(255,255,255,0.25);
-      color: var(--golden);
-      border-color: var(--golden);
+      box-shadow:
+        0 0 8px #008C45,
+        0 0 12px #F4F5F0,
+        0 0 18px #CD212A;
+      transform: translateY(-3px) scale(1.05);
+      border-color: var(--white);
+      color: var(--carbon);
+      text-shadow: none;
     }
 
     /* Footer elegante */
@@ -160,7 +173,7 @@
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
       gap: 2rem;
-      border-top: 1px solid rgba(255,255,255,0.05);
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
     }
     .footer-col h4 {
       font-size: 1.2rem;
@@ -190,21 +203,51 @@
     }
 
     /* Animazioni */
-    @keyframes fadeIn { from {opacity: 0;} to {opacity: 1;} }
-    @keyframes fadeUp { from {opacity: 0; transform: translateY(30px);} to {opacity: 1; transform: translateY(0);} }
-    .reveal { opacity: 0; transform: translateY(30px); transition: all 1.2s ease; }
-    .reveal.visible { opacity: 1; transform: none; }
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
+    }
+    @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 1.2s ease;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: none;
+    }
 
     @media (max-width: 768px) {
-      .hero h1 { font-size: 2.4rem; }
-      nav a { margin-left: 1rem; }
+      .hero h1 {
+        font-size: 2.4rem;
+      }
+      nav a {
+        margin-left: 1rem;
+      }
+      .btn {
+        padding: 0.8rem 1.6rem;
+        font-size: 0.9rem;
+      }
     }
   </style>
 </head>
 <body>
-
   <header>
-    <a href="index.html"><img src="favicon.png" alt="Logo miniutti.it" class="logo"></a>
+    <a href="index.html"><img src="favicon.png" alt="Logo miniutti.it" class="logo" /></a>
     <nav>
       <a href="index.html">Home</a>
       <a href="progetti.html">Progetti</a>
@@ -215,27 +258,42 @@
 
   <section class="hero">
     <h1>Tobia Miniutti</h1>
-    <p>Portfolio personale: sviluppo web, progetti creativi e sperimentazioni tecnologiche.  
-    Dall'orologio SBB a esperienze digitali su misura.</p>
+    <p>
+      Portfolio personale: sviluppo web, progetti creativi e sperimentazioni
+      tecnologiche. Dall'orologio SBB a esperienze digitali su misura.
+    </p>
   </section>
 
   <main>
     <section class="section reveal">
       <h3>Chi sono</h3>
-      <p>Appassionato di tecnologia e design, realizzo progetti che uniscono estetica e funzionalità. Ogni lavoro è curato nei minimi dettagli per offrire esperienze digitali di alta qualità.</p>
+      <p>
+        Appassionato di tecnologia e design, realizzo progetti che uniscono
+        estetica e funzionalità. Ogni lavoro è curato nei minimi dettagli per
+        offrire esperienze digitali di alta qualità.
+      </p>
     </section>
 
     <section class="section reveal">
       <h3>Progetti in evidenza</h3>
       <ul>
-        <li><strong>Orologio SBB:</strong> ricreazione fedele del famoso orologio svizzero — <a href="https://progettorbea.miniutti.it" target="_blank" class="btn">Scopri</a></li>
+        <li>
+          <strong>Orologio SBB:</strong> ricreazione fedele del famoso orologio
+          svizzero —
+          <a href="https://progettorbea.miniutti.it" target="_blank" class="btn"
+            >Scopri</a
+          >
+        </li>
         <li><strong>Progetto Orbea:</strong> reinterpretazione grafica e tecnica di una Alma H30</li>
       </ul>
     </section>
 
     <section class="section reveal">
       <h3>Contattami</h3>
-      <p>Per collaborazioni, richieste o semplici curiosità, visita la pagina contatti e scrivimi direttamente.</p>
+      <p>
+        Per collaborazioni, richieste o semplici curiosità, visita la pagina
+        contatti e scrivimi direttamente.
+      </p>
       <a href="contatti.html" class="btn">Vai ai contatti</a>
     </section>
   </main>
@@ -257,22 +315,24 @@
     <div class="footer-col">
       <h4>Contatti</h4>
       <ul>
-        <li>Email: <a href="mailto:tobia@miniutti.it">tobia@miniutti.it</a></li>
-        <li>Tel: <a href="tel:+393791128232">+39 379 112 8232</a></li>
+        <li><a href="mailto:tobia@miniutti.it">Email: tobia@miniutti.it</a></li>
+        <li><a href="tel:+393791128232">Tel: +39 379 112 8232</a></li>
       </ul>
     </div>
-    <div class="footer-bottom">
-      © 2025 miniutti.it — Tutti i diritti riservati
-    </div>
+    <div class="footer-bottom">© 2025 miniutti.it — Tutti i diritti riservati</div>
   </footer>
 
   <script>
     const reveals = document.querySelectorAll('.reveal');
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
-    }, { threshold: 0.1 });
+    const observer = new IntersectionObserver(
+      entries => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) entry.target.classList.add('visible');
+        });
+      },
+      { threshold: 0.1 }
+    );
     reveals.forEach(el => observer.observe(el));
   </script>
-
 </body>
 </html>
