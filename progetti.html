@@ -2,706 +2,301 @@
 <html lang="it">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Miniutti.it - Progetti</title>
-  <link rel="icon" href="favicon.png" />
-  <script src="sbbUhr-1.3.js" defer></script>
-
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>miniutti.it | Progetti</title>
+  <link rel="icon" href="favicon.png" type="image/png" />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600&display=swap" rel="stylesheet" />
   <style>
-    /* 🔁 TUTTO IL CSS È COPIATO 1:1 DA index.html */
-    /* QUI CI VA IL TUO STESSO CSS DELLA HOME */
-    /* Copia tutto il blocco <style> della tua homepage */
-    /* Includilo qui come hai già fatto su index.html */
-/* ======================= RESET & VARIABILI ======================= */
-    *,
-    *::before,
-    *::after {
+    :root {
+      --carbon: #121212;
+      --carbon-deep: #0d0d0d;
+      --golden: #c9a74c;
+      --anthracite: #b3b3b3;
+      --white: #ffffff;
+      --tricolor: linear-gradient(90deg, #008C45, #F4F5F0, #CD212A);
+      --transition: 0.3s ease-in-out;
+    }
+
+    * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
     }
 
-    :root {
-      --col-purple: #76237f;
-      --col-purple-dark: #5c1a64;
-      --col-white: #ffffff;
-      --col-gray-light: #f5f5f7;
-      --col-gray-medium: #888888;
-      --col-gray-dark: #222222;
-      --shadow-light: rgba(0, 0, 0, 0.08);
-      --shadow-heavy: rgba(0, 0, 0, 0.12);
-      --ease: cubic-bezier(0.4, 0, 0.2, 1);
-      --tricolor-gradient: linear-gradient(90deg, #00703c, #ffffff, #d62f27);
-      --border-radius: 14px;
-      --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-      --transition-fast: 0.25s var(--ease);
-      --transition-medium: 0.4s var(--ease);
-      --transition-slow: 0.6s var(--ease);
-
-      /* Liquid glass effect */
-      --glass-bg: rgba(255, 255, 255, 0.7);
-      --glass-border: rgba(255, 255, 255, 0.4);
-      --glass-shadow: rgba(255, 255, 255, 0.6);
+    html,
+    body {
+      font-family: 'Outfit', sans-serif;
+      background-color: var(--carbon);
+      color: var(--white);
+      scroll-behavior: smooth;
     }
 
-    /* ======================= BODY ======================= */
-    body {
-      font-family: var(--font-sans);
-      background: var(--col-gray-light);
-      color: var(--col-gray-dark);
-      scroll-behavior: smooth;
-      overflow-x: hidden;
-      -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
-      user-select: none;
-      min-height: 100vh;
+    /* Navbar */
+    header {
+      backdrop-filter: blur(12px);
+      background: rgba(255 255 255 / 0.05);
+      padding: 1.2rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      box-shadow: 0 2px 25px rgba(0, 0, 0, 0.8);
+    }
+    .logo {
+      height: 40px;
+    }
+    nav a {
+      color: var(--white);
+      text-decoration: none;
+      margin-left: 2rem;
+      position: relative;
+      font-weight: 500;
+      transition: var(--transition);
+      padding-bottom: 4px;
+    }
+    nav a::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 3px;
+      background: var(--tricolor);
+      border-radius: 2px 2px 0 0;
+      transition: width var(--transition);
+    }
+    nav a:hover::after,
+    nav a:focus-visible::after {
+      width: 100%;
+    }
+
+    /* Main */
+    main {
+      max-width: 1100px;
+      margin: auto;
+      padding: 4rem 2rem;
+    }
+
+    .section {
+      background: var(--carbon-deep);
+      border-radius: 20px;
+      padding: 2.5rem;
+      box-shadow: 0 10px 50px rgba(0, 0, 0, 0.4);
+      margin-bottom: 4rem;
+      backdrop-filter: blur(8px);
+      transition: transform var(--transition), box-shadow var(--transition);
+    }
+    .section:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 15px 60px rgba(0, 0, 0, 0.5);
+    }
+    .section h2 {
+      font-size: 2.4rem;
+      margin-bottom: 1.5rem;
+      color: var(--golden);
+      text-align: center;
+    }
+    .projects-list {
+      list-style: none;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem;
+    }
+    .project-item {
+      background: var(--carbon);
+      border-radius: 16px;
+      padding: 1.6rem;
+      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.6);
+      transition: transform var(--transition), box-shadow var(--transition);
       display: flex;
       flex-direction: column;
+      justify-content: space-between;
     }
-
-    a,
-    span,
-    div {
-      user-select: none;
+    .project-item:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.75);
     }
-
-    /* ======================= LOADER ======================= */
-    #loader {
-      position: fixed;
-      inset: 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: var(--col-white);
-      z-index: 99999;
-    }
-
-    .spinner {
-      width: 60px;
-      height: 60px;
-      border: 6px solid #ccc;
-      border-top: 6px solid var(--col-purple);
-      border-radius: 50%;
-      animation: spin 1.2s linear infinite;
-    }
-
-    @keyframes spin {
-      to {
-        transform: rotate(360deg);
-      }
-    }
-
-    /* ======================= NAVBAR ======================= */
-    nav {
-      position: fixed;
-      top: 0;
-      left: 50%;
-      transform: translateX(-50%);
-      height: 64px;
-      background: var(--glass-bg);
-      backdrop-filter: saturate(180%) blur(12px);
-      -webkit-backdrop-filter: saturate(180%) blur(12px);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 2rem;
-      padding: 0 2rem;
-      z-index: 1100;
+    .project-title {
+      font-size: 1.4rem;
       font-weight: 600;
-      font-size: 1.125rem;
-      letter-spacing: 0.02em;
-      user-select: none;
-      border-radius: 0 0 var(--border-radius) var(--border-radius);
-      box-shadow:
-        0 8px 32px var(--shadow-light),
-        inset 0 0 0 1px var(--glass-border);
-      transition: box-shadow var(--transition-medium);
+      color: var(--golden);
+      margin-bottom: 0.7rem;
     }
-
-    nav:hover {
-      box-shadow:
-        0 12px 48px var(--shadow-heavy),
-        inset 0 0 0 1px var(--glass-border);
-    }
-
-    nav a,
-    .dropbtn {
-      color: var(--col-gray-dark);
-      text-decoration: none;
-      padding: 0.7rem 1.25rem;
-      position: relative;
-      display: inline-flex;
-      align-items: center;
-      cursor: pointer;
-      transition:
-        color var(--transition-fast),
-        transform var(--transition-fast),
-        text-shadow var(--transition-fast);
-      user-select: none;
-      border-radius: var(--border-radius);
-      backdrop-filter: saturate(180%) blur(12px);
-      -webkit-backdrop-filter: saturate(180%) blur(12px);
-      box-shadow: inset 0 0 8px rgba(255 255 255 / 0.35);
-      background: rgba(255 255 255 / 0.5);
-    }
-
-    nav a:hover,
-    .dropbtn:hover {
-      color: var(--col-purple);
-      transform: scale(1.07) translateZ(0);
-      text-shadow: 0 0 6px var(--col-purple);
-      background: rgba(118, 35, 127, 0.1);
-      box-shadow: 0 0 8px rgba(118, 35, 127, 0.3);
-      backdrop-filter: saturate(180%) blur(20px);
-      -webkit-backdrop-filter: saturate(180%) blur(20px);
-    }
-
-    nav a::after,
-    .dropbtn::after {
-      content: "";
-      position: absolute;
-      left: 10%;
-      bottom: 0;
-      width: 80%;
-      height: 3px;
-      background: var(--tricolor-gradient);
-      opacity: 0;
-      transition: opacity var(--transition-fast);
-      border-radius: 3px;
-      pointer-events: none;
-      user-select: none;
-    }
-
-    nav a:hover::after,
-    .dropbtn:hover::after {
-      opacity: 1;
-    }
-
-    /* Freccia solo per dropdown */
-    .dropbtn::after {
-      content: " \25BE";
-      font-size: 0.75rem;
-      position: static;
-      margin-left: 0.5rem;
-      opacity: 1;
-      background: none;
-      user-select: none;
-    }
-
-    /* ======================= DROPDOWN ======================= */
-    .dropdown {
-      position: relative;
-      z-index: 1110;
-      user-select: none;
-    }
-
-    .dropdown-content {
-      display: none;
-      position: absolute;
-      top: 100%;
-      left: 0;
-      background: var(--glass-bg);
-      backdrop-filter: saturate(180%) blur(16px);
-      -webkit-backdrop-filter: saturate(180%) blur(16px);
-      box-shadow:
-        0 12px 36px var(--shadow-heavy),
-        inset 0 0 0 1px var(--glass-border);
-      border-radius: var(--border-radius);
-      padding: 0.75rem 0;
-      min-width: 220px;
-      transform-origin: top center;
-      animation: fadeSlideDown 0.4s ease forwards;
-      font-weight: 500;
-      color: var(--col-gray-dark);
-      letter-spacing: 0.01em;
-      user-select: none;
-    }
-
-    /* apertura SOLO hover o focus nel dropdown */
-    nav .dropdown:hover > .dropdown-content,
-    nav .dropdown:focus-within > .dropdown-content {
-      display: block;
-      opacity: 1;
-      visibility: visible;
-    }
-
-    .dropdown-content a,
-    .dropdown-content .not-selectable {
-      padding: 0.9rem 1.75rem;
-      display: block;
-      white-space: nowrap;
-      border-radius: var(--border-radius);
-      transition: background var(--transition-fast), color var(--transition-fast),
-        transform var(--transition-fast);
-      user-select: none;
-      color: var(--col-gray-dark);
-      cursor: pointer;
-    }
-
-    .dropdown-content a:hover {
-      background: rgba(118, 35, 127, 0.12);
-      color: var(--col-purple);
-      transform: translateX(7px);
-      box-shadow: 0 0 8px rgba(118, 35, 127, 0.25);
-    }
-
-    .dropdown-content .not-selectable {
-      color: #aaa;
-      cursor: default;
-      user-select: none;
-      pointer-events: none;
-      font-style: italic;
-      font-weight: 400;
-    }
-
-    /* Bottone "Altri Progetti" tematizzato */
-    .dropdown-content .btn-progetti {
-      margin-top: 0.4rem;
-      background: var(--col-purple);
-      color: var(--col-white);
-      border-radius: var(--border-radius);
-      font-weight: 700;
-      text-align: center;
-      user-select: none;
-      transition: background var(--transition-medium);
-      box-shadow: 0 0 6px rgba(118, 35, 127, 0.35);
-      cursor: pointer;
-    }
-
-    .dropdown-content .btn-progetti:hover {
-      background: var(--col-purple-dark);
-      box-shadow: 0 0 14px var(--col-purple-dark);
-      transform: scale(1.06);
-      color: var(--col-white);
-    }
-
-    @keyframes fadeSlideDown {
-      0% {
-        opacity: 0;
-        transform: scaleY(0.8) translateY(-10px);
-      }
-
-      100% {
-        opacity: 1;
-        transform: scaleY(1) translateY(0);
-      }
-    }
-
-    /* ======================= MINI CLOCK ======================= */
-    #mini-clock {
-      position: fixed;
-      top: 12px;
-      right: 22px;
-      width: 56px;
-      height: 56px;
-      background: var(--glass-bg);
-      border-radius: 50%;
-      padding: 8px;
-      box-shadow:
-        0 10px 30px rgba(0, 0, 0, 0.1),
-        inset 0 2px 10px rgba(255, 255, 255, 0.7);
-      cursor: pointer;
-      z-index: 1101;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition:
-        transform var(--transition-medium),
-        box-shadow var(--transition-medium);
-      perspective: 600px;
-      user-select: none;
-      will-change: transform, box-shadow;
-      backdrop-filter: saturate(180%) blur(12px);
-      -webkit-backdrop-filter: saturate(180%) blur(12px);
-      border: 1px solid var(--glass-border);
-    }
-
-    #mini-clock:hover {
-      transform: rotateY(8deg) scale(1.08);
-      box-shadow: 0 18px 48px var(--col-purple);
-    }
-
-    /* ======================= LOGO ======================= */
-    #logo {
-      position: fixed;
-      top: 8px;
-      left: 16px;
-      width: 64px;
-      height: 64px;
-      background: var(--glass-bg);
-      border-radius: 36px;
-      box-shadow:
-        0 12px 24px rgba(0, 0, 0, 0.12),
-        inset 0 2px 10px rgba(255, 255, 255, 0.7);
-      padding: 8px;
-      z-index: 1101;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      user-select: none;
-      transition:
-        transform var(--transition-medium),
-        box-shadow var(--transition-medium);
-      border: 1px solid var(--glass-border);
-    }
-
-    #logo img {
-      max-width: 100%;
-      max-height: 100%;
-      object-fit: contain;
-      user-select: none;
-      pointer-events: none;
-    }
-
-    #logo:hover {
-      transform: rotateY(8deg) scale(1.08);
-      box-shadow: 0 18px 48px var(--col-purple);
-    }
-
-    /* ======================= HERO ======================= */
-    .hero {
-      max-width: 760px;
-      margin: 110px auto 2.5rem auto;
-      text-align: center;
-      padding: 1rem 2rem;
-      animation: fadePop 1.2s ease forwards;
-      opacity: 0;
-      animation-delay: 0.3s;
-      animation-fill-mode: forwards;
-      user-select: none;
-    }
-
-    .hero h1 {
-      font-size: 3.8rem;
-      font-weight: 900;
-      margin-bottom: 0.6rem;
-      background: linear-gradient(45deg, var(--col-purple), var(--col-purple-dark));
-      background-clip: text;
-      -webkit-background-clip: text;
-      color: transparent;
-      animation: gradientShift 7s infinite alternate;
-      user-select: none;
-      letter-spacing: 0.02em;
-    }
-
-    .hero p {
-      font-size: 1.45rem;
-      color: var(--col-gray-medium);
-      animation: fadeIn 2s ease forwards;
-      animation-delay: 0.7s;
-      opacity: 0;
-      user-select: none;
+    .project-desc {
+      font-size: 1rem;
+      color: var(--anthracite);
+      flex-grow: 1;
+      margin-bottom: 1.2rem;
       line-height: 1.6;
-      max-width: 550px;
-      margin: 0 auto;
+    }
+    .project-link {
+      align-self: flex-start;
+      padding: 0.7rem 1.6rem;
+      background: var(--tricolor);
+      color: var(--carbon);
+      font-weight: 700;
+      border-radius: 40px;
+      text-decoration: none;
+      box-shadow: 0 4px 16px rgba(205, 33, 42, 0.5);
+      transition: all var(--transition);
+    }
+    .project-link:hover {
+      box-shadow:
+        0 0 8px #008C45,
+        0 0 12px #F4F5F0,
+        0 0 18px #CD212A;
+      transform: translateY(-3px) scale(1.05);
+      border-color: var(--white);
+      color: var(--carbon);
+      text-shadow: none;
     }
 
-    @keyframes fadePop {
-      0% {
-        opacity: 0;
-        transform: scale(0.92) translateY(28px);
-      }
-
-      100% {
-        opacity: 1;
-        transform: scale(1) translateY(0);
-      }
+    /* Footer */
+    footer {
+      background: var(--carbon-deep);
+      padding: 3rem 2rem;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+    }
+    .footer-col h4 {
+      font-size: 1.2rem;
+      margin-bottom: 1rem;
+      color: var(--golden);
+    }
+    .footer-col ul {
+      list-style: none;
+    }
+    .footer-col ul li {
+      margin: 0.6rem 0;
+    }
+    .footer-col ul li a {
+      color: var(--anthracite);
+      text-decoration: none;
+      transition: var(--transition);
+    }
+    .footer-col ul li a:hover {
+      color: var(--white);
+    }
+    .footer-bottom {
+      grid-column: 1 / -1;
+      text-align: center;
+      margin-top: 2rem;
+      font-size: 0.9rem;
+      color: var(--anthracite);
     }
 
+    /* Animazioni */
     @keyframes fadeIn {
       from {
         opacity: 0;
       }
-
       to {
         opacity: 1;
       }
     }
-
-    @keyframes gradientShift {
-      0% {
-        background-position: 0% 50%;
+    @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
       }
-
-      100% {
-        background-position: 100% 50%;
+      to {
+        opacity: 1;
+        transform: translateY(0);
       }
     }
-
-    /* ======================= SEZIONE PROGETTI ======================= */
-    .projects {
-      max-width: 1200px;
-      margin: 4rem auto 5rem auto;
-      padding: 1rem 2rem;
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 2.8rem;
+    .reveal {
       opacity: 0;
-      animation: fadeIn 1s ease forwards;
-      animation-delay: 1.2s;
-      user-select: none;
+      transform: translateY(30px);
+      transition: all 1.2s ease;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: none;
     }
 
-    .project-card {
-      background: var(--glass-bg);
-      backdrop-filter: saturate(180%) blur(20px);
-      -webkit-backdrop-filter: saturate(180%) blur(20px);
-      border-radius: var(--border-radius);
-      padding: 2rem 1.75rem;
-      box-shadow:
-        0 12px 32px rgba(0, 0, 0, 0.08),
-        inset 0 0 0 1px var(--glass-border);
-      transition:
-        transform var(--transition-medium),
-        box-shadow var(--transition-medium),
-        color var(--transition-medium);
-      text-align: center;
-      font-weight: 600;
-      transform-style: preserve-3d;
-      position: relative;
-      overflow: hidden;
-      cursor: pointer;
-      user-select: none;
-      color: var(--col-gray-dark);
-      letter-spacing: 0.015em;
-      will-change: transform, box-shadow, color;
-    }
-
-    .project-card:hover:not(.not-selectable) {
-      transform: rotateX(7deg) rotateY(-3deg) scale(1.07);
-      box-shadow: 0 20px 72px rgba(118, 35, 127, 0.3);
-      color: var(--col-purple);
-    }
-
-    .project-card.not-selectable {
-      background: #f0f0f0;
-      cursor: default;
-      color: #aaa !important;
-      font-style: italic;
-      pointer-events: none;
-      user-select: none;
-    }
-
-    /* ======================= SEZIONE EXTRA ======================= */
-    .extra-content {
-      max-width: 760px;
-      margin: 0 auto 5rem auto;
-      padding: 0 2rem;
-      font-size: 1.125rem;
-      color: var(--col-gray-medium);
-      text-align: center;
-      letter-spacing: 0.02em;
-      user-select: none;
-      line-height: 1.7;
-    }
-
-    /* ======================= CONTATTI ======================= */
-    .contact-section {
-      max-width: 400px;
-      margin: 0 auto 5rem auto;
-      text-align: left;
-      user-select: none;
-      padding: 0 1rem;
-    }
-
-    .contact-section h2 {
-      font-weight: 700;
-      font-size: 1.8rem;
-      margin-bottom: 1rem;
-      text-align: center;
-      color: var(--col-purple-dark);
-    }
-
-    .contact-form {
-      display: flex;
-      flex-direction: column;
-      gap: 1.1rem;
-    }
-
-    .contact-form label {
-      font-weight: 600;
-      font-size: 1rem;
-      color: var(--col-gray-dark);
-      user-select: none;
-    }
-
-    .contact-form input[type="text"],
-    .contact-form input[type="email"],
-    .contact-form textarea {
-      font-size: 1rem;
-      padding: 0.85rem 1.1rem;
-      border-radius: var(--border-radius);
-      border: 1.8px solid var(--col-gray-medium);
-      font-family: var(--font-sans);
-      transition: border-color 0.3s ease;
-      resize: vertical;
-    }
-
-    .contact-form input[type="text"]:focus,
-    .contact-form input[type="email"]:focus,
-    .contact-form textarea:focus {
-      outline: none;
-      border-color: var(--col-purple);
-      background-color: #f9f7ff;
-    }
-
-    .contact-form input[type="email"]:invalid {
-      border-color: #d62f27;
-      background-color: #fef0f0;
-    }
-
-    .contact-form input[type="email"]:valid {
-      border-color: #00703c;
-      background-color: #f0fef5;
-    }
-
-    .email-info {
-      font-size: 0.9rem;
-      color: var(--col-gray-medium);
-      margin-top: -0.8rem;
-      margin-bottom: 0.6rem;
-      font-style: italic;
-      user-select: none;
-    }
-
-    .contact-form button {
-      padding: 0.9rem 1.2rem;
-      font-weight: 700;
-      font-size: 1.1rem;
-      color: var(--col-white);
-      background: var(--col-purple);
-      border: none;
-      border-radius: var(--border-radius);
-      cursor: pointer;
-      user-select: none;
-      box-shadow: 0 4px 14px rgba(118, 35, 127, 0.6);
-      transition: background 0.3s ease, box-shadow 0.3s ease;
-    }
-
-    .contact-form button:hover {
-      background: var(--col-purple-dark);
-      box-shadow: 0 8px 28px var(--col-purple-dark);
-    }
-
-    /* ======================= MEDIA ======================= */
-    @media (max-width: 620px) {
-      nav {
-        font-size: 1rem;
-        gap: 1.2rem;
-        padding: 0 1rem;
+    @media (max-width: 768px) {
+      nav a {
+        margin-left: 1rem;
       }
-
-      .hero h1 {
-        font-size: 2.8rem;
-      }
-
-      .hero p {
-        font-size: 1.1rem;
-      }
-
-      .projects {
+      .projects-list {
         grid-template-columns: 1fr;
-        margin: 6rem auto 4rem auto;
       }
     }
-    </style>
+  </style>
 </head>
-
 <body>
-  <!-- LOGO -->
-  <div id="logo" tabindex="0" role="button" aria-label="Vai alla home" onclick="window.location.href='index.html'">
-    <img src="favicon.png" alt="Miniutti Logo" />
-  </div>
+  <header>
+    <a href="index.html"><img src="favicon.png" alt="Logo miniutti.it" class="logo" /></a>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="progetti.html" aria-current="page">Progetti</a>
+      <a href="contatti.html">Contatti</a>
+      <a href="login.html">Login</a>
+    </nav>
+  </header>
 
-  <!-- NAVBAR -->
-  <nav role="navigation" aria-label="Menu principale">
-    <a href="index.html" tabindex="0">Home</a>
+  <main>
+    <section class="section reveal">
+      <h2>Progetti</h2>
+      <ul class="projects-list">
+        <li class="project-item">
+          <div class="project-title">Orologio SBB</div>
+          <div class="project-desc">
+            Ricreazione fedele e interattiva del celebre orologio svizzero SBB con JavaScript e CSS.
+          </div>
+          <a href="https://progettorbea.miniutti.it" target="_blank" class="project-link" rel="noopener noreferrer">Vai al progetto</a>
+        </li>
+        <li class="project-item">
+          <div class="project-title">Progetto Orbea Alma H30</div>
+          <div class="project-desc">
+            Reinterpretazione grafica e tecnica della bicicletta Orbea Alma H30 2022, con approfondimenti su componenti e design.
+          </div>
+          <a href="#" class="project-link" aria-disabled="true" tabindex="-1" style="opacity:0.5;pointer-events:none;">In arrivo</a>
+        </li>
+        <!-- Aggiungi altri progetti qui -->
+      </ul>
+    </section>
+  </main>
 
-    <div class="dropdown" role="menu" aria-haspopup="true" aria-expanded="true" aria-label="Menu Progetti" tabindex="0">
-      <div class="dropbtn" tabindex="0" role="button">Progetti</div>
-      <div class="dropdown-content" role="menu" id="dropdown-menu">
-        <a href="clock.html" role="menuitem" tabindex="0">SBB Clock</a>
-        <span class="not-selectable" tabindex="-1">In arrivo...</span>
-        <a href="progetti.html" role="menuitem" tabindex="0">Altri Progetti</a>
-      </div>
+  <footer>
+    <div class="footer-col">
+      <h4>Miniutti.it</h4>
+      <p>Portfolio ufficiale di Tobia Miniutti — progetti, idee e sviluppo.</p>
     </div>
-
-    <a href="diritti.html" tabindex="0">Diritti</a>
-  </nav>
-
-  <!-- HERO -->
-  <section class="hero" aria-label="Introduzione ai Progetti">
-    <h1>Progetti</h1>
-    <p>Benvenuto nella sezione dove raccolgo i miei lavori. Alcuni sono già online, altri sono in sviluppo e arriveranno presto.</p>
-  </section>
-
-  <!-- PROGETTI -->
-  <section class="projects" aria-label="Elenco progetti attivi e futuri">
-    <article class="project-card" tabindex="0" role="region" aria-labelledby="proj-sbb-clock">
-      <h2 id="proj-sbb-clock">SBB Clock</h2>
-      <p>Replica digitale dell’orologio SBB: animazioni fluide, precisione svizzera e design responsive.
-        <p>
-  Questo progetto unisce fedeltà estetica e funzionalità avanzate, garantendo un’esperienza utente fluida grazie a animazioni realistiche e alla precisione svizzera. Le caratteristiche principali sono:
-</p>
-<ul>
-  <li>Movimento fluido della lancetta dei secondi, come negli orologi originali.</li>
-  <li>Modalità fullscreen attivabile con un pulsante o premendo il tasto "F".</li>
-  <li>Design responsive, ottimizzato per ogni dispositivo, dal desktop allo smartphone.</li>
-  <li>Struttura modulare e codice pulito basato su <code>sbbUhr-1.3.js</code>, facile da personalizzare e mantenere.</li>
-</ul>
-<p>
-<p>
-  Queste qualità rendono il progetto ideale per applicazioni educative, siti professionali e chiunque voglia un orologio digitale elegante e preciso.
-</p>
-      <a href="clock.html" style="font-weight:700; color: var(--col-purple); text-decoration: underline;">Apri il progetto</a>
-    </article>
-
-    <article class="project-card not-selectable" tabindex="-1" role="region" aria-labelledby="proj-in-arrivo-1">
-      <h2 id="proj-in-arrivo-1">Cantina Domotica</h2>
-      <p>Progetto in fase di sviluppo.</p>
-    </article>
-
-    <article class="project-card not-selectable" tabindex="-1" role="region" aria-labelledby="proj-in-arrivo-2">
-      <h2 id="proj-in-arrivo-2">In arrivo...</h2>
-      <p>In lavorazione.</p>
-    </article>
-  </section>
-
-  <!-- MINI CLOCK -->
-  <div id="mini-clock" tabindex="0" aria-label="Orologio digitale SBB"></div>
+    <div class="footer-col">
+      <h4>Link rapidi</h4>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="progetti.html">Progetti</a></li>
+        <li><a href="contatti.html">Contatti</a></li>
+        <li><a href="login.html">Login</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Contatti</h4>
+      <ul>
+        <li><a href="mailto:tobia@miniutti.it">Email: tobia@miniutti.it</a></li>
+        <li><a href="tel:+393791128232">Tel: +39 379 112 8232</a></li>
+      </ul>
+    </div>
+    <div class="footer-bottom">© 2025 miniutti.it — Tutti i diritti riservati</div>
+  </footer>
 
   <script>
-    document.addEventListener("DOMContentLoaded", () => {
-      const dropdown = document.querySelector(".dropdown");
-      const dropbtn = dropdown.querySelector(".dropbtn");
-      dropdown.setAttribute("aria-expanded", "true");
-      dropbtn.setAttribute("aria-expanded", "true");
-
-      const miniClock = document.getElementById("mini-clock");
-      if (typeof SBBUhr !== "undefined" && miniClock) {
-        new SBBUhr({
-          target: miniClock,
-          type: "digital",
-          size: 56,
-          showSeconds: false,
-          showDate: false,
-          fullScreenBtn: false,
-          fullScreenKey: false,
+    const reveals = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver(
+      entries => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) entry.target.classList.add('visible');
         });
-      }
-
-      miniClock.addEventListener("click", () => {
-        window.location.href = "clock.html";
-      });
-
-      miniClock.addEventListener("keydown", (e) => {
-        if (e.key === "Enter" || e.key === " ") {
-          e.preventDefault();
-          window.location.href = "clock.html";
-        }
-      });
-    });
+      },
+      { threshold: 0.1 }
+    );
+    reveals.forEach(el => observer.observe(el));
   </script>
 </body>
 </html>
