@@ -11,10 +11,10 @@
       --carbon: #121212;
       --carbon-deep: #0d0d0d;
       --golden: #c9a74c;
-      --anthracite: #8f8f8f;
+      --anthracite: #b3b3b3;
       --white: #ffffff;
       --glass: rgba(255, 255, 255, 0.05);
-      --tricolor: linear-gradient(to right, #008C45, #F4F5F0, #CD212A);
+      --tricolor: linear-gradient(90deg, #008C45, #F4F5F0, #CD212A);
       --transition: 0.3s ease-in-out;
     }
 
@@ -27,8 +27,9 @@
       scroll-behavior: smooth;
     }
 
+    /* Navbar */
     header {
-      backdrop-filter: blur(10px);
+      backdrop-filter: blur(12px);
       background: var(--glass);
       padding: 1.2rem 2rem;
       display: flex;
@@ -37,10 +38,9 @@
       position: sticky;
       top: 0;
       z-index: 1000;
-      box-shadow: 0 2px 20px rgba(0, 0, 0, 0.7);
+      box-shadow: 0 2px 25px rgba(0, 0, 0, 0.8);
     }
-
-    .logo { height: 38px; }
+    .logo { height: 40px; }
 
     nav a {
       color: var(--white);
@@ -50,7 +50,6 @@
       font-weight: 500;
       transition: var(--transition);
     }
-
     nav a::after {
       content: "";
       position: absolute;
@@ -61,12 +60,12 @@
       background: var(--tricolor);
       transition: width var(--transition);
     }
-
     nav a:hover::after { width: 100%; }
 
+    /* Hero */
     .hero {
       height: 100vh;
-      background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1534081333815-ae5019106622?auto=format&fit=crop&w=1600&q=80') center/cover no-repeat;
+      background: linear-gradient(rgba(0,0,0,0.55), rgba(0,0,0,0.75)), url('https://images.unsplash.com/photo-1534081333815-ae5019106622?auto=format&fit=crop&w=1600&q=80') center/cover no-repeat;
       display: flex;
       flex-direction: column;
       justify-content: center;
@@ -75,77 +74,114 @@
       padding: 2rem;
       animation: fadeIn 1.5s ease;
     }
-
     .hero h1 {
-      font-size: 3.5rem;
+      font-size: 3.8rem;
       color: var(--golden);
-      text-shadow: 0 4px 12px rgba(0, 0, 0, 0.7);
+      letter-spacing: 1px;
+      text-shadow: 0 4px 14px rgba(0, 0, 0, 0.8);
       animation: fadeUp 1.2s ease;
     }
-
     .hero p {
-      font-size: 1.2rem;
+      font-size: 1.25rem;
       max-width: 700px;
       color: var(--anthracite);
       margin-top: 1rem;
+      line-height: 1.8;
       animation: fadeUp 1.6s ease;
     }
 
+    /* Sezioni */
     main { max-width: 1100px; margin: auto; padding: 4rem 2rem; }
-
     .section {
       background: var(--carbon-deep);
       border-radius: 20px;
       padding: 2.5rem;
       box-shadow: 0 10px 50px rgba(0,0,0,0.4);
       margin-bottom: 4rem;
-      backdrop-filter: blur(6px);
-      transition: var(--transition);
+      backdrop-filter: blur(8px);
+      transition: transform var(--transition), box-shadow var(--transition);
     }
-
+    .section:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 15px 60px rgba(0,0,0,0.5);
+    }
     .section h3 {
-      font-size: 2rem;
+      font-size: 2.1rem;
       margin-bottom: 1.2rem;
       color: var(--white);
     }
-
     .section p, .section li {
-      font-size: 1.1rem;
-      line-height: 1.8;
+      font-size: 1.12rem;
+      line-height: 1.9;
       color: var(--anthracite);
     }
+    ul { padding-left: 1.5rem; }
 
+    /* Pulsanti eleganti */
     .btn {
       display: inline-block;
-      margin-top: 1rem;
-      padding: 0.8rem 1.5rem;
+      margin-top: 1.2rem;
+      padding: 0.9rem 1.8rem;
       background: var(--tricolor);
       color: var(--carbon);
       border-radius: 50px;
       font-weight: 600;
-      transition: var(--transition);
+      text-transform: uppercase;
+      font-size: 0.9rem;
+      letter-spacing: 0.5px;
       text-decoration: none;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.3);
+      transition: all var(--transition);
+    }
+    .btn:hover {
+      transform: translateY(-2px) scale(1.03);
+      box-shadow: 0 6px 20px rgba(0,0,0,0.45);
     }
 
-    .btn:hover { transform: translateY(-2px); }
-
+    /* Footer elegante */
     footer {
       background: var(--carbon-deep);
-      color: var(--white);
-      text-align: center;
-      padding: 2rem;
-      font-size: 0.95rem;
+      padding: 3rem 2rem;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2rem;
       border-top: 1px solid rgba(255,255,255,0.05);
     }
+    .footer-col h4 {
+      font-size: 1.2rem;
+      margin-bottom: 1rem;
+      color: var(--golden);
+    }
+    .footer-col ul {
+      list-style: none;
+    }
+    .footer-col ul li {
+      margin: 0.6rem 0;
+    }
+    .footer-col ul li a {
+      color: var(--anthracite);
+      text-decoration: none;
+      transition: var(--transition);
+    }
+    .footer-col ul li a:hover {
+      color: var(--white);
+    }
+    .footer-bottom {
+      grid-column: 1 / -1;
+      text-align: center;
+      margin-top: 2rem;
+      font-size: 0.9rem;
+      color: var(--anthracite);
+    }
 
+    /* Animazioni */
     @keyframes fadeIn { from {opacity: 0;} to {opacity: 1;} }
     @keyframes fadeUp { from {opacity: 0; transform: translateY(30px);} to {opacity: 1; transform: translateY(0);} }
-
     .reveal { opacity: 0; transform: translateY(30px); transition: all 1.2s ease; }
     .reveal.visible { opacity: 1; transform: none; }
 
     @media (max-width: 768px) {
-      .hero h1 { font-size: 2.2rem; }
+      .hero h1 { font-size: 2.4rem; }
       nav a { margin-left: 1rem; }
     }
   </style>
@@ -164,13 +200,13 @@
   <section class="hero">
     <h1>Tobia Miniutti</h1>
     <p>Portfolio personale: sviluppo web, progetti creativi e sperimentazioni tecnologiche.  
-    Dall'orologio SBB a esperienze digitali uniche.</p>
+    Dall'orologio SBB a esperienze digitali su misura.</p>
   </section>
 
   <main>
     <section class="section reveal">
       <h3>Chi sono</h3>
-      <p>Sono uno sviluppatore e appassionato di tecnologia. Realizzo progetti che spaziano dal design all’ingegneria software, con un occhio sempre attento alla qualità e ai dettagli.</p>
+      <p>Appassionato di tecnologia e design, realizzo progetti che uniscono estetica e funzionalità. Ogni lavoro è curato nei minimi dettagli per offrire esperienze digitali di alta qualità.</p>
     </section>
 
     <section class="section reveal">
@@ -183,14 +219,34 @@
 
     <section class="section reveal">
       <h3>Contattami</h3>
-      <p>Vuoi collaborare o discutere di un progetto?  
-      Scrivimi tramite la pagina contatti.</p>
+      <p>Per collaborazioni, richieste o semplici curiosità, visita la pagina contatti e scrivimi direttamente.</p>
       <a href="contatti.html" class="btn">Vai ai contatti</a>
     </section>
   </main>
 
   <footer>
-    © 2025 miniutti.it — Portfolio di Tobia Miniutti
+    <div class="footer-col">
+      <h4>Miniutti.it</h4>
+      <p>Portfolio ufficiale di Tobia Miniutti — progetti, idee e sviluppo.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Link rapidi</h4>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="progetti.html">Progetti</a></li>
+        <li><a href="contatti.html">Contatti</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Contatti</h4>
+      <ul>
+        <li>Email: <a href="mailto:tobia@miniutti.it">tobia@miniutti.it</a></li>
+        <li>Tel: <a href="tel:+393791128232">+39 379 112 8232</a></li>
+      </ul>
+    </div>
+    <div class="footer-bottom">
+      © 2025 miniutti.it — Tutti i diritti riservati
+    </div>
   </footer>
 
   <script>
