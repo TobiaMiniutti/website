@@ -3,122 +3,187 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Tobia Miniutti - Portfolio</title>
-  <link rel="stylesheet" href="stile.css" />
+  <title>Tobia Miniutti | Portfolio Sviluppo Web e Design</title>
+  <meta name="description" content="Portfolio ufficiale di Tobia Miniutti: sviluppo web, design creativo e progetti innovativi. Dall'orologio SBB a esperienze digitali su misura.">
+  
+  <!-- SEO Keywords -->
+  <meta name="keywords" content="Tobia Miniutti, sviluppo web, portfolio, orologio SBB, design, progetti creativi, web design">
+  <meta name="author" content="Tobia Miniutti">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Tobia Miniutti | Portfolio" />
+  <meta property="og:description" content="Portfolio ufficiale di Tobia Miniutti: sviluppo web, design creativo e progetti innovativi." />
+  <meta property="og:image" content="https://miniutti.it/preview.jpg" />
+  <meta property="og:url" content="https://miniutti.it" />
+  <meta property="og:type" content="website" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Tobia Miniutti | Portfolio" />
+  <meta name="twitter:description" content="Portfolio ufficiale di Tobia Miniutti: sviluppo web, design creativo e progetti innovativi." />
+  <meta name="twitter:image" content="https://miniutti.it/preview.jpg" />
+
+  <!-- Favicon -->
+  <link rel="icon" href="favicon.png" type="image/png" />
+
+  <!-- Fonts -->
+  <link rel="preload" href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600&display=swap" as="style">
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600&display=swap" rel="stylesheet">
+
   <style>
     :root {
-      --white: #fff;
-      --carbon-deep: #111;
-      --anthracite: #bbb;
-      --golden: #d4af37;
-      --transition: 0.3s ease;
+      --carbon: #121212;
+      --carbon-deep: #0d0d0d;
+      --golden: #c9a74c;
+      --anthracite: #b3b3b3;
+      --white: #ffffff;
+      --glass: rgba(255, 255, 255, 0.05);
+      --tricolor: linear-gradient(90deg, #008C45, #F4F5F0, #CD212A);
+      --transition: 0.3s ease-in-out;
     }
 
-    body {
-      margin: 0;
-      font-family: "Segoe UI", sans-serif;
-      background-color: var(--carbon-deep);
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html, body {
+      font-family: 'Outfit', sans-serif;
+      background-color: var(--carbon);
       color: var(--white);
+      scroll-behavior: smooth;
     }
 
-    /* NAVBAR */
-    nav {
-      background: rgba(0,0,0,0.7);
-      padding: 1rem 2rem;
+    /* Navbar */
+    header {
+      backdrop-filter: blur(12px);
+      background: var(--glass);
+      padding: 1.2rem 2rem;
       display: flex;
-      justify-content: center;
-      gap: 2rem;
-      position: fixed;
-      top: 0; left: 0; width: 100%;
-      z-index: 10;
-      backdrop-filter: blur(6px);
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      box-shadow: 0 2px 25px rgba(0, 0, 0, 0.8);
     }
+    .logo { height: 40px; }
+
     nav a {
       color: var(--white);
       text-decoration: none;
+      margin-left: 2rem;
+      position: relative;
       font-weight: 500;
-      transition: color var(--transition);
+      transition: var(--transition);
     }
-    nav a:hover { color: var(--golden); }
-
-    /* VIDEO SFONDO */
-    #bgVideo {
-      position: fixed;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      object-fit: cover;
-      z-index: -1;
+    nav a::after {
+      content: "";
+      position: absolute;
+      bottom: -5px;
+      left: 0;
+      width: 0%;
+      height: 2px;
+      background: var(--tricolor);
+      transition: width var(--transition);
     }
+    nav a:hover::after { width: 100%; }
 
-    /* HERO */
+    /* Hero */
     .hero {
       height: 100vh;
+      background: linear-gradient(rgba(0,0,0,0.55), rgba(0,0,0,0.75)), url('https://images.unsplash.com/photo-1534081333815-ae5019106622?auto=format&fit=crop&w=1600&q=80') center/cover no-repeat;
       display: flex;
-      align-items: center;
+      flex-direction: column;
       justify-content: center;
+      align-items: center;
       text-align: center;
-      padding: 0 1rem;
-    }
-    .hero-content {
-      max-width: 800px;
+      padding: 2rem;
+      animation: fadeIn 1.5s ease;
     }
     .hero h1 {
-      font-size: 3rem;
-      margin-bottom: 1rem;
+      font-size: 3.8rem;
+      color: var(--golden);
+      letter-spacing: 1px;
+      text-shadow: 0 4px 14px rgba(0, 0, 0, 0.8);
+      animation: fadeUp 1.2s ease;
     }
     .hero p {
-      font-size: 1.2rem;
-      line-height: 1.6;
-      margin-bottom: 2rem;
+      font-size: 1.25rem;
+      max-width: 700px;
       color: var(--anthracite);
-    }
-    .btn {
-      background: var(--golden);
-      border: none;
-      padding: 0.8rem 1.5rem;
-      margin: 0.5rem;
-      font-size: 1rem;
-      font-weight: bold;
-      color: var(--carbon-deep);
-      cursor: pointer;
-      border-radius: 4px;
-      transition: background var(--transition);
-    }
-    .btn:hover {
-      background: #c49a2d;
+      margin-top: 1rem;
+      line-height: 1.8;
+      animation: fadeUp 1.6s ease;
     }
 
-    /* FOOTER */
-    footer {
-      background: rgba(0,0,0,0.85);
-      padding: 3rem 2rem;
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 2rem;
-      border-top: 1px solid rgba(255,255,255,0.05);
-      font-size: 1rem;
+    /* Sezioni */
+    main { max-width: 1100px; margin: auto; padding: 4rem 2rem; }
+    .section {
+      background: var(--carbon-deep);
+      border-radius: 20px;
+      padding: 2.5rem;
+      box-shadow: 0 10px 50px rgba(0,0,0,0.4);
+      margin-bottom: 4rem;
+      backdrop-filter: blur(8px);
+      transition: transform var(--transition), box-shadow var(--transition);
+    }
+    .section:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 15px 60px rgba(0,0,0,0.5);
+    }
+    .section h2 {
+      font-size: 2.1rem;
+      margin-bottom: 1.2rem;
+      color: var(--white);
+    }
+    .section p, .section li {
+      font-size: 1.12rem;
+      line-height: 1.9;
       color: var(--anthracite);
     }
-    .footer-col h4 {
-      font-size: 1.3rem;
+    ul { padding-left: 1.5rem; }
+
+    /* Pulsanti eleganti */
+    .btn {
+      display: inline-block;
+      margin-top: 1.2rem;
+      padding: 0.9rem 1.8rem;
+      background: var(--tricolor);
+      color: var(--carbon);
+      border-radius: 50px;
+      font-weight: 600;
+      text-transform: uppercase;
+      font-size: 0.9rem;
+      letter-spacing: 0.5px;
+      text-decoration: none;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.3);
+      transition: all var(--transition);
+    }
+    .btn:hover {
+      transform: translateY(-2px) scale(1.03);
+      box-shadow: 0 6px 20px rgba(0,0,0,0.45);
+    }
+
+    /* Footer elegante */
+    footer {
+      background: var(--carbon-deep);
+      padding: 3rem 2rem;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2rem;
+      border-top: 1px solid rgba(255,255,255,0.05);
+    }
+    .footer-col h3 {
+      font-size: 1.2rem;
       margin-bottom: 1rem;
       color: var(--golden);
     }
-    .footer-col ul {
-      list-style: none;
-      padding: 0;
-    }
-    .footer-col ul li {
-      margin: 0.5rem 0;
-    }
+    .footer-col ul { list-style: none; }
+    .footer-col ul li { margin: 0.6rem 0; }
     .footer-col ul li a {
-      text-decoration: none;
       color: var(--anthracite);
-      transition: color var(--transition);
+      text-decoration: none;
+      transition: var(--transition);
     }
-    .footer-col ul li a:hover {
-      color: var(--white);
-    }
+    .footer-col ul li a:hover { color: var(--white); }
     .footer-bottom {
       grid-column: 1 / -1;
       text-align: center;
@@ -126,41 +191,66 @@
       font-size: 0.9rem;
       color: var(--anthracite);
     }
+
+    /* Animazioni */
+    @keyframes fadeIn { from {opacity: 0;} to {opacity: 1;} }
+    @keyframes fadeUp { from {opacity: 0; transform: translateY(30px);} to {opacity: 1; transform: translateY(0);} }
+    .reveal { opacity: 0; transform: translateY(30px); transition: all 1.2s ease; }
+    .reveal.visible { opacity: 1; transform: none; }
+
+    @media (max-width: 768px) {
+      .hero h1 { font-size: 2.4rem; }
+      nav a { margin-left: 1rem; }
+    }
   </style>
 </head>
 <body>
 
-  <!-- NAVBAR -->
-  <nav>
-    <a href="index.html">Home</a>
-    <a href="progetti.html">Progetti</a>
-    <a href="contatti.html">Contatti</a>
-  </nav>
+  <header>
+    <a href="index.html">
+      <img src="favicon.png" alt="Logo miniutti.it" class="logo">
+    </a>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="progetti.html">Progetti</a>
+      <a href="contatti.html">Contatti</a>
+    </nav>
+  </header>
 
-  <!-- VIDEO SFONDO -->
-  <video autoplay muted loop id="bgVideo">
-    <source src="video.mp4" type="video/mp4">
-    Il tuo browser non supporta il video di sfondo.
-  </video>
-
-  <!-- HERO -->
   <section class="hero">
-    <div class="hero-content">
-      <h1>Tobia Miniutti</h1>
-      <p>Benvenuto nel mio portfolio: qui troverai progetti creativi, sviluppi web curati nei dettagli e idee innovative pronte a diventare realtà.</p>
-      <a href="progetti.html"><button class="btn">Esplora i Progetti</button></a>
-      <a href="contatti.html"><button class="btn">Contattami</button></a>
-    </div>
+    <h1>Tobia Miniutti</h1>
+    <p>Portfolio personale: sviluppo web, progetti creativi e sperimentazioni tecnologiche.  
+    Dall'orologio SBB a esperienze digitali su misura.</p>
   </section>
 
-  <!-- FOOTER -->
+  <main>
+    <section class="section reveal">
+      <h2>Chi sono</h2>
+      <p>Appassionato di tecnologia e design, realizzo progetti che uniscono estetica e funzionalità. Ogni lavoro è curato nei minimi dettagli per offrire esperienze digitali di alta qualità.</p>
+    </section>
+
+    <section class="section reveal">
+      <h2>Progetti in evidenza</h2>
+      <ul>
+        <li><strong>Orologio SBB:</strong> ricreazione fedele del famoso orologio svizzero — <a href="https://progettorbea.miniutti.it" target="_blank" rel="noopener noreferrer" class="btn">Scopri</a></li>
+        <li><strong>Progetto Orbea:</strong> reinterpretazione grafica e tecnica di una Alma H30</li>
+      </ul>
+    </section>
+
+    <section class="section reveal">
+      <h2>Contattami</h2>
+      <p>Per collaborazioni, richieste o semplici curiosità, visita la pagina contatti e scrivimi direttamente.</p>
+      <a href="contatti.html" class="btn">Vai ai contatti</a>
+    </section>
+  </main>
+
   <footer>
     <div class="footer-col">
-      <h4>Chi sono</h4>
-      <p>Sviluppatore web appassionato di design elegante e funzionalità intuitive, sempre alla ricerca di nuove sfide creative.</p>
+      <h3>Miniutti.it</h3>
+      <p>Portfolio ufficiale di Tobia Miniutti — progetti, idee e sviluppo.</p>
     </div>
     <div class="footer-col">
-      <h4>Link rapidi</h4>
+      <h3>Link rapidi</h3>
       <ul>
         <li><a href="index.html">Home</a></li>
         <li><a href="progetti.html">Progetti</a></li>
@@ -168,17 +258,24 @@
       </ul>
     </div>
     <div class="footer-col">
-      <h4>Contatti</h4>
+      <h3>Contatti</h3>
       <ul>
-        <li><a href="mailto:tobia@example.com">tobia@example.com</a></li>
-        <li><a href="#">LinkedIn</a></li>
-        <li><a href="#">GitHub</a></li>
+        <li>Email: <a href="mailto:tobia@miniutti.it">tobia@miniutti.it</a></li>
+        <li>Tel: <a href="tel:+393791128232">+39 379 112 8232</a></li>
       </ul>
     </div>
     <div class="footer-bottom">
-      &copy; 2025 Tobia Miniutti - Tutti i diritti riservati
+      © 2025 miniutti.it — Tutti i diritti riservati
     </div>
   </footer>
+
+  <script>
+    const reveals = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
+    }, { threshold: 0.1 });
+    reveals.forEach(el => observer.observe(el));
+  </script>
 
 </body>
 </html>
