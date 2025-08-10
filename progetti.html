@@ -2,7 +2,7 @@
 <html lang="it">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>miniutti.it | Progetti</title>
   <link rel="icon" href="favicon.png" type="image/png" />
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600&display=swap" rel="stylesheet" />
@@ -29,6 +29,8 @@
       background-color: var(--carbon);
       color: var(--white);
       scroll-behavior: smooth;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
     }
 
     /* Navbar */
@@ -98,59 +100,70 @@
       color: var(--golden);
       text-align: center;
     }
+
     .projects-list {
       list-style: none;
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 2rem;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2.4rem;
     }
+
     .project-item {
       background: var(--carbon);
       border-radius: 16px;
-      padding: 1.6rem;
+      padding: 2rem;
       box-shadow: 0 5px 20px rgba(0, 0, 0, 0.6);
-      transition: transform var(--transition), box-shadow var(--transition);
       display: flex;
       flex-direction: column;
       justify-content: space-between;
+      transition: transform var(--transition), box-shadow var(--transition);
     }
     .project-item:hover {
       transform: translateY(-6px);
-      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.75);
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.75);
     }
+
     .project-title {
-      font-size: 1.4rem;
+      font-size: 1.5rem;
       font-weight: 600;
       color: var(--golden);
-      margin-bottom: 0.7rem;
+      margin-bottom: 1rem;
     }
+
     .project-desc {
-      font-size: 1rem;
+      font-size: 1.05rem;
       color: var(--anthracite);
-      flex-grow: 1;
-      margin-bottom: 1.2rem;
       line-height: 1.6;
+      flex-grow: 1;
+      margin-bottom: 1.6rem;
+      user-select: text;
     }
+
     .project-link {
-      align-self: flex-start;
-      padding: 0.7rem 1.6rem;
-      background: var(--tricolor);
-      color: var(--carbon);
-      font-weight: 700;
+      display: inline-block;
+      padding: 0.75rem 1.8rem;
+      font-weight: 600;
+      font-size: 0.95rem;
+      color: var(--golden);
+      border: 2px solid var(--golden);
       border-radius: 40px;
       text-decoration: none;
-      box-shadow: 0 4px 16px rgba(205, 33, 42, 0.5);
-      transition: all var(--transition);
+      text-align: center;
+      transition: background-color var(--transition), color var(--transition), box-shadow var(--transition);
+      user-select: none;
     }
-    .project-link:hover {
-      box-shadow:
-        0 0 8px #008C45,
-        0 0 12px #F4F5F0,
-        0 0 18px #CD212A;
-      transform: translateY(-3px) scale(1.05);
-      border-color: var(--white);
+    .project-link:hover,
+    .project-link:focus-visible {
+      background-color: var(--golden);
       color: var(--carbon);
-      text-shadow: none;
+      box-shadow: 0 8px 18px rgba(201, 167, 76, 0.6);
+      outline: none;
+    }
+    .project-link[aria-disabled='true'] {
+      opacity: 0.4;
+      pointer-events: none;
+      border-color: var(--anthracite);
+      color: var(--anthracite);
     }
 
     /* Footer */
@@ -246,18 +259,20 @@
         <li class="project-item">
           <div class="project-title">Orologio SBB</div>
           <div class="project-desc">
-            Ricreazione fedele e interattiva del celebre orologio svizzero SBB con JavaScript e CSS.
+            Una riproduzione digitale fedele del celebre orologio svizzero delle Ferrovie Federali (SBB), sviluppata con tecnologie moderne come JavaScript e CSS. Il progetto include animazioni precise, sincronizzazione del tempo reale e un design minimale ispirato all’originale. Accessibile su <a href="https://miniutti.it/clock" target="_blank" rel="noopener noreferrer" style="color: var(--golden); text-decoration: underline;">miniutti.it/clock</a>.
           </div>
-          <a href="https://progettorbea.miniutti.it" target="_blank" class="project-link" rel="noopener noreferrer">Vai al progetto</a>
+          <a href="https://miniutti.it/clock" target="_blank" class="project-link" rel="noopener noreferrer">Visita il progetto</a>
         </li>
+
         <li class="project-item">
           <div class="project-title">Progetto Orbea Alma H30</div>
           <div class="project-desc">
-            Reinterpretazione grafica e tecnica della bicicletta Orbea Alma H30 2022, con approfondimenti su componenti e design.
+            Studio approfondito e reinterpretazione grafica della mountain bike Orbea Alma H30 del 2022. Analisi dettagliata dei componenti, design ergonomico e tecnica per ottimizzare la resa in bici da cross-country. Il progetto include modelli 3D e fotografie di alta qualità.
           </div>
-          <a href="#" class="project-link" aria-disabled="true" tabindex="-1" style="opacity:0.5;pointer-events:none;">In arrivo</a>
+          <a href="#" aria-disabled="true" class="project-link" tabindex="-1">In arrivo</a>
         </li>
-        <!-- Aggiungi altri progetti qui -->
+
+        <!-- Puoi aggiungere qui altri progetti -->
       </ul>
     </section>
   </main>
