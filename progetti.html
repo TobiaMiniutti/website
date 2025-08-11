@@ -6,15 +6,19 @@
   <title>miniutti.it | Progetti</title>
   <link rel="icon" href="favicon.png" type="image/png" />
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600&display=swap" rel="stylesheet" />
-  <style>
+    <style>
     :root {
       --carbon: #121212;
       --carbon-deep: #0d0d0d;
       --golden: #c9a74c;
       --anthracite: #b3b3b3;
       --white: #ffffff;
-      --tricolor: linear-gradient(90deg, #008C45, #F4F5F0, #CD212A);
+      --tricolor-start: #008C45;
+      --tricolor-middle: #F4F5F0;
+      --tricolor-end: #CD212A;
       --transition: 0.3s ease-in-out;
+      --border-radius: 20px;
+      --error-red: #cc4444;
     }
 
     * {
@@ -23,55 +27,77 @@
       box-sizing: border-box;
     }
 
-    html,
-    body {
+    html, body {
       font-family: 'Outfit', sans-serif;
       background-color: var(--carbon);
       color: var(--white);
       scroll-behavior: smooth;
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
+      min-height: 100vh;
     }
 
     /* Navbar */
     header {
-      backdrop-filter: blur(12px);
+      backdrop-filter: blur(14px);
       background: rgba(255 255 255 / 0.05);
-      padding: 1.2rem 2rem;
+      padding: 1.3rem 2rem;
       display: flex;
       justify-content: space-between;
       align-items: center;
       position: sticky;
       top: 0;
-      z-index: 1000;
-      box-shadow: 0 2px 25px rgba(0, 0, 0, 0.8);
+      z-index: 1100;
+      box-shadow: 0 2px 25px rgba(0, 0, 0, 0.85);
     }
+
     .logo {
-      height: 40px;
+      height: 42px;
+      filter: drop-shadow(0 0 1.5px rgba(0,0,0,0.6));
+      user-select: none;
     }
+
     nav a {
+      position: relative;
       color: var(--white);
       text-decoration: none;
-      margin-left: 2rem;
-      position: relative;
-      font-weight: 500;
-      transition: var(--transition);
+      font-weight: 600;
+      margin-left: 2.5rem;
       padding-bottom: 4px;
+      font-size: 1rem;
+      user-select: none;
+      transition: color var(--transition);
+      cursor: pointer;
     }
+
+    /* Effetto bandierina - solo hover/focus */
     nav a::after {
-      content: '';
+      content: "";
       position: absolute;
       bottom: 0;
       left: 0;
       width: 0;
       height: 3px;
-      background: var(--tricolor);
-      border-radius: 2px 2px 0 0;
+      background: linear-gradient(90deg, var(--tricolor-start), var(--tricolor-middle), var(--tricolor-end));
+      border-radius: 3px 3px 0 0;
       transition: width var(--transition);
+      pointer-events: none;
     }
+
     nav a:hover::after,
     nav a:focus-visible::after {
       width: 100%;
+    }
+
+    /* Il link corrente senza bandierina fissa */
+    nav a[aria-current="page"]::after {
+      width: 0;
+    }
+
+    nav a:hover,
+    nav a:focus-visible {
+      color: var(--golden);
+      outline: none;
     }
 
     /* Main */
