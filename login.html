@@ -1,4 +1,142 @@
-none';
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>miniutti.it | Login</title>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --carbon: #121212;
+    --carbon-deep: #0d0d0d;
+    --golden: #c9a74c;
+    --white: #ffffff;
+    --transition: 0.3s ease-in-out;
+    --border-radius: 20px;
+    --error-red: #cc4444;
+  }
+  * {
+    margin: 0; padding: 0; box-sizing: border-box;
+  }
+  body {
+    font-family: 'Outfit', sans-serif;
+    background-color: var(--carbon);
+    color: var(--white);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+  form {
+    background: var(--carbon-deep);
+    padding: 2.5rem 3rem;
+    border-radius: var(--border-radius);
+    box-shadow: 0 14px 40px rgba(0,0,0,0.6);
+    width: 320px;
+    display: flex;
+    flex-direction: column;
+    gap: 1.8rem;
+  }
+  label {
+    font-weight: 600;
+    font-size: 1.05rem;
+  }
+  input[type="text"],
+  input[type="password"] {
+    padding: 1rem;
+    font-size: 1rem;
+    border-radius: 12px;
+    border: 2.5px solid var(--golden);
+    background: var(--carbon);
+    color: var(--white);
+    transition: border-color var(--transition);
+  }
+  input:focus {
+    outline: none;
+    border-color: var(--golden);
+    box-shadow: 0 0 10px var(--golden);
+  }
+  input:invalid {
+    border-color: var(--error-red);
+  }
+  .error-message {
+    color: var(--error-red);
+    font-size: 0.9rem;
+    display: none;
+  }
+  button {
+    background: var(--golden);
+    border: none;
+    border-radius: 50px;
+    color: var(--carbon);
+    padding: 1rem 2rem;
+    font-weight: 700;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: background-color var(--transition);
+  }
+  button:disabled {
+    background: #7a6b2b;
+    cursor: not-allowed;
+  }
+  button:hover:not(:disabled),
+  button:focus-visible:not(:disabled) {
+    background: #a78f32;
+  }
+</style>
+</head>
+<body>
+
+<form id="loginForm" novalidate>
+  <label for="username">Username</label>
+  <input
+    type="text"
+    id="username"
+    name="username"
+    placeholder="Inserisci username"
+    required
+    minlength="3"
+    autocomplete="username"
+  />
+  <span class="error-message" id="userError">Inserisci un username valido (min 3 caratteri).</span>
+
+  <label for="password">Password</label>
+  <input
+    type="password"
+    id="password"
+    name="password"
+    placeholder="Inserisci password"
+    required
+    minlength="6"
+    autocomplete="current-password"
+  />
+  <span class="error-message" id="passError">Password troppo corta (min 6 caratteri).</span>
+
+  <button type="submit" disabled>Accedi</button>
+</form>
+
+<script>
+  const form = document.getElementById('loginForm');
+  const username = form.username;
+  const password = form.password;
+  const userError = document.getElementById('userError');
+  const passError = document.getElementById('passError');
+  const submitBtn = form.querySelector('button[type="submit"]');
+
+  // Credenziali hardcoded
+  const validCreds = {
+    username: 'admin',
+    password: 'password123'
+  };
+
+  function validateInput() {
+    let valid = true;
+
+    if (username.value.trim().length < 3) {
+      userError.style.display = 'block';
+      valid = false;
+    } else {
+      userError.style.display = 'none';
     }
 
     if (password.value.length < 6) {
