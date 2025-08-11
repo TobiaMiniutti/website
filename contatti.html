@@ -18,6 +18,7 @@
       --tricolor-end: #CD212A;
       --transition: 0.3s ease-in-out;
       --border-radius: 20px;
+      --error-red: #cc4444;
     }
 
     * {
@@ -88,9 +89,9 @@
       width: 100%;
     }
 
-    /* Il link corrente ha l'effetto bandierina attivo */
+    /* Il link corrente senza bandierina fissa */
     nav a[aria-current="page"]::after {
-      width: 100%;
+      width: 0;
     }
 
     nav a:hover,
@@ -161,10 +162,25 @@
       min-height: 140px;
     }
 
-    /* Validazione nativa HTML5 */
+    /* Validazione */
     input:invalid:not(:focus):not(:placeholder-shown),
     textarea:invalid:not(:focus):not(:placeholder-shown) {
-      border-color: #cc4444;
+      border-color: var(--error-red);
+    }
+
+    /* Messaggi errore */
+    .error-message {
+      color: var(--error-red);
+      font-size: 0.85rem;
+      margin-top: 0.2rem;
+      font-weight: 600;
+      user-select: none;
+      display: none;
+    }
+
+    input:invalid:not(:focus):not(:placeholder-shown) + .error-message,
+    textarea:invalid:not(:focus):not(:placeholder-shown) + .error-message {
+      display: block;
     }
 
     /* Pulsante */
@@ -286,7 +302,7 @@
     <nav>
       <a href="index.html">Home</a>
       <a href="progetti.html">Progetti</a>
-      <a href="contatti.html" aria-current="page">Contatti</a>
+      <a href="contatti.html">Contatti</a> <!-- tolto aria-current="page" per bandierina attiva solo hover -->
       <a href="login.html">Login</a>
     </nav>
   </header>
@@ -294,7 +310,6 @@
   <main>
     <h1>Contattami</h1>
 
-    <!-- Usare POST e action lato server, no mailto per sicurezza e autocompletamento -->
     <form action="/invia-contatto" method="POST" novalidate>
       <label for="nome">Nome e Cognome <span aria-hidden="true" style="color: var(--golden);">*</span></label>
       <input
@@ -306,6 +321,7 @@
         autocomplete="name"
         spellcheck="false"
       />
+      <div class="error-message">Per favore inserisci il tuo nome completo.</div>
 
       <label for="email">Email <span aria-hidden="true" style="color: var(--golden);">*</span></label>
       <input
@@ -317,6 +333,7 @@
         autocomplete="email"
         spellcheck="false"
       />
+      <div class="error-message">Inserisci una email valida.</div>
 
       <label for="messaggio">Messaggio <span aria-hidden="true" style="color: var(--golden);">*</span></label>
       <textarea
@@ -326,6 +343,7 @@
         required
         spellcheck="true"
       ></textarea>
+      <div class="error-message">Il messaggio non può essere vuoto.</div>
 
       <button type="submit" aria-label="Invia messaggio">Invia</button>
     </form>
