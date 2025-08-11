@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>miniutti.it | Dashboard</title>
+<style>
+  body {
+    background: #121212;
+    color: #c9a74c;
+    font-family: 'Outfit', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    text-align: center;
+  }
+  h1 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+  }
+  p {
+    color: #b3b3b3;
+    font-size: 1.1rem;
+  }
+</style>
+</head>
+<body>
+<script>
+  if (sessionStorage.getItem('loggedIn') !== 'true') {
+    window.location.href = 'login.html';
+  }
+</script>
+
+<div>
+  <h1>Backend in costruzione</h1>
+  <p>Questa pagina sarà presto disponibile.</p>
+</div>
+</body>
+</html>
