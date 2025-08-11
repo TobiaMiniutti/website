@@ -88,9 +88,9 @@
       width: 100%;
     }
 
-    /* Attivo solo al passaggio, no blocco */
+    /* Il link corrente ha l'effetto bandierina attivo */
     nav a[aria-current="page"]::after {
-      width: 0;
+      width: 100%;
     }
 
     nav a:hover,
@@ -161,8 +161,9 @@
       min-height: 140px;
     }
 
-    /* Validazione semplice */
-    input:invalid, textarea:invalid {
+    /* Validazione nativa HTML5 */
+    input:invalid:not(:focus):not(:placeholder-shown),
+    textarea:invalid:not(:focus):not(:placeholder-shown) {
       border-color: #cc4444;
     }
 
@@ -293,7 +294,8 @@
   <main>
     <h1>Contattami</h1>
 
-    <form action="mailto:tobia@miniutti.it" method="post" enctype="text/plain" novalidate>
+    <!-- Usare POST e action lato server, no mailto per sicurezza e autocompletamento -->
+    <form action="/invia-contatto" method="POST" novalidate>
       <label for="nome">Nome e Cognome <span aria-hidden="true" style="color: var(--golden);">*</span></label>
       <input
         type="text"
