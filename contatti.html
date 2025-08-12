@@ -311,7 +311,7 @@
     <h1>Contattami</h1>
 
     <form action="/invia-contatto" method="POST" novalidate>
-       <b1>MODULO NON FUNZIONANTE; USARE MAIL</b1>
+       <c1>ATTENZIONE: MODULO NON FUNZIONANTE, USARE MAIL</c1>
       <label for="nome">Nome e Cognome <span aria-hidden="true" style="color: var(--golden);">*</span></label>
       <input
         type="text"
@@ -346,8 +346,9 @@
       ></textarea>
       <div class="error-message">Il messaggio non può essere vuoto.</div>
 
-     /* <button type="submit" aria-label="Invia messaggio">Invia</button> */
-    <button type="submit" aria-label="Invia messaggio" disabled onclick="alert('Modulo non funzionante')">Invia</button>
+      <c1>ATTENZIONE: MODULO NON FUNZIONANTE, USARE MAIL</c1>
+      <button type="submit" aria-label="Invia messaggio" disabled style="pointer-events:auto;" onclick="alert('Modulo non funzionante')">Invia</button>
+
       
     </form>
 
