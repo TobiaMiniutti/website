@@ -1,208 +1,127 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="it">
-
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Miniutti.it - Pagina non trovata (404)</title>
-  <link rel="icon" href="favicon.png" />
-  <script src="sbbUhr-1.3.js" defer></script>
-
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>404 — miniutti.it</title>
+  <meta name="description" content="Pagina non trovata — miniutti.it" />
   <style>
-    :root {
-      --col-purple: #76237f;
-      --col-purple-dark: #5c1a64;
-      --col-white: #ffffff;
-      --col-gray-light: #f5f5f7;
-      --col-gray-medium: #888888;
-      --col-gray-dark: #222222;
-      --tricolor-gradient: linear-gradient(90deg, #00703c, #ffffff, #d62f27);
-      --border-radius: 14px;
-      --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-      --glass-bg: rgba(255, 255, 255, 0.7);
-      --glass-border: rgba(255, 255, 255, 0.4);
+    :root{
+      --bg:#0f1724;
+      --card:#0b1220;
+      --muted:#98a0b3;
+      --accent:#00d1b2;
+      --glass: rgba(255,255,255,0.04);
+      --flag-left:#0066b2; /* blu italia-ish */
+      --flag-mid:#ffffff;
+      --flag-right:#d52b1e; /* rosso */
+      --max-width:1100px;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
     }
+    html,body{height:100%;margin:0;background:linear-gradient(180deg,var(--bg),#081025);color:#e6eef8}
+    .wrap{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:40px}
+    .card{width:100%;max-width:var(--max-width);background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));border-radius:18px;box-shadow:0 10px 30px rgba(2,6,23,0.6);backdrop-filter:blur(6px);padding:36px;display:grid;grid-template-columns:1fr 420px;gap:28px;align-items:center}
+    @media (max-width:880px){.card{grid-template-columns:1fr;padding:28px;gap:18px} .illustration{order:-1}}
 
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+    .left h1{font-size:44px;margin:0 0 8px 0;letter-spacing:-1px}
+    .left p{color:var(--muted);margin:0 0 22px 0}
+    .actions{display:flex;gap:12px;flex-wrap:wrap}
+    .btn{display:inline-flex;align-items:center;gap:10px;padding:10px 14px;border-radius:10px;border:1px solid rgba(255,255,255,0.05);background:linear-gradient(180deg,rgba(255,255,255,0.02),transparent);cursor:pointer;text-decoration:none;color:inherit;font-weight:600}
+    .btn.primary{background:linear-gradient(90deg,var(--accent),#7ce3d0);color:#022;box-shadow:0 6px 18px rgba(0,209,178,0.12);border:none}
+    .muted-link{color:var(--muted);text-decoration:none;font-weight:600;padding:8px;border-radius:8px}
 
-    body {
-      font-family: var(--font-sans);
-      background: var(--col-gray-light);
-      color: var(--col-gray-dark);
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      padding: 6rem 2rem;
-      user-select: none;
-    }
+    /* bandiera-tricolore underline effect for links */
+    .flag-underline{position:relative;display:inline-block}
+    .flag-underline::after{content:"";position:absolute;left:0;right:0;bottom:-3px;height:6px;border-radius:4px;transform:scaleX(0);transform-origin:left;transition:transform .28s cubic-bezier(.2,.9,.3,1);box-shadow:0 6px 18px rgba(0,0,0,0.6)}
+    .flag-underline:hover::after{transform:scaleX(1);background:linear-gradient(90deg,var(--flag-left),var(--flag-mid),var(--flag-right))}
 
-    #logo {
-      position: fixed;
-      top: 8px;
-      left: 16px;
-      width: 64px;
-      height: 64px;
-      background: var(--glass-bg);
-      border: 1px solid var(--glass-border);
-      border-radius: 50%;
-      box-shadow:
-        0 12px 24px rgba(0, 0, 0, 0.12),
-        inset 0 2px 10px rgba(255, 255, 255, 0.7);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      transition: transform 0.4s ease, box-shadow 0.4s ease;
-      z-index: 1100;
-    }
+    /* illustration */
+    .illustration{display:flex;align-items:center;justify-content:center;padding:18px;border-radius:14px;background:linear-gradient(180deg,rgba(255,255,255,0.02),transparent);border:1px solid rgba(255,255,255,0.03)}
+    .scene{width:100%;max-width:360px;height:260px;display:grid;place-items:center;position:relative}
+    .big{font-size:90px;font-weight:800;line-height:0.8;filter:drop-shadow(0 12px 30px rgba(0,0,0,0.6));}
+    .emoji{font-size:48px}
+    .tiny{color:var(--muted);font-weight:700;margin-top:8px}
 
-    #logo img {
-      width: 100%;
-      height: 100%;
-      object-fit: contain;
-      pointer-events: none;
-    }
+    .footer-note{margin-top:18px;color:var(--muted);font-size:13px}
 
-    #logo:hover {
-      transform: scale(1.08) rotateY(6deg);
-      box-shadow: 0 18px 48px var(--col-purple);
-    }
+    /* fullscreen cue */
+    .fs-hint{font-size:12px;color:var(--muted);margin-left:6px}
 
-    #mini-clock {
-      position: fixed;
-      top: 12px;
-      right: 22px;
-      width: 56px;
-      height: 56px;
-      background: var(--glass-bg);
-      border-radius: 50%;
-      border: 1px solid var(--glass-border);
-      padding: 8px;
-      box-shadow:
-        0 10px 30px rgba(0, 0, 0, 0.1),
-        inset 0 2px 10px rgba(255, 255, 255, 0.7);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      transition: transform 0.4s ease, box-shadow 0.4s ease;
-      z-index: 1100;
-      backdrop-filter: saturate(180%) blur(12px);
-    }
+    /* subtle float */
+    .floaty{animation:floaty 6s ease-in-out infinite}
+    @keyframes floaty{0%{transform:translateY(0)}50%{transform:translateY(-8px)}100%{transform:translateY(0)}}
 
-    #mini-clock:hover {
-      transform: rotateY(6deg) scale(1.08);
-      box-shadow: 0 18px 48px var(--col-purple);
-    }
+    /* small code-like box */
+    .meta{background:var(--glass);padding:10px;border-radius:8px;color:var(--muted);font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, "Roboto Mono", monospace;font-size:13px}
 
-    main {
-      max-width: 600px;
-      margin-top: 4rem;
-    }
-
-    main h1 {
-      font-size: 6.5rem;
-      font-weight: 900;
-      background: linear-gradient(45deg, var(--col-purple), var(--col-purple-dark));
-      background-clip: text;
-      -webkit-background-clip: text;
-      color: transparent;
-      margin-bottom: 1rem;
-    }
-
-    main p {
-      font-size: 1.5rem;
-      color: var(--col-gray-medium);
-      margin-bottom: 2.5rem;
-    }
-
-    main button {
-      font-size: 1.25rem;
-      padding: 1rem 2.5rem;
-      background: var(--col-purple);
-      color: var(--col-white);
-      border: none;
-      border-radius: var(--border-radius);
-      font-weight: 700;
-      cursor: pointer;
-      box-shadow: 0 4px 14px rgba(118, 35, 127, 0.6);
-      transition: background 0.3s ease, box-shadow 0.3s ease;
-    }
-
-    main button:hover {
-      background: var(--col-purple-dark);
-      box-shadow: 0 8px 28px var(--col-purple-dark);
-    }
-
-    @media (max-width: 620px) {
-      main h1 { font-size: 5rem; }
-      main p { font-size: 1.2rem; }
-      main button { font-size: 1.1rem; padding: 0.8rem 2rem; }
-    }
   </style>
 </head>
-
 <body>
+  <div class="wrap">
+    <div class="card" role="main" aria-labelledby="title">
+      <div class="left">
+        <h1 id="title">404 — Pagina non trovata</h1>
+        <p>La pagina che cerchi non esiste o è stata spostata. Forse hai scritto male l'URL o il link è obsoleto.</p>
 
-  <!-- LOGO -->
-  <div id="logo" role="button" tabindex="0" aria-label="Vai alla home" onclick="window.location.href='index.html'">
-    <img src="favicon.png" alt="Logo Miniutti" />
+        <div class="actions">
+          <a class="btn primary" href="/">Torna alla Home</a>
+          <a class="btn" href="/progetti">I miei progetti</a>
+          <a class="btn" href="/contatti">Contatti</a>
+          <a class="muted-link flag-underline" href="/">Back to miniutti.it</a>
+        </div>
+
+        <div class="footer-note">
+          <span class="meta">URL richiesto: <span id="req-url">—</span></span>
+          <span style="margin-left:12px">• <span class="meta">Timestamp: <span id="ts">—</span></span></span>
+        </div>
+      </div>
+
+      <div class="illustration" aria-hidden="true">
+        <div class="scene">
+          <div style="text-align:center">
+            <div class="big floaty">404</div>
+            <div class="emoji">🔎</div>
+            <div class="tiny">Non temere: esploriamo altri percorsi.</div>
+            <div style="margin-top:12px;display:flex;gap:8px;align-items:center;justify-content:center">
+              <button id="fsBtn" class="btn">Apri a schermo intero</button>
+              <div class="fs-hint">Premi 'F' per fullscreen</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
   </div>
 
-  <!-- MINI CLOCK -->
-  <div id="mini-clock" role="button" tabindex="0" aria-label="Orologio SBB digitale cliccabile"></div>
-
-  <!-- MESSAGGIO 404 -->
-  <main role="main" aria-label="Errore 404">
-    <h1>404</h1>
-    <p>Ops! La pagina che stai cercando non esiste o è ancora in fase di sviluppo.</p>
-    <button onclick="window.location.href='index.html'" aria-label="Torna alla Home">Torna alla Home</button>
-  </main>
-
-  <!-- INIZIALIZZA CLOCK -->
   <script>
-    window.addEventListener("DOMContentLoaded", () => {
-      const miniClock = document.getElementById("mini-clock");
+    // Inserisce URL richiesto e timestamp
+    (function(){
+      var url = encodeURI(window.location.pathname + window.location.search + window.location.hash) || '/';
+      document.getElementById('req-url').textContent = url;
+      document.getElementById('ts').textContent = new Date().toLocaleString('it-IT', {hour12:false});
+    })();
 
-      // Check se la libreria è caricata
-      if (typeof SBBUhr === "function" && miniClock) {
-        const orologio = new SBBUhr({
-          target: miniClock,
-          type: "digital", // anche "analog"
-          size: 56,
-          showSeconds: true,
-          showDate: false,
-          fullScreenBtn: false,
-          fullScreenKey: false,
-        });
+    // Fullscreen toggle with button and "F" key
+    var fsBtn = document.getElementById('fsBtn');
+    fsBtn.addEventListener('click', toggleFullscreen);
+    document.addEventListener('keydown', function(e){ if(e.key === 'f' || e.key === 'F'){ toggleFullscreen(); } });
 
-        // Fallback per forzare aggiornamento
-        setInterval(() => {
-          if (typeof orologio.update === "function") orologio.update();
-        }, 30000);
+    function toggleFullscreen(){
+      var el = document.documentElement;
+      if(!document.fullscreenElement){
+        el.requestFullscreen?.();
+      } else {
+        document.exitFullscreen?.();
       }
+    }
 
-      // Click & accessibilità
-      miniClock.addEventListener("click", () => {
-        window.location.href = "clock.html";
-      });
+    // Accessibility: focus primary action
+    window.addEventListener('load', function(){ document.querySelector('.btn.primary').focus(); });
 
-      miniClock.addEventListener("keydown", (e) => {
-        if (e.key === "Enter" || e.key === " ") {
-          e.preventDefault();
-          window.location.href = "clock.html";
-        }
-      });
-    });
+    // Optional: send simple client-side log to an endpoint (commented out)
+    /*
+    fetch('/_log_404', {method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({url:window.location.href,t:new Date().toISOString()})});
+    */
   </script>
-
 </body>
-
 </html>
