@@ -1,126 +1,146 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="it">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>404 — miniutti.it</title>
-  <meta name="description" content="Pagina non trovata — miniutti.it" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>miniutti.it | Pagina non trovata</title>
+  <link rel="icon" href="favicon.png" type="image/png" />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600&display=swap" rel="stylesheet" />
   <style>
-    :root{
-      --bg:#0f1724;
-      --muted:#98a0b3;
-      --accent:#00d1b2;
-      --flag-left:#0066b2;
-      --flag-mid:#ffffff;
-      --flag-right:#d52b1e;
-      font-family: Inter, sans-serif;
+    /* Stile originale della home */
+    :root {
+      --carbon: #121212;
+      --carbon-deep: #0d0d0d;
+      --golden: #c9a74c;
+      --anthracite: #b3b3b3;
+      --white: #ffffff;
+      --tricolor-start: #008C45;
+      --tricolor-middle: #F4F5F0;
+      --tricolor-end: #CD212A;
+      --transition: 0.3s ease-in-out;
+      --border-radius: 20px;
+      --error-red: #cc4444;
     }
-    html,body{
-      height:100%;
-      margin:0;
-      background:linear-gradient(180deg,var(--bg),#081025);
-      color:#e6eef8;
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body {
+      font-family: 'Outfit', sans-serif;
+      background-color: var(--carbon);
+      color: var(--white);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
     }
-    .wrap{
-      min-height:100vh;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      padding:40px;
+    header {
+      backdrop-filter: blur(14px);
+      background: rgba(255 255 255 / 0.05);
+      padding: 1.3rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 1100;
+      box-shadow: 0 2px 25px rgba(0, 0, 0, 0.85);
     }
-    .card{
-      background:rgba(255,255,255,0.02);
-      border-radius:18px;
-      box-shadow:0 10px 30px rgba(2,6,23,0.6);
-      backdrop-filter:blur(6px);
-      padding:36px;
-      max-width:900px;
-      width:100%;
-      display:grid;
-      gap:28px;
-      align-items:center;
+    .logo { height: 42px; filter: drop-shadow(0 0 1.5px rgba(0,0,0,0.6)); }
+    nav a {
+      position: relative;
+      color: var(--white);
+      text-decoration: none;
+      font-weight: 600;
+      margin-left: 2.5rem;
+      padding-bottom: 4px;
+      font-size: 1rem;
+      transition: color var(--transition);
     }
-    h1{font-size:44px;margin:0 0 8px}
-    p{color:var(--muted);margin:0 0 22px}
-    .btn{
-      display:inline-flex;
-      align-items:center;
-      gap:10px;
-      padding:10px 14px;
-      border-radius:10px;
-      border:1px solid rgba(255,255,255,0.05);
-      background:linear-gradient(180deg,rgba(255,255,255,0.02),transparent);
-      text-decoration:none;
-      color:inherit;
-      font-weight:600;
+    nav a::after {
+      content: "";
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--tricolor-start), var(--tricolor-middle), var(--tricolor-end));
+      border-radius: 3px 3px 0 0;
+      transition: width var(--transition);
     }
-    .btn.primary{
-      background:linear-gradient(90deg,var(--accent),#7ce3d0);
-      color:#022;
-      border:none;
-      box-shadow:0 6px 18px rgba(0,209,178,0.12);
+    nav a:hover::after { width: 100%; }
+    nav a:hover { color: var(--golden); }
+
+    /* Contenuto 404 */
+    main {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 4rem 2rem;
     }
-    .flag-underline{position:relative;display:inline-block}
-    .flag-underline::after{
-      content:"";
-      position:absolute;
-      left:0;right:0;bottom:-3px;
-      height:6px;border-radius:4px;
-      transform:scaleX(0);
-      transform-origin:left;
-      transition:transform .28s;
+    .error-box {
+      background: var(--carbon-deep);
+      border-radius: var(--border-radius);
+      padding: 3rem 2rem;
+      text-align: center;
+      box-shadow: 0 10px 50px rgba(0,0,0,0.4);
+      max-width: 600px;
+      width: 100%;
     }
-    .flag-underline:hover::after{
-      transform:scaleX(1);
-      background:linear-gradient(90deg,var(--flag-left),var(--flag-mid),var(--flag-right));
+    .error-code {
+      font-size: 6rem;
+      font-weight: 700;
+      color: var(--golden);
+      margin-bottom: 1rem;
     }
-    .big{font-size:90px;font-weight:800}
-    .emoji{font-size:48px}
-    .tiny{color:var(--muted);font-weight:700;margin-top:8px}
-    .fs-hint{font-size:12px;color:var(--muted);margin-left:6px}
+    .error-message {
+      font-size: 1.3rem;
+      color: var(--anthracite);
+      margin-bottom: 2rem;
+    }
+    .home-link {
+      display: inline-block;
+      padding: 0.75rem 1.8rem;
+      font-weight: 600;
+      font-size: 0.95rem;
+      color: var(--golden);
+      border: 2px solid var(--golden);
+      border-radius: 40px;
+      text-decoration: none;
+      transition: var(--transition);
+    }
+    .home-link:hover {
+      background-color: var(--golden);
+      color: var(--carbon);
+      box-shadow: 0 8px 18px rgba(201, 167, 76, 0.6);
+    }
+    footer {
+      background: var(--carbon-deep);
+      padding: 2rem;
+      text-align: center;
+      color: var(--anthracite);
+      border-top: 1px solid rgba(255,255,255,0.05);
+    }
   </style>
 </head>
 <body>
-  <div class="wrap">
-    <div class="card">
-      <div>
-        <h1>404 — Pagina non trovata</h1>
-        <p>La pagina che cerchi non esiste o è stata spostata.</p>
-        <a class="btn primary" href="/">Torna alla Home</a>
-        <a class="btn" href="/progetti">Progetti</a>
-        <a class="btn" href="/contatti">Contatti</a>
-        <a class="flag-underline" href="/">Back to miniutti.it</a>
-        <div style="margin-top:20px;font-size:13px;color:var(--muted)">
-          URL richiesto: <span id="req-url">—</span> • Timestamp: <span id="ts">—</span>
-        </div>
-      </div>
-      <div style="text-align:center">
-        <div class="big">404</div>
-        <div class="emoji">🔎</div>
-        <div class="tiny">Non temere: esploriamo altri percorsi.</div>
-        <div style="margin-top:12px">
-          <button id="fsBtn" class="btn">Schermo intero</button>
-          <span class="fs-hint">Premi 'F'</span>
-        </div>
-      </div>
+  <header>
+    <a href="index.html"><img src="favicon.png" alt="Logo miniutti.it" class="logo" /></a>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="progetti.html">Progetti</a>
+      <a href="contatti.html">Contatti</a>
+      <a href="login.html">Login</a>
+    </nav>
+  </header>
+
+  <main>
+    <div class="error-box">
+      <div class="error-code">404</div>
+      <div class="error-message">Ops... la pagina che cerchi non esiste o è stata spostata.</div>
+      <a href="index.html" class="home-link">Torna alla Home</a>
     </div>
-  </div>
-  <script>
-    document.getElementById('req-url').textContent =
-      window.location.pathname + window.location.search + window.location.hash;
-    document.getElementById('ts').textContent =
-      new Date().toLocaleString('it-IT',{hour12:false});
-    document.getElementById('fsBtn').onclick = toggleFullscreen;
-    document.addEventListener('keydown', e => {
-      if(e.key.toLowerCase() === 'f') toggleFullscreen();
-    });
-    function toggleFullscreen(){
-      if(!document.fullscreenElement){
-        document.documentElement.requestFullscreen();
-      } else {
-        document.exitFullscreen();
-      }
-    }
-  </script>
+  </main>
+
+  <footer>
+    © 2025 miniutti.it — Tutti i diritti riservati
+  </footer>
 </body>
 </html>
