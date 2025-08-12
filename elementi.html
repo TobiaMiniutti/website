@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Miniutti.it — Style Guide</title>
+  <link rel="icon" href="favicon.png" type="image/png">
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --carbon: #121212;
+      --carbon-deep: #0d0d0d;
+      --golden: #c9a74c;
+      --anthracite: #8f8f8f;
+      --white: #ffffff;
+      --glass: rgba(255, 255, 255, 0.05);
+      --tricolor: linear-gradient(to right, #008C45, #F4F5F0, #CD212A);
+      --transition: 0.3s ease-in-out;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html, body {
+      font-family: 'Outfit', sans-serif;
+      background-color: var(--carbon);
+      color: var(--white);
+      scroll-behavior: smooth;
+    }
+
+    /* Navbar */
+    header {
+      backdrop-filter: blur(10px);
+      background: var(--glass);
+      padding: 1.2rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      box-shadow: 0 2px 20px rgba(0, 0, 0, 0.7);
+    }
+    .logo { height: 38px; }
+    nav { display: flex; align-items: center; }
+    nav a {
+      color: var(--white);
+      text-decoration: none;
+      margin-left: 2rem;
+      position: relative;
+      font-weight: 500;
+      transition: var(--transition);
+    }
+    nav a::after {
+      content: "";
+      position: absolute;
+      bottom: -5px;
+      left: 0;
+      width: 0%;
+      height: 2px;
+      background: var(--tricolor);
+      transition: width var(--transition);
+    }
+    nav a:hover::after { width: 100%; }
+
+    /* Pulsanti */
+    .btn {
+      padding: 0.8rem 1.8rem;
+      border-radius: 50px;
+      background: var(--glass);
+      border: 1px solid rgba(255,255,255,0.2);
+      color: var(--white);
+      font-size: 1rem;
+      backdrop-filter: blur(6px);
+      cursor: pointer;
+      transition: var(--transition);
+    }
+    .btn:hover {
+      background: rgba(255,255,255,0.15);
+      transform: translateY(-2px);
+    }
+
+    /* Card progetto */
+    .card {
+      background: var(--carbon-deep);
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.5);
+      transition: transform var(--transition);
+    }
+    .card img { width: 100%; display: block; }
+    .card-content {
+      padding: 1.5rem;
+    }
+    .card h3 { color: var(--golden); margin-bottom: 0.5rem; }
+    .card p { color: var(--anthracite); line-height: 1.6; }
+    .card:hover { transform: translateY(-5px); }
+
+    /* Form contatti */
+    form {
+      background: var(--carbon-deep);
+      padding: 2rem;
+      border-radius: 15px;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.4);
+      display: grid;
+      gap: 1rem;
+    }
+    input, textarea {
+      padding: 0.8rem;
+      border: none;
+      border-radius: 8px;
+      outline: none;
+      font-family: inherit;
+      font-size: 1rem;
+    }
+
+    /* Footer */
+    footer {
+      background: var(--carbon-deep);
+      padding: 2.5rem;
+      text-align: center;
+      font-size: 0.95rem;
+      border-top: 1px solid rgba(255,255,255,0.05);
+      color: var(--anthracite);
+    }
+    footer a {
+      color: var(--golden);
+      text-decoration: none;
+      margin: 0 0.5rem;
+    }
+    footer a:hover {
+      text-decoration: underline;
+    }
+
+    /* Style Guide layout */
+    main {
+      max-width: 1100px;
+      margin: auto;
+      padding: 3rem 2rem;
+    }
+    section {
+      margin-bottom: 4rem;
+    }
+    pre {
+      background: var(--carbon-deep);
+      padding: 1rem;
+      border-radius: 8px;
+      overflow-x: auto;
+      font-size: 0.85rem;
+      color: #ccc;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <img src="favicon.png" alt="Logo Miniutti" class="logo" />
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="progetti.html">Progetti</a>
+    <a href="videomaking.html">Videomaking</a>
+    <a href="contatti.html">Contatti</a>
+    <a href="login.html">Login</a>
+  </nav>
+</header>
+
+<main>
+  <h1>Style Guide — Miniutti.it</h1>
+  <p>Questa pagina mostra tutti gli elementi grafici del sito, con relativo codice pronto da riutilizzare.</p>
+
+  <!-- Navbar -->
+  <section>
+    <h2>Navbar</h2>
+    <p>Barra di navigazione con effetto bandierina tricolore al passaggio del mouse.</p>
+    <pre><code>&lt;header&gt;
+  &lt;img src="favicon.png" alt="Logo" class="logo" /&gt;
+  &lt;nav&gt;
+    &lt;a href="index.html"&gt;Home&lt;/a&gt;
+    &lt;a href="progetti.html"&gt;Progetti&lt;/a&gt;
+    &lt;a href="videomaking.html"&gt;Videomaking&lt;/a&gt;
+    &lt;a href="contatti.html"&gt;Contatti&lt;/a&gt;
+  &lt;/nav&gt;
+&lt;/header&gt;</code></pre>
+  </section>
+
+  <!-- Pulsanti -->
+  <section>
+    <h2>Pulsanti</h2>
+    <button class="btn">Scopri di più</button>
+    <button class="btn">Vai al progetto</button>
+    <pre><code>&lt;button class="btn"&gt;Scopri di più&lt;/button&gt;</code></pre>
+  </section>
+
+  <!-- Card -->
+  <section>
+    <h2>Card progetto</h2>
+    <div class="card" style="max-width:300px;">
+      <img src="https://images.unsplash.com/photo-1607865470261-3c46d1b7f8f7?auto=format&fit=crop&w=800&q=80" alt="Progetto">
+      <div class="card-content">
+        <h3>Orologio SBB</h3>
+        <p>Riproduzione fedele dell’orologio ufficiale delle ferrovie svizzere, con animazioni e precisione al millisecondo.</p>
+      </div>
+    </div>
+    <pre><code>&lt;div class="card"&gt;
+  &lt;img src="img.jpg" alt="Progetto"&gt;
+  &lt;div class="card-content"&gt;
+    &lt;h3&gt;Titolo&lt;/h3&gt;
+    &lt;p&gt;Descrizione progetto...&lt;/p&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+  </section>
+
+  <!-- Form -->
+  <section>
+    <h2>Form contatti</h2>
+    <form>
+      <input type="text" placeholder="Nome">
+      <input type="email" placeholder="Email">
+      <textarea placeholder="Messaggio"></textarea>
+      <button class="btn" type="submit">Invia</button>
+    </form>
+<pre><code>&lt;form&gt;
+  &lt;input type="text" placeholder="Nome"&gt;
+  &lt;input type="email" placeholder="Email"&gt;
+  &lt;textarea placeholder="Messaggio"&gt;&lt;/textarea&gt;
+  &lt;button class="btn" type="submit"&gt;Invia&lt;/button&gt;
+&lt;/form&gt;</code></pre>
+  </section>
+
+  <!-- Footer -->
+  <section>
+    <h2>Footer</h2>
+    <footer>
+      © 2025 Miniutti.it — Portfolio personale | 
+      <a href="privacy.html">Privacy</a> | 
+      <a href="termini.html">Termini</a>
+    </footer>
+<pre><code>&lt;footer&gt;
+  © 2025 Miniutti.it — Portfolio personale |
+  &lt;a href="privacy.html"&gt;Privacy&lt;/a&gt; |
+  &lt;a href="termini.html"&gt;Termini&lt;/a&gt;
+&lt;/footer&gt;</code></pre>
+  </section>
+
+</main>
+
+</body>
+</html>
