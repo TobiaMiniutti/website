@@ -1,36 +1,49 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Miniutti.it — Style Guide</title>
-  <link rel="icon" href="favicon.png" type="image/png">
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600&display=swap" rel="stylesheet">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>miniutti.it | Elementi</title>
+  <link rel="icon" href="favicon.png" type="image/png" />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600&display=swap" rel="stylesheet" />
   <style>
     :root {
       --carbon: #121212;
       --carbon-deep: #0d0d0d;
       --golden: #c9a74c;
-      --anthracite: #8f8f8f;
+      --anthracite: #b3b3b3;
       --white: #ffffff;
-      --glass: rgba(255, 255, 255, 0.05);
-      --tricolor: linear-gradient(to right, #008C45, #F4F5F0, #CD212A);
+      --tricolor-start: #008C45;
+      --tricolor-middle: #F4F5F0;
+      --tricolor-end: #CD212A;
       --transition: 0.3s ease-in-out;
+      --border-radius: 20px;
+      --glass: rgba(255 255 255 / 0.05);
+      --code-bg: #1e1e1e;
+      --code-color: #d4d4d4;
+      --code-accent: #c9a74c;
     }
 
-    * { margin: 0; padding: 0; box-sizing: border-box; }
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
     html, body {
       font-family: 'Outfit', sans-serif;
       background-color: var(--carbon);
       color: var(--white);
       scroll-behavior: smooth;
+      min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
     }
 
     /* Navbar */
     header {
       backdrop-filter: blur(14px);
-      background: rgba(255 255 255 / 0.05);
+      background: var(--glass);
       padding: 1.3rem 2rem;
       display: flex;
       justify-content: space-between;
@@ -38,15 +51,13 @@
       position: sticky;
       top: 0;
       z-index: 1100;
-      box-shadow: 0 2px 25px rgba(0, 0, 0, 0.85);
+      box-shadow: 0 2px 25px rgba(0,0,0,0.85);
     }
-
     .logo {
       height: 42px;
       filter: drop-shadow(0 0 1.5px rgba(0,0,0,0.6));
       user-select: none;
     }
-
     nav a {
       position: relative;
       color: var(--white);
@@ -59,8 +70,6 @@
       transition: color var(--transition);
       cursor: pointer;
     }
-
-    /* Effetto bandierina - solo hover/focus */
     nav a::after {
       content: "";
       position: absolute;
@@ -73,211 +82,331 @@
       transition: width var(--transition);
       pointer-events: none;
     }
-
     nav a:hover::after,
     nav a:focus-visible::after {
       width: 100%;
     }
-
-    /* Il link corrente senza bandierina fissa */
     nav a[aria-current="page"]::after {
-  width: 0;
-  transition: width var(--transition);
-}
-
-nav a[aria-current="page"]:hover::after,
-nav a[aria-current="page"]:focus-visible::after {
-  width: 100%;
-}
-
-
+      width: 0;
+      transition: width var(--transition);
+    }
+    nav a[aria-current="page"]:hover::after,
+    nav a[aria-current="page"]:focus-visible::after {
+      width: 100%;
+    }
     nav a:hover,
     nav a:focus-visible {
       color: var(--golden);
       outline: none;
     }
 
+    main {
+      max-width: 1200px;
+      margin: 2rem auto 4rem;
+      padding: 0 2rem;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+    }
 
-    /* Pulsanti */
+    /* Hero intro */
+    .hero {
+      grid-column: 1 / -1;
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+    .hero h1 {
+      font-size: 3.4rem;
+      color: var(--golden);
+      margin-bottom: 0.3rem;
+    }
+    .hero p {
+      color: var(--anthracite);
+      font-size: 1.25rem;
+      max-width: 700px;
+      margin: 0 auto;
+      line-height: 1.6;
+    }
+
+    /* Playground container */
+    .playground {
+      background: var(--carbon-deep);
+      border-radius: var(--border-radius);
+      padding: 2rem;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+      backdrop-filter: blur(8px);
+      height: fit-content;
+    }
+    .playground h2 {
+      color: var(--golden);
+      margin-bottom: 1.2rem;
+      font-size: 2rem;
+      text-align: center;
+    }
+    .preview {
+      background: var(--carbon);
+      border-radius: var(--border-radius);
+      padding: 1.5rem;
+      margin-bottom: 1.8rem;
+      box-shadow: inset 0 0 15px rgba(0,0,0,0.6);
+      min-height: 300px;
+      user-select: none;
+    }
+
+    /* Preview elements */
     .btn {
+      display: inline-block;
       padding: 0.8rem 1.8rem;
+      background: linear-gradient(90deg, var(--tricolor-start), var(--tricolor-middle), var(--tricolor-end));
+      color: var(--carbon);
+      font-weight: 600;
       border-radius: 50px;
-      background: var(--glass);
-      border: 1px solid rgba(255,255,255,0.2);
-      color: var(--white);
       font-size: 1rem;
-      backdrop-filter: blur(6px);
+      box-shadow: 0 4px 14px rgba(0,0,0,0.3);
+      transition: all var(--transition);
       cursor: pointer;
-      transition: var(--transition);
+      user-select: none;
+      margin: 0 0.5rem 0.5rem 0;
     }
     .btn:hover {
-      background: rgba(255,255,255,0.15);
-      transform: translateY(-2px);
+      transform: translateY(-3px) scale(1.05);
+      box-shadow: 0 7px 25px rgba(201, 167, 76, 0.7);
     }
 
-    /* Card progetto */
-    .card {
-      background: var(--carbon-deep);
-      border-radius: 20px;
-      overflow: hidden;
-      box-shadow: 0 8px 30px rgba(0,0,0,0.5);
-      transition: transform var(--transition);
-    }
-    .card img { width: 100%; display: block; }
-    .card-content {
-      padding: 1.5rem;
-    }
-    .card h3 { color: var(--golden); margin-bottom: 0.5rem; }
-    .card p { color: var(--anthracite); line-height: 1.6; }
-    .card:hover { transform: translateY(-5px); }
-
-    /* Form contatti */
-    form {
-      background: var(--carbon-deep);
-      padding: 2rem;
-      border-radius: 15px;
-      box-shadow: 0 8px 30px rgba(0,0,0,0.4);
-      display: grid;
-      gap: 1rem;
-    }
-    input, textarea {
-      padding: 0.8rem;
+    input[type="text"], input[type="email"], textarea {
+      width: 100%;
+      padding: 0.8rem 1rem;
+      margin-top: 0.5rem;
+      border-radius: 12px;
       border: none;
-      border-radius: 8px;
-      outline: none;
-      font-family: inherit;
+      background: var(--glass);
+      color: var(--white);
       font-size: 1rem;
+      font-family: 'Outfit', sans-serif;
+      box-shadow: inset 0 0 8px rgba(255,255,255,0.1);
+      transition: box-shadow 0.3s ease;
+      resize: vertical;
+    }
+    input[type="text"]:focus, input[type="email"]:focus, textarea:focus {
+      outline: none;
+      box-shadow: 0 0 12px var(--golden);
+      background: rgba(255 255 255 / 0.1);
+    }
+    label {
+      display: block;
+      margin-top: 1.2rem;
+      font-weight: 600;
+      color: var(--golden);
+      user-select: none;
+    }
+
+    /* Card progetto preview */
+    .card {
+      background: var(--carbon);
+      border-radius: 20px;
+      padding: 1.5rem 2rem;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.6);
+      margin-bottom: 1.8rem;
+      color: var(--anthracite);
+      user-select: none;
+    }
+    .card h3 {
+      color: var(--golden);
+      margin-bottom: 1rem;
+      font-weight: 700;
+      font-size: 1.5rem;
+    }
+    .card p {
+      line-height: 1.5;
+      font-size: 1.05rem;
+    }
+
+    /* Codice */
+    pre {
+      background: var(--code-bg);
+      color: var(--code-color);
+      padding: 1rem;
+      border-radius: 12px;
+      font-family: 'Courier New', Courier, monospace;
+      font-size: 0.9rem;
+      line-height: 1.4;
+      overflow-x: auto;
+      user-select: all;
+      max-height: 320px;
+      white-space: pre-wrap;
+      word-wrap: break-word;
+      box-shadow: inset 0 0 15px rgba(0,0,0,0.6);
+      margin-bottom: 2rem;
+    }
+    code {
+      color: var(--golden);
+      font-weight: 600;
     }
 
     /* Footer */
     footer {
       background: var(--carbon-deep);
-      padding: 2.5rem;
+      padding: 3rem 2rem;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+    }
+    .footer-col h4 {
+      font-size: 1.2rem;
+      margin-bottom: 1rem;
+      color: var(--golden);
+    }
+    .footer-col ul {
+      list-style: none;
+    }
+    .footer-col ul li {
+      margin: 0.6rem 0;
+    }
+    .footer-col ul li a {
+      color: var(--anthracite);
+      text-decoration: none;
+      transition: var(--transition);
+    }
+    .footer-col ul li a:hover {
+      color: var(--white);
+    }
+    .footer-bottom {
+      grid-column: 1 / -1;
       text-align: center;
-      font-size: 0.95rem;
-      border-top: 1px solid rgba(255,255,255,0.05);
+      margin-top: 2rem;
+      font-size: 0.9rem;
       color: var(--anthracite);
     }
-    footer a {
-      color: var(--golden);
-      text-decoration: none;
-      margin: 0 0.5rem;
+
+    /* Animazioni */
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
     }
-    footer a:hover {
-      text-decoration: underline;
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 1.2s ease;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: none;
     }
 
-    /* Style Guide layout */
-    main {
-      max-width: 1100px;
-      margin: auto;
-      padding: 3rem 2rem;
-    }
-    section {
-      margin-bottom: 4rem;
-    }
-    pre {
-      background: var(--carbon-deep);
-      padding: 1rem;
-      border-radius: 8px;
-      overflow-x: auto;
-      font-size: 0.85rem;
-      color: #ccc;
+    @media (max-width: 900px) {
+      main {
+        grid-template-columns: 1fr;
+      }
+      .preview {
+        min-height: 250px;
+      }
     }
   </style>
 </head>
 <body>
 
-<header>
-  <img src="favicon.png" alt="Logo Miniutti" class="logo" />
-  <nav>
-    <a href="index.html">Home</a>
-    <a href="progetti.html">Progetti</a>
-    <a href="videomaking.html">Videomaking</a>
-    <a href="contatti.html">Contatti</a>
-    <a href="login.html">Login</a>
-  </nav>
-</header>
+  <header>
+    <a href="index.html"><img src="favicon.png" alt="Logo miniutti.it" class="logo" /></a>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="progetti.html">Progetti</a>
+      <a href="contatti.html">Contatti</a>
+      <a href="login.html">Login</a>
+      <a href="elementi.html" aria-current="page">Elementi</a>
+    </nav>
+  </header>
 
-<main>
-  <h1>Style Guide — Miniutti.it</h1>
-  <p>Questa pagina mostra tutti gli elementi grafici del sito, con relativo codice pronto da riutilizzare.</p>
+  <main>
+    <section class="hero reveal">
+      <h1>Playground Elementi</h1>
+      <p>Prova e copia tutti gli elementi usati nel sito con anteprima e codice.</p>
+    </section>
 
-  <!-- Navbar -->
-  <section>
-    <h2>Navbar</h2>
-    <p>Barra di navigazione con effetto bandierina tricolore al passaggio del mouse.</p>
-    <pre><code>&lt;header&gt;
-  &lt;img src="favicon.png" alt="Logo" class="logo" /&gt;
-  &lt;nav&gt;
-    &lt;a href="index.html"&gt;Home&lt;/a&gt;
-    &lt;a href="progetti.html"&gt;Progetti&lt;/a&gt;
-    &lt;a href="videomaking.html"&gt;Videomaking&lt;/a&gt;
-    &lt;a href="contatti.html"&gt;Contatti&lt;/a&gt;
-  &lt;/nav&gt;
-&lt;/header&gt;</code></pre>
-  </section>
+    <section class="playground reveal">
+      <h2>Anteprima</h2>
 
-  <!-- Pulsanti -->
-  <section>
-    <h2>Pulsanti</h2>
-    <button class="btn">Scopri di più</button>
-    <button class="btn">Vai al progetto</button>
-    <pre><code>&lt;button class="btn"&gt;Scopri di più&lt;/button&gt;</code></pre>
-  </section>
+      <div class="preview" aria-label="Anteprima elementi">
+        <button class="btn" type="button">Pulsante primario</button>
+        <button class="btn" type="button" disabled style="opacity:0.6; cursor:not-allowed;">Pulsante disabilitato</button>
 
-  <!-- Card -->
-  <section>
-    <h2>Card progetto</h2>
-    <div class="card" style="max-width:300px;">
-      <img src="https://images.unsplash.com/photo-1607865470261-3c46d1b7f8f7?auto=format&fit=crop&w=800&q=80" alt="Progetto">
-      <div class="card-content">
-        <h3>Orologio SBB</h3>
-        <p>Riproduzione fedele dell’orologio ufficiale delle ferrovie svizzere, con animazioni e precisione al millisecondo.</p>
+        <label for="input-text">Input di testo</label>
+        <input id="input-text" type="text" placeholder="Scrivi qui..." />
+
+        <label for="input-email">Input email</label>
+        <input id="input-email" type="email" placeholder="email@example.com" />
+
+        <label for="textarea">Textarea</label>
+        <textarea id="textarea" rows="4" placeholder="Scrivi un messaggio..."></textarea>
+
+        <div class="card" style="margin-top: 2rem;">
+          <h3>Card progetto</h3>
+          <p>Un box riutilizzabile per mostrare contenuti in modo elegante, con titolo e testo descrittivo.</p>
+        </div>
       </div>
-    </div>
-    <pre><code>&lt;div class="card"&gt;
-  &lt;img src="img.jpg" alt="Progetto"&gt;
-  &lt;div class="card-content"&gt;
-    &lt;h3&gt;Titolo&lt;/h3&gt;
-    &lt;p&gt;Descrizione progetto...&lt;/p&gt;
-  &lt;/div&gt;
+
+      <h2>Codice</h2>
+      <pre><code>&lt;button class="btn"&gt;Pulsante primario&lt;/button&gt;
+&lt;button class="btn" disabled style="opacity:0.6; cursor:not-allowed;"&gt;Pulsante disabilitato&lt;/button&gt;
+
+&lt;label for="input-text"&gt;Input di testo&lt;/label&gt;
+&lt;input id="input-text" type="text" placeholder="Scrivi qui..." /&gt;
+
+&lt;label for="input-email"&gt;Input email&lt;/label&gt;
+&lt;input id="input-email" type="email" placeholder="email@example.com" /&gt;
+
+&lt;label for="textarea"&gt;Textarea&lt;/label&gt;
+&lt;textarea id="textarea" rows="4" placeholder="Scrivi un messaggio..."&gt;&lt;/textarea&gt;
+
+&lt;div class="card"&gt;
+  &lt;h3&gt;Card progetto&lt;/h3&gt;
+  &lt;p&gt;Un box riutilizzabile per mostrare contenuti in modo elegante, con titolo e testo descrittivo.&lt;/p&gt;
 &lt;/div&gt;</code></pre>
-  </section>
+    </section>
+  </main>
 
-  <!-- Form -->
-  <section>
-    <h2>Form contatti</h2>
-    <form>
-      <input type="text" placeholder="Nome">
-      <input type="email" placeholder="Email">
-      <textarea placeholder="Messaggio"></textarea>
-      <button class="btn" type="submit">Invia</button>
-    </form>
-<pre><code>&lt;form&gt;
-  &lt;input type="text" placeholder="Nome"&gt;
-  &lt;input type="email" placeholder="Email"&gt;
-  &lt;textarea placeholder="Messaggio"&gt;&lt;/textarea&gt;
-  &lt;button class="btn" type="submit"&gt;Invia&lt;/button&gt;
-&lt;/form&gt;</code></pre>
-  </section>
+  <footer>
+    <div class="footer-col">
+      <h4>Miniutti.it</h4>
+      <p>Portfolio ufficiale di Tobia Miniutti — progetti, idee e sviluppo.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Link rapidi</h4>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="progetti.html">Progetti</a></li>
+        <li><a href="contatti.html">Contatti</a></li>
+        <li><a href="login.html">Login</a></li>
+        <li><a href="elementi.html" aria-current="page">Elementi</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Contatti</h4>
+      <ul>
+        <li><a href="mailto:tobia@miniutti.it">Email: tobia@miniutti.it</a></li>
+        <li><a href="tel:+393791128232">Tel: +39 379 112 8232</a></li>
+      </ul>
+    </div>
+    <div class="footer-bottom">© 2025 miniutti.it — Tutti i diritti riservati</div>
+  </footer>
 
-  <!-- Footer -->
-  <section>
-    <h2>Footer</h2>
-    <footer>
-      © 2025 Miniutti.it — Portfolio personale | 
-      <a href="privacy.html">Privacy</a> | 
-      <a href="termini.html">Termini</a>
-    </footer>
-<pre><code>&lt;footer&gt;
-  © 2025 Miniutti.it — Portfolio personale |
-  &lt;a href="privacy.html"&gt;Privacy&lt;/a&gt; |
-  &lt;a href="termini.html"&gt;Termini&lt;/a&gt;
-&lt;/footer&gt;</code></pre>
-  </section>
-
-</main>
+  <script>
+    // Intersection observer animazioni reveal
+    const reveals = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver(
+      entries => {
+        entries.forEach(entry => {
+          if(entry.isIntersecting) entry.target.classList.add('visible');
+        });
+      },
+      { threshold: 0.1 }
+    );
+    reveals.forEach(el => observer.observe(el));
+  </script>
 
 </body>
 </html>
