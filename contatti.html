@@ -310,47 +310,77 @@
   <main>
     <h1>Contattami</h1>
 
-    <form action="/invia-contatto" method="POST" novalidate>
-       <c1>ATTENZIONE: MODULO NON FUNZIONANTE, USARE MAIL</c1>
-      <label for="nome">Nome e Cognome <span aria-hidden="true" style="color: var(--golden);">*</span></label>
-      <input
-        type="text"
-        id="nome"
-        name="nome"
-        placeholder="ATTENZIONE: MODULO NON FUNZIONANTE, USARE MAIL - Inserisci il tuo nome completo"
-        required
-        autocomplete="name"
-        spellcheck="false"
-      />
-      <div class="error-message">Per favore inserisci il tuo nome completo.</div>
+   <form id="contactForm" novalidate>
+  <c1>ATTENZIONE: MODULO NON FUNZIONANTE, USARE MAIL</c1>
 
-      <label for="email">Email <span aria-hidden="true" style="color: var(--golden);">*</span></label>
-      <input
-        type="email"
-        id="email"
-        name="email"
-        placeholder="ATTENZIONE: MODULO NON FUNZIONANTE, USARE MAIL - tuo@email.com"
-        required
-        autocomplete="email"
-        spellcheck="false"
-      />
-      <div class="error-message">Inserisci una email valida.</div>
+  <label for="nome">Nome e Cognome <span aria-hidden="true" style="color: var(--golden);">*</span></label>
+  <input
+    type="text"
+    id="nome"
+    name="nome"
+    placeholder="Inserisci il tuo nome completo"
+    required
+    autocomplete="name"
+    spellcheck="false"
+  />
+  <div class="error-message">Per favore inserisci il tuo nome completo.</div>
 
-      <label for="messaggio">Messaggio <span aria-hidden="true" style="color: var(--golden);">*</span></label>
-      <textarea
-        id="messaggio"
-        name="messaggio"
-        placeholder="ATTENZIONE: MODULO NON FUNZIONANTE, USARE MAIL- Scrivi il tuo messaggio qui..."
-        required
-        spellcheck="true"
-      ></textarea>
-      <div class="error-message">Il messaggio non può essere vuoto.</div>
+  <label for="email">Email <span aria-hidden="true" style="color: var(--golden);">*</span></label>
+  <input
+    type="email"
+    id="email"
+    name="email"
+    placeholder="tua@email.com"
+    required
+    autocomplete="email"
+    spellcheck="false"
+  />
+  <div class="error-message">Inserisci una email valida.</div>
 
-      <c1>ATTENZIONE: MODULO NON FUNZIONANTE, USARE MAIL</c1>
-      <button type="submit" aria-label="Invia messaggio" disabled >Invia</button>
+  <label for="messaggio">Messaggio <span aria-hidden="true" style="color: var(--golden);">*</span></label>
+  <textarea
+    id="messaggio"
+    name="messaggio"
+    placeholder="Scrivi il tuo messaggio qui..."
+    required
+    spellcheck="true"
+  ></textarea>
+  <div class="error-message">Il messaggio non può essere vuoto.</div>
 
-      
-    </form>
+  <c1>ATTENZIONE: MODULO NON FUNZIONANTE, USARE MAIL</c1>
+  <button type="submit" aria-label="Invia messaggio">Invia</button>
+</form>
+
+<script>
+  const form = document.getElementById('contactForm');
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    const formData = {
+      name: form.nome.value,     // <- Make usa "name"
+      email: form.email.value,   // <- Make usa "email"
+      message: form.messaggio.value // <- Make usa "message"
+    };
+
+    try {
+      const response = await fetch('https://hook.eu1.make.com/tdgdxp2y5lx5jl5tqah8a5s1jvqt5763', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData)
+      });
+
+      if (!response.ok) throw new Error('Errore invio modulo');
+
+      alert('Messaggio inviato con successo!');
+      form.reset();
+    } catch (error) {
+      console.error(error);
+      alert('Si è verificato un errore durante l\'invio.');
+    }
+  });
+</script>
+
 
     <section class="contact-info" aria-label="Informazioni di contatto">
       <p><strong>Email:</strong> <a href="mailto:tobia@miniutti.it">tobia@miniutti.it</a></p>
