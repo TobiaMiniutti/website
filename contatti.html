@@ -355,16 +355,27 @@ const form = document.getElementById('contactForm');
 form.addEventListener('submit', async (e) => {
   e.preventDefault();
 
-  // Controllo campi vuoti
+  // Funzione per validare email
+  const isEmailValid = (email) => {
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+  };
+
   let isValid = true;
   const fields = [
-    { input: form.nome, error: form.nome.nextElementSibling },
-    { input: form.email, error: form.email.nextElementSibling },
-    { input: form.messaggio, error: form.messaggio.nextElementSibling }
+    { input: form.nome, error: form.nome.nextElementSibling, type: 'text' },
+    { input: form.email, error: form.email.nextElementSibling, type: 'email' },
+    { input: form.messaggio, error: form.messaggio.nextElementSibling, type: 'text' }
   ];
 
   fields.forEach(f => {
-    if (!f.input.value.trim()) {
+    const value = f.input.value.trim();
+    if (!value) {
+      f.error.textContent = f.input.name === 'messaggio' ? 'Il messaggio non può essere vuoto.' : 'Per favore compila questo campo.';
+      f.error.style.display = 'block';
+      isValid = false;
+      f.input.focus();
+    } else if (f.type === 'email' && !isEmailValid(value)) {
+      f.error.textContent = 'Inserisci una email valida.';
       f.error.style.display = 'block';
       isValid = false;
       f.input.focus();
@@ -373,9 +384,9 @@ form.addEventListener('submit', async (e) => {
     }
   });
 
-  if (!isValid) return; // blocca invio se un campo è vuoto
+  if (!isValid) return; // blocca invio se c'è errore
 
-  // Se tutto ok, invio al server
+  // Invia dati al server
   const formData = {
     name: form.nome.value,
     email: form.email.value,
