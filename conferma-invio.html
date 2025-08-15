@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Messaggio inviato | miniutti.it</title>
+<link rel="icon" href="favicon.png" type="image/png" />
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --carbon: #121212;
+    --carbon-deep: #0d0d0d;
+    --golden: #c9a74c;
+    --anthracite: #b3b3b3;
+    --white: #ffffff;
+    --transition: 0.3s ease-in-out;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Outfit', sans-serif;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background: linear-gradient(120deg, #0d0d0d, #1a1a1a, #121212);
+    background-size: 400% 400%;
+    animation: bgGradient 10s ease infinite;
+    color: var(--white);
+  }
+
+  @keyframes bgGradient {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+
+    /* Navbar */
+    header {
+      backdrop-filter: blur(14px);
+      background: rgba(255 255 255 / 0.05);
+      padding: 1.3rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 1100;
+      box-shadow: 0 2px 25px rgba(0, 0, 0, 0.85);
+    }
+
+    .logo {
+      height: 42px;
+      filter: drop-shadow(0 0 1.5px rgba(0,0,0,0.6));
+      user-select: none;
+    }
+
+    nav a {
+      position: relative;
+      color: var(--white);
+      text-decoration: none;
+      font-weight: 600;
+      margin-left: 2.5rem;
+      padding-bottom: 4px;
+      font-size: 1rem;
+      user-select: none;
+      transition: color var(--transition);
+      cursor: pointer;
+    }
+
+    /* Effetto bandierina - solo hover/focus */
+    nav a::after {
+      content: "";
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--tricolor-start), var(--tricolor-middle), var(--tricolor-end));
+      border-radius: 3px 3px 0 0;
+      transition: width var(--transition);
+      pointer-events: none;
+    }
+
+    nav a:hover::after,
+    nav a:focus-visible::after {
+      width: 100%;
+    }
+
+    /* Il link corrente senza bandierina fissa */
+    nav a[aria-current="page"]::after {
+      width: 0;
+    }
+
+    nav a:hover,
+    nav a:focus-visible {
+      color: var(--golden);
+      outline: none;
+    }
+
+    /* Main container */
+    main {
+      max-width: 720px;
+      margin: 4rem auto 5rem;
+      padding: 0 2rem;
+    }
+
+    h1 {
+      font-size: 3rem;
+      color: var(--golden);
+      margin-bottom: 2rem;
+      text-align: center;
+      letter-spacing: 1.1px;
+      user-select: none;
+    }
+  /* Main */
+  main {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 3rem 1rem;
+    position: relative;
+  }
+
+  .confirm-box {
+    background: rgba(255, 255, 255, 0.04);
+    border-radius: 20px;
+    padding: 3rem 2rem;
+    max-width: 600px;
+    width: 100%;
+    text-align: center;
+    backdrop-filter: blur(12px);
+    box-shadow: 0 0 30px rgba(201, 167, 76, 0.2);
+    animation: fadeIn 0.8s ease-out;
+  }
+
+  .success-icon {
+    font-size: 4.5rem;
+    color: var(--golden);
+    margin-bottom: 1rem;
+    animation: pop 0.6s ease-out;
+  }
+
+  h1 {
+    font-size: 2.5rem;
+    color: var(--golden);
+    margin-bottom: 1rem;
+  }
+
+  p {
+    font-size: 1.2rem;
+    color: var(--anthracite);
+    margin-bottom: 2rem;
+    line-height: 1.5;
+  }
+
+  .button {
+    display: inline-block;
+    background: transparent;
+    border: 2.5px solid var(--golden);
+    color: var(--golden);
+    padding: 1rem 2.8rem;
+    border-radius: 50px;
+    font-weight: 700;
+    text-decoration: none;
+    letter-spacing: 0.07em;
+    transition: all var(--transition);
+  }
+  .button:hover {
+    background-color: var(--golden);
+    color: var(--carbon);
+    box-shadow: 0 0 20px var(--golden);
+    transform: scale(1.05);
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes pop {
+    0% { transform: scale(0.5); opacity: 0; }
+    80% { transform: scale(1.1); opacity: 1; }
+    100% { transform: scale(1); }
+  }
+
+  /* Footer */
+  footer {
+    background: var(--carbon-deep);
+    padding: 3rem 2rem;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 2rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    z-index: 10;
+  }
+  .footer-col h4 {
+    font-size: 1.25rem;
+    margin-bottom: 1rem;
+    color: var(--golden);
+  }
+  .footer-col ul { list-style: none; padding: 0; }
+  .footer-col ul li { margin: 0.55rem 0; }
+  .footer-col ul li a {
+    color: var(--anthracite);
+    text-decoration: none;
+    transition: color var(--transition);
+  }
+  .footer-col ul li a:hover { color: var(--white); }
+  .footer-bottom {
+    grid-column: 1 / -1;
+    text-align: center;
+    margin-top: 2.5rem;
+    font-size: 0.9rem;
+    color: var(--anthracite);
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <a href="index.html" aria-label="miniutti.it - Home"><img src="favicon.png" alt="Logo miniutti.it" class="logo" /></a>
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="progetti.html">Progetti</a>
+    <a href="contatti.html">Contatti</a>
+    <a href="login.html">Login</a>
+  </nav>
+</header>
+
+<main>
+  <div class="confirm-box">
+    <div class="success-icon">✔️</div>
+    <h1>Messaggio inviato!</h1>
+    <p>Grazie per avermi contattato.<br>
+    Controlla la tua <strong>casella email</strong> (anche <em>Spam</em>) per eventuali conferme o risposte.</p>
+    <a href="index.html" class="button">Torna alla Home</a>
+  </div>
+</main>
+
+<footer>
+  <div class="footer-col">
+    <h4>Miniutti.it</h4>
+    <p>Portfolio ufficiale di Tobia Miniutti — progetti, idee e sviluppo.</p>
+  </div>
+  <div class="footer-col">
+    <h4>Link rapidi</h4>
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="progetti.html">Progetti</a></li>
+      <li><a href="contatti.html">Contatti</a></li>
+      <li><a href="login.html">Login</a></li>
+    </ul>
+  </div>
+  <div class="footer-col">
+    <h4>Contatti</h4>
+    <ul>
+      <li><a href="mailto:tobia@miniutti.it">Email: tobia@miniutti.it</a></li>
+      <li><a href="tel:+393791128232">Tel: +39 379 112 8232</a></li>
+    </ul>
+  </div>
+  <div class="footer-bottom">© 2025 miniutti.it — Tutti i diritti riservati</div>
+</footer>
+
+<!-- Script Confetti -->
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+<script>
+  setTimeout(() => {
+    confetti({
+      particleCount: 100,
+      spread: 70,
+      origin: { y: 0.6 }
+    });
+  }, 300);
+</script>
+
+</body>
+</html>
