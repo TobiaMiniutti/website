@@ -350,35 +350,55 @@
 </form>
 
 <script>
-  const form = document.getElementById('contactForm');
+const form = document.getElementById('contactForm');
 
-  form.addEventListener('submit', async (e) => {
-    e.preventDefault();
+form.addEventListener('submit', async (e) => {
+  e.preventDefault();
 
-    const formData = {
-      name: form.nome.value,     // <- Make usa "name"
-      email: form.email.value,   // <- Make usa "email"
-      message: form.messaggio.value // <- Make usa "message"
-    };
+  // Controllo campi vuoti
+  let isValid = true;
+  const fields = [
+    { input: form.nome, error: form.nome.nextElementSibling },
+    { input: form.email, error: form.email.nextElementSibling },
+    { input: form.messaggio, error: form.messaggio.nextElementSibling }
+  ];
 
-    try {
-      const response = await fetch('https://hook.eu1.make.com/tdgdxp2y5lx5jl5tqah8a5s1jvqt5763', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData)
-      });
+  fields.forEach(f => {
+    if (!f.input.value.trim()) {
+      f.error.style.display = 'block';
+      isValid = false;
+      f.input.focus();
+    } else {
+      f.error.style.display = 'none';
+    }
+  });
 
-      if (!response.ok) throw new Error('Errore invio modulo');
+  if (!isValid) return; // blocca invio se un campo è vuoto
+
+  // Se tutto ok, invio al server
+  const formData = {
+    name: form.nome.value,
+    email: form.email.value,
+    message: form.messaggio.value
+  };
+
+  try {
+    const response = await fetch('https://hook.eu1.make.com/tdgdxp2y5lx5jl5tqah8a5s1jvqt5763', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(formData)
+    });
+
+    if (!response.ok) throw new Error('Errore invio modulo');
 
     window.location.href = 'conferma-invio.html';
 
-    } catch (error) {
-      console.error(error);
-      alert('Si è verificato un errore durante l\'invio.');
-    }
-  });
+  } catch (error) {
+    console.error(error);
+    alert('Si è verificato un errore durante l\'invio.');
+  }
+});
 </script>
-
 
     <section class="contact-info" aria-label="Informazioni di contatto">
       <p><strong>Email:</strong> <a href="mailto:tobia@miniutti.it">tobia@miniutti.it</a></p>
