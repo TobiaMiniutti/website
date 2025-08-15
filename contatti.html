@@ -370,8 +370,8 @@
 
       if (!response.ok) throw new Error('Errore invio modulo');
 
-      alert('Messaggio inviato con successo!');
-      form.reset();
+    window.location.href = 'conferma-invio.html';
+
     } catch (error) {
       console.error(error);
       alert('Si è verificato un errore durante l\'invio.');
