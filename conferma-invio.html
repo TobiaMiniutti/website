@@ -97,6 +97,97 @@
       color: var(--golden);
       outline: none;
     }
+    /* Hero */
+    .hero {
+      height: 100vh;
+      background: linear-gradient(rgba(0, 0, 0, 0.55), rgba(0, 0, 0, 0.75)),
+        url('https://www.miniutti.it/porta-brandeburgo.jpg')
+          center/cover no-repeat;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 2rem;
+      animation: fadeIn 1.5s ease;
+    }
+    .hero h1 {
+      font-size: 3.8rem;
+      color: var(--golden);
+      letter-spacing: 1px;
+      text-shadow: 0 4px 14px rgba(0, 0, 0, 0.8);
+      animation: fadeUp 1.2s ease;
+    }
+    .hero p {
+      font-size: 1.25rem;
+      max-width: 700px;
+      color: var(--anthracite);
+      margin-top: 1rem;
+      line-height: 1.8;
+      animation: fadeUp 1.6s ease;
+    }
+
+    /* Sezioni */
+    main {
+      max-width: 1100px;
+      margin: auto;
+      padding: 4rem 2rem;
+    }
+    .section {
+      background: var(--carbon-deep);
+      border-radius: 20px;
+      padding: 2.5rem;
+      box-shadow: 0 10px 50px rgba(0, 0, 0, 0.4);
+      margin-bottom: 4rem;
+      backdrop-filter: blur(8px);
+      transition: transform var(--transition), box-shadow var(--transition);
+    }
+    .section:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 15px 60px rgba(0, 0, 0, 0.5);
+    }
+    .section h3 {
+      font-size: 2.1rem;
+      margin-bottom: 1.2rem;
+      color: var(--white);
+    }
+    .section p,
+    .section li {
+      font-size: 1.12rem;
+      line-height: 1.9;
+      color: var(--anthracite);
+    }
+    ul {
+      padding-left: 1.5rem;
+    }
+
+    /* Pulsanti migliorati con gradiente tricolore e ombra */
+    .btn {
+      display: inline-block;
+      margin-top: 1.2rem;
+      padding: 0.9rem 2.2rem;
+      background: var(--tricolor);
+      color: var(--carbon);
+      border-radius: 50px;
+      font-weight: 700;
+      text-transform: uppercase;
+      font-size: 1rem;
+      letter-spacing: 0.6px;
+      text-decoration: none;
+      box-shadow: 0 4px 18px rgba(205, 33, 42, 0.5);
+      transition: all var(--transition);
+      border: 2px solid transparent;
+    }
+    .btn:hover {
+      box-shadow:
+        0 0 8px #008C45,
+        0 0 12px #F4F5F0,
+        0 0 18px #CD212A;
+      transform: translateY(-3px) scale(1.05);
+      border-color: var(--white);
+      color: var(--carbon);
+      text-shadow: none;
+    }
 
     /* Main container */
     main {
