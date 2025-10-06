@@ -2,131 +2,145 @@
 <html lang="it">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>SBB Clock - Miniutti</title>
-  <link rel="icon" type="image/png" href="favicon.png" />
+  <link rel="icon" href="favicon.png" type="image/png" />
   <script src="sbbUhr-1.3.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600&display=swap" rel="stylesheet" />
   <style>
+    :root {
+      --carbon: #121212;
+      --carbon-deep: #0d0d0d;
+      --golden: #c9a74c;
+      --anthracite: #b3b3b3;
+      --white: #ffffff;
+      --tricolor-start: #008C45;
+      --tricolor-middle: #F4F5F0;
+      --tricolor-end: #CD212A;
+      --transition: 0.3s ease-in-out;
+      --border-radius: 20px;
+    }
+
     html, body {
       margin: 0;
       padding: 0;
-      background: black;
+      font-family: 'Outfit', sans-serif;
+      background-color: var(--carbon);
+      color: var(--white);
       height: 100%;
       width: 100%;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      color: white;
       overflow: hidden;
     }
+
+    /* Navbar */
     nav {
-      background: rgba(0, 0, 0, 0.85);
-      width: 100%;
+      backdrop-filter: blur(14px);
+      background: rgba(255 255 255 / 0.05);
+      padding: 1rem 2rem;
       display: flex;
       justify-content: center;
       align-items: center;
-      gap: 1em;
-      padding: 1em 160px;
+      gap: 1rem;
       position: fixed;
       top: 0;
       left: 0;
       z-index: 1000;
-      box-sizing: border-box;
-      backdrop-filter: blur(4px);
+      box-shadow: 0 2px 25px rgba(0, 0, 0, 0.85);
       flex-wrap: wrap;
+      border-radius: var(--border-radius);
     }
+
     nav a, .dropbtn {
       position: relative;
-      display: inline-block;
-      padding: 0.5em 1em;
-      font-size: 1rem;
-      font-weight: bold;
       text-decoration: none;
-      color: #fff;
-      transition: 0.3s ease;
+      font-weight: 600;
+      color: var(--white);
+      padding: 0.5rem 1rem;
+      transition: color var(--transition);
       cursor: pointer;
+      user-select: none;
     }
+
+    /* Bandierina tricolore hover */
+    nav a::after, .dropbtn::after {
+      content: "";
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--tricolor-start), var(--tricolor-middle), var(--tricolor-end));
+      border-radius: 3px 3px 0 0;
+      transition: width var(--transition);
+      pointer-events: none;
+    }
+    nav a:hover::after, .dropbtn:hover::after {
+      width: 100%;
+    }
+
     nav a:hover, .dropbtn:hover {
-      color: #e63946;
+      color: var(--golden);
     }
+
     .dropdown {
       position: relative;
     }
     .dropdown-content {
       display: none;
       position: absolute;
-      background-color: rgba(0, 0, 0, 0.95);
-      min-width: 180px;
-      border-radius: 6px;
       top: 100%;
       left: 0;
-      z-index: 1001;
+      background: var(--carbon-deep);
+      border-radius: var(--border-radius);
+      min-width: 180px;
       box-shadow: 0 8px 16px rgba(0,0,0,0.5);
-      overflow: hidden;
       flex-direction: column;
+      z-index: 1001;
+      overflow: hidden;
     }
     .dropdown-content a {
-      padding: 12px 16px;
-      display: block;
-      color: #fff;
-      text-decoration: none;
+      padding: 0.8rem 1.2rem;
+      color: var(--anthracite);
+      transition: color var(--transition);
     }
     .dropdown-content a:hover {
-      background-color: #333;
+      color: var(--white);
+      background: rgba(255 255 255 / 0.05);
     }
     .dropdown:hover .dropdown-content {
       display: flex;
     }
-    #logo {
+
+    /* Pulsanti fixed */
+    #logo, #fullscreen-btn, #theme-toggle, #focus-toggle {
       position: fixed;
       top: 10px;
-      left: 10px;
-      width: 40px;
-      height: 40px;
       z-index: 1001;
       cursor: pointer;
-    }
-    #fullscreen-btn {
-      position: fixed;
-      top: 10px;
-      right: 60px;
-      z-index: 1001;
       background: none;
       border: none;
-      cursor: pointer;
     }
-    #theme-toggle {
-      position: fixed;
-      top: 10px;
-      right: 10px;
-      z-index: 1001;
-      background: none;
-      border: none;
-      cursor: pointer;
-    }
-    #focus-toggle {
-      position: fixed;
-      top: 10px;
-      right: 110px;
-      z-index: 1001;
-      background: none;
-      border: none;
-      cursor: pointer;
-    }
-    #focus-toggle svg {
+    #logo { left: 10px; width: 42px; height: 42px; }
+    #fullscreen-btn { right: 60px; }
+    #focus-toggle { right: 110px; }
+    #theme-toggle { right: 10px; }
+
+    #fullscreen-btn svg, #theme-toggle svg, #focus-toggle svg {
       width: 24px;
       height: 24px;
-      fill: white;
+      fill: var(--white);
+      transition: fill var(--transition);
     }
+
+    /* Focus mode */
     body.focus-mode nav,
     body.focus-mode #fullscreen-btn,
     body.focus-mode #theme-toggle,
     body.focus-mode #logo {
       display: none;
     }
-    #fullscreen-btn svg, #theme-toggle svg {
-      width: 24px;
-      height: 24px;
-      fill: white;
-    }
+
+    /* Clock container */
     #clock-container {
       position: absolute;
       top: 50%;
@@ -134,35 +148,20 @@
       transform: translate(-50%, -50%);
       width: 100vw;
       height: 100vh;
+      max-width: 600px;
+      max-height: 600px;
       z-index: 500;
+      transition: all var(--transition);
     }
     body:not(.fullscreen) #clock-container {
       top: calc(50% + 40px);
       height: calc(100vh - 80px);
-      max-height: 600px;
-      max-width: 600px;
     }
-    body.fullscreen nav,
-    body.fullscreen #fullscreen-btn,
-    body.fullscreen #theme-toggle,
-    body.fullscreen #logo {
-      display: none;
-    }
+
+    /* Responsive */
     @media (max-width: 768px) {
-      nav {
-        flex-direction: column;
-        padding: 1em;
-      }
-      .dropdown-content {
-        position: static;
-        background-color: rgba(0, 0, 0, 0.95);
-        box-shadow: none;
-        border-radius: 0;
-        width: 100%;
-      }
-      .dropdown:hover .dropdown-content {
-        display: flex;
-      }
+      nav { flex-direction: column; padding: 1rem; }
+      .dropdown-content { position: static; border-radius: 0; width: 100%; box-shadow: none; }
     }
   </style>
 </head>
@@ -203,18 +202,15 @@
   <div id="clock-container"></div>
 
   <script>
+    // Sincronizzazione orario
     async function getTimeOffset() {
       try {
         const res = await fetch('https://worldtimeapi.org/api/ip.txt');
         const text = await res.text();
         const line = text.split('\n').find(l => l.startsWith('datetime:'));
         const datetime = line.split('datetime:')[1].trim();
-        const serverTime = new Date(datetime).getTime();
-        const localTime = Date.now();
-        return serverTime - localTime;
-      } catch (e) {
-        return 0;
-      }
+        return new Date(datetime).getTime() - Date.now();
+      } catch { return 0; }
     }
 
     getTimeOffset().then(offset => {
@@ -222,48 +218,32 @@
         sbbUhr.now = () => new Date(Date.now() + offset);
         const clock = new sbbUhr('clock-container', true, 30);
         clock.start();
-      } else {
-        console.error("sbbUhr non caricato");
       }
     });
 
-    document.getElementById('fullscreen-btn').addEventListener('click', () => {
-      if (!document.fullscreenElement) {
-        document.documentElement.requestFullscreen();
-      } else {
-        document.exitFullscreen();
-      }
+    // Fullscreen
+    const fsBtn = document.getElementById('fullscreen-btn');
+    fsBtn.addEventListener('click', () => {
+      if (!document.fullscreenElement) document.documentElement.requestFullscreen();
+      else document.exitFullscreen();
     });
+    document.addEventListener('fullscreenchange', () => document.body.classList.toggle('fullscreen', !!document.fullscreenElement));
+    document.addEventListener('keydown', e => { if(e.key.toLowerCase()==='f') { !document.fullscreenElement ? document.documentElement.requestFullscreen() : document.exitFullscreen(); }});
 
-    document.addEventListener('fullscreenchange', () => {
-      document.body.classList.toggle('fullscreen', !!document.fullscreenElement);
-    });
-
-    document.addEventListener('keydown', (e) => {
-      if (e.key.toLowerCase() === 'f') {
-        if (!document.fullscreenElement) {
-          document.documentElement.requestFullscreen();
-        } else {
-          document.exitFullscreen();
-        }
-      }
-    });
-
+    // Theme toggle
     document.getElementById('theme-toggle').addEventListener('click', () => {
-      document.body.style.background = document.body.style.background === 'white' ? 'black' : 'white';
+      document.body.style.background = document.body.style.background === 'white' ? 'var(--carbon)' : 'white';
     });
 
-    document.getElementById('logo').addEventListener('click', () => {
-      window.location.href = 'index.html';
-    });
+    // Logo click
+    document.getElementById('logo').addEventListener('click', () => window.location.href='index.html');
 
+    // Focus mode
     document.getElementById('focus-toggle').addEventListener('click', () => {
       document.body.classList.toggle('focus-mode');
-      
-      const eyeIcon = document.getElementById('eye-icon');
-      const isFocus = document.body.classList.contains('focus-mode');
-
-      eyeIcon.innerHTML = isFocus
+      const eye = document.getElementById('eye-icon');
+      const focus = document.body.classList.contains('focus-mode');
+      eye.innerHTML = focus 
         ? '<path d="M2 5l2-2 17 17-2 2-4.3-4.3C13.4 19 12.7 19 12 19c-7 0-10-7-10-7 1.3-2.4 3.1-4.1 5.2-5.3L2 5zm10 4a3 3 0 0 1 3 3c0 .6-.2 1.1-.4 1.6L10.4 9.4c.5-.3 1-.4 1.6-.4zm0 8c.7 0 1.4-.1 2-.3l-1.5-1.5a5 5 0 0 1-4.7-4.7L6.3 9.3C4.5 10.3 3 12 3 12s3 7 9 7z"/>'
         : '<path d="M12 5c-7 0-10 7-10 7s3 7 10 7 10-7 10-7-3-7-10-7zm0 12a5 5 0 1 1 0-10 5 5 0 0 1 0 10zm0-8a3 3 0 1 0 .001 6.001A3 3 0 0 0 12 9z"/>';
     });
