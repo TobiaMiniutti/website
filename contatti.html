@@ -35,6 +35,13 @@
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
       min-height: 100vh;
+      opacity: 0;
+      animation: fadeIn 0.9s ease-in-out forwards;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
     /* Navbar */
@@ -70,7 +77,6 @@
       cursor: pointer;
     }
 
-    /* Effetto bandierina - solo hover/focus */
     nav a::after {
       content: "";
       position: absolute;
@@ -89,7 +95,6 @@
       width: 100%;
     }
 
-    /* Il link corrente senza bandierina fissa */
     nav a[aria-current="page"]::after {
       width: 0;
     }
@@ -100,7 +105,6 @@
       outline: none;
     }
 
-    /* Main container */
     main {
       max-width: 720px;
       margin: 4rem auto 5rem;
@@ -116,7 +120,6 @@
       user-select: none;
     }
 
-    /* Form styling */
     form {
       background: var(--carbon-deep);
       border-radius: var(--border-radius);
@@ -162,13 +165,11 @@
       min-height: 140px;
     }
 
-    /* Validazione */
     input:invalid:not(:focus):not(:placeholder-shown),
     textarea:invalid:not(:focus):not(:placeholder-shown) {
       border-color: var(--error-red);
     }
 
-    /* Messaggi errore */
     .error-message {
       color: var(--error-red);
       font-size: 0.85rem;
@@ -183,7 +184,6 @@
       display: block;
     }
 
-    /* Pulsante */
     button {
       background: transparent;
       border: 2.5px solid var(--golden);
@@ -200,6 +200,7 @@
       box-shadow: 0 0 0 rgba(0,0,0,0);
       will-change: transform;
     }
+
     button:hover,
     button:focus-visible {
       background-color: var(--golden);
@@ -210,7 +211,6 @@
       transform: scale(1.05);
     }
 
-    /* Contatti aggiuntivi */
     .contact-info {
       margin-top: 3.8rem;
       background: var(--carbon-deep);
@@ -222,22 +222,24 @@
       user-select: text;
       line-height: 1.6;
     }
+
     .contact-info strong {
       color: var(--golden);
       user-select: none;
     }
+
     .contact-info a {
       color: var(--golden);
       text-decoration: none;
       transition: color var(--transition);
     }
+
     .contact-info a:hover,
     .contact-info a:focus-visible {
       color: var(--white);
       outline: none;
     }
 
-    /* Footer */
     footer {
       background: var(--carbon-deep);
       padding: 3rem 2rem;
@@ -253,23 +255,28 @@
       margin-bottom: 1rem;
       color: var(--golden);
     }
+
     .footer-col ul {
       list-style: none;
       padding-left: 0;
     }
+
     .footer-col ul li {
       margin: 0.55rem 0;
     }
+
     .footer-col ul li a {
       color: var(--anthracite);
       text-decoration: none;
       transition: color var(--transition);
     }
+
     .footer-col ul li a:hover,
     .footer-col ul li a:focus-visible {
       color: var(--white);
       outline: none;
     }
+
     .footer-bottom {
       grid-column: 1 / -1;
       text-align: center;
@@ -279,7 +286,6 @@
       user-select: none;
     }
 
-    /* Responsive */
     @media (max-width: 768px) {
       nav a {
         margin-left: 1.3rem;
@@ -302,7 +308,7 @@
     <nav>
       <a href="index.html">Home</a>
       <a href="progetti.html">Progetti</a>
-      <a href="contatti.html">Contatti</a> <!-- tolto aria-current="page" per bandierina attiva solo hover -->
+      <a href="contatti.html">Contatti</a>
       <a href="login.html">Login</a>
     </nav>
   </header>
@@ -355,10 +361,7 @@ const form = document.getElementById('contactForm');
 form.addEventListener('submit', async (e) => {
   e.preventDefault();
 
-  // Funzione per validare email
-  const isEmailValid = (email) => {
-    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-  };
+  const isEmailValid = (email) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 
   let isValid = true;
   const fields = [
@@ -384,9 +387,8 @@ form.addEventListener('submit', async (e) => {
     }
   });
 
-  if (!isValid) return; // blocca invio se c'è errore
+  if (!isValid) return;
 
-  // Invia dati al server
   const formData = {
     name: form.nome.value,
     email: form.email.value,
@@ -401,7 +403,6 @@ form.addEventListener('submit', async (e) => {
     });
 
     if (!response.ok) throw new Error('Errore invio modulo');
-
     window.location.href = 'conferma-invio.html';
 
   } catch (error) {
