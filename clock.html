@@ -21,15 +21,14 @@
       --border-radius: 20px;
     }
 
+    * { margin:0; padding:0; box-sizing:border-box; }
     html, body {
-      margin: 0;
-      padding: 0;
       font-family: 'Outfit', sans-serif;
       background-color: var(--carbon);
       color: var(--white);
-      height: 100%;
-      width: 100%;
-      overflow: hidden;
+      height:100%;
+      width:100%;
+      overflow:hidden;
     }
 
     /* Navbar */
@@ -44,12 +43,11 @@
       position: fixed;
       top: 0;
       left: 0;
-      z-index: 1000;
-      box-shadow: 0 2px 25px rgba(0, 0, 0, 0.85);
-      flex-wrap: wrap;
+      z-index: 1100;
       border-radius: var(--border-radius);
+      box-shadow: 0 2px 25px rgba(0,0,0,0.85);
+      flex-wrap: wrap;
     }
-
     nav a, .dropbtn {
       position: relative;
       text-decoration: none;
@@ -60,36 +58,24 @@
       cursor: pointer;
       user-select: none;
     }
-
-    /* Bandierina tricolore hover */
+    nav a:hover, .dropbtn:hover { color: var(--golden); }
     nav a::after, .dropbtn::after {
-      content: "";
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      width: 0;
-      height: 3px;
-      background: linear-gradient(90deg, var(--tricolor-start), var(--tricolor-middle), var(--tricolor-end));
-      border-radius: 3px 3px 0 0;
+      content:"";
+      position:absolute;
+      bottom:0; left:0;
+      width:0; height:3px;
+      background: linear-gradient(90deg,var(--tricolor-start),var(--tricolor-middle),var(--tricolor-end));
+      border-radius:3px 3px 0 0;
       transition: width var(--transition);
-      pointer-events: none;
+      pointer-events:none;
     }
-    nav a:hover::after, .dropbtn:hover::after {
-      width: 100%;
-    }
+    nav a:hover::after, .dropbtn:hover::after { width:100%; }
 
-    nav a:hover, .dropbtn:hover {
-      color: var(--golden);
-    }
-
-    .dropdown {
-      position: relative;
-    }
+    .dropdown { position: relative; }
     .dropdown-content {
       display: none;
       position: absolute;
-      top: 100%;
-      left: 0;
+      top: 100%; left: 0;
       background: var(--carbon-deep);
       border-radius: var(--border-radius);
       min-width: 180px;
@@ -103,54 +89,33 @@
       color: var(--anthracite);
       transition: color var(--transition);
     }
-    .dropdown-content a:hover {
-      color: var(--white);
-      background: rgba(255 255 255 / 0.05);
-    }
-    .dropdown:hover .dropdown-content {
-      display: flex;
-    }
+    .dropdown-content a:hover { color: var(--white); background: rgba(255 255 255 / 0.05); }
+    .dropdown:hover .dropdown-content { display:flex; }
 
-    /* Pulsanti fixed */
+    /* Pulsanti fissi */
     #logo, #fullscreen-btn, #theme-toggle, #focus-toggle {
-      position: fixed;
-      top: 10px;
-      z-index: 1001;
-      cursor: pointer;
-      background: none;
-      border: none;
+      position: fixed; top:10px; z-index:1001; background:none; border:none; cursor:pointer;
     }
-    #logo { left: 10px; width: 42px; height: 42px; }
-    #fullscreen-btn { right: 60px; }
-    #focus-toggle { right: 110px; }
-    #theme-toggle { right: 10px; }
-
-    #fullscreen-btn svg, #theme-toggle svg, #focus-toggle svg {
-      width: 24px;
-      height: 24px;
-      fill: var(--white);
-      transition: fill var(--transition);
-    }
+    #logo { left:10px; width:42px; height:42px; }
+    #fullscreen-btn { right:60px; }
+    #focus-toggle { right:110px; }
+    #theme-toggle { right:10px; }
+    #fullscreen-btn svg, #theme-toggle svg, #focus-toggle svg { width:24px; height:24px; fill:var(--white); transition:fill var(--transition); }
 
     /* Focus mode */
     body.focus-mode nav,
     body.focus-mode #fullscreen-btn,
     body.focus-mode #theme-toggle,
-    body.focus-mode #logo {
-      display: none;
-    }
+    body.focus-mode #logo { display:none; }
 
     /* Clock container */
     #clock-container {
       position: absolute;
-      top: 50%;
-      left: 50%;
+      top: 50%; left: 50%;
       transform: translate(-50%, -50%);
-      width: 100vw;
-      height: 100vh;
-      max-width: 600px;
-      max-height: 600px;
-      z-index: 500;
+      max-width:600px; max-height:600px;
+      width:100vw; height:100vh;
+      z-index:500;
       transition: all var(--transition);
     }
     body:not(.fullscreen) #clock-container {
@@ -158,28 +123,24 @@
       height: calc(100vh - 80px);
     }
 
-    /* Responsive */
-    @media (max-width: 768px) {
-      nav { flex-direction: column; padding: 1rem; }
-      .dropdown-content { position: static; border-radius: 0; width: 100%; box-shadow: none; }
+    @media (max-width:768px){
+      nav { flex-direction: column; padding:1rem; }
+      .dropdown-content { position: static; border-radius:0; width:100%; box-shadow:none; }
     }
   </style>
 </head>
 <body>
   <img id="logo" src="favicon.png" alt="Logo Tobia Miniutti" />
-
   <button id="fullscreen-btn" title="Schermo intero">
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
       <path d="M7 14H5v5h5v-2H7v-3zm12 3h-3v2h5v-5h-2v3zM7 7h3V5H5v5h2V7zm10 2h2V5h-5v2h3v2z"/>
     </svg>
   </button>
-
   <button id="focus-toggle" title="Solo orologio">
     <svg id="eye-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
       <path d="M12 5c-7 0-10 7-10 7s3 7 10 7 10-7 10-7-3-7-10-7zm0 12a5 5 0 1 1 0-10 5 5 0 0 1 0 10zm0-8a3 3 0 1 0 .001 6.001A3 3 0 0 0 12 9z"/>
     </svg>
   </button>
-
   <button id="theme-toggle" title="Tema chiaro/scuro">
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
       <path d="M12 3a9 9 0 100 18 9 9 0 000-18zm0 2c.7 0 1.4.1 2 .3a7 7 0 010 13.4A9 9 0 0112 5z"/>
@@ -212,40 +173,36 @@
         return new Date(datetime).getTime() - Date.now();
       } catch { return 0; }
     }
-
     getTimeOffset().then(offset => {
-      if (typeof sbbUhr !== "undefined") {
-        sbbUhr.now = () => new Date(Date.now() + offset);
+      if(typeof sbbUhr!=="undefined"){
+        sbbUhr.now = ()=> new Date(Date.now()+offset);
         const clock = new sbbUhr('clock-container', true, 30);
         clock.start();
       }
     });
 
     // Fullscreen
-    const fsBtn = document.getElementById('fullscreen-btn');
-    fsBtn.addEventListener('click', () => {
-      if (!document.fullscreenElement) document.documentElement.requestFullscreen();
-      else document.exitFullscreen();
-    });
-    document.addEventListener('fullscreenchange', () => document.body.classList.toggle('fullscreen', !!document.fullscreenElement));
-    document.addEventListener('keydown', e => { if(e.key.toLowerCase()==='f') { !document.fullscreenElement ? document.documentElement.requestFullscreen() : document.exitFullscreen(); }});
+    const fsBtn=document.getElementById('fullscreen-btn');
+    fsBtn.addEventListener('click', ()=>!document.fullscreenElement?document.documentElement.requestFullscreen():document.exitFullscreen());
+    document.addEventListener('fullscreenchange', ()=>document.body.classList.toggle('fullscreen',!!document.fullscreenElement));
+    document.addEventListener('keydown', e=>{ if(e.key.toLowerCase()==='f'){ !document.fullscreenElement?document.documentElement.requestFullscreen():document.exitFullscreen(); }});
 
     // Theme toggle
-    document.getElementById('theme-toggle').addEventListener('click', () => {
-      document.body.style.background = document.body.style.background === 'white' ? 'var(--carbon)' : 'white';
+    document.getElementById('theme-toggle').addEventListener('click', ()=>{
+      document.body.style.background = document.body.style.background==='white'? 'var(--carbon)' : 'white';
     });
 
     // Logo click
-    document.getElementById('logo').addEventListener('click', () => window.location.href='index.html');
+    document.getElementById('logo').addEventListener('click', ()=>window.location.href='index.html');
 
     // Focus mode
-    document.getElementById('focus-toggle').addEventListener('click', () => {
+    document.getElementById('focus-toggle').addEventListener('click', ()=>{
       document.body.classList.toggle('focus-mode');
-      const eye = document.getElementById('eye-icon');
-      const focus = document.body.classList.contains('focus-mode');
-      eye.innerHTML = focus 
-        ? '<path d="M2 5l2-2 17 17-2 2-4.3-4.3C13.4 19 12.7 19 12 19c-7 0-10-7-10-7 1.3-2.4 3.1-4.1 5.2-5.3L2 5zm10 4a3 3 0 0 1 3 3c0 .6-.2 1.1-.4 1.6L10.4 9.4c.5-.3 1-.4 1.6-.4zm0 8c.7 0 1.4-.1 2-.3l-1.5-1.5a5 5 0 0 1-4.7-4.7L6.3 9.3C4.5 10.3 3 12 3 12s3 7 9 7z"/>'
-        : '<path d="M12 5c-7 0-10 7-10 7s3 7 10 7 10-7 10-7-3-7-10-7zm0 12a5 5 0 1 1 0-10 5 5 0 0 1 0 10zm0-8a3 3 0 1 0 .001 6.001A3 3 0 0 0 12 9z"/>';
+      const eye=document.getElementById('eye-icon');
+      const focus=document.body.classList.contains('focus-mode');
+      eye.innerHTML=focus
+        ?'<path d="M2 5l2-2 17 17-2 2-4.3-4.3C13.4 19 12.7 19 12 19c-7 0-10-7-10-7 1.3-2.4 3.1-4.1 5.2-5.3L2 5zm10 4a3 3 0 0 1 3 3c0 .6-.2 1.1-.4 1.6L10.4 9.4c.5-.3 1-.4 1.6-.4zm0 8c.7 0 1.4-.1 2-.3l-1.5-1.5a5 5 0 0 1-4.7-4.7L6.3 9.3C4.5 10.3 3 12 3 12s3 7 9 7z"/>'
+        :'<path d="M12 5c-7 0-10 7-10 7s3 7 10 7 10-7 10-7-3-7-10-7zm0 12a5 5 0 1 1 0-10 5 5 0 0 1 0 10zm0-8a3 3 0 1 0 .001 6.001A3 3 0 0 0 12 9z"/>';
     });
   </script>
 </body>
