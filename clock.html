@@ -1,215 +1,200 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>SBB Clock | Miniutti</title>
-<link rel="icon" href="favicon.png" type="image/png" />
-<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600&display=swap" rel="stylesheet" />
-<script src="sbbUhr-1.3.js"></script>
-<style>
-:root {
-  --carbon: #121212;
-  --carbon-deep: #0d0d0d;
-  --golden: #c9a74c;
-  --anthracite: #b3b3b3;
-  --white: #ffffff;
-  --tricolor-start: #008C45;
-  --tricolor-middle: #F4F5F0;
-  --tricolor-end: #CD212A;
-  --transition: 0.3s ease-in-out;
-  --border-radius: 20px;
-}
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SBB Clock | Miniutti</title>
+  <link rel="icon" href="favicon.png" type="image/png" />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600&display=swap" rel="stylesheet" />
+  <script src="sbbUhr-1.3.js"></script>
+  <style>
+    :root {
+      --carbon: #121212;
+      --carbon-deep: #0d0d0d;
+      --golden: #c9a74c;
+      --anthracite: #b3b3b3;
+      --white: #ffffff;
+      --tricolor-start: #008C45;
+      --tricolor-middle: #F4F5F0;
+      --tricolor-end: #CD212A;
+      --transition: 0.3s ease-in-out;
+      --border-radius: 20px;
+    }
 
-* { margin:0; padding:0; box-sizing:border-box; }
-html, body {
-  font-family: 'Outfit', sans-serif;
-  background-color: var(--carbon);
-  color: var(--white);
-  min-height: 100vh;
-  scroll-behavior: smooth;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
+    * { margin: 0; padding: 0; box-sizing: border-box; }
 
-/* Header e Navbar */
-header {
-  backdrop-filter: blur(14px);
-  background: rgba(255 255 255 / 0.05);
-  padding: 1.3rem 2rem;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  position: sticky;
-  top: 0;
-  z-index: 1100;
-  box-shadow: 0 2px 25px rgba(0, 0, 0, 0.85);
-}
-.logo { height:42px; user-select:none; cursor:pointer; }
-nav a {
-  position: relative;
-  color: var(--white);
-  text-decoration: none;
-  font-weight:600;
-  margin-left:2.5rem;
-  padding-bottom:4px;
-  font-size:1rem;
-  transition: color var(--transition);
-  cursor:pointer;
-}
-nav a::after {
-  content:"";
-  position:absolute; bottom:0; left:0;
-  width:0; height:3px;
-  background: linear-gradient(90deg,var(--tricolor-start),var(--tricolor-middle),var(--tricolor-end));
-  border-radius:3px 3px 0 0;
-  transition: width var(--transition);
-}
-nav a:hover::after, nav a:focus-visible::after { width:100%; }
-nav a[aria-current="page"]::after { width:0; }
-nav a:hover, nav a:focus-visible { color: var(--golden); outline:none; }
+    html, body {
+      font-family: 'Outfit', sans-serif;
+      background-color: var(--carbon);
+      color: var(--white);
+      scroll-behavior: smooth;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
 
-/* Pulsanti fissi */
-#fullscreen-btn, #theme-toggle, #focus-toggle {
-  position: fixed; top:10px; z-index:1001;
-  background:none; border:none; cursor:pointer;
-}
-#fullscreen-btn { right:60px; }
-#focus-toggle { right:110px; }
-#theme-toggle { right:10px; }
-#fullscreen-btn svg, #theme-toggle svg, #focus-toggle svg { width:24px; height:24px; fill:var(--white); transition:fill var(--transition); }
+    header {
+      backdrop-filter: blur(14px);
+      background: rgba(255 255 255 / 0.05);
+      padding: 1.3rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 1100;
+      box-shadow: 0 2px 25px rgba(0,0,0,0.85);
+    }
 
-/* Focus mode */
-body.focus-mode header, body.focus-mode #fullscreen-btn, body.focus-mode #theme-toggle { display:none; }
+    .logo { height: 42px; filter: drop-shadow(0 0 1.5px rgba(0,0,0,0.6)); cursor:pointer; }
 
-/* Clock */
-#clock-container {
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  width:100vw; height:100vh;
-  max-width:600px; max-height:600px;
-  margin:auto;
-  transition: all var(--transition);
-}
-body:not(.fullscreen) #clock-container {
-  height: calc(100vh - 80px);
-  margin-top:40px;
-}
+    nav a {
+      position: relative;
+      color: var(--white);
+      text-decoration: none;
+      font-weight: 600;
+      margin-left: 2.5rem;
+      padding-bottom: 4px;
+      font-size: 1rem;
+      transition: color var(--transition);
+    }
+    nav a::after {
+      content: "";
+      position: absolute;
+      bottom: 0; left: 0;
+      width: 0; height: 3px;
+      background: linear-gradient(90deg, var(--tricolor-start), var(--tricolor-middle), var(--tricolor-end));
+      border-radius: 3px 3px 0 0;
+      transition: width var(--transition);
+      pointer-events: none;
+    }
+    nav a:hover::after, nav a:focus-visible::after { width: 100%; }
+    nav a[aria-current="page"]::after { width: 0; }
+    nav a:hover, nav a:focus-visible { color: var(--golden); }
 
-/* Footer */
-footer {
-  background: var(--carbon-deep);
-  padding: 3rem 2rem;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap:2rem;
-  border-top:1px solid rgba(255,255,255,0.05);
-}
-.footer-col h4 { font-size:1.2rem; margin-bottom:1rem; color:var(--golden); }
-.footer-col ul { list-style:none; }
-.footer-col ul li { margin:0.6rem 0; }
-.footer-col ul li a { color:var(--anthracite); text-decoration:none; transition:var(--transition); }
-.footer-col ul li a:hover { color:var(--white); }
-.footer-bottom { grid-column:1/-1; text-align:center; margin-top:2rem; font-size:0.9rem; color:var(--anthracite); }
+    /* Clock container */
+    #clock-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100vw;
+      height: 100vh;
+      position: relative;
+      z-index: 500;
+    }
 
-/* Animazioni fade-in */
-.reveal { opacity:0; transform:translateY(30px); transition:all 1.2s ease; }
-.reveal.visible { opacity:1; transform:none; }
-@keyframes fadeIn { from{opacity:0;} to{opacity:1;} }
-@keyframes fadeUp { from{opacity:0; transform:translateY(30px);} to{opacity:1; transform:translateY(0);} }
-</style>
+    /* Pulsanti fissi sopra il clock */
+    #fullscreen-btn, #focus-toggle, #theme-toggle {
+      position: fixed;
+      top: 10px;
+      z-index: 1002;
+      background: none;
+      border: none;
+      cursor: pointer;
+    }
+    #fullscreen-btn { right: 60px; }
+    #theme-toggle { right: 10px; }
+    #focus-toggle { right: 110px; }
+    #fullscreen-btn svg, #theme-toggle svg, #focus-toggle svg { width: 24px; height: 24px; fill: white; }
+
+    /* Fullscreen e focus mode: sparisce tutto tranne clock */
+    body.fullscreen header,
+    body.fullscreen #fullscreen-btn,
+    body.fullscreen #theme-toggle,
+    body.fullscreen #focus-toggle,
+    body.focus-mode header {
+      display: none;
+    }
+
+    @media (max-width: 768px) {
+      nav a { margin-left: 1rem; }
+    }
+  </style>
 </head>
 <body>
-<header>
-  <a href="index.html"><img src="favicon.png" alt="Logo Miniutti" class="logo" /></a>
-  <nav>
-    <a href="index.html">Home</a>
-    <a href="progetti.html">Progetti</a>
-    <a href="contatti.html">Contatti</a>
-    <a href="clock.html" aria-current="page">SBB Clock</a>
-  </nav>
-</header>
+  <header>
+    <a href="index.html"><img src="favicon.png" alt="Logo miniutti.it" class="logo" /></a>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="progetti.html">Progetti</a>
+      <a href="contatti.html">Contatti</a>
+      <a href="login.html">Login</a>
+    </nav>
+  </header>
 
-<div id="clock-container" class="reveal"></div>
+  <div id="clock-container"></div>
 
-<button id="fullscreen-btn" title="Schermo intero">
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M7 14H5v5h5v-2H7v-3zm12 3h-3v2h5v-5h-2v3zM7 7h3V5H5v5h2V7zm10 2h2V5h-5v2h3v2z"/></svg>
-</button>
-<button id="focus-toggle" title="Solo orologio">
-<svg id="eye-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 5c-7 0-10 7-10 7s3 7 10 7 10-7 10-7-3-7-10-7zm0 12a5 5 0 1 1 0-10 5 5 0 0 1 0 10zm0-8a3 3 0 1 0 .001 6.001A3 3 0 0 0 12 9z"/></svg>
-</button>
-<button id="theme-toggle" title="Tema chiaro/scuro">
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 3a9 9 0 100 18 9 9 0 000-18zm0 2c.7 0 1.4.1 2 .3a7 7 0 010 13.4A9 9 0 0112 5z"/></svg>
-</button>
+  <!-- Pulsanti fissi -->
+  <button id="fullscreen-btn" title="Schermo intero">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+      <path d="M7 14H5v5h5v-2H7v-3zm12 3h-3v2h5v-5h-2v3zM7 7h3V5H5v5h2V7zm10 2h2V5h-5v2h3v2z"/>
+    </svg>
+  </button>
+  <button id="focus-toggle" title="Solo orologio">
+    <svg id="eye-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+      <path d="M12 5c-7 0-10 7-10 7s3 7 10 7 10-7 10-7-3-7-10-7zm0 12a5 5 0 1 1 0-10 5 5 0 0 1 0 10zm0-8a3 3 0 1 0 .001 6.001A3 3 0 0 0 12 9z"/>
+    </svg>
+  </button>
+  <button id="theme-toggle" title="Tema chiaro/scuro">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+      <path d="M12 3a9 9 0 100 18 9 9 0 000-18zm0 2c.7 0 1.4.1 2 .3a7 7 0 010 13.4A9 9 0 0112 5z"/>
+    </svg>
+  </button>
 
-<footer>
-  <div class="footer-col">
-    <h4>Miniutti.it</h4>
-    <p>Portfolio ufficiale di Tobia Miniutti — progetti, idee e sviluppo.</p>
-  </div>
-  <div class="footer-col">
-    <h4>Link rapidi</h4>
-    <ul>
-      <li><a href="index.html">Home</a></li>
-      <li><a href="progetti.html">Progetti</a></li>
-      <li><a href="contatti.html">Contatti</a></li>
-      <li><a href="clock.html">SBB Clock</a></li>
-    </ul>
-  </div>
-  <div class="footer-col">
-    <h4>Contatti</h4>
-    <ul>
-      <li><a href="mailto:tobia@miniutti.it">Email: tobia@miniutti.it</a></li>
-      <li><a href="tel:+393791128232">Tel: +39 379 112 8232</a></li>
-    </ul>
-  </div>
-  <div class="footer-bottom">© 2025 miniutti.it — Tutti i diritti riservati</div>
-</footer>
+  <script>
+    // Calcolo offset orario
+    async function getTimeOffset() {
+      try {
+        const res = await fetch('https://worldtimeapi.org/api/ip.txt');
+        const text = await res.text();
+        const line = text.split('\n').find(l => l.startsWith('datetime:'));
+        const datetime = line.split('datetime:')[1].trim();
+        const serverTime = new Date(datetime).getTime();
+        const localTime = Date.now();
+        return serverTime - localTime;
+      } catch { return 0; }
+    }
 
-<script>
-// Sincronizzazione orario SBB
-async function getTimeOffset(){
-  try{
-    const res=await fetch('https://worldtimeapi.org/api/ip.txt');
-    const text=await res.text();
-    const line=text.split('\n').find(l=>l.startsWith('datetime:'));
-    return new Date(line.split('datetime:')[1].trim()).getTime()-Date.now();
-  }catch{return 0;}
-}
-getTimeOffset().then(offset=>{
-  if(typeof sbbUhr!=="undefined"){
-    sbbUhr.now=()=>new Date(Date.now()+offset);
-    const clock=new sbbUhr('clock-container', true, 30);
-    clock.start();
-  }
-});
+    getTimeOffset().then(offset => {
+      if (typeof sbbUhr !== "undefined") {
+        sbbUhr.now = () => new Date(Date.now() + offset);
+        const clock = new sbbUhr('clock-container', true, 30);
+        clock.start();
+      } else { console.error("sbbUhr non caricato"); }
+    });
 
-// Fullscreen
-const fsBtn=document.getElementById('fullscreen-btn');
-fsBtn.addEventListener('click',()=>!document.fullscreenElement?document.documentElement.requestFullscreen():document.exitFullscreen());
-document.addEventListener('fullscreenchange',()=>document.body.classList.toggle('fullscreen',!!document.fullscreenElement));
-document.addEventListener('keydown',e=>{if(e.key.toLowerCase()==='f')!document.fullscreenElement?document.documentElement.requestFullscreen():document.exitFullscreen();});
+    // Fullscreen toggle
+    document.getElementById('fullscreen-btn').addEventListener('click', () => {
+      if (!document.fullscreenElement) document.documentElement.requestFullscreen();
+      else document.exitFullscreen();
+    });
+    document.addEventListener('fullscreenchange', () => {
+      document.body.classList.toggle('fullscreen', !!document.fullscreenElement);
+    });
+    document.addEventListener('keydown', (e) => {
+      if (e.key.toLowerCase() === 'f') {
+        if (!document.fullscreenElement) document.documentElement.requestFullscreen();
+        else document.exitFullscreen();
+      }
+    });
 
-// Theme toggle
-document.getElementById('theme-toggle').addEventListener('click',()=>{
-  document.body.style.background=document.body.style.background==='white'? 'var(--carbon)' : 'white';
-});
+    // Theme toggle
+    document.getElementById('theme-toggle').addEventListener('click', () => {
+      document.body.style.background = document.body.style.background === 'white' ? 'var(--carbon)' : 'white';
+      document.body.style.color = document.body.style.color === 'black' ? 'var(--white)' : 'black';
+    });
 
-// Focus mode
-document.getElementById('focus-toggle').addEventListener('click',()=>{
-  document.body.classList.toggle('focus-mode');
-  const eye=document.getElementById('eye-icon');
-  const focus=document.body.classList.contains('focus-mode');
-  eye.innerHTML=focus
-    ?'<path d="M2 5l2-2 17 17-2 2-4.3-4.3C13.4 19 12.7 19 12 19c-7 0-10-7-10-7 1.3-2.4 3.1-4.1 5.2-5.3L2 5zm10 4a3 3 0 0 1 3 3c0 .6-.2 1.1-.4 1.6L10.4 9.4c.5-.3 1-.4 1.6-.4zm0 8c.7 0 1.4-.1 2-.3l-1.5-1.5a5 5 0 0 1-4.7-4.7L6.3 9.3C4.5 10.3 3 12 3 12s3 7 9 7z"/>'
-    :'<path d="M12 5c-7 0-10 7-10 7s3 7 10 7 10-7 10-7-3-7-10-7zm0 12a5 5 0 1 1 0-10 5 5 0 0 1 0 10zm0-8a3 3 0 1 0 .001 6.001A3 3 0 0 0 12 9z"/>';
-});
+    // Focus toggle
+    document.getElementById('focus-toggle').addEventListener('click', () => {
+      document.body.classList.toggle('focus-mode');
+      const eyeIcon = document.getElementById('eye-icon');
+      const isFocus = document.body.classList.contains('focus-mode');
+      eyeIcon.innerHTML = isFocus
+        ? '<path d="M2 5l2-2 17 17-2 2-4.3-4.3C13.4 19 12.7 19 12 19c-7 0-10-7-10-7 1.3-2.4 3.1-4.1 5.2-5.3L2 5zm10 4a3 3 0 0 1 3 3c0 .6-.2 1.1-.4 1.6L10.4 9.4c.5-.3 1-.4 1.6-.4zm0 8c.7 0 1.4-.1 2-.3l-1.5-1.5a5 5 0 0 1-4.7-4.7L6.3 9.3C4.5 10.3 3 12 3 12s3 7 9 7z"/>'
+        : '<path d="M12 5c-7 0-10 7-10 7s3 7 10 7 10-7 10-7-3-7-10-7zm0 12a5 5 0 1 1 0-10 5 5 0 0 1 0 10zm0-8a3 3 0 1 0 .001 6.001A3 3 0 0 0 12 9z"/>';
+    });
 
-// Reveal animation
-const reveals=document.querySelectorAll('.reveal');
-const observer=new IntersectionObserver(entries=>{entries.forEach(entry=>{if(entry.isIntersecting)entry.target.classList.add('visible');});},{threshold:0.1});
-reveals.forEach(el=>observer.observe(el));
-</script>
+    // Logo click
+    document.querySelector('.logo').addEventListener('click', () => window.location.href='index.html');
+  </script>
 </body>
 </html>
