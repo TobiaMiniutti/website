@@ -311,6 +311,48 @@ src="https://www.googletagmanager.com/gtag/js?id=G-45PZFD2T3G"></script>
         padding: 2.2rem 1.5rem;
       }
     }
+    
+    /* Animazioni */
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
+    }
+    @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 1.2s ease;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: none;
+    }
+
+    @media (max-width: 768px) {
+      .hero h1 {
+        font-size: 2.4rem;
+      }
+      nav a {
+        margin-left: 1rem;
+      }
+      .btn {
+        padding: 0.8rem 1.6rem;
+        font-size: 0.9rem;
+      }
+    }
   </style>
 </head>
 <body>
