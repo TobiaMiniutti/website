@@ -1,7 +1,7 @@
 # miniutti.it
 
-## 👤 Chi sono
+##  Chi sono
 
 **Tobia Miniutti**  
-📧 tobia@miniutti.it  
-📧 info@tobia.me  
+Email: [tobia@miniutti.it] | [info@tobia.me]
+Modulo di Contatto: www.miniutti.it/contatti
