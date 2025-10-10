@@ -1,6 +1,7 @@
-## WWW.MINIUTTI.IT
-## Contatti
+# miniutti.it
 
-Autore: Tobia Miniutti  
-Email: [tobia@miniutti.it] | [info@tobia.me]
-Modulo di contatto: www.miniutti.it/contatti
+## 👤 Chi sono
+
+**Tobia Miniutti**  
+📧 tobia@miniutti.it  
+📧 info@tobia.me  
