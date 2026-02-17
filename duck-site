@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Rubber Duck Society</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+<style>
+
+:root{
+  --yellow:#FFD54A;
+  --yellow-soft:#FFE38A;
+  --dark:#0f0f10;
+  --dark2:#161617;
+  --white:#ffffff;
+  --gray:#b8b8b8;
+}
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+body{
+  font-family:'Outfit',sans-serif;
+  background:linear-gradient(180deg,var(--dark),#000);
+  color:var(--white);
+  overflow-x:hidden;
+}
+
+/* NAVBAR */
+
+header{
+  position:fixed;
+  top:0;
+  width:100%;
+  backdrop-filter: blur(12px);
+  background:rgba(0,0,0,0.45);
+  border-bottom:1px solid rgba(255,255,255,0.08);
+  z-index:1000;
+}
+
+nav{
+  max-width:1100px;
+  margin:auto;
+  padding:18px 22px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+
+.logo{
+  font-weight:700;
+  font-size:22px;
+  letter-spacing:1px;
+  color:var(--yellow);
+}
+
+nav a{
+  color:var(--gray);
+  text-decoration:none;
+  margin-left:28px;
+  font-weight:500;
+  transition:.25s;
+}
+
+nav a:hover{
+  color:var(--white);
+}
+
+/* HERO */
+
+.hero{
+  height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  padding:0 20px;
+  position:relative;
+}
+
+.hero::before{
+  content:"";
+  position:absolute;
+  width:900px;
+  height:900px;
+  background:radial-gradient(circle,var(--yellow) 0%, transparent 60%);
+  opacity:0.25;
+  filter:blur(120px);
+}
+
+.hero-content{
+  position:relative;
+  z-index:2;
+}
+
+.hero h1{
+  font-size:64px;
+  font-weight:700;
+  letter-spacing:1px;
+}
+
+.hero p{
+  margin-top:20px;
+  font-size:20px;
+  color:var(--gray);
+}
+
+.cta{
+  margin-top:40px;
+  display:inline-block;
+  padding:16px 34px;
+  background:var(--yellow);
+  color:#000;
+  border-radius:50px;
+  font-weight:600;
+  text-decoration:none;
+  transition:.25s;
+  box-shadow:0 10px 40px rgba(255,213,74,0.35);
+}
+
+.cta:hover{
+  transform:translateY(-3px);
+  box-shadow:0 18px 60px rgba(255,213,74,0.6);
+}
+
+/* SECTION */
+
+section{
+  padding:120px 20px;
+}
+
+.container{
+  max-width:1100px;
+  margin:auto;
+}
+
+.section-title{
+  font-size:38px;
+  text-align:center;
+  margin-bottom:70px;
+}
+
+/* CARDS */
+
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+  gap:28px;
+}
+
+.card{
+  background:var(--dark2);
+  padding:26px;
+  border-radius:22px;
+  text-align:center;
+  transition:.35s;
+  border:1px solid rgba(255,255,255,0.06);
+}
+
+.card:hover{
+  transform:translateY(-8px);
+  border-color:rgba(255,213,74,0.4);
+  box-shadow:0 20px 60px rgba(0,0,0,0.6);
+}
+
+.duck{
+  font-size:70px;
+  margin-bottom:18px;
+}
+
+.card h3{
+  margin-bottom:10px;
+}
+
+.card p{
+  color:var(--gray);
+  font-size:15px;
+}
+
+/* ABOUT */
+
+.about{
+  text-align:center;
+  max-width:700px;
+  margin:auto;
+  font-size:18px;
+  color:var(--gray);
+  line-height:1.7;
+}
+
+/* FOOTER */
+
+footer{
+  padding:50px 20px;
+  text-align:center;
+  border-top:1px solid rgba(255,255,255,0.08);
+  color:#888;
+}
+
+</style>
+</head>
+
+<body>
+
+<header>
+  <nav>
+    <div class="logo">Rubber Duck Society</div>
+    <div>
+      <a href="#collezione">Collezione</a>
+      <a href="#storia">Storia</a>
+      <a href="#contatti">Contatti</a>
+    </div>
+  </nav>
+</header>
+
+<section class="hero">
+  <div class="hero-content">
+    <h1>La Papera. Ma fatta bene.</h1>
+    <p>Collezione premium di papere di gomma progettate per persone serie.</p>
+    <a href="#collezione" class="cta">Scopri la collezione</a>
+  </div>
+</section>
+
+<section id="collezione">
+  <div class="container">
+    <h2 class="section-title">Collezione</h2>
+
+    <div class="grid">
+
+      <div class="card">
+        <div class="duck">🦆</div>
+        <h3>Classic Duck</h3>
+        <p>La papera originale. Bilanciamento idrodinamico perfetto.</p>
+      </div>
+
+      <div class="card">
+        <div class="duck">🕶️🦆</div>
+        <h3>Business Duck</h3>
+        <p>Per riunioni importanti nella vasca da bagno.</p>
+      </div>
+
+      <div class="card">
+        <div class="duck">🚀🦆</div>
+        <h3>Space Duck</h3>
+        <p>Testata per missioni spaziali (non realmente).</p>
+      </div>
+
+      <div class="card">
+        <div class="duck">👑🦆</div>
+        <h3>Royal Duck</h3>
+        <p>Versione di lusso. Galleggiamento aristocratico.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section id="storia">
+  <div class="container">
+    <h2 class="section-title">La Nostra Filosofia</h2>
+    <p class="about">
+      Crediamo che ogni bagno meriti dignità.  
+      La papera di gomma non è un giocattolo.  
+      È un oggetto iconico, senza tempo, capace di migliorare la qualità della vita quotidiana.
+      Progettiamo papere con la stessa cura con cui si progettano automobili sportive.
+    </p>
+  </div>
+</section>
+
+<footer id="contatti">
+  © 2026 Rubber Duck Society — Tutti i diritti riservati<br>
+  contact@rubberduck.example
+</footer>
+
+</body>
+</html>
