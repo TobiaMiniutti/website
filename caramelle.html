@@ -3,30 +3,36 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>DolceViva — Caramelle Artigianali</title>
-  <meta name="description" content="DolceViva: caramelle artigianali, gommose, dure e ripiene. Ingredienti selezionati, design premium, spedizione rapida." />
-  <meta name="theme-color" content="#0b0b10" />
+  <title>4D Candy Lab — Caramelle “da sbucciare”</title>
+  <meta name="description" content="Sito demo super candy: stile 4D, gummy, frutta peel, glow neon. Shop + filtri + carrello demo." />
+  <meta name="theme-color" content="#0a0613" />
 
   <style>
     :root{
-      --bg:#07070b;
-      --bg2:#0b0b10;
-      --card: rgba(255,255,255,.06);
-      --card2: rgba(255,255,255,.09);
-      --text: rgba(255,255,255,.92);
-      --muted: rgba(255,255,255,.68);
+      --bg0:#070311;
+      --bg1:#0a0613;
+      --bg2:#0f0720;
+
+      --text: rgba(255,255,255,.94);
+      --muted: rgba(255,255,255,.70);
       --muted2: rgba(255,255,255,.52);
+
       --line: rgba(255,255,255,.10);
-      --shadow: 0 18px 60px rgba(0,0,0,.55);
-      --radius: 18px;
-      --radius2: 26px;
-      --accent1:#ff4fd8;
-      --accent2:#7c5cff;
-      --accent3:#2ee9a6;
-      --accent4:#ffb020;
-      --ok:#2ee9a6;
-      --warn:#ffb020;
-      --danger:#ff4f4f;
+      --card: rgba(255,255,255,.06);
+      --card2: rgba(255,255,255,.10);
+
+      --r16:16px;
+      --r22:22px;
+      --r28:28px;
+
+      /* Candy neon */
+      --pink:#ff3bd4;
+      --purple:#7a5cff;
+      --cyan:#2fe9ff;
+      --lime:#2ee9a6;
+      --mango:#ffb020;
+
+      --shadow: 0 18px 70px rgba(0,0,0,.58);
       --font: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
       --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
     }
@@ -35,33 +41,50 @@
     html,body{height:100%}
     body{
       margin:0;
-      font-family: var(--font);
-      color: var(--text);
+      font-family:var(--font);
+      color:var(--text);
       background:
-        radial-gradient(900px 600px at 10% 10%, rgba(255,79,216,.20), transparent 60%),
-        radial-gradient(700px 550px at 85% 20%, rgba(124,92,255,.18), transparent 60%),
-        radial-gradient(650px 500px at 70% 85%, rgba(46,233,166,.16), transparent 60%),
-        linear-gradient(180deg, var(--bg), var(--bg2));
+        radial-gradient(900px 600px at 12% 10%, rgba(255,59,212,.22), transparent 60%),
+        radial-gradient(760px 560px at 90% 15%, rgba(122,92,255,.20), transparent 62%),
+        radial-gradient(760px 520px at 70% 90%, rgba(47,233,255,.14), transparent 64%),
+        radial-gradient(700px 520px at 20% 90%, rgba(46,233,166,.14), transparent 60%),
+        linear-gradient(180deg, var(--bg0), var(--bg2));
       overflow-x:hidden;
     }
 
     a{color:inherit; text-decoration:none}
     .container{width:min(1120px, calc(100% - 40px)); margin-inline:auto}
-    .blur-orb{
-      position:absolute; inset:auto;
-      filter: blur(50px);
-      opacity:.8; pointer-events:none;
-      transform: translateZ(0);
+
+    /* Floating gummy bubbles */
+    .bubble{
+      position:absolute;
+      width: 110px; height: 110px;
+      border-radius: 999px;
+      background:
+        radial-gradient(circle at 30% 30%, rgba(255,255,255,.30), transparent 45%),
+        radial-gradient(circle at 60% 65%, rgba(255,255,255,.10), transparent 55%),
+        linear-gradient(135deg, rgba(255,59,212,.22), rgba(122,92,255,.18));
+      border: 1px solid rgba(255,255,255,.12);
+      box-shadow: 0 24px 80px rgba(0,0,0,.35);
+      filter: blur(.2px);
+      opacity:.9;
+      animation: floaty 9s ease-in-out infinite;
+      pointer-events:none;
     }
-    .orb1{width:280px; height:280px; background: rgba(255,79,216,.35); top:110px; left:-90px; border-radius:999px}
-    .orb2{width:320px; height:320px; background: rgba(124,92,255,.30); top:-50px; right:-120px; border-radius:999px}
-    .orb3{width:260px; height:260px; background: rgba(46,233,166,.26); bottom:120px; right:-90px; border-radius:999px}
+    .bubble.b1{top:120px; left:-30px; transform: scale(1.1)}
+    .bubble.b2{top:70px; right:-35px; transform: scale(.95); animation-duration: 11s}
+    .bubble.b3{bottom:80px; right:-30px; transform: scale(1.25); animation-duration: 12s}
+    .bubble.b4{bottom:140px; left:30px; transform: scale(.85); animation-duration: 10s}
+    @keyframes floaty{
+      0%,100%{transform: translateY(0) translateX(0) scale(var(--s,1))}
+      50%{transform: translateY(-14px) translateX(10px) scale(var(--s,1))}
+    }
 
     /* Header */
     header{
       position:sticky; top:0; z-index:50;
       backdrop-filter: blur(14px);
-      background: rgba(7,7,11,.55);
+      background: rgba(7,3,17,.55);
       border-bottom: 1px solid var(--line);
     }
     .nav{
@@ -69,16 +92,14 @@
       padding: 14px 0;
       gap:14px;
     }
-    .brand{
-      display:flex; align-items:center; gap:12px;
-      letter-spacing:.2px;
-      user-select:none;
-    }
+
+    .brand{display:flex; align-items:center; gap:12px; user-select:none}
     .logo{
-      width:40px; height:40px; border-radius: 14px;
+      width:42px; height:42px; border-radius: 16px;
       background:
-        radial-gradient(120% 120% at 20% 20%, rgba(255,79,216,.95), rgba(124,92,255,.65) 50%, rgba(46,233,166,.60));
-      box-shadow: 0 10px 28px rgba(0,0,0,.45);
+        radial-gradient(120% 120% at 20% 20%, rgba(255,59,212,.95), rgba(122,92,255,.65) 52%, rgba(47,233,255,.50));
+      border: 1px solid rgba(255,255,255,.14);
+      box-shadow: 0 18px 60px rgba(255,59,212,.12);
       position:relative;
       overflow:hidden;
     }
@@ -87,7 +108,7 @@
       position:absolute; inset:-40%;
       background: linear-gradient(45deg, transparent, rgba(255,255,255,.35), transparent);
       transform: rotate(20deg) translateX(-40%);
-      animation: shine 5.4s ease-in-out infinite;
+      animation: shine 4.6s ease-in-out infinite;
       opacity:.7;
     }
     @keyframes shine{
@@ -96,51 +117,57 @@
       60%{transform: rotate(20deg) translateX(55%); opacity:.0}
       100%{opacity:0}
     }
-    .brand strong{font-size:14px}
+    .brand strong{font-size:14px; letter-spacing:.2px}
     .brand span{display:block; font-size:12px; color:var(--muted2); margin-top:1px}
 
-    .navlinks{
-      display:flex; align-items:center; gap:18px;
-    }
+    .navlinks{display:flex; align-items:center; gap:18px}
     .navlinks a{
-      font-size:13px; color: var(--muted);
+      font-size:13px; color:var(--muted);
       padding:8px 10px; border-radius:12px;
-      transition: .25s ease;
-      border: 1px solid transparent;
+      transition:.25s ease;
+      border:1px solid transparent;
     }
     .navlinks a:hover{
-      color: var(--text);
+      color:var(--text);
       background: rgba(255,255,255,.05);
-      border-color: rgba(255,255,255,.10);
+      border-color: rgba(255,255,255,.12);
     }
 
     .actions{display:flex; align-items:center; gap:10px}
     .btn{
-      appearance:none; border:1px solid rgba(255,255,255,.12);
+      appearance:none;
+      border:1px solid rgba(255,255,255,.14);
       background: rgba(255,255,255,.06);
       color: var(--text);
       padding:10px 12px;
-      border-radius: 14px;
+      border-radius: 16px;
       cursor:pointer;
-      transition: .25s ease;
+      transition:.22s ease;
       display:inline-flex; align-items:center; gap:10px;
       font-size:13px;
-      box-shadow: 0 8px 26px rgba(0,0,0,.25);
+      box-shadow: 0 12px 40px rgba(0,0,0,.22);
     }
-    .btn:hover{transform: translateY(-1px); background: rgba(255,255,255,.08); border-color: rgba(255,255,255,.18)}
-    .btn:active{transform: translateY(0px); opacity:.95}
+    .btn:hover{transform: translateY(-1px); background: rgba(255,255,255,.08); border-color: rgba(255,255,255,.22)}
+    .btn:active{transform: translateY(0); opacity:.95}
+
     .btn.primary{
-      border-color: rgba(255,79,216,.30);
-      background: linear-gradient(135deg, rgba(255,79,216,.18), rgba(124,92,255,.18));
+      border-color: rgba(255,59,212,.34);
+      background:
+        radial-gradient(120% 120% at 25% 25%, rgba(255,255,255,.10), transparent 60%),
+        linear-gradient(135deg, rgba(255,59,212,.22), rgba(122,92,255,.22));
+      box-shadow:
+        0 18px 70px rgba(122,92,255,.12),
+        0 12px 40px rgba(0,0,0,.25);
     }
+
     .pill{
       font-size:12px;
-      color: rgba(255,255,255,.82);
-      border:1px solid rgba(255,255,255,.12);
+      border:1px solid rgba(255,255,255,.14);
       background: rgba(255,255,255,.06);
       padding:8px 10px;
-      border-radius: 999px;
+      border-radius:999px;
       display:inline-flex; align-items:center; gap:8px;
+      color: rgba(255,255,255,.86);
     }
     .kbd{
       font-family: var(--mono);
@@ -148,10 +175,9 @@
       padding:2px 6px;
       border-radius:8px;
       background: rgba(255,255,255,.08);
-      border: 1px solid rgba(255,255,255,.10);
-      color: rgba(255,255,255,.82);
+      border:1px solid rgba(255,255,255,.12);
+      color: rgba(255,255,255,.86);
     }
-    .icon{width:16px; height:16px; display:inline-block}
     .badge{
       min-width:22px; height:22px; padding:0 7px;
       border-radius:999px;
@@ -159,14 +185,14 @@
       font-size:12px;
       background: rgba(255,255,255,.10);
       border:1px solid rgba(255,255,255,.14);
-      color: rgba(255,255,255,.92);
     }
     .badge.hot{
-      background: rgba(255,79,216,.18);
-      border-color: rgba(255,79,216,.30);
+      background: rgba(255,59,212,.18);
+      border-color: rgba(255,59,212,.30);
     }
+    .icon{width:16px; height:16px; display:inline-block}
 
-    /* Mobile nav */
+    /* Mobile */
     .hamb{display:none}
     .mobile-panel{
       display:none;
@@ -182,144 +208,184 @@
       transition:.25s ease;
       margin-top:6px;
     }
-    .mobile-panel a:hover{color:var(--text); background: rgba(255,255,255,.05); border-color: rgba(255,255,255,.10)}
+    .mobile-panel a:hover{color:var(--text); background: rgba(255,255,255,.06); border-color: rgba(255,255,255,.12)}
     .mobile-actions{display:flex; gap:10px; margin-top:10px; flex-wrap:wrap}
 
     /* Hero */
-    .hero{
-      position:relative;
-      padding: 58px 0 24px;
-    }
+    .hero{position:relative; padding: 58px 0 24px}
     .hero-grid{
       display:grid;
       grid-template-columns: 1.2fr .8fr;
-      gap: 28px;
+      gap: 20px;
       align-items:stretch;
     }
     .hero-card{
-      border-radius: var(--radius2);
-      background: linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.03));
-      border:1px solid rgba(255,255,255,.12);
+      border-radius: var(--r28);
+      background:
+        radial-gradient(120% 120% at 18% 10%, rgba(255,59,212,.18), transparent 55%),
+        radial-gradient(120% 120% at 90% 25%, rgba(122,92,255,.18), transparent 55%),
+        rgba(255,255,255,.05);
+      border:1px solid rgba(255,255,255,.14);
       box-shadow: var(--shadow);
       overflow:hidden;
       position:relative;
     }
-    .hero-card .inner{
-      padding: 28px;
+    .hero-card:before{
+      content:"";
+      position:absolute; inset:-2px;
+      background:
+        linear-gradient(90deg, rgba(255,59,212,.22), rgba(122,92,255,.20), rgba(47,233,255,.16));
+      filter: blur(14px);
+      opacity:.35;
+      z-index:0;
     }
-    .tagline{
-      display:flex; gap:10px; flex-wrap:wrap;
-      margin-bottom:14px;
-    }
+    .hero-card .inner{padding: 26px; position:relative; z-index:1}
+
+    .tagline{display:flex; gap:10px; flex-wrap:wrap; margin-bottom:14px}
     .tag{
       border-radius:999px;
       padding:8px 10px;
       font-size:12px;
-      color: rgba(255,255,255,.85);
-      border:1px solid rgba(255,255,255,.12);
-      background: rgba(255,255,255,.05);
+      color: rgba(255,255,255,.88);
+      border:1px solid rgba(255,255,255,.14);
+      background: rgba(0,0,0,.12);
+      backdrop-filter: blur(10px);
       display:inline-flex; align-items:center; gap:8px;
     }
+
     h1{
-      font-size: clamp(30px, 4.4vw, 46px);
-      line-height: 1.04;
+      font-size: clamp(30px, 4.6vw, 48px);
+      line-height: 1.03;
       margin: 10px 0 10px;
-      letter-spacing:-.8px;
+      letter-spacing:-.9px;
     }
     .lead{
       font-size: 15px;
       line-height: 1.55;
       color: var(--muted);
-      max-width: 60ch;
+      max-width: 62ch;
       margin: 0 0 18px;
     }
     .hero-cta{display:flex; gap:12px; flex-wrap:wrap; align-items:center}
-    .hero-cta .btn{padding: 12px 14px; border-radius: 16px}
-    .hero-cta .btn.primary{box-shadow: 0 14px 60px rgba(124,92,255,.16)}
+    .hero-cta .btn{padding: 12px 14px; border-radius: 18px}
     .mini-row{
       display:flex; gap:14px; flex-wrap:wrap;
-      margin-top: 18px;
+      margin-top: 16px;
       color: var(--muted2);
       font-size: 12.5px;
     }
-    .mini-row b{color: rgba(255,255,255,.86); font-weight:600}
+    .mini-row b{color: rgba(255,255,255,.88); font-weight:700}
     .divider{
       height:1px;
-      background: linear-gradient(90deg, transparent, rgba(255,255,255,.14), transparent);
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,.16), transparent);
       margin: 18px 0;
       opacity:.9;
     }
 
-    /* Candy showcase */
-    .candy-box{
-      height:100%;
+    /* 4D fruit “peel” showcase */
+    .lab{
+      border-radius: var(--r28);
+      background:
+        radial-gradient(120% 120% at 20% 15%, rgba(47,233,255,.14), transparent 60%),
+        radial-gradient(120% 120% at 80% 25%, rgba(255,176,32,.14), transparent 60%),
+        rgba(255,255,255,.04);
+      border:1px solid rgba(255,255,255,.12);
+      box-shadow: 0 16px 60px rgba(0,0,0,.35);
+      overflow:hidden;
+      position:relative;
+      padding: 14px;
       display:flex;
       flex-direction:column;
       gap:12px;
-      padding: 18px;
     }
-    .candy-visual{
-      border-radius: 22px;
+
+    .peel-stage{
+      min-height: 290px;
+      border-radius: 24px;
+      border:1px solid rgba(255,255,255,.12);
       background:
-        radial-gradient(80% 80% at 30% 20%, rgba(255,79,216,.20), transparent 60%),
-        radial-gradient(80% 80% at 80% 35%, rgba(124,92,255,.18), transparent 62%),
-        radial-gradient(80% 80% at 55% 85%, rgba(46,233,166,.14), transparent 60%),
-        rgba(255,255,255,.04);
-      border: 1px solid rgba(255,255,255,.10);
-      overflow:hidden;
-      position:relative;
-      min-height: 280px;
-    }
-    .candy-grid{
-      position:absolute; inset:0;
-      display:grid;
-      grid-template-columns: repeat(8, 1fr);
-      grid-auto-rows: 1fr;
-      gap: 12px;
-      padding: 18px;
-      opacity:.95;
-    }
-    .c{
-      border-radius: 18px;
-      border:1px solid rgba(255,255,255,.10);
-      background: rgba(255,255,255,.06);
-      box-shadow: 0 14px 40px rgba(0,0,0,.25);
-      transform: translateY(0);
-      transition: transform .35s ease, filter .35s ease, opacity .35s ease;
+        radial-gradient(80% 80% at 30% 25%, rgba(255,59,212,.18), transparent 58%),
+        radial-gradient(80% 80% at 75% 40%, rgba(122,92,255,.16), transparent 60%),
+        radial-gradient(80% 80% at 55% 85%, rgba(46,233,166,.12), transparent 60%),
+        rgba(255,255,255,.03);
       position:relative;
       overflow:hidden;
     }
-    .c:before{
+
+    .fruit{
+      position:absolute;
+      left:50%; top:52%;
+      transform: translate(-50%,-50%);
+      width: 210px; height: 210px;
+      border-radius: 999px;
+      background:
+        radial-gradient(circle at 30% 28%, rgba(255,255,255,.30), transparent 45%),
+        radial-gradient(circle at 45% 55%, rgba(255,255,255,.10), transparent 58%),
+        radial-gradient(circle at 60% 65%, rgba(0,0,0,.14), transparent 58%),
+        linear-gradient(135deg, rgba(255,176,32,.90), rgba(255,59,212,.72));
+      box-shadow:
+        0 30px 120px rgba(255,59,212,.10),
+        0 24px 90px rgba(0,0,0,.38);
+      border: 1px solid rgba(255,255,255,.14);
+    }
+
+    .fruit:after{
       content:"";
-      position:absolute; inset:-40%;
-      background: linear-gradient(45deg, transparent, rgba(255,255,255,.32), transparent);
-      transform: rotate(18deg) translateX(-30%);
-      opacity:.0;
-      transition: opacity .3s ease;
+      position:absolute; inset: 18px;
+      border-radius: 999px;
+      background:
+        radial-gradient(circle at 30% 30%, rgba(255,255,255,.18), transparent 40%),
+        linear-gradient(135deg, rgba(255,255,255,.10), rgba(0,0,0,.06));
+      border: 1px solid rgba(255,255,255,.10);
+      opacity:.65;
     }
-    .c:hover{transform: translateY(-4px) rotate(-.2deg); filter: saturate(1.06)}
-    .c:hover:before{opacity:.8}
-    .c.pink{background: radial-gradient(120% 120% at 25% 20%, rgba(255,79,216,.50), rgba(255,255,255,.06) 60%)}
-    .c.purple{background: radial-gradient(120% 120% at 25% 20%, rgba(124,92,255,.48), rgba(255,255,255,.06) 60%)}
-    .c.mint{background: radial-gradient(120% 120% at 25% 20%, rgba(46,233,166,.46), rgba(255,255,255,.06) 60%)}
-    .c.gold{background: radial-gradient(120% 120% at 25% 20%, rgba(255,176,32,.46), rgba(255,255,255,.06) 60%)}
 
-    .c.one{grid-column: 1 / span 3; grid-row: 1 / span 3}
-    .c.two{grid-column: 4 / span 2; grid-row: 1 / span 2}
-    .c.three{grid-column: 6 / span 3; grid-row: 1 / span 4}
-    .c.four{grid-column: 4 / span 2; grid-row: 3 / span 3}
-    .c.five{grid-column: 1 / span 3; grid-row: 4 / span 3}
-    .c.six{grid-column: 4 / span 5; grid-row: 6 / span 2}
+    /* Peel layer (animated “peel back”) */
+    .peel{
+      position:absolute;
+      left:50%; top:52%;
+      transform: translate(-50%,-50%);
+      width: 230px; height: 230px;
+      border-radius: 999px;
+      background:
+        radial-gradient(circle at 35% 35%, rgba(255,255,255,.22), transparent 45%),
+        linear-gradient(135deg, rgba(46,233,166,.55), rgba(47,233,255,.35));
+      border: 1px solid rgba(255,255,255,.14);
+      box-shadow: 0 20px 70px rgba(0,0,0,.30);
+      clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+      animation: peel 2.9s ease-in-out infinite;
+      opacity:.85;
+      filter: saturate(1.06);
+    }
+    @keyframes peel{
+      0%,100%{
+        clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+        transform: translate(-50%,-50%) rotate(0deg);
+      }
+      50%{
+        clip-path: polygon(0 0, 70% 0, 100% 55%, 0 100%);
+        transform: translate(-50%,-50%) rotate(-6deg);
+      }
+    }
 
-    .side-card{
-      border-radius: 22px;
+    .gummy-dots{
+      position:absolute; inset:0;
+      background-image:
+        radial-gradient(rgba(255,255,255,.08) 1px, transparent 1px);
+      background-size: 18px 18px;
+      opacity:.35;
+      mask-image: radial-gradient(circle at 50% 50%, black 50%, transparent 75%);
+    }
+
+    .lab-cards{display:grid; gap:10px}
+    .mini-card{
+      border-radius: 18px;
+      border:1px solid rgba(255,255,255,.12);
       background: rgba(255,255,255,.04);
-      border:1px solid rgba(255,255,255,.10);
-      padding: 16px;
+      padding: 14px;
     }
-    .side-card h3{margin:0 0 8px; font-size:14px}
-    .side-card p{margin:0; color:var(--muted); font-size:13px; line-height:1.5}
-    .side-rows{display:grid; gap:10px}
+    .mini-card h3{margin:0 0 6px; font-size:14px}
+    .mini-card p{margin:0; color:var(--muted); font-size:13px; line-height:1.5}
 
     /* Sections */
     section{padding: 42px 0}
@@ -328,35 +394,34 @@
       gap: 12px; flex-wrap:wrap;
       margin-bottom: 18px;
     }
-    .section-title h2{
-      margin:0;
-      font-size: 22px;
-      letter-spacing:-.2px;
-    }
+    .section-title h2{margin:0; font-size:22px; letter-spacing:-.2px}
     .section-title p{margin:0; color: var(--muted); font-size:13.5px}
 
     .grid3{display:grid; grid-template-columns: repeat(3, 1fr); gap: 14px}
     .grid2{display:grid; grid-template-columns: repeat(2, 1fr); gap: 14px}
+
     .card{
-      background: rgba(255,255,255,.04);
-      border:1px solid rgba(255,255,255,.10);
-      border-radius: var(--radius);
-      box-shadow: 0 12px 44px rgba(0,0,0,.25);
+      background: rgba(255,255,255,.05);
+      border:1px solid rgba(255,255,255,.12);
+      border-radius: var(--r22);
+      box-shadow: 0 14px 54px rgba(0,0,0,.24);
       overflow:hidden;
       position:relative;
     }
     .card .pad{padding: 16px}
     .card h3{margin:0 0 6px; font-size:14px}
     .card p{margin:0; color: var(--muted); font-size:13px; line-height:1.55}
-    .card .meta{display:flex; gap:8px; flex-wrap:wrap; margin-top:12px}
+
+    .meta{display:flex; gap:8px; flex-wrap:wrap; margin-top:12px}
     .chip{
       font-size:12px;
       padding:6px 8px;
       border-radius: 999px;
-      border:1px solid rgba(255,255,255,.12);
-      background: rgba(255,255,255,.05);
-      color: rgba(255,255,255,.82);
+      border:1px solid rgba(255,255,255,.14);
+      background: rgba(0,0,0,.12);
+      color: rgba(255,255,255,.86);
       display:inline-flex; align-items:center; gap:8px;
+      backdrop-filter: blur(10px);
     }
     .chip.dot:before{
       content:"";
@@ -365,115 +430,126 @@
       box-shadow: 0 0 0 2px rgba(255,255,255,.08);
       display:inline-block;
     }
-    .chip.pink.dot:before{background: rgba(255,79,216,.7)}
-    .chip.purple.dot:before{background: rgba(124,92,255,.7)}
-    .chip.mint.dot:before{background: rgba(46,233,166,.7)}
-    .chip.gold.dot:before{background: rgba(255,176,32,.7)}
+    .chip.pink.dot:before{background: rgba(255,59,212,.8)}
+    .chip.purple.dot:before{background: rgba(122,92,255,.8)}
+    .chip.cyan.dot:before{background: rgba(47,233,255,.8)}
+    .chip.lime.dot:before{background: rgba(46,233,166,.8)}
+    .chip.mango.dot:before{background: rgba(255,176,32,.85)}
 
     /* Shop */
     .shopbar{
       display:flex; gap:10px; flex-wrap:wrap;
       align-items:center; justify-content:space-between;
       padding: 12px;
-      border-radius: var(--radius);
-      border:1px solid rgba(255,255,255,.10);
-      background: rgba(255,255,255,.04);
-      box-shadow: 0 10px 38px rgba(0,0,0,.2);
+      border-radius: var(--r22);
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.05);
+      box-shadow: 0 12px 46px rgba(0,0,0,.20);
       margin-bottom: 14px;
     }
     .inputs{display:flex; gap:10px; flex-wrap:wrap; align-items:center}
     .input, select{
-      background: rgba(255,255,255,.05);
-      border: 1px solid rgba(255,255,255,.12);
-      color: rgba(255,255,255,.88);
+      background: rgba(0,0,0,.14);
+      border: 1px solid rgba(255,255,255,.14);
+      color: rgba(255,255,255,.90);
       padding:10px 12px;
-      border-radius: 14px;
+      border-radius: 16px;
       outline:none;
       font-size:13px;
       transition: .2s ease;
+      backdrop-filter: blur(10px);
     }
-    .input:focus, select:focus{border-color: rgba(255,255,255,.22); background: rgba(255,255,255,.07)}
+    .input:focus, select:focus{border-color: rgba(255,255,255,.26); background: rgba(255,255,255,.06)}
     .filters{display:flex; gap:8px; flex-wrap:wrap}
     .fbtn{
-      border:1px solid rgba(255,255,255,.12);
-      background: rgba(255,255,255,.05);
-      color: rgba(255,255,255,.82);
+      border:1px solid rgba(255,255,255,.14);
+      background: rgba(0,0,0,.12);
+      color: rgba(255,255,255,.86);
       padding:8px 10px;
       border-radius: 999px;
       cursor:pointer;
       font-size:12.5px;
       transition: .2s ease;
+      backdrop-filter: blur(10px);
     }
-    .fbtn:hover{transform: translateY(-1px); border-color: rgba(255,255,255,.18); background: rgba(255,255,255,.07)}
+    .fbtn:hover{transform: translateY(-1px); border-color: rgba(255,255,255,.22); background: rgba(255,255,255,.06)}
     .fbtn.active{
-      background: linear-gradient(135deg, rgba(255,79,216,.18), rgba(124,92,255,.18));
-      border-color: rgba(255,79,216,.30);
-      color: rgba(255,255,255,.92);
+      background:
+        radial-gradient(120% 120% at 30% 30%, rgba(255,255,255,.10), transparent 60%),
+        linear-gradient(135deg, rgba(255,59,212,.22), rgba(122,92,255,.22));
+      border-color: rgba(255,59,212,.34);
+      color: rgba(255,255,255,.95);
+      box-shadow: 0 20px 70px rgba(255,59,212,.07);
     }
 
-    .products{
-      display:grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 14px;
-    }
+    .products{display:grid; grid-template-columns: repeat(3, 1fr); gap: 14px}
+
+    /* Product image = gummy blob */
     .pimg{
-      height: 170px;
+      height: 176px;
       border-bottom: 1px solid rgba(255,255,255,.10);
       background:
-        radial-gradient(110% 110% at 25% 25%, rgba(255,255,255,.10), transparent 60%),
+        radial-gradient(100px 100px at 25% 30%, rgba(255,255,255,.18), transparent 60%),
+        radial-gradient(260px 220px at 70% 50%, rgba(255,59,212,.20), transparent 60%),
+        radial-gradient(240px 220px at 45% 80%, rgba(47,233,255,.14), transparent 62%),
         rgba(255,255,255,.04);
       position:relative;
       overflow:hidden;
     }
-    .pimg .swirl{
-      position:absolute; inset:-30%;
+
+    .blob{
+      position:absolute;
+      left:50%; top:50%;
+      width: 140px; height: 140px;
+      transform: translate(-50%,-50%) rotate(10deg);
+      border-radius: 46% 54% 58% 42% / 52% 48% 52% 48%;
       background:
-        radial-gradient(circle at 30% 30%, rgba(255,79,216,.45), transparent 55%),
-        radial-gradient(circle at 70% 40%, rgba(124,92,255,.40), transparent 58%),
-        radial-gradient(circle at 55% 70%, rgba(46,233,166,.34), transparent 60%);
-      filter: blur(18px);
-      transform: rotate(10deg);
-      opacity:.9;
+        radial-gradient(circle at 30% 28%, rgba(255,255,255,.22), transparent 45%),
+        linear-gradient(135deg, rgba(255,59,212,.55), rgba(122,92,255,.45), rgba(47,233,255,.30));
+      border:1px solid rgba(255,255,255,.14);
+      box-shadow: 0 28px 90px rgba(0,0,0,.25);
+      animation: wobble 5.4s ease-in-out infinite;
+      filter: saturate(1.06);
     }
-    .pimg .label{
-      position:absolute; top:12px; left:12px;
-      display:flex; gap:8px; align-items:center;
+    @keyframes wobble{
+      0%,100%{border-radius:46% 54% 58% 42% / 52% 48% 52% 48%; transform: translate(-50%,-50%) rotate(10deg)}
+      50%{border-radius:52% 48% 44% 56% / 46% 54% 50% 50%; transform: translate(-50%,-50%) rotate(-8deg)}
     }
+
+    .pimg .label{position:absolute; top:12px; left:12px; display:flex; gap:8px; align-items:center}
+
     .flag{
       font-size:12px;
       padding:6px 8px;
       border-radius:999px;
-      border:1px solid rgba(255,255,255,.14);
-      background: rgba(0,0,0,.18);
-      color: rgba(255,255,255,.88);
+      border:1px solid rgba(255,255,255,.16);
+      background: rgba(0,0,0,.14);
+      color: rgba(255,255,255,.90);
       backdrop-filter: blur(10px);
     }
-    .flag.hot{border-color: rgba(255,79,216,.35); background: rgba(255,79,216,.10)}
-    .flag.new{border-color: rgba(46,233,166,.35); background: rgba(46,233,166,.08)}
-    .flag.best{border-color: rgba(255,176,32,.35); background: rgba(255,176,32,.08)}
-    .price{
-      font-weight:700;
-      letter-spacing:-.2px;
-    }
-    .row{
-      display:flex; align-items:center; justify-content:space-between; gap:12px;
-      margin-top: 12px;
-    }
-    .small{font-size:12.5px; color: var(--muted)}
-    .stars{font-size:12px; color: rgba(255,255,255,.78)}
+    .flag.hot{border-color: rgba(255,59,212,.36); background: rgba(255,59,212,.10)}
+    .flag.new{border-color: rgba(46,233,166,.36); background: rgba(46,233,166,.08)}
+    .flag.best{border-color: rgba(255,176,32,.36); background: rgba(255,176,32,.08)}
+
+    .row{display:flex; align-items:center; justify-content:space-between; gap:12px; margin-top:12px}
+    .price{font-weight:800; letter-spacing:-.2px}
+    .small{font-size:12.5px; color:var(--muted)}
+    .stars{font-size:12px; color: rgba(255,255,255,.80)}
+
     .qty{
       display:flex; align-items:center; gap:8px;
-      border:1px solid rgba(255,255,255,.12);
-      background: rgba(255,255,255,.04);
+      border:1px solid rgba(255,255,255,.14);
+      background: rgba(0,0,0,.12);
       border-radius: 999px;
       padding: 6px 8px;
+      backdrop-filter: blur(10px);
     }
     .qty button{
       width:26px; height:26px;
       border-radius:999px;
-      border:1px solid rgba(255,255,255,.10);
+      border:1px solid rgba(255,255,255,.12);
       background: rgba(255,255,255,.06);
-      color: rgba(255,255,255,.92);
+      color: rgba(255,255,255,.94);
       cursor:pointer;
       transition:.2s ease;
     }
@@ -482,23 +558,24 @@
       width:36px;
       background: transparent;
       border:none;
-      color: rgba(255,255,255,.9);
+      color: rgba(255,255,255,.92);
       text-align:center;
       outline:none;
       font-size:13px;
     }
 
-    /* Story + FAQ */
+    /* FAQ */
     details{
-      border:1px solid rgba(255,255,255,.10);
-      border-radius: 16px;
-      background: rgba(255,255,255,.04);
+      border:1px solid rgba(255,255,255,.12);
+      border-radius: 18px;
+      background: rgba(255,255,255,.05);
       padding: 12px 14px;
+      backdrop-filter: blur(10px);
     }
     details summary{
       cursor:pointer;
-      font-weight:600;
-      color: rgba(255,255,255,.88);
+      font-weight:800;
+      color: rgba(255,255,255,.90);
       list-style:none;
     }
     details summary::-webkit-details-marker{display:none}
@@ -508,8 +585,8 @@
     footer{
       border-top:1px solid var(--line);
       padding: 26px 0 40px;
-      background: rgba(0,0,0,.18);
-      backdrop-filter: blur(10px);
+      background: rgba(0,0,0,.14);
+      backdrop-filter: blur(12px);
     }
     .footer-grid{
       display:grid;
@@ -526,7 +603,7 @@
     /* Modal cart */
     .overlay{
       position:fixed; inset:0;
-      background: rgba(0,0,0,.55);
+      background: rgba(0,0,0,.56);
       display:none;
       align-items:center; justify-content:center;
       z-index:80;
@@ -534,12 +611,12 @@
     }
     .overlay.show{display:flex}
     .modal{
-      width:min(860px, 100%);
-      border-radius: 22px;
-      background: rgba(10,10,14,.92);
-      border: 1px solid rgba(255,255,255,.14);
-      box-shadow: 0 22px 90px rgba(0,0,0,.65);
-      backdrop-filter: blur(16px);
+      width:min(880px, 100%);
+      border-radius: 24px;
+      background: rgba(12,8,26,.92);
+      border: 1px solid rgba(255,255,255,.16);
+      box-shadow: 0 24px 100px rgba(0,0,0,.68);
+      backdrop-filter: blur(18px);
       overflow:hidden;
     }
     .modal-head{
@@ -549,37 +626,33 @@
     }
     .modal-head strong{font-size:14px}
     .x{
-      border-radius: 14px;
-      border:1px solid rgba(255,255,255,.14);
+      border-radius: 16px;
+      border:1px solid rgba(255,255,255,.16);
       background: rgba(255,255,255,.06);
       padding: 10px 12px;
       cursor:pointer;
-      color: rgba(255,255,255,.9);
+      color: rgba(255,255,255,.92);
     }
-    .modal-body{
-      display:grid;
-      grid-template-columns: 1.2fr .8fr;
-      gap: 0;
-    }
+    .modal-body{display:grid; grid-template-columns: 1.2fr .8fr; gap: 0}
     .cartlist{padding: 14px 16px}
     .cartitem{
       display:grid;
       grid-template-columns: 1fr auto;
       gap: 10px;
       padding: 12px;
-      border:1px solid rgba(255,255,255,.10);
-      border-radius: 16px;
-      background: rgba(255,255,255,.04);
+      border:1px solid rgba(255,255,255,.12);
+      border-radius: 18px;
+      background: rgba(255,255,255,.05);
       margin-bottom: 10px;
     }
     .cartitem h5{margin:0 0 4px; font-size:13px}
     .cartitem .mini{color: var(--muted); font-size:12.5px}
     .cartitem .tools{display:flex; gap:8px; align-items:center; justify-content:flex-end}
     .cartitem .tools button{
-      border-radius: 12px;
-      border:1px solid rgba(255,255,255,.12);
+      border-radius: 14px;
+      border:1px solid rgba(255,255,255,.14);
       background: rgba(255,255,255,.06);
-      color: rgba(255,255,255,.9);
+      color: rgba(255,255,255,.92);
       padding: 8px 10px;
       cursor:pointer;
       font-size:12px;
@@ -588,43 +661,44 @@
     .cart-summary{
       padding: 14px 16px;
       border-left:1px solid rgba(255,255,255,.12);
-      background: rgba(255,255,255,.02);
+      background: rgba(255,255,255,.03);
     }
     .sumrow{display:flex; justify-content:space-between; gap:10px; margin:10px 0; color: var(--muted)}
-    .sumrow b{color: rgba(255,255,255,.9)}
+    .sumrow b{color: rgba(255,255,255,.92)}
     .total{
       display:flex; justify-content:space-between; align-items:center;
       padding: 12px;
-      border-radius: 16px;
-      border:1px solid rgba(255,255,255,.12);
-      background: rgba(255,255,255,.05);
+      border-radius: 18px;
+      border:1px solid rgba(255,255,255,.14);
+      background:
+        radial-gradient(120% 120% at 25% 25%, rgba(255,255,255,.08), transparent 60%),
+        linear-gradient(135deg, rgba(255,59,212,.16), rgba(122,92,255,.16));
       margin-top: 12px;
     }
     .total strong{font-size:14px}
     .note{color: var(--muted2); font-size:12.5px; line-height:1.5; margin-top:10px}
+
     .toast{
       position: fixed;
       bottom: 18px; left: 50%;
       transform: translateX(-50%);
-      background: rgba(20,20,26,.92);
-      border:1px solid rgba(255,255,255,.14);
-      color: rgba(255,255,255,.9);
+      background: rgba(20,12,34,.92);
+      border:1px solid rgba(255,255,255,.16);
+      color: rgba(255,255,255,.92);
       padding: 10px 12px;
       border-radius: 999px;
-      box-shadow: 0 16px 60px rgba(0,0,0,.55);
+      box-shadow: 0 16px 70px rgba(0,0,0,.55);
       display:none;
       z-index:90;
       backdrop-filter: blur(14px);
       font-size:13px;
     }
     .toast.show{display:block; animation: toastIn .25s ease}
-    @keyframes toastIn{from{opacity:0; transform:translateX(-50%) translateY(8px)} to{opacity:1; transform:translateX(-50%) translateY(0)}}
+    @keyframes toastIn{from{opacity:0; transform:translateX(-50%) translateY(10px)} to{opacity:1; transform:translateX(-50%) translateY(0)}}
 
-    /* Reveal animations */
+    /* Reveal */
     .reveal{opacity:0; transform: translateY(14px); transition: .6s ease}
     .reveal.on{opacity:1; transform: translateY(0)}
-    .fade{opacity:.0; transition:.6s ease}
-    .fade.on{opacity:1}
 
     /* Responsive */
     @media (max-width: 980px){
@@ -637,34 +711,33 @@
       .cart-summary{border-left:none; border-top:1px solid rgba(255,255,255,.12)}
       .navlinks{display:none}
       .hamb{display:inline-flex}
-      .mobile-panel{display:none}
       header.open .mobile-panel{display:block}
     }
     @media (max-width: 560px){
       .products{grid-template-columns: 1fr}
       .hero-card .inner{padding: 18px}
-      .candy-grid{gap:10px}
     }
   </style>
 </head>
 
 <body>
-  <div class="blur-orb orb1"></div>
-  <div class="blur-orb orb2"></div>
-  <div class="blur-orb orb3"></div>
+  <div class="bubble b1" style="--s:1.1"></div>
+  <div class="bubble b2" style="--s:.95"></div>
+  <div class="bubble b3" style="--s:1.25"></div>
+  <div class="bubble b4" style="--s:.85"></div>
 
   <header id="top">
     <div class="container">
       <div class="nav">
-        <a class="brand" href="#top" aria-label="Home DolceViva">
+        <a class="brand" href="#top" aria-label="Home">
           <div class="logo" aria-hidden="true"></div>
           <div>
-            <strong>DolceViva</strong>
-            <span>Caramelle premium • Artigianali • Italian vibe</span>
+            <strong>4D Candy Lab</strong>
+            <span>Gummy • Peel • Neon — demo shop</span>
           </div>
         </a>
 
-        <nav class="navlinks" aria-label="Navigazione principale">
+        <nav class="navlinks" aria-label="Navigazione">
           <a href="#shop">Shop</a>
           <a href="#collezioni">Collezioni</a>
           <a href="#storia">Storia</a>
@@ -673,9 +746,8 @@
         </nav>
 
         <div class="actions">
-          <span class="pill" title="Suggerimento">
-            <span style="opacity:.9">Cerca</span>
-            <span class="kbd">/</span>
+          <span class="pill" title="Cerca">
+            <span style="opacity:.9">Cerca</span> <span class="kbd">/</span>
           </span>
           <button class="btn hamb" id="hambBtn" aria-label="Apri menu">
             <svg class="icon" viewBox="0 0 24 24" fill="none"><path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
@@ -683,8 +755,7 @@
           </button>
           <button class="btn primary" id="cartBtn" aria-label="Apri carrello">
             <svg class="icon" viewBox="0 0 24 24" fill="none"><path d="M6 7h15l-1.5 8.5a2 2 0 0 1-2 1.5H9a2 2 0 0 1-2-1.6L5 3H2" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M10 21a1 1 0 1 0 0-2 1 1 0 0 0 0 2ZM18 21a1 1 0 1 0 0-2 1 1 0 0 0 0 2Z" fill="currentColor"/></svg>
-            Carrello
-            <span class="badge hot" id="cartCount">0</span>
+            Carrello <span class="badge hot" id="cartCount">0</span>
           </button>
         </div>
       </div>
@@ -696,14 +767,8 @@
         <a href="#faq">FAQ</a>
         <a href="#contatti">Contatti</a>
         <div class="mobile-actions">
-          <button class="btn" id="scrollTopBtn">
-            <svg class="icon" viewBox="0 0 24 24" fill="none"><path d="M12 5l7 7M12 5l-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M12 5v14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
-            Su
-          </button>
-          <button class="btn primary" id="cartBtn2">
-            <svg class="icon" viewBox="0 0 24 24" fill="none"><path d="M6 7h15l-1.5 8.5a2 2 0 0 1-2 1.5H9a2 2 0 0 1-2-1.6L5 3H2" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            Carrello <span class="badge hot" id="cartCount2">0</span>
-          </button>
+          <button class="btn" id="scrollTopBtn">Su</button>
+          <button class="btn primary" id="cartBtn2">Carrello <span class="badge hot" id="cartCount2">0</span></button>
         </div>
       </div>
     </div>
@@ -717,68 +782,48 @@
           <div class="hero-card reveal">
             <div class="inner">
               <div class="tagline">
-                <span class="tag">
-                  <svg class="icon" viewBox="0 0 24 24" fill="none"><path d="M20 7l-8-4-8 4v10l8 4 8-4V7Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>
-                  Ingredienti selezionati
-                </span>
-                <span class="tag">
-                  <svg class="icon" viewBox="0 0 24 24" fill="none"><path d="M12 3v18M3 12h18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
-                  Mix personalizzati
-                </span>
-                <span class="tag">
-                  <svg class="icon" viewBox="0 0 24 24" fill="none"><path d="M4 12s3-7 8-7 8 7 8 7-3 7-8 7-8-7-8-7Z" stroke="currentColor" stroke-width="2"/><path d="M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z" fill="currentColor"/></svg>
-                  Design premium
-                </span>
+                <span class="tag">🍑 Effetto “peel”</span>
+                <span class="tag">✨ Gummy glow</span>
+                <span class="tag">⚡ Neon pop</span>
               </div>
 
-              <h1>Caramelle che sembrano gioielli. <span style="color:rgba(255,255,255,.85)">E sanno di felicità.</span></h1>
+              <h1>Caramelle “4D” da sbucciare. <span style="color:rgba(255,255,255,.86)">Viste prima, mangiate poi.</span></h1>
               <p class="lead">
-                DolceViva è un concept-store: collezioni curate (gommose, dure, ripiene) con sapori puliti,
-                packaging elegante e mix “regalo pronto”. Carrello demo incluso.
+                Template completo stile candy-viral: colori “gel”, frutta 3D, vibe giocosa.
+                Shop con filtri e carrello <b>(demo front-end)</b>.
               </p>
 
               <div class="hero-cta">
-                <a class="btn primary" href="#shop">
-                  <svg class="icon" viewBox="0 0 24 24" fill="none"><path d="M7 7h14l-1.2 7.4a2 2 0 0 1-2 1.6H10a2 2 0 0 1-2-1.7L6 3H3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                  Vai allo shop
-                </a>
-                <button class="btn" id="randomMixBtn">
-                  <svg class="icon" viewBox="0 0 24 24" fill="none"><path d="M16 3h5v5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M4 20l7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M21 8c-8 0-8 13-17 13" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
-                  Mix casuale
-                </button>
+                <a class="btn primary" href="#shop">Vai allo shop</a>
+                <button class="btn" id="randomMixBtn">Mix “Peel” casuale</button>
                 <span class="small">Tip: premi <span class="kbd">/</span> per cercare</span>
               </div>
 
               <div class="divider"></div>
 
               <div class="mini-row">
-                <span>✅ <b>Spedizione</b> 24/48h (demo)</span>
-                <span>✅ <b>Resi</b> 14 giorni (demo)</span>
-                <span>✅ <b>Assistenza</b> via email (demo)</span>
+                <span>✅ <b>Box</b> regalo</span>
+                <span>✅ <b>Mix</b> personalizzati</span>
+                <span>✅ <b>UI</b> super candy</span>
               </div>
             </div>
           </div>
 
-          <div class="candy-box">
-            <div class="candy-visual reveal" aria-label="Vetrina caramelle">
-              <div class="candy-grid">
-                <div class="c one pink" title="Raspberry Glow"></div>
-                <div class="c two gold" title="Honey Spark"></div>
-                <div class="c three purple" title="Grape Velvet"></div>
-                <div class="c four mint" title="Mint Prism"></div>
-                <div class="c five gold" title="Citrus Gold"></div>
-                <div class="c six pink" title="Strawberry Pop"></div>
-              </div>
+          <div class="lab reveal">
+            <div class="peel-stage" aria-label="Vetrina peel 4D">
+              <div class="gummy-dots"></div>
+              <div class="fruit"></div>
+              <div class="peel"></div>
             </div>
 
-            <div class="side-rows">
-              <div class="side-card reveal">
-                <h3>✨ Collezioni stagionali</h3>
-                <p>Edizioni limitate: agrumi invernali, frutti rossi, menta “clean” e ripieni cremosi.</p>
+            <div class="lab-cards">
+              <div class="mini-card">
+                <h3>🍌 “Peel Series”</h3>
+                <p>Caramelle morbide effetto frutta: look super realistico, texture gummy.</p>
               </div>
-              <div class="side-card reveal">
-                <h3>🎁 Regalo pronto</h3>
-                <p>Box minimal con effetto satinato: perfette per eventi, compleanni, e “grazie”.</p>
+              <div class="mini-card">
+                <h3>🎁 Gift Packs</h3>
+                <p>Box neon-luxury: perfette per reels, eventi e “wow” immediato.</p>
               </div>
             </div>
           </div>
@@ -793,45 +838,42 @@
         <div class="section-title">
           <div>
             <h2>Collezioni</h2>
-            <p><b>3 linee</b> pensate per gusti diversi: texture, intensità e “mood”.</p>
+            <p><b>Più pop</b>, più gummy, più “viral shelf”.</p>
           </div>
-          <span class="pill">
-            <svg class="icon" viewBox="0 0 24 24" fill="none"><path d="M12 2l3 7h7l-5.5 4.2 2.2 7L12 16.8 5.3 20.2l2.2-7L2 9h7l3-7Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>
-            Best picks
-          </span>
+          <span class="pill">✨ Drop del mese</span>
         </div>
 
         <div class="grid3">
           <div class="card reveal">
             <div class="pad">
-              <h3>Gommose “Soft Cloud”</h3>
-              <p>Morbide, fruttate, con acidità bilanciata. Ideali per un mix pop e moderno.</p>
+              <h3>Peel — Tropical</h3>
+              <p>Banana, mango, pesca: colori pieni e finish “gel”.</p>
               <div class="meta">
-                <span class="chip pink dot">Frutti rossi</span>
-                <span class="chip gold dot">Agrumi</span>
-                <span class="chip">Morbidezza alta</span>
+                <span class="chip mango dot">Tropical</span>
+                <span class="chip cyan dot">Fresh</span>
+                <span class="chip">Gummy</span>
               </div>
             </div>
           </div>
           <div class="card reveal">
             <div class="pad">
-              <h3>Dure “Crystal Drop”</h3>
-              <p>Trasparenti e lucide, scioglimento lento. Perfette per gusto pulito e persistente.</p>
+              <h3>Peel — Berry</h3>
+              <p>Fragola e lampone: sweet + acidità bilanciata.</p>
               <div class="meta">
-                <span class="chip purple dot">Uva & viola</span>
-                <span class="chip mint dot">Menta</span>
-                <span class="chip">Persistenza alta</span>
+                <span class="chip pink dot">Berry</span>
+                <span class="chip purple dot">Pop</span>
+                <span class="chip">Wow look</span>
               </div>
             </div>
           </div>
           <div class="card reveal">
             <div class="pad">
-              <h3>Ripiene “Core Melt”</h3>
-              <p>Guscio croccante + cuore cremoso. Il “wow” per regali o eventi speciali.</p>
+              <h3>Neon Box</h3>
+              <p>Mix regalo con “gummy gems” + peel.</p>
               <div class="meta">
-                <span class="chip gold dot">Caramello</span>
-                <span class="chip pink dot">Fragola</span>
-                <span class="chip">Effetto sorpresa</span>
+                <span class="chip lime dot">Gift</span>
+                <span class="chip mango dot">Best</span>
+                <span class="chip">Unboxing</span>
               </div>
             </div>
           </div>
@@ -845,30 +887,27 @@
         <div class="section-title">
           <div>
             <h2>Shop</h2>
-            <p>Filtra per categoria, cerca per gusto, aggiungi al carrello. <b>(Demo front-end)</b></p>
+            <p>Filtri + ricerca + carrello. <b>(Demo)</b></p>
           </div>
-          <span class="pill">
-            <svg class="icon" viewBox="0 0 24 24" fill="none"><path d="M3 5h18M6 12h12M10 19h4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
-            Filtri smart
-          </span>
+          <span class="pill">🍬 Gummy UI</span>
         </div>
 
         <div class="shopbar reveal">
           <div class="inputs">
-            <input class="input" id="search" type="search" placeholder="Cerca: fragola, menta, agrumi..." aria-label="Cerca prodotti" />
-            <select id="sort" aria-label="Ordina">
+            <input class="input" id="search" type="search" placeholder="Cerca: peel, mango, berry..." />
+            <select id="sort">
               <option value="featured">Consigliati</option>
               <option value="priceAsc">Prezzo crescente</option>
               <option value="priceDesc">Prezzo decrescente</option>
               <option value="rating">Valutazione</option>
             </select>
           </div>
-          <div class="filters" aria-label="Filtri categoria">
+          <div class="filters">
             <button class="fbtn active" data-filter="all">Tutte</button>
-            <button class="fbtn" data-filter="gommose">Gommose</button>
-            <button class="fbtn" data-filter="dure">Dure</button>
-            <button class="fbtn" data-filter="ripiene">Ripiene</button>
-            <button class="fbtn" data-filter="box">Box regalo</button>
+            <button class="fbtn" data-filter="peel">Peel</button>
+            <button class="fbtn" data-filter="gummy">Gummy</button>
+            <button class="fbtn" data-filter="sour">Sour</button>
+            <button class="fbtn" data-filter="box">Box</button>
           </div>
         </div>
 
@@ -881,42 +920,33 @@
       <div class="container">
         <div class="section-title">
           <div>
-            <h2>Storia & Filosofia</h2>
-            <p>Un brand fittizio, ma un sito vero: stile, componenti, UX e performance.</p>
+            <h2>Storia</h2>
+            <p>Concept “candy lab”: estetica 4D + UX pronta per e-commerce vero.</p>
           </div>
-          <span class="pill">
-            <svg class="icon" viewBox="0 0 24 24" fill="none"><path d="M12 8v5l3 2" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18Z" stroke="currentColor" stroke-width="2"/></svg>
-            “Slow craft”
-          </span>
+          <span class="pill">🧪 Lab</span>
         </div>
 
         <div class="grid2">
           <div class="card reveal">
             <div class="pad">
-              <h3>Perché “premium”?</h3>
-              <p>
-                Non è solo gusto: è anche <b>consistenza</b>, profumo, “finish” in bocca e packaging.
-                L’esperienza è pensata come un oggetto di design: essenziale, elegante, memorabile.
-              </p>
+              <h3>Perché “4D”?</h3>
+              <p>Qui lo stile punta a: <b>frutta realistica</b>, texture gummy, luci neon e componenti “fun”.</p>
               <div class="meta">
-                <span class="chip">Texture curata</span>
-                <span class="chip">Mix bilanciati</span>
-                <span class="chip">Look & feel</span>
+                <span class="chip cyan dot">Glow</span>
+                <span class="chip pink dot">Pop</span>
+                <span class="chip">Viral</span>
               </div>
             </div>
           </div>
 
           <div class="card reveal">
             <div class="pad">
-              <h3>Ingredienti & trasparenza</h3>
-              <p>
-                In un e-commerce reale qui inseriresti: origine ingredienti, allergeni, valori nutrizionali,
-                e certificazioni. In questa demo trovi struttura e UI già pronte per essere collegate a un backend.
-              </p>
+              <h3>Da demo a shop reale</h3>
+              <p>Carrello e UI sono già pronti. Manca solo backend (prodotti, ordini, pagamenti).</p>
               <div class="meta">
-                <span class="chip mint dot">Info chiare</span>
-                <span class="chip gold dot">Allergeni</span>
-                <span class="chip purple dot">Tracciabilità</span>
+                <span class="chip purple dot">Stripe</span>
+                <span class="chip lime dot">DB</span>
+                <span class="chip mango dot">CMS</span>
               </div>
             </div>
           </div>
@@ -930,30 +960,27 @@
         <div class="section-title">
           <div>
             <h2>FAQ</h2>
-            <p>Risposte rapide alle domande tipiche di uno shop di caramelle.</p>
+            <p>Le classiche domande da candy shop.</p>
           </div>
-          <span class="pill">
-            <svg class="icon" viewBox="0 0 24 24" fill="none"><path d="M12 18h.01" stroke="currentColor" stroke-width="3" stroke-linecap="round"/><path d="M9.5 9a2.5 2.5 0 1 1 3.2 2.4c-.9.3-1.2.8-1.2 1.6v.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M12 22a10 10 0 1 0 0-20 10 10 0 0 0 0 20Z" stroke="currentColor" stroke-width="2"/></svg>
-            Supporto
-          </span>
+          <span class="pill">💬</span>
         </div>
 
         <div class="grid2">
           <details class="reveal">
-            <summary>Quanto dura la spedizione?</summary>
-            <p>Demo: 24/48 ore lavorative. In un sito reale collegheresti tracking e carrier (SDA/BRT/DHL, ecc.).</p>
-          </details>
-          <details class="reveal">
-            <summary>Posso scegliere un mix personalizzato?</summary>
-            <p>Sì: qui trovi il tasto “Mix casuale” come esempio. In produzione potresti aggiungere un configuratore con gusti e quantità.</p>
-          </details>
-          <details class="reveal">
-            <summary>Allergeni e ingredienti?</summary>
-            <p>In una versione e-commerce reale la scheda prodotto deve includere elenco ingredienti, allergeni e valori nutrizionali (obbligatori in molti casi).</p>
+            <summary>Sono “da sbucciare” davvero?</summary>
+            <p>Demo UI: qui lo comunichi come concept di prodotto (effetto peel/fruit). Per uno shop reale, inserisci descrizione e ingredienti.</p>
           </details>
           <details class="reveal">
             <summary>È un e-commerce funzionante?</summary>
-            <p>È una demo front-end: carrello e UI funzionano localmente, ma pagamento e ordini richiedono un backend (Stripe/PayPal + database).</p>
+            <p>No: carrello e filtri funzionano localmente, ma non ci sono pagamenti/ordini (da collegare a backend).</p>
+          </details>
+          <details class="reveal">
+            <summary>Posso creare un mix?</summary>
+            <p>Sì: il tasto mix casuale simula l’idea. In produzione fai un configuratore (gusti + quantità).</p>
+          </details>
+          <details class="reveal">
+            <summary>Spedizioni e resi?</summary>
+            <p>Placeholder: aggiungi policy vere e tracking quando lo colleghi a un corriere.</p>
           </details>
         </div>
       </div>
@@ -965,29 +992,23 @@
         <div class="section-title">
           <div>
             <h2>Contatti</h2>
-            <p>Modulo demo con validazione base + newsletter.</p>
+            <p>Modulo demo + newsletter.</p>
           </div>
-          <span class="pill">
-            <svg class="icon" viewBox="0 0 24 24" fill="none"><path d="M4 4h16v16H4V4Z" stroke="currentColor" stroke-width="2"/><path d="M22 6 12 13 2 6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
-            Email
-          </span>
+          <span class="pill">✉️</span>
         </div>
 
         <div class="grid2">
           <div class="card reveal">
             <div class="pad">
               <h3>Scrivici</h3>
-              <p class="small" style="margin-bottom:12px">Compila: riceverai un toast (demo). Collega poi l’endpoint al tuo backend.</p>
+              <p class="small" style="margin-bottom:12px">Demo: mostra un toast. Collega un endpoint reale quando vuoi.</p>
               <form id="contactForm">
                 <div style="display:grid; gap:10px">
-                  <input class="input" name="name" placeholder="Nome e cognome" required />
+                  <input class="input" name="name" placeholder="Nome" required />
                   <input class="input" type="email" name="email" placeholder="Email" required />
-                  <input class="input" name="topic" placeholder="Oggetto (es. Box evento)" required />
-                  <textarea class="input" name="msg" rows="5" placeholder="Messaggio" style="resize:vertical; border-radius:16px" required></textarea>
-                  <button class="btn primary" type="submit">
-                    <svg class="icon" viewBox="0 0 24 24" fill="none"><path d="M22 2 11 13" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M22 2 15 22l-4-9-9-4 20-7Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>
-                    Invia richiesta
-                  </button>
+                  <input class="input" name="topic" placeholder="Oggetto" required />
+                  <textarea class="input" name="msg" rows="5" placeholder="Messaggio" style="resize:vertical; border-radius:18px" required></textarea>
+                  <button class="btn primary" type="submit">Invia</button>
                 </div>
               </form>
             </div>
@@ -995,34 +1016,24 @@
 
           <div class="card reveal">
             <div class="pad">
-              <h3>Newsletter (demo)</h3>
-              <p>Ricevi anteprime sulle collezioni e drop stagionali. Nessuno spam, solo cose belle.</p>
-              <div class="meta" style="margin-top:10px">
-                <span class="chip">Drop limitati</span>
-                <span class="chip">Mix regalo</span>
-                <span class="chip">Sconti early</span>
+              <h3>Newsletter</h3>
+              <p>Drop nuovi, box limited, colori fuori di testa. Solo roba bella.</p>
+              <div class="meta">
+                <span class="chip pink dot">Drop</span>
+                <span class="chip cyan dot">Peel</span>
+                <span class="chip lime dot">Gift</span>
               </div>
               <div class="hr"></div>
               <form id="newsForm" style="display:flex; gap:10px; flex-wrap:wrap">
                 <input class="input" type="email" name="email" placeholder="La tua email" required />
                 <button class="btn" type="submit">Iscriviti</button>
               </form>
-              <p class="fineprint">
-                Nota: in produzione aggiungi <b>consenso privacy</b> e link informativa.
-              </p>
-              <div class="hr"></div>
-              <h4 style="margin:0 0 8px; font-size:13px">Dati rapidi (demo)</h4>
-              <p class="small" style="margin:0; line-height:1.6">
-                📍 Bologna • Italia<br/>
-                ⏱ Lun–Ven 9:00–18:00<br/>
-                ✉️ hello@dolceviva.example
-              </p>
+              <p class="fineprint">Nota: in produzione aggiungi consenso privacy + link informativa.</p>
             </div>
           </div>
         </div>
       </div>
     </section>
-
   </main>
 
   <footer>
@@ -1032,15 +1043,12 @@
           <div class="brand" style="margin-bottom:10px">
             <div class="logo" aria-hidden="true"></div>
             <div>
-              <strong>DolceViva</strong>
-              <span>Caramelle premium • Demo UI</span>
+              <strong>4D Candy Lab</strong>
+              <span>Neon gummy UI • demo</span>
             </div>
           </div>
-          <p class="fineprint">
-            Questo è un template completo “pronto per diventare e-commerce”: basta collegare API, pagamenti e CMS.
-          </p>
+          <p class="fineprint">Template pronto per diventare shop reale: API prodotti + Stripe + database.</p>
         </div>
-
         <div>
           <h4>Esplora</h4>
           <a href="#shop">Shop</a>
@@ -1048,19 +1056,15 @@
           <a href="#storia">Storia</a>
           <a href="#faq">FAQ</a>
         </div>
-
         <div>
           <h4>Legale (placeholder)</h4>
-          <a href="#top" onclick="toast('Placeholder: Privacy Policy')">Privacy Policy</a>
-          <a href="#top" onclick="toast('Placeholder: Cookie Policy')">Cookie Policy</a>
-          <a href="#top" onclick="toast('Placeholder: Termini e Condizioni')">Termini</a>
+          <a href="#top" onclick="toast('Placeholder: Privacy Policy')">Privacy</a>
+          <a href="#top" onclick="toast('Placeholder: Cookie Policy')">Cookie</a>
+          <a href="#top" onclick="toast('Placeholder: Termini')">Termini</a>
         </div>
       </div>
-
       <div class="hr"></div>
-      <div class="fineprint">
-        © <span id="year"></span> DolceViva • UI demo • Made with sugar ✨
-      </div>
+      <div class="fineprint">© <span id="year"></span> 4D Candy Lab • Demo</div>
     </div>
   </footer>
 
@@ -1069,7 +1073,7 @@
     <div class="modal" role="dialog" aria-modal="true" aria-label="Carrello">
       <div class="modal-head">
         <strong>Carrello (demo)</strong>
-        <button class="x" id="closeCart" aria-label="Chiudi">Chiudi</button>
+        <button class="x" id="closeCart">Chiudi</button>
       </div>
       <div class="modal-body">
         <div class="cartlist" id="cartList"></div>
@@ -1077,16 +1081,9 @@
           <div class="sumrow"><span>Subtotale</span><b id="subtot">€0,00</b></div>
           <div class="sumrow"><span>Spedizione</span><b id="ship">€0,00</b></div>
           <div class="sumrow"><span>Sconto</span><b id="disc">€0,00</b></div>
-          <div class="total">
-            <span style="color:var(--muted)">Totale</span>
-            <strong id="total">€0,00</strong>
-          </div>
-          <button class="btn primary" style="width:100%; justify-content:center; margin-top:12px" id="checkoutBtn">
-            Procedi (demo)
-          </button>
-          <p class="note">
-            Checkout demo: in produzione collegalo a Stripe/PayPal e a un database ordini.
-          </p>
+          <div class="total"><span style="color:var(--muted)">Totale</span><strong id="total">€0,00</strong></div>
+          <button class="btn primary" style="width:100%; justify-content:center; margin-top:12px" id="checkoutBtn">Procedi (demo)</button>
+          <p class="note">Checkout demo: collega Stripe/PayPal + ordini.</p>
         </div>
       </div>
     </div>
@@ -1095,39 +1092,33 @@
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
   <script>
-    // -------------------------
-    // Data
-    // -------------------------
     const PRODUCTS = [
-      {id:"p1", name:"Soft Cloud — Fragola & Panna", cat:"gommose", tags:["frutta","cremoso"], price:6.90, rating:4.8, badge:"best", desc:"Gommose morbide con nota lattiginosa elegante."},
-      {id:"p2", name:"Soft Cloud — Agrumi Chic", cat:"gommose", tags:["agrumi","fresh"], price:6.50, rating:4.6, badge:"new", desc:"Arancia, limone e pompelmo: acidità bilanciata."},
-      {id:"p3", name:"Crystal Drop — Menta Prism", cat:"dure", tags:["menta","clean"], price:5.90, rating:4.7, badge:"hot", desc:"Dure, scioglimento lento, menta pulita e persistente."},
-      {id:"p4", name:"Crystal Drop — Uva Velvet", cat:"dure", tags:["uva","floreale"], price:5.60, rating:4.5, badge:"", desc:"Uva intensa con finale morbido, stile “velvet”."},
-      {id:"p5", name:"Core Melt — Caramello Salato", cat:"ripiene", tags:["caramello","wow"], price:7.90, rating:4.9, badge:"best", desc:"Guscio croccante + cuore cremoso: addictive."},
-      {id:"p6", name:"Core Melt — Lampone Fondente", cat:"ripiene", tags:["lampone","fondente"], price:8.20, rating:4.7, badge:"hot", desc:"Ripiena con contrasto frutta rossa + cacao."},
-      {id:"p7", name:"Gift Box — Mix Evento (24pz)", cat:"box", tags:["regalo","mix"], price:18.90, rating:4.8, badge:"best", desc:"Box satinata, mix bilanciato, regalo pronto."},
-      {id:"p8", name:"Gift Box — Mini Luxury (12pz)", cat:"box", tags:["regalo","mini"], price:12.90, rating:4.6, badge:"", desc:"Essenziale e chic, perfetta per “grazie”."},
-      {id:"p9", name:"Soft Cloud — Frutti Rossi Pop", cat:"gommose", tags:["frutti rossi","pop"], price:6.70, rating:4.4, badge:"", desc:"Fragola, ciliegia e lampone: super pop."},
+      {id:"p1", name:"Peel — Banana Pop", cat:"peel", tags:["banana","tropical","peel"], price:7.90, rating:4.8, badge:"best", desc:"Effetto banana: gummy morbida, super realistico."},
+      {id:"p2", name:"Peel — Mango Twist", cat:"peel", tags:["mango","tropical","peel"], price:8.20, rating:4.7, badge:"hot", desc:"Mango pieno, finish gel, vibe neon."},
+      {id:"p3", name:"Peel — Peach Glow", cat:"peel", tags:["pesca","peel"], price:7.70, rating:4.6, badge:"new", desc:"Pesca soft: dolce e profumata."},
+
+      {id:"p4", name:"Gummy Gems — Berry Mix", cat:"gummy", tags:["berry","fragola","lampone"], price:6.90, rating:4.7, badge:"best", desc:"Gommose “gioiello” con lucentezza extra."},
+      {id:"p5", name:"Gummy Gems — Lime Fresh", cat:"gummy", tags:["lime","fresh"], price:6.50, rating:4.5, badge:"", desc:"Acidità delicata e finale pulito."},
+
+      {id:"p6", name:"Sour Splash — Citrus Shock", cat:"sour", tags:["agrumi","sour"], price:6.20, rating:4.4, badge:"hot", desc:"Sour pop (ma non eccessivo): limone & pompelmo."},
+      {id:"p7", name:"Sour Splash — Watermelon", cat:"sour", tags:["anguria","sour"], price:6.40, rating:4.5, badge:"", desc:"Anguria sour style, super “reel-friendly”."},
+
+      {id:"p8", name:"Neon Box — Peel & Gems (24pz)", cat:"box", tags:["box","gift","mix"], price:19.90, rating:4.8, badge:"best", desc:"Box regalo: peel + gummy gems, unboxing garantito."},
+      {id:"p9", name:"Mini Neon Box (12pz)", cat:"box", tags:["box","gift"], price:13.90, rating:4.6, badge:"", desc:"Compatta, neon-lux: perfetta da regalare."},
     ];
 
     const fmtEUR = (n) => n.toLocaleString("it-IT",{style:"currency", currency:"EUR"});
     const $ = (q, el=document) => el.querySelector(q);
     const $$ = (q, el=document) => [...el.querySelectorAll(q)];
 
-    // -------------------------
     // Mobile nav
-    // -------------------------
     const header = document.querySelector("header");
     $("#hambBtn")?.addEventListener("click", () => header.classList.toggle("open"));
     $("#scrollTopBtn")?.addEventListener("click", () => window.scrollTo({top:0, behavior:"smooth"}));
     $("#cartBtn2")?.addEventListener("click", () => openCart());
-
-    // Close mobile panel on navigation click
     $$("#mobilePanel a").forEach(a => a.addEventListener("click", () => header.classList.remove("open")));
 
-    // -------------------------
     // Search shortcut
-    // -------------------------
     window.addEventListener("keydown", (e) => {
       if(e.key === "/" && document.activeElement?.tagName !== "INPUT" && document.activeElement?.tagName !== "TEXTAREA"){
         e.preventDefault();
@@ -1139,20 +1130,18 @@
       }
     });
 
-    // -------------------------
-    // Render products
-    // -------------------------
+    // State
     const state = {
       filter: "all",
       search: "",
       sort: "featured",
-      cart: JSON.parse(localStorage.getItem("dv_cart") || "{}")
+      cart: JSON.parse(localStorage.getItem("candy_cart") || "{}")
     };
 
     function setCart(id, qty){
       if(qty <= 0) delete state.cart[id];
       else state.cart[id] = qty;
-      localStorage.setItem("dv_cart", JSON.stringify(state.cart));
+      localStorage.setItem("candy_cart", JSON.stringify(state.cart));
       updateCartBadges();
       renderCart();
     }
@@ -1160,7 +1149,6 @@
     function cartCount(){
       return Object.values(state.cart).reduce((a,b)=>a+b,0);
     }
-
     function updateCartBadges(){
       const c = cartCount();
       $("#cartCount").textContent = c;
@@ -1170,9 +1158,7 @@
     function getVisibleProducts(){
       let items = PRODUCTS.slice();
 
-      if(state.filter !== "all"){
-        items = items.filter(p => p.cat === state.filter);
-      }
+      if(state.filter !== "all") items = items.filter(p => p.cat === state.filter);
 
       const s = state.search.trim().toLowerCase();
       if(s){
@@ -1187,8 +1173,6 @@
       if(state.sort === "priceAsc") items.sort((a,b)=>a.price-b.price);
       if(state.sort === "priceDesc") items.sort((a,b)=>b.price-a.price);
       if(state.sort === "rating") items.sort((a,b)=>b.rating-a.rating);
-      // featured: keep original curated order
-
       return items;
     }
 
@@ -1203,14 +1187,13 @@
       const b = badgeLabel(p.badge);
       const flag = b ? `<span class="flag ${p.badge}">${b}</span>` : "";
       const stars = "★★★★★".slice(0, Math.round(p.rating)) + "☆☆☆☆☆".slice(0, 5 - Math.round(p.rating));
-
       const qty = state.cart[p.id] || 0;
 
       return `
         <article class="card reveal" data-id="${p.id}">
           <div class="pimg">
-            <div class="swirl"></div>
             <div class="label">${flag}</div>
+            <div class="blob"></div>
           </div>
           <div class="pad">
             <h3 style="margin:0 0 6px">${p.name}</h3>
@@ -1222,10 +1205,10 @@
               </div>
               <div style="display:flex; gap:10px; align-items:center; flex-wrap:wrap; justify-content:flex-end">
                 <span class="chip">${p.cat}</span>
-                <div class="qty" aria-label="Quantità">
-                  <button type="button" class="dec" aria-label="Diminuisci">−</button>
-                  <input inputmode="numeric" pattern="[0-9]*" value="${qty}" aria-label="Quantità" />
-                  <button type="button" class="inc" aria-label="Aumenta">+</button>
+                <div class="qty">
+                  <button type="button" class="dec">−</button>
+                  <input inputmode="numeric" pattern="[0-9]*" value="${qty}" />
+                  <button type="button" class="inc">+</button>
                 </div>
               </div>
             </div>
@@ -1237,20 +1220,11 @@
     function renderProducts(){
       const wrap = $("#products");
       const items = getVisibleProducts();
-      if(!items.length){
-        wrap.innerHTML = `
-          <div class="card reveal" style="grid-column:1/-1">
-            <div class="pad">
-              <h3>Nessun prodotto trovato</h3>
-              <p>Prova a cambiare filtro o ricerca (es. “menta”, “box”, “agrumi”).</p>
-            </div>
-          </div>
-        `;
-      } else {
-        wrap.innerHTML = items.map(productCard).join("");
-      }
 
-      // bind qty controls
+      wrap.innerHTML = items.length
+        ? items.map(productCard).join("")
+        : `<div class="card reveal" style="grid-column:1/-1"><div class="pad"><h3>Nessun prodotto</h3><p>Prova “peel”, “mango”, “box”.</p></div></div>`;
+
       $$(".products .card").forEach(card => {
         const id = card.getAttribute("data-id");
         const input = $("input", card);
@@ -1263,13 +1237,10 @@
         });
       });
 
-      // re-run reveal observer on new nodes
       observeReveal();
     }
 
-    // -------------------------
     // Filters / search / sort
-    // -------------------------
     $$(".fbtn").forEach(btn => {
       btn.addEventListener("click", () => {
         $$(".fbtn").forEach(b => b.classList.remove("active"));
@@ -1278,37 +1249,17 @@
         renderProducts();
       });
     });
+    $("#search").addEventListener("input", (e) => { state.search = e.target.value; renderProducts(); });
+    $("#sort").addEventListener("change", (e) => { state.sort = e.target.value; renderProducts(); });
 
-    $("#search").addEventListener("input", (e) => {
-      state.search = e.target.value;
-      renderProducts();
-    });
-
-    $("#sort").addEventListener("change", (e) => {
-      state.sort = e.target.value;
-      renderProducts();
-    });
-
-    // -------------------------
-    // Cart modal
-    // -------------------------
+    // Cart
     const overlay = $("#overlay");
-
-    function openCart(){
-      overlay.classList.add("show");
-      overlay.setAttribute("aria-hidden", "false");
-      renderCart();
-    }
-    function closeCart(){
-      overlay.classList.remove("show");
-      overlay.setAttribute("aria-hidden", "true");
-    }
+    function openCart(){ overlay.classList.add("show"); overlay.setAttribute("aria-hidden","false"); renderCart(); }
+    function closeCart(){ overlay.classList.remove("show"); overlay.setAttribute("aria-hidden","true"); }
 
     $("#cartBtn").addEventListener("click", openCart);
     $("#closeCart").addEventListener("click", closeCart);
-    overlay.addEventListener("click", (e) => {
-      if(e.target === overlay) closeCart();
-    });
+    overlay.addEventListener("click", (e) => { if(e.target === overlay) closeCart(); });
 
     function renderCart(){
       const list = $("#cartList");
@@ -1321,27 +1272,25 @@
           <div class="cartitem">
             <div>
               <h5>Carrello vuoto</h5>
-              <div class="mini">Aggiungi qualche caramella dallo shop ✨</div>
+              <div class="mini">Aggiungi qualche candy 🍬</div>
             </div>
             <div class="tools">
               <button onclick="document.querySelector('#shop').scrollIntoView({behavior:'smooth'})">Vai allo shop</button>
             </div>
-          </div>
-        `;
+          </div>`;
       } else {
         list.innerHTML = entries.map(({p,qty}) => `
           <div class="cartitem">
             <div>
               <h5>${p.name}</h5>
-              <div class="mini">${qty} × ${fmtEUR(p.price)} • <span style="color:rgba(255,255,255,.82)">${fmtEUR(qty*p.price)}</span></div>
+              <div class="mini">${qty} × ${fmtEUR(p.price)} • <span style="color:rgba(255,255,255,.88)">${fmtEUR(qty*p.price)}</span></div>
             </div>
             <div class="tools">
               <button onclick="window.__cartDec('${p.id}')">−</button>
               <button onclick="window.__cartInc('${p.id}')">+</button>
               <button onclick="window.__cartRemove('${p.id}')">Rimuovi</button>
             </div>
-          </div>
-        `).join("");
+          </div>`).join("");
       }
 
       const subtotal = entries.reduce((s,{p,qty}) => s + p.price*qty, 0);
@@ -1354,49 +1303,28 @@
       $("#disc").textContent = fmtEUR(discount);
       $("#total").textContent = fmtEUR(total);
     }
-
     window.__cartInc = (id) => setCart(id, (state.cart[id]||0)+1);
     window.__cartDec = (id) => setCart(id, (state.cart[id]||0)-1);
     window.__cartRemove = (id) => setCart(id, 0);
 
     $("#checkoutBtn").addEventListener("click", () => {
-      const c = cartCount();
-      if(c === 0) return toast("Aggiungi almeno un prodotto 👀");
-      toast("Checkout demo: qui colleghi Stripe/PayPal ✅");
+      if(cartCount() === 0) return toast("Aggiungi un prodotto prima 👀");
+      toast("Checkout demo: qui colleghi Stripe ✅");
     });
 
-    // -------------------------
     // Random mix
-    // -------------------------
     $("#randomMixBtn").addEventListener("click", () => {
-      const picks = PRODUCTS
-        .slice()
-        .sort(() => Math.random() - 0.5)
-        .slice(0, 3);
-
+      const picks = PRODUCTS.slice().sort(() => Math.random() - 0.5).slice(0, 3);
       picks.forEach(p => setCart(p.id, (state.cart[p.id]||0)+1));
-      toast("Mix casuale aggiunto al carrello ✨");
+      toast("Mix “Peel” aggiunto ✨");
       openCart();
     });
 
-    // -------------------------
-    // Forms (demo)
-    // -------------------------
-    $("#contactForm").addEventListener("submit", (e) => {
-      e.preventDefault();
-      toast("Messaggio inviato (demo) ✅");
-      e.target.reset();
-    });
+    // Forms demo
+    $("#contactForm").addEventListener("submit", (e) => { e.preventDefault(); toast("Messaggio inviato (demo) ✅"); e.target.reset(); });
+    $("#newsForm").addEventListener("submit", (e) => { e.preventDefault(); toast("Iscrizione completata (demo) ✨"); e.target.reset(); });
 
-    $("#newsForm").addEventListener("submit", (e) => {
-      e.preventDefault();
-      toast("Iscrizione completata (demo) ✨");
-      e.target.reset();
-    });
-
-    // -------------------------
     // Toast
-    // -------------------------
     const toastEl = $("#toast");
     let toastT = null;
     function toast(msg){
@@ -1407,9 +1335,7 @@
     }
     window.toast = toast;
 
-    // -------------------------
-    // Reveal on scroll
-    // -------------------------
+    // Reveal
     let observer;
     function observeReveal(){
       if(observer) observer.disconnect();
@@ -1421,13 +1347,10 @@
           }
         });
       }, {threshold: 0.12});
-
       $$(".reveal:not(.on)").forEach(el => observer.observe(el));
     }
 
-    // -------------------------
     // Init
-    // -------------------------
     $("#year").textContent = new Date().getFullYear();
     updateCartBadges();
     renderProducts();
