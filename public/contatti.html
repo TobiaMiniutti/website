@@ -35,67 +35,98 @@
     </nav>
   </header>
 
-  <main id="contenuto" class="page-main">
+  <main id="contenuto" class="page-main contact-page">
     <h1 class="page-title">Contattami</h1>
-    <p class="page-intro">Descrivi il contesto, l’obiettivo e le eventuali tempistiche: la richiesta verrà valutata direttamente. Il riscontro avviene generalmente entro 1–2 giorni lavorativi.</p>
+    <p class="page-intro">Per collaborazioni, proposte o richieste tecniche puoi scrivermi direttamente oppure utilizzare il modulo.</p>
 
-    <form id="contact-form" class="contact-form" method="post" novalidate>
-      <div class="field-group">
-        <label for="name">Nome e cognome <span class="required" aria-hidden="true">*</span></label>
-        <input id="name" name="name" type="text" autocomplete="name" minlength="2" maxlength="100" required>
-      </div>
+    <div class="contact-layout">
+      <aside class="contact-info" aria-labelledby="direct-contact-title">
+        <p class="contact-eyebrow">Recapiti</p>
+        <h2 id="direct-contact-title">Contatti diretti</h2>
+        <p class="contact-info-intro">Per comunicazioni rapide puoi utilizzare uno dei recapiti indicati.</p>
 
-      <div class="field-group">
-        <label for="email">Email <span class="required" aria-hidden="true">*</span></label>
-        <input id="email" name="email" type="email" autocomplete="email" maxlength="254" inputmode="email" required>
-      </div>
+        <dl class="contact-methods">
+          <div>
+            <dt>Email</dt>
+            <dd><a href="mailto:tobia@miniutti.it">tobia@miniutti.it</a></dd>
+          </div>
+          <div>
+            <dt>Cellulare</dt>
+            <dd><a href="tel:__MOBILE_PHONE_TEL__">__MOBILE_PHONE_DISPLAY__</a></dd>
+          </div>
+          <div>
+            <dt>Fisso</dt>
+            <dd><a href="tel:+3905119471903">+39 051 1947 1903</a></dd>
+          </div>
+        </dl>
 
-      <div class="field-group">
-        <label for="organization">Organizzazione <span class="field-hint">(facoltativo)</span></label>
-        <input id="organization" name="organization" type="text" autocomplete="organization" maxlength="120">
-      </div>
+        <p class="response-note"><strong>Tempi di risposta</strong><br>Generalmente entro 1–2 giorni lavorativi.</p>
+      </aside>
 
-      <div class="field-group">
-        <label for="subject">Tipo di richiesta <span class="required" aria-hidden="true">*</span></label>
-        <select id="subject" name="subject" required>
-          <option value="">Seleziona un’opzione</option>
-          <option value="collaboration">Collaborazione</option>
-          <option value="project-evaluation">Consulenza o valutazione progetto</option>
-          <option value="web-development">Sviluppo web</option>
-          <option value="systems">Sistemi e infrastrutture</option>
-          <option value="media">Digital media</option>
-          <option value="other-digital">Altro progetto digitale</option>
-          <option value="other">Altro</option>
-        </select>
-      </div>
+      <section class="contact-form-section" aria-labelledby="contact-form-title">
+        <div class="contact-form-heading">
+          <p class="contact-eyebrow">Richieste strutturate</p>
+          <h2 id="contact-form-title">Invia una richiesta</h2>
+          <p>Descrivi il contesto, l’obiettivo e le eventuali tempistiche.</p>
+        </div>
 
-      <div class="field-group">
-        <label for="message">Messaggio <span class="required" aria-hidden="true">*</span></label>
-        <textarea id="message" name="message" minlength="10" maxlength="4000" required></textarea>
-        <p class="field-hint">Da 10 a 4.000 caratteri. Non inserire password o dati sensibili.</p>
-      </div>
+        <form id="contact-form" class="contact-form" method="post" novalidate aria-labelledby="contact-form-title">
+          <div class="form-row">
+            <div class="field-group">
+              <label for="name">Nome e cognome <span class="required" aria-hidden="true">*</span></label>
+              <input id="name" name="name" type="text" autocomplete="name" minlength="2" maxlength="100" required>
+            </div>
 
-      <div class="honeypot" aria-hidden="true">
-        <label for="website">Sito web</label>
-        <input id="website" name="website" type="text" tabindex="-1" autocomplete="off">
-      </div>
+            <div class="field-group">
+              <label for="email">Email <span class="required" aria-hidden="true">*</span></label>
+              <input id="email" name="email" type="email" autocomplete="email" maxlength="254" inputmode="email" required>
+            </div>
+          </div>
 
-      <label class="privacy-check" for="privacy-accepted">
-        <input id="privacy-accepted" name="privacyAccepted" type="checkbox" required>
-        <span>Dichiaro di aver letto l’<a href="privacy.html" target="_blank" rel="noopener">informativa privacy</a>. <span class="required" aria-hidden="true">*</span></span>
-      </label>
+          <div class="form-row">
+            <div class="field-group">
+              <label for="organization">Organizzazione <span class="field-hint">(facoltativo)</span></label>
+              <input id="organization" name="organization" type="text" autocomplete="organization" maxlength="120">
+            </div>
 
-      <div class="cf-turnstile" data-sitekey="__TURNSTILE_SITE_KEY__" data-action="contact" data-theme="dark" data-language="it" data-response-field-name="cf-turnstile-response"></div>
+            <div class="field-group">
+              <label for="subject">Tipo di richiesta <span class="required" aria-hidden="true">*</span></label>
+              <select id="subject" name="subject" required>
+                <option value="">Seleziona un’opzione</option>
+                <option value="collaboration">Collaborazione</option>
+                <option value="project-evaluation">Consulenza o valutazione progetto</option>
+                <option value="web-development">Sviluppo web</option>
+                <option value="systems">Sistemi e infrastrutture</option>
+                <option value="media">Digital media</option>
+                <option value="other-digital">Altro progetto digitale</option>
+                <option value="other">Altro</option>
+              </select>
+            </div>
+          </div>
 
-      <p id="form-status" class="status-message" role="status" aria-live="polite"></p>
-      <button id="submit-button" class="form-submit" type="submit">Invia</button>
-    </form>
+          <div class="field-group">
+            <label for="message">Messaggio <span class="required" aria-hidden="true">*</span></label>
+            <textarea id="message" name="message" minlength="10" maxlength="4000" required></textarea>
+            <p class="field-hint">Da 10 a 4.000 caratteri. Non inserire password o dati sensibili.</p>
+          </div>
 
-    <section class="contact-info" aria-label="Contatto diretto">
-      <p><strong>Email:</strong> <a href="mailto:tobia@miniutti.it">tobia@miniutti.it</a></p>
-      <p><strong>Cellulare:</strong> <a href="tel:__MOBILE_PHONE_TEL__">__MOBILE_PHONE_DISPLAY__</a></p>
-      <p><strong>Fisso:</strong> <a href="tel:+3905119471903">+39 051 1947 1903</a></p>
-    </section>
+          <div class="honeypot" aria-hidden="true">
+            <label for="website">Sito web</label>
+            <input id="website" name="website" type="text" tabindex="-1" autocomplete="off">
+          </div>
+
+          <label class="privacy-check" for="privacy-accepted">
+            <input id="privacy-accepted" name="privacyAccepted" type="checkbox" required>
+            <span>Dichiaro di aver letto l’<a href="privacy.html" target="_blank" rel="noopener">informativa privacy</a>. <span class="required" aria-hidden="true">*</span></span>
+          </label>
+
+          <div class="cf-turnstile" data-sitekey="__TURNSTILE_SITE_KEY__" data-action="contact" data-theme="dark" data-language="it" data-response-field-name="cf-turnstile-response"></div>
+
+          <p id="form-status" class="status-message" role="status" aria-live="polite"></p>
+          <button id="submit-button" class="form-submit" type="submit">Invia richiesta</button>
+        </form>
+      </section>
+    </div>
   </main>
 
   <footer>
