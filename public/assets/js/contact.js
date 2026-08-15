@@ -33,6 +33,7 @@ form?.addEventListener("submit", async (event) => {
     organization: String(data.get("organization") || "").trim(),
     subject: String(data.get("subject") || "").trim(),
     message: String(data.get("message") || "").trim(),
+    website: String(data.get("website") || "").trim(),
     privacyAccepted: data.get("privacyAccepted") === "on",
     turnstileToken,
   };

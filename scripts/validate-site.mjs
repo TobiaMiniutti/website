@@ -23,13 +23,14 @@ for (const file of htmlFiles) {
   if (!source.includes("<html lang=\"it\"")) errors.push(`${label}: lingua mancante`);
   if (!source.includes("<meta name=\"viewport\"")) errors.push(`${label}: viewport mancante`);
   if (!source.includes("Content-Security-Policy")) errors.push(`${label}: CSP mancante`);
+  if (!source.includes("Tobia Miniutti")) errors.push(`${label}: identità footer mancante`);
   if (/login\.html|379\s*112\s*8232|hook\.eu1\.make\.com/i.test(source)) {
     errors.push(`${label}: riferimento legacy o segreto esposto`);
   }
 
   for (const match of source.matchAll(/(?:href|src)="([^"]+)"/g)) {
     const target = match[1];
-    if (/^(?:https?:|mailto:|#)/.test(target) || target === "/") continue;
+    if (/^(?:https?:|mailto:|tel:|#)/.test(target) || target === "/") continue;
     const clean = target.split(/[?#]/)[0];
     const local = clean.startsWith("/") ? join(root, clean) : resolve(file, "..", clean);
     try {
@@ -38,6 +39,11 @@ for (const file of htmlFiles) {
       errors.push(`${label}: risorsa mancante ${target}`);
     }
   }
+}
+
+const contactPage = await readFile(join(root, "contatti.html"), "utf8");
+for (const required of ["cf-turnstile", 'name="website"', "tobia@miniutti.it", "+39 051 1947 1903", "__MOBILE_PHONE_DISPLAY__"]) {
+  if (!contactPage.includes(required)) errors.push(`contatti.html: requisito mancante ${required}`);
 }
 
 const publicNames = new Set(files.map((file) => relative(root, file)));

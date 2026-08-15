@@ -1,13 +1,23 @@
 const TURNSTILE_VERIFY_URL = "https://challenges.cloudflare.com/turnstile/v0/siteverify";
 const MAX_BODY_BYTES = 16_384;
-const ALLOWED_SUBJECTS = new Set(["collaboration", "web-development", "systems", "media", "other"]);
+const ALLOWED_SUBJECTS = new Set([
+  "collaboration",
+  "project-evaluation",
+  "web-development",
+  "systems",
+  "media",
+  "other-digital",
+  "other",
+]);
+const FORWARD_ATTEMPTS = 3;
 
-const json = (body, status = 200) => new Response(JSON.stringify(body), {
+const json = (body, status = 200, extraHeaders = {}) => new Response(JSON.stringify(body), {
   status,
   headers: {
     "Content-Type": "application/json; charset=utf-8",
     "Cache-Control": "no-store",
     "X-Content-Type-Options": "nosniff",
+    ...extraHeaders,
   },
 });
 
@@ -70,24 +80,53 @@ async function verifyTurnstile(token, request, env) {
 }
 
 async function forwardMessage(payload, request, env) {
-  const response = await fetch(env.MAKE_WEBHOOK_URL, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      "User-Agent": "miniutti-contact-worker/1.0",
-    },
-    body: JSON.stringify({
-      name: payload.name,
-      email: payload.email,
-      organization: payload.organization,
-      subject: payload.subject,
-      message: payload.message,
-      submittedAt: new Date().toISOString(),
-      requestId: request.headers.get("CF-Ray") || crypto.randomUUID(),
-    }),
-    signal: AbortSignal.timeout(10_000),
+  const requestId = request.headers.get("CF-Ray") || crypto.randomUUID();
+  const body = JSON.stringify({
+    name: payload.name,
+    email: payload.email,
+    organization: payload.organization,
+    subject: payload.subject,
+    message: payload.message,
+    submittedAt: new Date().toISOString(),
+    requestId,
   });
-  return response.ok;
+
+  for (let attempt = 1; attempt <= FORWARD_ATTEMPTS; attempt += 1) {
+    try {
+      const response = await fetch(env.MAKE_WEBHOOK_URL, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "User-Agent": "miniutti-contact-worker/2.0",
+          "X-Request-ID": requestId,
+        },
+        body,
+        signal: AbortSignal.timeout(8_000),
+      });
+      if (response.ok) return true;
+      console.warn("Contact forwarding rejected", { requestId, attempt, status: response.status });
+    } catch (error) {
+      console.warn("Contact forwarding failed", {
+        requestId,
+        attempt,
+        error: error instanceof Error ? error.name : "UnknownError",
+      });
+    }
+
+    if (attempt < FORWARD_ATTEMPTS) {
+      await new Promise((resolve) => setTimeout(resolve, attempt * 350));
+    }
+  }
+
+  return false;
+}
+
+async function passesRateLimits(payload, env) {
+  const [emailLimit, globalLimit] = await Promise.all([
+    env.CONTACT_EMAIL_RATE_LIMITER.limit({ key: payload.email }),
+    env.CONTACT_GLOBAL_RATE_LIMITER.limit({ key: "contact-form" }),
+  ]);
+  return emailLimit.success && globalLimit.success;
 }
 
 export default {
@@ -114,6 +153,10 @@ export default {
       return json({ error: "Invalid request" }, 400);
     }
 
+    // I bot più semplici compilano il campo invisibile: restituiamo una risposta
+    // indistinguibile da un invio valido senza inoltrare alcun dato.
+    if (normalized(input?.website, 200)) return json({ ok: true }, 202);
+
     const payload = validatePayload(input);
     if (!payload) return json({ error: "Controlla i dati inseriti e riprova." }, 422);
 
@@ -121,9 +164,20 @@ export default {
       if (!await verifyTurnstile(payload.turnstileToken, request, env)) {
         return json({ error: "Verifica Cloudflare non valida. Riprova." }, 403);
       }
-      if (!await forwardMessage(payload, request, env)) throw new Error("Forwarding failed");
+      if (!await passesRateLimits(payload, env)) {
+        return json(
+          { error: "Hai effettuato troppi tentativi. Attendi un minuto e riprova." },
+          429,
+          { "Retry-After": "60" },
+        );
+      }
+      if (!await forwardMessage(payload, request, env)) throw new Error("Forwarding failed after retries");
       return json({ ok: true }, 202);
-    } catch {
+    } catch (error) {
+      console.error("Contact request unavailable", {
+        requestId: request.headers.get("CF-Ray") || "unavailable",
+        error: error instanceof Error ? error.message : "UnknownError",
+      });
       return json({ error: "Servizio temporaneamente non disponibile. Riprova più tardi." }, 503);
     }
   },

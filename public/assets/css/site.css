@@ -233,6 +233,15 @@ main {
   text-align: center;
 }
 
+.page-intro {
+  color: var(--anthracite);
+  font-size: 1.05rem;
+  line-height: 1.7;
+  margin: -0.75rem auto 2rem;
+  max-width: 640px;
+  text-align: center;
+}
+
 .contact-form {
   background: var(--carbon-deep);
   border-radius: var(--border-radius);
@@ -247,6 +256,14 @@ main {
   display: flex;
   flex-direction: column;
   gap: 0.55rem;
+}
+
+.honeypot {
+  height: 0;
+  left: -10000px;
+  overflow: hidden;
+  position: absolute;
+  width: 0;
 }
 
 label,
@@ -373,6 +390,10 @@ textarea:focus {
   color: var(--golden);
 }
 
+.contact-info p + p {
+  margin-top: 0.65rem;
+}
+
 .legal-copy h2 {
   color: var(--golden);
   font-size: 1.4rem;
@@ -414,6 +435,32 @@ footer {
   color: var(--golden);
   font-size: 1.2rem;
   margin-bottom: 1rem;
+}
+
+.footer-kicker {
+  color: var(--golden) !important;
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  margin-bottom: 0.45rem;
+  text-transform: uppercase;
+}
+
+.footer-identity h2 {
+  margin-bottom: 0.45rem;
+}
+
+.footer-contact-list li {
+  align-items: baseline;
+  display: grid;
+  gap: 0.75rem;
+  grid-template-columns: 5.25rem 1fr;
+}
+
+.footer-contact-list span {
+  color: var(--white);
+  font-size: 0.9rem;
+  font-weight: 600;
 }
 
 .footer-col p,

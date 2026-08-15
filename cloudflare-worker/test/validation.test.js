@@ -16,6 +16,12 @@ test("accepts a valid payload", () => {
   assert.equal(validatePayload(validPayload)?.email, "mario@example.com");
 });
 
+test("accepts every public request category", () => {
+  for (const subject of ["collaboration", "project-evaluation", "web-development", "systems", "media", "other-digital", "other"]) {
+    assert.equal(validatePayload({ ...validPayload, subject })?.subject, subject);
+  }
+});
+
 test("rejects invalid and oversized fields", () => {
   assert.equal(validatePayload({ ...validPayload, email: "invalid" }), null);
   assert.equal(validatePayload({ ...validPayload, message: "short" }), null);

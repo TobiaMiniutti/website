@@ -4,6 +4,14 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="Contatta Tobia Miniutti per collaborazioni e richieste tecniche.">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="it_IT">
+  <meta property="og:site_name" content="miniutti.it">
+  <meta property="og:title" content="Contatti | miniutti.it">
+  <meta property="og:description" content="Contatta Tobia Miniutti per collaborazioni, valutazioni progettuali e richieste tecniche.">
+  <meta property="og:url" content="https://miniutti.it/contatti.html">
+  <meta property="og:image" content="https://miniutti.it/assets/images/porta-brandeburgo.jpg">
+  <meta name="twitter:card" content="summary_large_image">
   <meta name="referrer" content="strict-origin-when-cross-origin">
   <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; script-src 'self' https://challenges.cloudflare.com; connect-src 'self'; frame-src https://challenges.cloudflare.com; base-uri 'self'; form-action 'self'; frame-ancestors 'none'; object-src 'none'; upgrade-insecure-requests">
   <title>Contatti | miniutti.it</title>
@@ -29,6 +37,7 @@
 
   <main id="contenuto" class="page-main">
     <h1 class="page-title">Contattami</h1>
+    <p class="page-intro">Descrivi il contesto, l’obiettivo e le eventuali tempistiche: la richiesta verrà valutata direttamente. Il riscontro avviene generalmente entro 1–2 giorni lavorativi.</p>
 
     <form id="contact-form" class="contact-form" method="post" novalidate>
       <div class="field-group">
@@ -51,9 +60,11 @@
         <select id="subject" name="subject" required>
           <option value="">Seleziona un’opzione</option>
           <option value="collaboration">Collaborazione</option>
+          <option value="project-evaluation">Consulenza o valutazione progetto</option>
           <option value="web-development">Sviluppo web</option>
           <option value="systems">Sistemi e infrastrutture</option>
           <option value="media">Digital media</option>
+          <option value="other-digital">Altro progetto digitale</option>
           <option value="other">Altro</option>
         </select>
       </div>
@@ -62,6 +73,11 @@
         <label for="message">Messaggio <span class="required" aria-hidden="true">*</span></label>
         <textarea id="message" name="message" minlength="10" maxlength="4000" required></textarea>
         <p class="field-hint">Da 10 a 4.000 caratteri. Non inserire password o dati sensibili.</p>
+      </div>
+
+      <div class="honeypot" aria-hidden="true">
+        <label for="website">Sito web</label>
+        <input id="website" name="website" type="text" tabindex="-1" autocomplete="off">
       </div>
 
       <label class="privacy-check" for="privacy-accepted">
@@ -77,13 +93,17 @@
 
     <section class="contact-info" aria-label="Contatto diretto">
       <p><strong>Email:</strong> <a href="mailto:tobia@miniutti.it">tobia@miniutti.it</a></p>
+      <p><strong>Cellulare:</strong> <a href="tel:__MOBILE_PHONE_TEL__">__MOBILE_PHONE_DISPLAY__</a></p>
+      <p><strong>Fisso:</strong> <a href="tel:+3905119471903">+39 051 1947 1903</a></p>
     </section>
   </main>
 
   <footer>
-    <div class="footer-col">
-      <h2>Miniutti.it</h2>
-      <p>Sviluppo web, sistemi digitali e infrastrutture.</p>
+    <div class="footer-col footer-identity">
+      <p class="footer-kicker">miniutti.it</p>
+      <h2>Tobia Miniutti</h2>
+      <p>Web Solutions | Digital Media</p>
+      <p>Bologna, Italia</p>
     </div>
     <div class="footer-col">
       <h2>Link rapidi</h2>
@@ -95,9 +115,13 @@
     </div>
     <div class="footer-col">
       <h2>Contatti</h2>
-      <p><a href="mailto:tobia@miniutti.it">tobia@miniutti.it</a></p>
+      <ul class="footer-contact-list">
+        <li><span>Email</span><a href="mailto:tobia@miniutti.it">tobia@miniutti.it</a></li>
+        <li><span>Cellulare</span><a href="tel:__MOBILE_PHONE_TEL__">__MOBILE_PHONE_DISPLAY__</a></li>
+        <li><span>Fisso</span><a href="tel:+3905119471903">+39 051 1947 1903</a></li>
+      </ul>
     </div>
-    <div class="footer-bottom">© <span data-current-year>2026</span> miniutti.it — Tutti i diritti riservati</div>
+    <div class="footer-bottom">© <span data-current-year>2026</span> Tobia Miniutti · miniutti.it — Tutti i diritti riservati</div>
   </footer>
 </body>
 </html>
