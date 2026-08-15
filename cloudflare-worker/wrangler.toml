@@ -1,7 +1,0 @@
-name = "miniutti-contact"
-main = "src/index.js"
-compatibility_date = "2026-08-15"
-
-[vars]
-ALLOWED_ORIGINS = "https://www.miniutti.it,https://miniutti.it"
-TURNSTILE_HOSTNAMES = "miniutti.it,www.miniutti.it"
