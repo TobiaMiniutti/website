@@ -1,7 +1,7 @@
-# miniutti.it
+# WWW.MINIUTTI.IT
 
-Landing personale di Tobia Miniutti — Web Solutions · Digital Media.
+Sito personale di Tobia Miniutti — Web Solutions | Digital Media.
 
-La parte pubblica è statica e compatibile con GitHub Pages. Il modulo contatti usa Cloudflare Turnstile con validazione server-side tramite il Worker incluso.
+La struttura è stata riorganizzata in una landing unica mantenendo il linguaggio visivo originale. Il modulo contatti usa Cloudflare Turnstile con validazione server-side.
 
-Consulta `CONFIGURAZIONE.md` prima della pubblicazione.
+Consultare `CONFIGURAZIONE.md` prima della pubblicazione.
