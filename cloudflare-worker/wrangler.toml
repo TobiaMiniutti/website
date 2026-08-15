@@ -1,0 +1,16 @@
+name = "miniutti-contact"
+main = "src/index.js"
+compatibility_date = "2026-08-15"
+workers_dev = false
+
+routes = [
+  { pattern = "miniutti.it/api/contact", zone_name = "miniutti.it" },
+  { pattern = "www.miniutti.it/api/contact", zone_name = "miniutti.it" }
+]
+
+[vars]
+ALLOWED_ORIGINS = "https://miniutti.it,https://www.miniutti.it"
+ALLOWED_HOSTNAMES = "miniutti.it,www.miniutti.it"
+
+[secrets]
+required = ["TURNSTILE_SECRET_KEY", "MAKE_WEBHOOK_URL"]

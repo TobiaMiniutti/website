@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="it" class="no-js">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Contatta Tobia Miniutti per collaborazioni e richieste tecniche.">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; script-src 'self' https://challenges.cloudflare.com; connect-src 'self'; frame-src https://challenges.cloudflare.com; base-uri 'self'; form-action 'self'; frame-ancestors 'none'; object-src 'none'; upgrade-insecure-requests">
+  <title>Contatti | miniutti.it</title>
+  <link rel="canonical" href="https://miniutti.it/contatti.html">
+  <link rel="icon" href="assets/images/favicon.png" type="image/png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/site.css">
+  <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" defer></script>
+  <script src="assets/js/site.js" defer></script>
+  <script src="assets/js/contact.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#contenuto">Vai al contenuto</a>
+  <header>
+    <a href="/" aria-label="miniutti.it — Home"><img src="assets/images/favicon.png" alt="" class="logo" width="42" height="42"></a>
+    <nav aria-label="Navigazione principale">
+      <a href="/">Home</a>
+      <a href="contatti.html" aria-current="page">Contatti</a>
+    </nav>
+  </header>
+
+  <main id="contenuto" class="page-main">
+    <h1 class="page-title">Contattami</h1>
+
+    <form id="contact-form" class="contact-form" method="post" novalidate>
+      <div class="field-group">
+        <label for="name">Nome e cognome <span class="required" aria-hidden="true">*</span></label>
+        <input id="name" name="name" type="text" autocomplete="name" minlength="2" maxlength="100" required>
+      </div>
+
+      <div class="field-group">
+        <label for="email">Email <span class="required" aria-hidden="true">*</span></label>
+        <input id="email" name="email" type="email" autocomplete="email" maxlength="254" inputmode="email" required>
+      </div>
+
+      <div class="field-group">
+        <label for="organization">Organizzazione <span class="field-hint">(facoltativo)</span></label>
+        <input id="organization" name="organization" type="text" autocomplete="organization" maxlength="120">
+      </div>
+
+      <div class="field-group">
+        <label for="subject">Tipo di richiesta <span class="required" aria-hidden="true">*</span></label>
+        <select id="subject" name="subject" required>
+          <option value="">Seleziona un’opzione</option>
+          <option value="collaboration">Collaborazione</option>
+          <option value="web-development">Sviluppo web</option>
+          <option value="systems">Sistemi e infrastrutture</option>
+          <option value="media">Digital media</option>
+          <option value="other">Altro</option>
+        </select>
+      </div>
+
+      <div class="field-group">
+        <label for="message">Messaggio <span class="required" aria-hidden="true">*</span></label>
+        <textarea id="message" name="message" minlength="10" maxlength="4000" required></textarea>
+        <p class="field-hint">Da 10 a 4.000 caratteri. Non inserire password o dati sensibili.</p>
+      </div>
+
+      <label class="privacy-check" for="privacy-accepted">
+        <input id="privacy-accepted" name="privacyAccepted" type="checkbox" required>
+        <span>Dichiaro di aver letto l’<a href="privacy.html" target="_blank" rel="noopener">informativa privacy</a>. <span class="required" aria-hidden="true">*</span></span>
+      </label>
+
+      <div class="cf-turnstile" data-sitekey="__TURNSTILE_SITE_KEY__" data-action="contact" data-theme="dark" data-language="it" data-response-field-name="cf-turnstile-response"></div>
+
+      <p id="form-status" class="status-message" role="status" aria-live="polite"></p>
+      <button id="submit-button" class="form-submit" type="submit">Invia</button>
+    </form>
+
+    <section class="contact-info" aria-label="Contatto diretto">
+      <p><strong>Email:</strong> <a href="mailto:tobia@miniutti.it">tobia@miniutti.it</a></p>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-col">
+      <h2>Miniutti.it</h2>
+      <p>Sviluppo web, sistemi digitali e infrastrutture.</p>
+    </div>
+    <div class="footer-col">
+      <h2>Link rapidi</h2>
+      <ul>
+        <li><a href="/">Home</a></li>
+        <li><a href="contatti.html">Contatti</a></li>
+        <li><a href="privacy.html">Privacy</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h2>Contatti</h2>
+      <p><a href="mailto:tobia@miniutti.it">tobia@miniutti.it</a></p>
+    </div>
+    <div class="footer-bottom">© <span data-current-year>2026</span> miniutti.it — Tutti i diritti riservati</div>
+  </footer>
+</body>
+</html>

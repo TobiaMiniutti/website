@@ -1,0 +1,12 @@
+{
+  "name": "miniutti-it",
+  "version": "2.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "node scripts/validate-site.mjs && node --test cloudflare-worker/test/*.test.js"
+  },
+  "engines": {
+    "node": ">=22"
+  }
+}
