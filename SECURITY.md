@@ -1,6 +1,6 @@
 # Sicurezza
 
-Per segnalazioni di sicurezza: **tobia@miniutti.it**. Non pubblicare dettagli sensibili in una issue GitHub.
+Per segnalazioni di sicurezza: **tobia@miniutti.it**.
 
 ## Principi applicati
 
