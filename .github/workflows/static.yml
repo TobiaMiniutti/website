@@ -39,7 +39,7 @@ jobs:
           TURNSTILE_SITE_KEY: ${{ vars.TURNSTILE_SITE_KEY }}
         run: |
           test -n "$TURNSTILE_SITE_KEY"
-          sed -i "s|__TURNSTILE_SITE_KEY__|$TURNSTILE_SITE_KEY|g" public/contatti.html
+          sed -i "s|__TURNSTILE_SITE_KEY__|$TURNSTILE_SITE_KEY|g" public/index.html
           ! grep -R "__TURNSTILE_SITE_KEY__" public
 
       - name: Setup Pages
