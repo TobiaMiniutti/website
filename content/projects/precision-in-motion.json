@@ -1,0 +1,15 @@
+{
+  "slug": "precision-in-motion",
+  "title": "Precision in motion",
+  "category": "Design system",
+  "status": "2026",
+  "summary": "Un linguaggio editoriale carbonio e oro che traduce precisione tecnica in ritmo visivo.",
+  "role": "Product design e front-end",
+  "scope": "Identità, componenti, motion, responsive",
+  "technologies": ["Design system", "Accessibility", "Motion"],
+  "cover": "/assets/images/porta-brandeburgo.jpg",
+  "featured": true,
+  "context": "Evolvere l’identità esistente senza perdere il marchio violetto, la fotografia della Porta di Brandeburgo e la sobrietà del portfolio.",
+  "approach": "Griglia tecnica, tipografia editoriale, superfici carbonio, accento oro e movimento ridotto a ingressi e feedback con una funzione precisa.",
+  "outcome": "Un sistema coerente tra Home, progetti, pagine legali e flusso di contatto, adattato da 320 px ai grandi schermi."
+}

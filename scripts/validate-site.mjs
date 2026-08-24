@@ -1,59 +1,11 @@
-import { readFile, readdir, stat } from "node:fs/promises";
-import { extname, join, relative, resolve } from "node:path";
-
-const root = resolve("public");
-const errors = [];
-
-async function walk(directory) {
-  const items = [];
-  for (const name of await readdir(directory)) {
-    const path = join(directory, name);
-    if ((await stat(path)).isDirectory()) items.push(...await walk(path));
-    else items.push(path);
-  }
-  return items;
-}
-
-const files = await walk(root);
-const htmlFiles = files.filter((file) => extname(file) === ".html");
-
-for (const file of htmlFiles) {
-  const source = await readFile(file, "utf8");
-  const label = relative(root, file);
-  if (!source.includes("<html lang=\"it\"")) errors.push(`${label}: lingua mancante`);
-  if (!source.includes("<meta name=\"viewport\"")) errors.push(`${label}: viewport mancante`);
-  if (!source.includes("Content-Security-Policy")) errors.push(`${label}: CSP mancante`);
-  if (!source.includes("Tobia Miniutti")) errors.push(`${label}: identità footer mancante`);
-  if (/login\.html|379\s*112\s*8232|hook\.eu1\.make\.com/i.test(source)) {
-    errors.push(`${label}: riferimento legacy o segreto esposto`);
-  }
-
-  for (const match of source.matchAll(/(?:href|src)="([^"]+)"/g)) {
-    const target = match[1];
-    if (/^(?:https?:|mailto:|tel:|#)/.test(target) || target === "/") continue;
-    const clean = target.split(/[?#]/)[0];
-    const local = clean.startsWith("/") ? join(root, clean) : resolve(file, "..", clean);
-    try {
-      await stat(local);
-    } catch {
-      errors.push(`${label}: risorsa mancante ${target}`);
-    }
-  }
-}
-
-const contactPage = await readFile(join(root, "contatti.html"), "utf8");
-for (const required of ["cf-turnstile", 'name="website"', "tobia@miniutti.it", "+39 051 1947 1903", "__MOBILE_PHONE_DISPLAY__"]) {
-  if (!contactPage.includes(required)) errors.push(`contatti.html: requisito mancante ${required}`);
-}
-
-const publicNames = new Set(files.map((file) => relative(root, file)));
-for (const forbidden of ["login.html", "progetti.html", "dashboard.html", "clock.html", "air.html", "gps.html", "galleria.html", "elementi.html"]) {
-  if (publicNames.has(forbidden)) errors.push(`Pagina legacy pubblicata: ${forbidden}`);
-}
-
-if (errors.length) {
-  console.error(errors.join("\n"));
-  process.exit(1);
-}
-
-console.log(`Validazione completata: ${htmlFiles.length} pagine, nessun riferimento legacy pubblico.`);
+import {readFile,readdir,stat} from "node:fs/promises";import {extname,join,relative,resolve} from "node:path";
+const root=resolve("public"),errors=[];async function walk(directory){const items=[];for(const name of await readdir(directory)){const path=join(directory,name);if((await stat(path)).isDirectory())items.push(...await walk(path));else items.push(path)}return items}const files=await walk(root),htmlFiles=files.filter(file=>extname(file)===".html"),names=new Set(files.map(file=>relative(root,file).replaceAll("\\","/")));
+const requiredPages=["index.html","progetti.html","progetti/piattaforma-miniutti.html","progetti/contatto-sicuro.html","progetti/precision-in-motion.html","privacy.html","preferenze-cookie.html","contatti.html","conferma-invio.html","404.html"];requiredPages.forEach(page=>{if(!names.has(page))errors.push(`Pagina obbligatoria mancante: ${page}`)});
+for(const file of htmlFiles){const source=await readFile(file,"utf8"),label=relative(root,file).replaceAll("\\","/");if(!source.includes('<html lang="it"'))errors.push(`${label}: lingua mancante`);if(!source.includes('<meta name="viewport"'))errors.push(`${label}: viewport mancante`);if(!source.includes("Content-Security-Policy"))errors.push(`${label}: CSP mancante`);if(source.includes("'unsafe-inline'"))errors.push(`${label}: CSP contiene unsafe-inline`);if(!source.includes("Tobia Miniutti"))errors.push(`${label}: identità mancante`);if(!source.includes("data-cookie-preferences"))errors.push(`${label}: controllo preferenze mancante`);if(/hook\.eu1\.make\.com|MAKE_WEBHOOK_URL|TURNSTILE_SECRET_KEY|CLOUDFLARE_API_TOKEN/i.test(source))errors.push(`${label}: possibile segreto esposto`);const noindex=/<meta name="robots" content="[^"]*noindex/i.test(source),h1Count=(source.match(/<h1(?:\s|>)/g)||[]).length;if(h1Count!==1)errors.push(`${label}: atteso un solo H1, trovati ${h1Count}`);if(!noindex&&!/<link rel="canonical" href="https:\/\/miniutti\.it\//.test(source))errors.push(`${label}: canonical mancante`);const primary=source.match(/<nav class="primary-nav"[^>]*>(.*?)<\/nav>/s)?.[1]||"",labels=[...primary.matchAll(/<a[^>]*>([^<]+)<\/a>/g)].map(match=>match[1]);if(labels.join("|")!=="Home|Progetti|Contatti")errors.push(`${label}: navigazione primaria non conforme`);for(const match of source.matchAll(/(?:href|src)="([^"]+)"/g)){const target=match[1];if(/^(?:https?:|mailto:|tel:|#|data:)/.test(target)||target==="/")continue;const clean=target.split(/[?#]/)[0];if(!clean)continue;const local=clean.startsWith("/")?join(root,clean.slice(1)):resolve(file,"..",clean);try{await stat(local)}catch{errors.push(`${label}: risorsa mancante ${target}`)}}}
+for(const forbidden of ["login.html","dashboard.html","clock.html","air.html","gps.html","galleria.html","elementi.html"])if(names.has(forbidden))errors.push(`Pagina legacy pubblicata: ${forbidden}`);
+const index=await readFile(join(root,"index.html"),"utf8");for(const required of ['id="home"','id="progetti"','id="contatti"','id="contact-form"','name="name"','name="email"','name="organization"','name="subject"','name="message"','name="website"','name="privacyAccepted"','cf-turnstile','__TURNSTILE_SITE_KEY__','__MOBILE_PHONE_DISPLAY__','"@type":"Person"','"@type":"WebSite"'])if(!index.includes(required))errors.push(`index.html: requisito contatto/home mancante ${required}`);if((index.match(/class="project-card(?!-more)/g)||[]).length<3)errors.push("index.html: servono tre anteprime progetto");
+const consent=await readFile(join(root,"assets/js/consent.js"),"utf8");for(const denied of ["analytics_storage:\"denied\"","ad_storage:\"denied\"","ad_user_data:\"denied\"","ad_personalization:\"denied\""])if(!consent.includes(denied))errors.push(`consent.js: default mancante ${denied}`);if(!consent.includes("document.createElement(\"script\")")||!consent.includes("validMeasurementId"))errors.push("consent.js: caricamento GA condizionale mancante");if(!consent.includes("180*24*60*60*1000"))errors.push("consent.js: intervallo consenso mancante");const css=await readFile(join(root,"assets/css/site.css"),"utf8");if(!css.includes("prefers-reduced-motion:reduce"))errors.push("CSS: regole reduced-motion mancanti");
+const projectFiles=(await readdir(resolve("content/projects"))).filter(name=>name.endsWith(".json"));for(const file of projectFiles){const project=JSON.parse(await readFile(resolve("content/projects",file),"utf8")),route=join(root,"progetti",`${project.slug}.html`);let page="";try{page=await readFile(route,"utf8")}catch{errors.push(`${file}: route progetto mancante`);continue}for(const value of [project.title,project.summary,project.context,project.approach,project.outcome,'"@type":"CreativeWork"'])if(!page.includes(value))errors.push(`${file}: contenuto non sincronizzato: ${value.slice(0,40)}`)}
+const sitemap=await readFile(join(root,"sitemap.xml"),"utf8");for(const url of ["https://miniutti.it/","https://miniutti.it/progetti.html",...projectFiles.map(name=>`https://miniutti.it/progetti/${name.replace(/\.json$/,"")}.html`),"https://miniutti.it/privacy.html","https://miniutti.it/preferenze-cookie.html"])if(!sitemap.includes(`<loc>${url}</loc>`))errors.push(`sitemap: URL mancante ${url}`);if(sitemap.includes("contatti.html"))errors.push("sitemap: contatti compatibile non canonica");
+for(const file of files){if(![".html",".js",".css",".xml"].includes(extname(file)))continue;const source=await readFile(file,"utf8");for(const match of source.matchAll(/__[A-Z0-9_]+__/g))if(!["__TURNSTILE_SITE_KEY__","__MOBILE_PHONE_DISPLAY__","__MOBILE_PHONE_TEL__","__GA_MEASUREMENT_ID__"].includes(match[0]))errors.push(`${relative(root,file)}: placeholder sconosciuto ${match[0]}`)}
+if(errors.length){console.error(errors.join("\n"));process.exit(1)}console.log(`Validazione completata: ${htmlFiles.length} pagine, ${projectFiles.length} progetti, consenso e collegamenti verificati.`);

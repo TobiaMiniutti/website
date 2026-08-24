@@ -4,7 +4,9 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "test": "node scripts/validate-site.mjs && node --test cloudflare-worker/test/*.test.js"
+    "build": "node scripts/build-site.mjs",
+    "test": "node scripts/validate-site.mjs && node --test cloudflare-worker/test/*.test.js",
+    "preview": "npx serve public"
   },
   "engines": {
     "node": ">=22"

@@ -1,0 +1,15 @@
+{
+  "slug": "piattaforma-miniutti",
+  "title": "miniutti.it",
+  "category": "Web platform",
+  "status": "Operativo",
+  "summary": "Una piattaforma statica progressiva, accessibile e indicizzabile, costruita per rimanere leggera.",
+  "role": "Progettazione e sviluppo",
+  "scope": "Portfolio, SEO, accessibilità, privacy",
+  "technologies": ["HTML", "CSS", "JavaScript", "GitHub Pages"],
+  "cover": "/assets/images/porta-brandeburgo.jpg",
+  "featured": true,
+  "context": "Riunire identità personale, competenze tecniche, progetti e contatto in un sito rapido e leggibile, senza introdurre un framework non necessario.",
+  "approach": "Contenuto statico e crawlable, progressive enhancement per movimento e interazioni, componenti condivisi e una superficie di terze parti ridotta.",
+  "outcome": "Il sito resta utilizzabile senza JavaScript, mantiene la pubblicazione GitHub Pages e collega il modulo al Worker esistente senza cambiarne il contratto."
+}

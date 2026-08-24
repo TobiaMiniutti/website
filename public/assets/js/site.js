@@ -1,24 +1,2 @@
 "use strict";
-
-document.documentElement.classList.remove("no-js");
-
-const year = document.querySelector("[data-current-year]");
-if (year) year.textContent = String(new Date().getFullYear());
-
-const reveals = document.querySelectorAll(".reveal");
-if ("IntersectionObserver" in window) {
-  const observer = new IntersectionObserver(
-    (entries) => {
-      for (const entry of entries) {
-        if (entry.isIntersecting) {
-          entry.target.classList.add("visible");
-          observer.unobserve(entry.target);
-        }
-      }
-    },
-    { threshold: 0.1 }
-  );
-  reveals.forEach((element) => observer.observe(element));
-} else {
-  reveals.forEach((element) => element.classList.add("visible"));
-}
+document.documentElement.classList.remove("no-js");document.documentElement.classList.add("js");document.querySelectorAll("[data-current-year]").forEach(node=>{node.textContent=String(new Date().getFullYear())});const reveals=document.querySelectorAll(".reveal");if("IntersectionObserver" in window){const observer=new IntersectionObserver(entries=>{entries.forEach(entry=>{if(entry.isIntersecting){entry.target.classList.add("visible");observer.unobserve(entry.target)}})},{threshold:.12});reveals.forEach(node=>observer.observe(node))}else reveals.forEach(node=>node.classList.add("visible"));document.addEventListener("visibilitychange",()=>{document.querySelectorAll("video").forEach(video=>{if(document.hidden)video.pause();else if(video.autoplay&&!matchMedia("(prefers-reduced-motion: reduce)").matches)video.play().catch(()=>{})})});document.addEventListener("click",event=>{const tracked=event.target.closest("[data-analytics-event]");if(!tracked||!window.miniuttiAnalytics)return;window.miniuttiAnalytics.track(tracked.dataset.analyticsEvent,{project_slug:tracked.dataset.projectSlug||undefined,link_url:tracked.dataset.analyticsUrl||undefined})});
