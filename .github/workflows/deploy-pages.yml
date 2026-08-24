@@ -39,7 +39,7 @@ jobs:
         run: |
           test -n "$TURNSTILE_SITE_KEY"
           cp -R public _site
-          sed -i "s|__TURNSTILE_SITE_KEY__|$TURNSTILE_SITE_KEY|g" _site/contatti.html
+          sed -i "s|__TURNSTILE_SITE_KEY__|$TURNSTILE_SITE_KEY|g" _site/index.html
           ! grep -R "__TURNSTILE_SITE_KEY__" _site
 
       - uses: actions/configure-pages@v5
