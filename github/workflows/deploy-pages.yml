@@ -1,0 +1,56 @@
+name: Deploy website
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "public/**"
+      - ".github/workflows/deploy-pages.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  validate-and-deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Validate source
+        run: npm test
+
+      - name: Build public artifact
+        env:
+          TURNSTILE_SITE_KEY: ${{ vars.TURNSTILE_SITE_KEY }}
+          MOBILE_PHONE_DISPLAY: ${{ vars.MOBILE_PHONE_DISPLAY }}
+        run: |
+          test -n "$TURNSTILE_SITE_KEY"
+          test -n "$MOBILE_PHONE_DISPLAY"
+          MOBILE_PHONE_TEL="$(printf '%s' "$MOBILE_PHONE_DISPLAY" | tr -d ' .()-')"
+          cp -R public _site
+          sed -i "s|__TURNSTILE_SITE_KEY__|$TURNSTILE_SITE_KEY|g" _site/contatti.html
+          find _site -name '*.html' -type f -exec sed -i "s|__MOBILE_PHONE_DISPLAY__|$MOBILE_PHONE_DISPLAY|g" {} +
+          find _site -name '*.html' -type f -exec sed -i "s|__MOBILE_PHONE_TEL__|$MOBILE_PHONE_TEL|g" {} +
+          ! grep -R "__TURNSTILE_SITE_KEY__" _site
+          ! grep -R "__MOBILE_PHONE_" _site
+
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+      - id: deployment
+        uses: actions/deploy-pages@v4
