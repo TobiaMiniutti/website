@@ -1,0 +1,32 @@
+name = "miniutti-contact"
+main = "src/index.js"
+compatibility_date = "2026-08-15"
+workers_dev = false
+
+routes = [
+  { pattern = "miniutti.it/api/contact", zone_name = "miniutti.it" },
+  { pattern = "www.miniutti.it/api/contact", zone_name = "miniutti.it" }
+]
+
+[vars]
+ALLOWED_ORIGINS = "https://miniutti.it,https://www.miniutti.it"
+ALLOWED_HOSTNAMES = "miniutti.it,www.miniutti.it"
+
+[[ratelimits]]
+name = "CONTACT_EMAIL_RATE_LIMITER"
+namespace_id = "43001"
+
+  [ratelimits.simple]
+  limit = 3
+  period = 60
+
+[[ratelimits]]
+name = "CONTACT_GLOBAL_RATE_LIMITER"
+namespace_id = "43002"
+
+  [ratelimits.simple]
+  limit = 60
+  period = 60
+
+[secrets]
+required = ["TURNSTILE_SECRET_KEY", "MAKE_WEBHOOK_URL"]
