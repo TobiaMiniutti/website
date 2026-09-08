@@ -1,15 +1,14 @@
 # miniutti.it
 
-Portfolio statico di Tobia Miniutti. La versione 5 adotta il sistema visivo **Giardino rinascimentale digitale**: un ambiente botanico immersivo, tipografia editoriale e una reinterpretazione in grafite della Creazione di Adamo che evolve con lo scorrimento fino alla sezione contatti. Il modulo di contatto protetto e tutte le route pubbliche restano invariati.
+Portfolio statico di Tobia Miniutti. La versione 6 adotta il sistema visivo **Living Systems**: un giardino digitale immersivo, editoriale e misurato, con una sequenza scroll ispirata alla Creazione di Adamo. Il modulo di contatto protetto dal Worker Cloudflare resta separato.
 
 ## Architettura
 
 - React 19 + TypeScript + Vite 7
 - Tailwind CSS 4 con configurazione CSS-first
-- Motion per ingressi, parallasse e narrazione continua legata allo scorrimento
-- asset botanici e grafite ottimizzati in WebP e serviti localmente
+- Motion per ingressi e interazioni selettive
 - pagine HTML pre-renderizzate per ogni route pubblica
-- Outfit e Inter auto-ospitati nel bundle
+- Instrument Serif, Outfit e Inter auto-ospitati nel bundle
 - Worker Cloudflare indipendente in `cloudflare-worker/`
 
 I contenuti dei progetti risiedono in `src/data/projects.ts`: aggiungere un progetto pubblicato genera automaticamente pagina, route statica, metadati e collegamenti senza duplicare markup.

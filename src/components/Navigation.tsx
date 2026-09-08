@@ -5,6 +5,7 @@ import { Signature } from "./Signature";
 
 const navItems = [
   { label: "Home", hash: "home" },
+  { label: "Metodo", hash: "metodo" },
   { label: "Progetti", hash: "progetti" },
   { label: "Contatti", hash: "contatti" },
 ] as const;
@@ -27,7 +28,7 @@ export function Navigation({ path }: { path: string }) {
     const observer = new IntersectionObserver((entries) => {
       const visible = entries.filter((entry) => entry.isIntersecting).sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
       if (visible?.target.id) setActive(visible.target.id);
-    }, { rootMargin: "-25% 0px -55%", threshold: [0.05, 0.25, 0.6] });
+    }, { rootMargin: "-22% 0px -62%", threshold: [0.05, 0.3] });
     observed.forEach((section) => observer.observe(section));
     return () => observer.disconnect();
   }, [isHome]);
@@ -36,16 +37,15 @@ export function Navigation({ path }: { path: string }) {
     if (!menuOpen) return;
     const previousOverflow = document.body.style.overflow;
     document.body.style.overflow = "hidden";
-    const overlay = overlayRef.current;
-    const focusable = () => [...(overlay?.querySelectorAll<HTMLElement>('a[href], button:not([disabled]), input:not([disabled])') ?? [])];
+    const focusable = () => [...(overlayRef.current?.querySelectorAll<HTMLElement>('a[href], button:not([disabled])') ?? [])];
     focusable()[0]?.focus();
     const onKeyDown = (event: KeyboardEvent) => {
       if (event.key === "Escape") { setMenuOpen(false); return; }
       if (event.key !== "Tab") return;
       const items = focusable();
-      if (!items.length) return;
       const first = items[0];
-      const last = items.at(-1)!;
+      const last = items.at(-1);
+      if (!first || !last) return;
       if (event.shiftKey && document.activeElement === first) { event.preventDefault(); last.focus(); }
       else if (!event.shiftKey && document.activeElement === last) { event.preventDefault(); first.focus(); }
     };
@@ -57,34 +57,36 @@ export function Navigation({ path }: { path: string }) {
     };
   }, [menuOpen]);
 
-  const closeAndScroll = () => setMenuOpen(false);
   return (
     <>
-      <motion.header className="identity-rail" initial={reduceMotion ? false : { opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: .5, ease: [.22, 1, .36, 1] }}>
-        <a className="identity-link" href={linkFor("home", isHome)} aria-label="miniutti.it — Home">
-          <Signature /><span>miniutti.it</span>
-        </a>
-        <p className="rail-meta">BOLOGNA · SISTEMI DIGITALI</p>
-        <button ref={triggerRef} className="menu-trigger" type="button" aria-expanded={menuOpen} aria-controls="mobile-navigation" onClick={() => setMenuOpen(true)}>
-          <Menu aria-hidden="true" size={21} /><span className="sr-only">Apri menu</span>
-        </button>
+      <motion.header className="site-nav" initial={reduceMotion ? false : { opacity: 0, y: -18 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: .72, delay: .08, ease: [.16, 1, .3, 1] }}>
+        <div className="site-nav-inner">
+          <a className="site-brand" href={linkFor("home", isHome)} aria-label="miniutti.it — Home">
+            <Signature />
+            <span><strong>miniutti.it</strong><small>Digital systems · Bologna</small></span>
+          </a>
+          <nav className="desktop-nav" aria-label="Navigazione principale">
+            {navItems.map((item) => <a key={item.hash} href={linkFor(item.hash, isHome)} aria-current={isHome && active === item.hash ? "location" : undefined}><span>{item.label}</span></a>)}
+          </nav>
+          <div className="site-nav-actions">
+            <span className="availability"><i />Disponibile per nuovi progetti</span>
+            <a className="nav-cta" href={linkFor("contatti", isHome)}>Parliamo <ArrowUpRight aria-hidden="true" size={16} /></a>
+          </div>
+          <button ref={triggerRef} className="menu-trigger" type="button" aria-expanded={menuOpen} aria-controls="mobile-navigation" onClick={() => setMenuOpen(true)}>
+            <Menu aria-hidden="true" size={21} /><span className="sr-only">Apri menu</span>
+          </button>
+        </div>
       </motion.header>
 
-      <motion.nav className="floating-nav" aria-label="Navigazione principale" initial={reduceMotion ? false : { opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: .6, delay: reduceMotion ? 0 : 1.05, ease: [.22, 1, .36, 1] }}>
-        <a className="floating-brand" href={linkFor("home", isHome)} aria-label="miniutti.it — Home"><Signature /></a>
-        {navItems.map((item) => <a key={item.hash} href={linkFor(item.hash, isHome)} aria-current={isHome && active === item.hash ? "location" : undefined}>{item.label}</a>)}
-        <a className="nav-cta" href={linkFor("contatti", isHome)}>Parliamo <ArrowUpRight aria-hidden="true" size={17} /></a>
-      </motion.nav>
-
       {menuOpen && (
-        <div id="mobile-navigation" ref={overlayRef} className="mobile-menu" role="dialog" aria-modal="true" aria-labelledby="mobile-menu-title">
-          <div className="mobile-menu-head"><a className="identity-link dark" href={linkFor("home", isHome)} onClick={closeAndScroll}><Signature /><span>miniutti.it</span></a><button className="menu-close" type="button" onClick={() => setMenuOpen(false)}><X aria-hidden="true" /><span className="sr-only">Chiudi menu</span></button></div>
+        <motion.div id="mobile-navigation" ref={overlayRef} className="mobile-menu" role="dialog" aria-modal="true" aria-labelledby="mobile-menu-title" initial={reduceMotion ? false : { opacity: 0 }} animate={{ opacity: 1 }}>
+          <div className="mobile-menu-head"><a className="site-brand" href={linkFor("home", isHome)} onClick={() => setMenuOpen(false)}><Signature /><span><strong>miniutti.it</strong><small>Digital systems · Bologna</small></span></a><button className="menu-close" type="button" onClick={() => setMenuOpen(false)}><X aria-hidden="true" /><span className="sr-only">Chiudi menu</span></button></div>
           <p id="mobile-menu-title" className="eyebrow">NAVIGAZIONE</p>
           <nav className="mobile-menu-links" aria-label="Navigazione mobile">
-            {navItems.map((item) => <a key={item.hash} href={linkFor(item.hash, isHome)} onClick={closeAndScroll} aria-current={isHome && active === item.hash ? "location" : undefined}>{item.label}</a>)}
+            {navItems.map((item, index) => <a key={item.hash} href={linkFor(item.hash, isHome)} onClick={() => setMenuOpen(false)} aria-current={isHome && active === item.hash ? "location" : undefined}><span>0{index + 1}</span>{item.label}</a>)}
           </nav>
-          <a className="mobile-menu-cta" href={linkFor("contatti", isHome)} onClick={closeAndScroll}>Parliamo del progetto <ArrowUpRight aria-hidden="true" /></a>
-        </div>
+          <a className="mobile-menu-cta" href={linkFor("contatti", isHome)} onClick={() => setMenuOpen(false)}>Raccontami il progetto <ArrowUpRight aria-hidden="true" /></a>
+        </motion.div>
       )}
     </>
   );

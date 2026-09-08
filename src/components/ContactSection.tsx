@@ -20,7 +20,7 @@ export function ContactSection() {
       widgetId.current = window.turnstile.render(turnstileRef.current, {
         sitekey: siteConfig.turnstileSiteKey,
         action: "contact",
-        theme: "light",
+        theme: "dark",
         language: "it",
         size: "flexible",
         callback: (value: string) => setToken(value),
@@ -69,9 +69,10 @@ export function ContactSection() {
 
   return (
     <section id="contatti" className="contact-section" aria-labelledby="contact-title">
-      <div className="section-index" aria-hidden="true">Contatti</div>
+      <div className="section-index light" aria-hidden="true">05 / CONTATTO</div>
+      <div className="contact-threshold" aria-hidden="true"><span>IL PUNTO DI CONTATTO</span><i /></div>
       <div className="contact-layout">
-        <Reveal className="contact-intro"><p className="eyebrow">PARLIAMO DEL CONTESTO</p><h2 id="contact-title">Un buon sistema parte da una richiesta precisa.</h2><p>Descrivi il problema, l’obiettivo e gli eventuali vincoli. Valuterò direttamente il contesto per costruire una risposta concreta.</p><div className="direct-contacts"><a href={`mailto:${siteConfig.email}`}><span>Email</span>{siteConfig.email}<ArrowUpRight aria-hidden="true" size={18} /></a>{hasPublicMobile && <a href={`tel:${siteConfig.mobileTel}`}><span>Cellulare</span>{siteConfig.mobileDisplay}</a>}<a href={`tel:${siteConfig.landlineTel}`}><span>Fisso</span>{siteConfig.landlineDisplay}</a></div></Reveal>
+        <Reveal className="contact-intro"><p className="eyebrow">PARLIAMO DEL CONTESTO</p><h2 id="contact-title">Facciamo incontrare idea e possibilità.</h2><p>Descrivi il problema, l’obiettivo e gli eventuali vincoli. Valuterò direttamente il contesto per costruire una risposta concreta, senza formule standard.</p><div className="direct-contacts"><a href={`mailto:${siteConfig.email}`}><span>Email</span>{siteConfig.email}<ArrowUpRight aria-hidden="true" size={18} /></a>{hasPublicMobile && <a href={`tel:${siteConfig.mobileTel}`}><span>Cellulare</span>{siteConfig.mobileDisplay}</a>}<a href={`tel:${siteConfig.landlineTel}`}><span>Fisso</span>{siteConfig.landlineDisplay}</a></div></Reveal>
         <Reveal className="form-shell" delay={.08}>
           <form ref={formRef} onSubmit={submit} noValidate aria-describedby="form-safety form-status">
             <div className="form-grid"><Field id="name" label="Nome e cognome"><input id="name" name="name" type="text" autoComplete="name" minLength={2} maxLength={100} required /></Field><Field id="email" label="Email"><input id="email" name="email" type="email" autoComplete="email" inputMode="email" maxLength={254} required /></Field></div>

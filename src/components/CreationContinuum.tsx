@@ -1,34 +1,40 @@
-import { motion, useReducedMotion, useScroll, useSpring, useTransform } from "motion/react";
+import { motion, useReducedMotion, useScroll, useTransform } from "motion/react";
 
 export function CreationContinuum() {
   const reduceMotion = useReducedMotion();
   const { scrollYProgress } = useScroll();
-  const progress = useSpring(scrollYProgress, { stiffness: 58, damping: 24, mass: .45 });
-  const scale = useTransform(progress, [0, .5, 1], [.78, 1.02, 1.34]);
-  const leftX = useTransform(progress, [0, .72, 1], ["-6vw", "-.5vw", "2.05vw"]);
-  const rightX = useTransform(progress, [0, .72, 1], ["6vw", ".5vw", "-2.05vw"]);
-  const leftRotate = useTransform(progress, [0, 1], [-1.4, .2]);
-  const rightRotate = useTransform(progress, [0, 1], [1.4, -.2]);
-  const opacity = useTransform(progress, [0, .12, .3, .68, .84, 1], [.88, .48, .12, .08, .38, .92]);
-
-  const calmStyle = { x: 0, scale: .9, rotate: 0, opacity: .34 };
+  const opacity = useTransform(scrollYProgress, [0, 0.13, 0.2, 0.7, 0.8, 0.92, 1], [0.84, 0.62, 0, 0, 0.72, 0.9, 0.92]);
+  const scale = useTransform(scrollYProgress, [0, 0.18, 0.76, 1], [0.72, 0.88, 1, 1.08]);
+  const y = useTransform(scrollYProgress, [0, 0.2, 0.75, 1], ["52vh", "36vh", "16vh", "8vh"]);
+  const leftX = useTransform(scrollYProgress, [0, 0.74, 0.9, 1], [0, 0, 6, 10]);
+  const rightX = useTransform(scrollYProgress, [0, 0.74, 0.9, 1], [0, 0, -6, -10]);
 
   return (
-    <div className="creation-continuum" aria-hidden="true">
-      <div className="creation-image-shell">
-        <motion.div
-          className="creation-half creation-half-adam"
-          style={reduceMotion ? calmStyle : { x: leftX, scale, rotate: leftRotate, opacity }}
-        >
-          <img src="/assets/images/creation-hands.webp" alt="" decoding="async" />
-        </motion.div>
-        <motion.div
-          className="creation-half creation-half-divine"
-          style={reduceMotion ? calmStyle : { x: rightX, scale, rotate: rightRotate, opacity }}
-        >
-          <img src="/assets/images/creation-hands.webp" alt="" decoding="async" />
-        </motion.div>
-      </div>
-    </div>
+    <motion.figure
+      className="creation-continuum"
+      style={{
+        opacity: reduceMotion ? 0.72 : opacity,
+        scale: reduceMotion ? 0.78 : scale,
+        y: reduceMotion ? "48vh" : y,
+      }}
+      aria-hidden="true"
+    >
+      <motion.img
+        className="creation-half creation-half-left"
+        src="/assets/images/creation-of-adam.webp"
+        alt=""
+        width="2400"
+        height="1089"
+        style={{ x: reduceMotion ? 0 : leftX }}
+      />
+      <motion.img
+        className="creation-half creation-half-right"
+        src="/assets/images/creation-of-adam.webp"
+        alt=""
+        width="2400"
+        height="1089"
+        style={{ x: reduceMotion ? 0 : rightX }}
+      />
+    </motion.figure>
   );
 }

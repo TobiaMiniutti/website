@@ -1,6 +1,6 @@
 {
   "name": "miniutti-it",
-  "version": "5.0.0",
+  "version": "6.0.0",
   "private": true,
   "type": "module",
   "scripts": {
@@ -13,6 +13,7 @@
     "check:production-env": "node scripts/validate-env.mjs --production"
   },
   "dependencies": {
+    "@fontsource/instrument-serif": "^5.3.0",
     "clsx": "^2.1.1",
     "lucide-react": "^0.542.0",
     "motion": "^12.23.12",

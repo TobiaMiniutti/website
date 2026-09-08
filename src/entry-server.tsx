@@ -30,7 +30,7 @@ export function renderHead(url: string) {
     { "@context": "https://schema.org", "@type": "CreativeWork", name: project.title, description: project.shortDescription, url: canonical, author: { "@type": "Person", name: siteConfig.owner }, keywords: project.tech.join(", "), inLanguage: "it-IT" },
     { "@context": "https://schema.org", "@type": "BreadcrumbList", itemListElement: [{ "@type": "ListItem", position: 1, name: "Home", item: `${siteConfig.origin}/` }, { "@type": "ListItem", position: 2, name: "Progetti", item: `${siteConfig.origin}/progetti/` }, { "@type": "ListItem", position: 3, name: project.title, item: canonical }] },
   ] : [];
-  const socialImage = `${siteConfig.origin}/assets/images/hero-poster.webp`;
+  const socialImage = `${siteConfig.origin}/assets/images/botanical-garden.webp`;
   return [
     `<title>${escapeAttribute(meta.title)}</title>`,
     `<meta name="description" content="${escapeAttribute(meta.description)}">`,
@@ -45,7 +45,7 @@ export function renderHead(url: string) {
     `<meta property="og:image" content="${socialImage}">`,
     `<meta property="og:image:width" content="1600">`,
     `<meta property="og:image:height" content="1000">`,
-    `<meta property="og:image:alt" content="Dettaglio della Porta di Brandeburgo nel sistema visivo di miniutti.it">`,
+    `<meta property="og:image:alt" content="Giardino botanico immersivo nel sistema visivo di miniutti.it">`,
     `<meta name="twitter:card" content="summary_large_image">`,
     `<meta name="twitter:title" content="${escapeAttribute(meta.title)}">`,
     `<meta name="twitter:description" content="${escapeAttribute(meta.description)}">`,
