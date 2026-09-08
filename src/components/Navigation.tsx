@@ -79,9 +79,9 @@ export function Navigation({ path }: { path: string }) {
       {menuOpen && (
         <div id="mobile-navigation" ref={overlayRef} className="mobile-menu" role="dialog" aria-modal="true" aria-labelledby="mobile-menu-title">
           <div className="mobile-menu-head"><a className="identity-link dark" href={linkFor("home", isHome)} onClick={closeAndScroll}><Signature /><span>miniutti.it</span></a><button className="menu-close" type="button" onClick={() => setMenuOpen(false)}><X aria-hidden="true" /><span className="sr-only">Chiudi menu</span></button></div>
-          <p id="mobile-menu-title" className="eyebrow">INDICE / NAVIGAZIONE</p>
+          <p id="mobile-menu-title" className="eyebrow">NAVIGAZIONE</p>
           <nav className="mobile-menu-links" aria-label="Navigazione mobile">
-            {navItems.map((item, index) => <a key={item.hash} href={linkFor(item.hash, isHome)} onClick={closeAndScroll} aria-current={isHome && active === item.hash ? "location" : undefined}><span>0{index + 1}</span>{item.label}</a>)}
+            {navItems.map((item) => <a key={item.hash} href={linkFor(item.hash, isHome)} onClick={closeAndScroll} aria-current={isHome && active === item.hash ? "location" : undefined}>{item.label}</a>)}
           </nav>
           <a className="mobile-menu-cta" href={linkFor("contatti", isHome)} onClick={closeAndScroll}>Parliamo del progetto <ArrowUpRight aria-hidden="true" /></a>
         </div>

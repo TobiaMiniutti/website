@@ -69,7 +69,7 @@ export function ContactSection() {
 
   return (
     <section id="contatti" className="contact-section" aria-labelledby="contact-title">
-      <div className="section-index" aria-hidden="true">05 / CONTATTI</div>
+      <div className="section-index" aria-hidden="true">Contatti</div>
       <div className="contact-layout">
         <Reveal className="contact-intro"><p className="eyebrow">PARLIAMO DEL CONTESTO</p><h2 id="contact-title">Un buon sistema parte da una richiesta precisa.</h2><p>Descrivi il problema, l’obiettivo e gli eventuali vincoli. Valuterò direttamente il contesto per costruire una risposta concreta.</p><div className="direct-contacts"><a href={`mailto:${siteConfig.email}`}><span>Email</span>{siteConfig.email}<ArrowUpRight aria-hidden="true" size={18} /></a>{hasPublicMobile && <a href={`tel:${siteConfig.mobileTel}`}><span>Cellulare</span>{siteConfig.mobileDisplay}</a>}<a href={`tel:${siteConfig.landlineTel}`}><span>Fisso</span>{siteConfig.landlineDisplay}</a></div></Reveal>
         <Reveal className="form-shell" delay={.08}>

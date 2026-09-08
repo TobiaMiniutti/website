@@ -1,12 +1,13 @@
 # miniutti.it
 
-Portfolio statico di Tobia Miniutti. La versione 4 adotta il sistema visivo **Signature Systems / Kinetic Index** e conserva il modulo di contatto protetto dal Worker Cloudflare separato.
+Portfolio statico di Tobia Miniutti. La versione 5 adotta il sistema visivo **Giardino rinascimentale digitale**: un ambiente botanico immersivo, tipografia editoriale e una reinterpretazione in grafite della Creazione di Adamo che evolve con lo scorrimento fino alla sezione contatti. Il modulo di contatto protetto e tutte le route pubbliche restano invariati.
 
 ## Architettura
 
 - React 19 + TypeScript + Vite 7
 - Tailwind CSS 4 con configurazione CSS-first
-- Motion per ingressi e interazioni selettive
+- Motion per ingressi, parallasse e narrazione continua legata allo scorrimento
+- asset botanici e grafite ottimizzati in WebP e serviti localmente
 - pagine HTML pre-renderizzate per ogni route pubblica
 - Outfit e Inter auto-ospitati nel bundle
 - Worker Cloudflare indipendente in `cloudflare-worker/`

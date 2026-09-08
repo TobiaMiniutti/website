@@ -3,14 +3,13 @@ import { motion, useReducedMotion } from "motion/react";
 import { siteConfig } from "../config";
 import { publishedProjects } from "../data/projects";
 import { ContactSection } from "../components/ContactSection";
+import { CreationContinuum } from "../components/CreationContinuum";
 import { ProjectCard } from "../components/ProjectCard";
 import { Reveal } from "../components/Reveal";
 import { SmartVideo } from "../components/SmartVideo";
 import { StackMarquee } from "../components/StackMarquee";
 
-const capabilities = [
-  ["+01", "SVILUPPO WEB"], ["+02", "SISTEMI E AUTOMAZIONE"], ["+03", "DIGITAL MEDIA"],
-];
+const capabilities = ["SVILUPPO WEB", "SISTEMI E AUTOMAZIONE", "DIGITAL MEDIA"];
 
 const areas = [
   ["01", "Applicazioni web e gestionali", "Strumenti costruiti intorno a processi, dati e attività operative concrete."],
@@ -30,46 +29,49 @@ export function HomePage() {
   const reduceMotion = useReducedMotion();
   return (
     <>
+      <CreationContinuum />
       <section id="home" className="hero" aria-labelledby="hero-title">
-        <SmartVideo src={siteConfig.heroVideo} poster="/assets/images/hero-poster.webp" className="hero-media" />
+        <div className="hero-garden" aria-hidden="true"><img src="/assets/images/botanical-garden.webp" alt="" /></div>
+        <div className="hero-atmosphere" aria-hidden="true" />
         <div className="hero-frame">
           <div className="hero-copy">
-            <motion.p className="hero-eyebrow" initial={reduceMotion ? false : { opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: .6, delay: .18, ease: [.22, 1, .36, 1] }}>TOBIA MINIUTTI · BOLOGNA, ITALIA</motion.p>
+            <motion.p className="hero-eyebrow" initial={reduceMotion ? false : { opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: .8, delay: .18, ease: [.16, 1, .3, 1] }}>TOBIA MINIUTTI · BOLOGNA, ITALIA</motion.p>
             <h1 id="hero-title" className="hero-title">
-              {["Sistemi digitali,", "progettati", "su misura."].map((line, index) => <span className="clip-line" key={line}><motion.span className={index === 2 ? "signature-word" : ""} initial={reduceMotion ? false : { y: "110%" }} animate={{ y: 0 }} transition={{ duration: .7, delay: reduceMotion ? 0 : .4 + index * .14, ease: [.22, 1, .36, 1] }}>{line}</motion.span></span>)}
+              {["Sistemi digitali,", "progettati", "su misura."].map((line, index) => <span className="clip-line" key={line}><motion.span className={index === 2 ? "signature-word" : ""} initial={reduceMotion ? false : { y: "112%" }} animate={{ y: 0 }} transition={{ duration: 1.05, delay: reduceMotion ? 0 : .38 + index * .13, ease: [.16, 1, .3, 1] }}>{line}</motion.span></span>)}
             </h1>
-            <motion.div className="hero-support" initial={reduceMotion ? false : { opacity: 0, y: 32 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: .6, delay: reduceMotion ? 0 : .86, ease: [.22, 1, .36, 1] }}><p>Sviluppo web, sistemi digitali e infrastrutture progettati su misura, con precisione per ogni esigenza.</p><div className="hero-actions"><a className="button button-light" href="#progetti">Esplora i progetti <ArrowRight aria-hidden="true" /></a><a className="button button-ghost-light" href="#contatti">Parliamo del progetto <ArrowUpRight aria-hidden="true" /></a></div></motion.div>
+            <motion.div className="hero-support" initial={reduceMotion ? false : { opacity: 0, y: 32 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: .8, delay: reduceMotion ? 0 : .92, ease: [.16, 1, .3, 1] }}><p>Sviluppo web, sistemi digitali e infrastrutture progettati su misura, con precisione per ogni esigenza.</p><div className="hero-actions"><a className="button button-light" href="#progetti">Esplora i progetti <ArrowRight aria-hidden="true" /></a><a className="button button-ghost-light" href="#contatti">Parliamo del progetto <ArrowUpRight aria-hidden="true" /></a></div></motion.div>
           </div>
-          <motion.div className="capability-index" aria-label="Ambiti principali" initial={reduceMotion ? false : { opacity: 0, y: 32 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: .6, delay: reduceMotion ? 0 : .96, ease: [.22, 1, .36, 1] }}>{capabilities.map(([number, label]) => <div key={number}><strong>{number}</strong><span>{label}</span></div>)}</motion.div>
+          <motion.div className="capability-index" aria-label="Ambiti principali" initial={reduceMotion ? false : { opacity: 0, y: 32 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: .8, delay: reduceMotion ? 0 : 1.02, ease: [.16, 1, .3, 1] }}>{capabilities.map((label) => <span key={label}>{label}</span>)}</motion.div>
+          <motion.a className="scroll-note" href="#profilo" initial={reduceMotion ? false : { opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: .8, delay: reduceMotion ? 0 : 1.2 }}>Entra nel giardino <span aria-hidden="true">↓</span></motion.a>
         </div>
       </section>
 
       <StackMarquee />
 
       <main id="contenuto" className="porcelain-surface">
-        <section className="profile-section" aria-labelledby="profile-title">
-          <div className="section-index" aria-hidden="true">01 / PROFILO</div>
+        <section id="profilo" className="profile-section" aria-labelledby="profile-title">
+          <div className="section-index" aria-hidden="true">Profilo</div>
           <Reveal className="profile-statement"><p className="eyebrow">PERSONA / SISTEMI</p><h2 id="profile-title">Progetto soluzioni digitali partendo da problemi reali.</h2></Reveal>
           <Reveal className="profile-copy" delay={.08}><p>Unisco sviluppo web, automazione e infrastrutture con un metodo orientato a sicurezza, affidabilità, semplicità d’uso e personalizzazione, curando ogni progetto affinché rimanga solido e duraturo nel tempo.</p></Reveal>
           <Reveal className="profile-image" delay={.14}><picture><source srcSet="/assets/images/porta-brandeburgo-720.webp 720w, /assets/images/porta-brandeburgo-1200.webp 1200w" type="image/webp" /><img src="/assets/images/porta-brandeburgo.jpg" width="3021" height="3113" alt="Dettaglio della Quadriga sopra la Porta di Brandeburgo, fotografata dal basso sotto un cielo nuvoloso" loading="lazy" decoding="async" /></picture><p className="image-caption"><span>ARCHIVIO PERSONALE</span>Quadriga della Porta di Brandeburgo</p></Reveal>
         </section>
 
         <section className="areas-section" aria-labelledby="areas-title">
-          <div className="section-index" aria-hidden="true">02 / AMBITI</div>
+          <div className="section-index" aria-hidden="true">Ambiti</div>
           <div className="editorial-heading"><p className="eyebrow">COMPETENZE CONNESSE</p><h2 id="areas-title">Dal codice al sistema che lo sostiene.</h2></div>
-          <div className="areas-list">{areas.map(([number, title, copy], index) => <Reveal className="area-row" delay={index * .05} key={number}><span>{number}</span><h3>{title}</h3><p>{copy}</p></Reveal>)}</div>
+          <div className="areas-list">{areas.map(([, title, copy], index) => <Reveal className="area-row" delay={index * .05} key={title}><h3>{title}</h3><p>{copy}</p></Reveal>)}</div>
         </section>
 
         <section className="method-section" aria-labelledby="method-title">
-          <div className="section-index light" aria-hidden="true">03 / METODO</div>
-          <div className="method-media"><SmartVideo src={siteConfig.methodVideo} poster="/assets/images/method-poster.webp" className="method-video" lazy /><div className="method-media-label"><span>SIGNATURE SYSTEMS</span><span>PROCESSO / 04 PASSAGGI</span></div></div>
-          <div className="method-copy"><div className="method-heading"><p className="eyebrow">METODO</p><h2 id="method-title">Precisione senza complicare ciò che deve funzionare.</h2></div><ol>{method.map(([number, title, copy]) => <li key={number}><span>{number}</span><div><h3>{title}</h3><p>{copy}</p></div></li>)}</ol></div>
+          <div className="section-index light" aria-hidden="true">Metodo</div>
+          <div className="method-media"><SmartVideo src={siteConfig.methodVideo} poster="/assets/images/method-poster.webp" className="method-video" lazy /><div className="method-media-label"><span>TOBIA MINIUTTI</span><span>QUATTRO PASSAGGI, UN SOLO FILO</span></div></div>
+          <div className="method-copy"><div className="method-heading"><p className="eyebrow">METODO</p><h2 id="method-title">Precisione senza complicare ciò che deve funzionare.</h2></div><ol>{method.map(([, title, copy]) => <li key={title}><div><h3>{title}</h3><p>{copy}</p></div></li>)}</ol></div>
         </section>
 
         <section id="progetti" className="projects-section" aria-labelledby="projects-title">
-          <div className="section-index" aria-hidden="true">04 / PROGETTI</div>
+          <div className="section-index" aria-hidden="true">Progetti</div>
           <Reveal className="projects-heading"><p className="eyebrow">SELEZIONE</p><h2 id="projects-title">Sistemi costruiti per esigenze specifiche.</h2><p>Tre progetti che attraversano gestione, prodotto digitale e recupero tecnologico.</p></Reveal>
-          <div className="selected-projects">{publishedProjects.slice(0, 3).map((project, index) => <ProjectCard key={project.slug} project={project} index={index} />)}<Reveal className="all-projects-card"><a href="/progetti/"><span className="eyebrow">ARCHIVIO / 04 PROGETTI</span><strong>Mostra tutti i progetti</strong><p>Apri l’indice completo, con contesto, approccio e dettagli tecnici.</p><ArrowUpRight aria-hidden="true" /></a></Reveal></div>
+          <div className="selected-projects">{publishedProjects.slice(0, 3).map((project, index) => <ProjectCard key={project.slug} project={project} index={index} />)}<Reveal className="all-projects-card"><a href="/progetti/"><span className="eyebrow">ARCHIVIO COMPLETO</span><strong>Mostra tutti i progetti</strong><p>Apri l’indice completo, con contesto, approccio e dettagli tecnici.</p><ArrowUpRight aria-hidden="true" /></a></Reveal></div>
         </section>
 
         <ContactSection />
