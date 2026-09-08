@@ -1,6 +1,6 @@
 # miniutti.it
 
-Portfolio statico di Tobia Miniutti. La versione 6 adotta il sistema visivo **Living Systems**: un giardino digitale immersivo, editoriale e misurato, con una sequenza scroll ispirata alla Creazione di Adamo. Il modulo di contatto protetto dal Worker Cloudflare resta separato.
+Portfolio statico di Tobia Miniutti. La versione 4 adotta il sistema visivo **Signature Systems / Kinetic Index** e conserva il modulo di contatto protetto dal Worker Cloudflare separato.
 
 ## Architettura
 
@@ -8,7 +8,7 @@ Portfolio statico di Tobia Miniutti. La versione 6 adotta il sistema visivo **Li
 - Tailwind CSS 4 con configurazione CSS-first
 - Motion per ingressi e interazioni selettive
 - pagine HTML pre-renderizzate per ogni route pubblica
-- Instrument Serif, Outfit e Inter auto-ospitati nel bundle
+- Outfit e Inter auto-ospitati nel bundle
 - Worker Cloudflare indipendente in `cloudflare-worker/`
 
 I contenuti dei progetti risiedono in `src/data/projects.ts`: aggiungere un progetto pubblicato genera automaticamente pagina, route statica, metadati e collegamenti senza duplicare markup.
