@@ -1,0 +1,84 @@
+name: Deploy website
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "src/**"
+      - "public/**"
+      - "scripts/**"
+      - "index.html"
+      - "package.json"
+      - "package-lock.json"
+      - "vite.config.ts"
+      - "vitest.config.ts"
+      - "tsconfig.json"
+      - ".env.example"
+      - ".github/workflows/deploy-pages.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  validate-and-deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Validate public configuration
+        env:
+          TURNSTILE_SITE_KEY: ${{ vars.TURNSTILE_SITE_KEY }}
+          MOBILE_PHONE_DISPLAY: ${{ vars.MOBILE_PHONE_DISPLAY }}
+          GA_MEASUREMENT_ID: ${{ vars.GA_MEASUREMENT_ID }}
+          GA_DATA_RETENTION: ${{ vars.GA_DATA_RETENTION }}
+        run: npm run check:production-env
+
+      - name: Prepare public configuration
+        env:
+          TURNSTILE_SITE_KEY: ${{ vars.TURNSTILE_SITE_KEY }}
+          MOBILE_PHONE_DISPLAY: ${{ vars.MOBILE_PHONE_DISPLAY }}
+          GA_MEASUREMENT_ID: ${{ vars.GA_MEASUREMENT_ID }}
+          GA_DATA_RETENTION: ${{ vars.GA_DATA_RETENTION }}
+        run: |
+          printf 'VITE_TURNSTILE_SITE_KEY=%s\n' "$TURNSTILE_SITE_KEY" >> "$GITHUB_ENV"
+          printf 'VITE_MOBILE_PHONE_DISPLAY=%s\n' "$MOBILE_PHONE_DISPLAY" >> "$GITHUB_ENV"
+          printf 'VITE_MOBILE_PHONE_TEL=%s\n' "$(printf '%s' "$MOBILE_PHONE_DISPLAY" | tr -cd '+0-9')" >> "$GITHUB_ENV"
+          printf 'VITE_GA_MEASUREMENT_ID=%s\n' "$GA_MEASUREMENT_ID" >> "$GITHUB_ENV"
+          printf 'VITE_GA_DATA_RETENTION=%s\n' "$GA_DATA_RETENTION" >> "$GITHUB_ENV"
+
+      - name: Type-check
+        run: npm run typecheck
+
+      - name: Focused tests
+        run: npm test
+
+      - name: Build static site
+        run: npm run build
+
+      - name: Validate final artifact
+        run: npm run validate
+
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist
+      - id: deployment
+        uses: actions/deploy-pages@v4
