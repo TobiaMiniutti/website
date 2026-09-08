@@ -27,6 +27,8 @@ test("rejects invalid and oversized fields", () => {
   assert.equal(validatePayload({ ...validPayload, message: "short" }), null);
   assert.equal(validatePayload({ ...validPayload, subject: "admin" }), null);
   assert.equal(validatePayload({ ...validPayload, privacyAccepted: false }), null);
+  assert.equal(validatePayload({ ...validPayload, message: "x".repeat(4001) }), null);
+  assert.equal(validatePayload({ ...validPayload, admin: true }), null);
 });
 
 test("checks the exact origin", () => {

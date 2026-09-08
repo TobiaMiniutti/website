@@ -1,5 +1,5 @@
 User-agent: *
 Allow: /
-Disallow: /conferma-invio.html
+Disallow: /conferma-invio/
 
 Sitemap: https://miniutti.it/sitemap.xml

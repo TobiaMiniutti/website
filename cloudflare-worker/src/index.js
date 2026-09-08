@@ -10,6 +10,7 @@ const ALLOWED_SUBJECTS = new Set([
   "other",
 ]);
 const FORWARD_ATTEMPTS = 3;
+const ALLOWED_FIELDS = new Set(["name", "email", "organization", "subject", "message", "website", "privacyAccepted", "turnstileToken"]);
 
 const json = (body, status = 200, extraHeaders = {}) => new Response(JSON.stringify(body), {
   status,
@@ -21,11 +22,12 @@ const json = (body, status = 200, extraHeaders = {}) => new Response(JSON.string
   },
 });
 
-const normalized = (value, maxLength) => typeof value === "string" ? value.trim().slice(0, maxLength) : "";
+const normalized = (value, maxLength) => typeof value === "string" && value.length <= maxLength ? value.trim() : "";
 const isEmail = (value) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value) && value.length <= 254;
 
 export function validatePayload(input) {
   if (!input || typeof input !== "object" || Array.isArray(input)) return null;
+  if (Object.keys(input).some((key) => !ALLOWED_FIELDS.has(key))) return null;
 
   const payload = {
     name: normalized(input.name, 100),
@@ -97,7 +99,7 @@ async function forwardMessage(payload, request, env) {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          "User-Agent": "miniutti-contact-worker/2.0",
+          "User-Agent": "miniutti-contact-worker/3.0",
           "X-Request-ID": requestId,
         },
         body,
@@ -122,8 +124,10 @@ async function forwardMessage(payload, request, env) {
 }
 
 async function passesRateLimits(payload, env) {
+  const digest = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(payload.email));
+  const emailKey = [...new Uint8Array(digest)].map((byte) => byte.toString(16).padStart(2, "0")).join("");
   const [emailLimit, globalLimit] = await Promise.all([
-    env.CONTACT_EMAIL_RATE_LIMITER.limit({ key: payload.email }),
+    env.CONTACT_EMAIL_RATE_LIMITER.limit({ key: emailKey }),
     env.CONTACT_GLOBAL_RATE_LIMITER.limit({ key: "contact-form" }),
   ]);
   return emailLimit.success && globalLimit.success;

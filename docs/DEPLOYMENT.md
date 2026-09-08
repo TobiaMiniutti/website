@@ -1,72 +1,55 @@
-# Deploy di miniutti.it
+# Distribuzione di miniutti.it
 
-## 1. Repository GitHub
+## Sito su GitHub Pages
 
-1. Carica il contenuto di questa cartella nella root della repository.
-2. In **Settings → Pages**, seleziona **GitHub Actions** come sorgente.
-3. In **Settings → Secrets and variables → Actions → Variables**, crea `TURNSTILE_SITE_KEY` con la site key del widget Turnstile autorizzato per `miniutti.it` e `www.miniutti.it`.
-4. Nella stessa sezione crea `MOBILE_PHONE_DISPLAY` con il numero di cellulare corrente nel formato pubblico desiderato, ad esempio `+39 333 123 4567`. Il workflow genera automaticamente il valore compatto usato nei link telefonici e interrompe il deploy se il recapito non è configurato.
-5. Il workflow distribuisce esclusivamente `public/`. Tutto ciò che si trova fuori da questa cartella non può diventare una pagina del sito per errore.
+Il workflow canonico è `.github/workflows/deploy-pages.yml`. Usa Node 22, `npm ci`, type-check, test, build, pre-render e validazione prima di caricare esclusivamente `dist/`.
 
-## 2. Worker Cloudflare
+In **Settings → Pages** selezionare GitHub Actions. In **Settings → Secrets and variables → Actions → Variables** configurare:
 
-Nel repository aggiungi questi **Actions secrets**:
+- `TURNSTILE_SITE_KEY`: site key pubblica autorizzata per `miniutti.it` e `www.miniutti.it`;
+- `MOBILE_PHONE_DISPLAY`: recapito mobile pubblico;
+- `GA_MEASUREMENT_ID`: facoltativo, solo nel formato GA4 `G-...`;
+- `GA_DATA_RETENTION`: obbligatorio se GA4 è attivo, con il valore verificato nella proprietà.
 
-- `CLOUDFLARE_ACCOUNT_ID`
-- `CLOUDFLARE_API_TOKEN` con permesso di modifica Workers Scripts e Workers Routes per la zona
-- `TURNSTILE_SECRET_KEY`
-- `MAKE_WEBHOOK_URL`
+Il workflow ricava il formato `tel:` del cellulare e interrompe il deploy per chiavi di test, placeholder o configurazioni GA incomplete. `CNAME` viene copiato nel risultato Vite.
 
-Il workflow **Deploy contact worker** pubblica il Worker sulle route:
+## Worker Cloudflare
+
+Il workflow indipendente `.github/workflows/deploy-worker.yml` pubblica il Worker su:
 
 - `miniutti.it/api/contact`
 - `www.miniutti.it/api/contact`
 
-L’URL Make non deve mai essere inserito nei file HTML o JavaScript pubblici.
+Actions secrets richiesti:
 
-Il Worker applica due limiti nativi Cloudflare: massimo 3 invii al minuto per indirizzo email verificato e 60 invii complessivi al minuto. Gli invii validi verso Make vengono ritentati fino a tre volte in caso di errore temporaneo; gli eventi tecnici sono disponibili nei log del Worker senza registrare il contenuto dei messaggi.
+- `CLOUDFLARE_ACCOUNT_ID`
+- `CLOUDFLARE_API_TOKEN`
+- `TURNSTILE_SECRET_KEY`
+- `MAKE_WEBHOOK_URL`
 
-## 3. DNS e proxy
+Il Worker applica origine esatta, schema e lunghezze, honeypot, verifica Turnstile con azione e hostname, massimo tre invii al minuto per email e sessanta complessivi, timeout e tre tentativi di inoltro. I log non devono contenere messaggio, email o token.
 
-Il record DNS del dominio personalizzato deve restare compatibile con GitHub Pages e passare dal proxy Cloudflare affinché la route Worker intercetti `/api/contact`. Verifica sia il dominio principale sia `www`.
+## DNS, redirect e header
 
-## 4. Header consigliati in Cloudflare
+Il dominio deve rimanere compatibile con GitHub Pages e attraversare Cloudflare perché la route Worker intercetti `/api/contact`. Mantenere il redirect permanente da `www.miniutti.it/*` a `https://miniutti.it/${1}`.
 
-Configura una Transform Rule per le pagine HTML:
+Configurare e verificare sulle risposte Cloudflare:
 
-- `Strict-Transport-Security: max-age=31536000; includeSubDomains; preload` solo dopo aver verificato che ogni sottodominio supporti HTTPS
-- `X-Content-Type-Options: nosniff`
-- `Referrer-Policy: strict-origin-when-cross-origin`
-- `Permissions-Policy: camera=(), microphone=(), geolocation=()`
-- `X-Frame-Options: DENY`
+- `Strict-Transport-Security: max-age=31536000; includeSubDomains; preload` solo dopo verifica HTTPS di tutti i sottodomini;
+- `X-Content-Type-Options: nosniff`;
+- `Referrer-Policy: strict-origin-when-cross-origin`;
+- `Permissions-Policy: camera=(), microphone=(), geolocation=()`;
+- `X-Frame-Options: DENY`;
+- CSP coerente con `SECURITY.md`.
 
-Configura inoltre una **Redirect Rule** permanente (`301`) da `www.miniutti.it/*` a `https://miniutti.it/${1}`. In questo modo URL canonici, sitemap e traffico pubblico convergono su un solo dominio.
+Una meta CSP non garantisce `frame-ancestors`: il controllo clickjacking deve essere un header di risposta effettivo.
 
-## 5. Rendere privato tutto il sito
+## Collaudo dopo il deploy
 
-`robots.txt`, `noindex`, link rimossi e JavaScript **non impediscono l’accesso**. Per richiedere autenticazione sul dominio:
-
-1. Apri **Cloudflare Zero Trust → Access controls → Applications**.
-2. Crea una **Self-hosted application** per `miniutti.it` e, se usato, `www.miniutti.it`.
-3. Crea una policy `Allow` limitata ai tuoi indirizzi email o al tuo provider di identità.
-4. Imposta una durata sessione breve e testa in navigazione privata.
-
-Nota importante: Access protegge il dominio che passa da Cloudflare, non eventuali URL alternativi `github.io` né il contenuto di una repository pubblica. Se il contenuto deve essere davvero riservato, usa una repository privata e un hosting senza origine pubblica alternativa, ad esempio Cloudflare Pages collegato a GitHub e protetto da Access.
-
-## 6. Collaudo
-
-Esegui localmente:
-
-```bash
-npm test
-```
-
-Poi verifica in produzione:
-
-- navigazione Home/Contatti/Privacy/404;
-- invio valido del modulo;
-- rifiuto di un invio senza Turnstile;
-- risposta `429` dopo il superamento del limite configurato;
-- presenza corretta di email, cellulare e fisso nel footer;
-- assenza di `login.html`, `progetti.html` e vecchie demo;
-- nessun segreto o webhook nell’HTML pubblicato.
+- verificare Home, indice progetti, quattro dettagli, Privacy, Preferenze e 404;
+- provare menu mobile, ancore e URL diretti;
+- rifiutare gli analitici e confermare zero richieste Google e zero cookie GA;
+- accettare e verificare un solo caricamento GA4, poi revocare;
+- inviare il modulo, verificare Turnstile, gestione errori e conferma;
+- controllare header reali dal dominio pubblico;
+- confermare che `dist/` non contenga placeholder, webhook, segreti o indirizzi interni.
