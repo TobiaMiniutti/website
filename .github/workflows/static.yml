@@ -1,0 +1,55 @@
+name: Deploy website
+
+on:
+  push:
+    branches: ["main"]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Validate website
+        run: npm test
+
+      - name: Configure Turnstile
+        env:
+          TURNSTILE_SITE_KEY: ${{ vars.TURNSTILE_SITE_KEY }}
+        run: |
+          test -n "$TURNSTILE_SITE_KEY"
+          sed -i "s|__TURNSTILE_SITE_KEY__|$TURNSTILE_SITE_KEY|g" public/contatti.html
+          ! grep -R "__TURNSTILE_SITE_KEY__" public
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload public website
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: "./public"
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v5
