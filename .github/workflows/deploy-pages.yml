@@ -43,6 +43,12 @@ jobs:
           sed -i "s|__TURNSTILE_SITE_KEY__|$TURNSTILE_SITE_KEY|g" _site/contatti.html
           ! grep -R "__TURNSTILE_SITE_KEY__" _site
 
+      - name: Verify BIMI file
+        run: |
+          echo "Checking BIMI file..."
+          test -f _site/.well-known/bimi/logo.svg
+          ls -la _site/.well-known/bimi/
+
       - uses: actions/configure-pages@v5
 
       - uses: actions/upload-pages-artifact@v3
