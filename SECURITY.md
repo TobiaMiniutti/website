@@ -1,27 +1,14 @@
 # Sicurezza
 
-Segnalazioni: **tobia@miniutti.it**.
+Per segnalazioni di sicurezza: **tobia@miniutti.it**.
 
-## Principi
+## Principi applicati
 
-- Nessun segreto nel client, nelle variabili Vite o nel repository.
-- Verifica Turnstile obbligatoria nel Worker con origine, hostname e azione esatti.
-- Schema chiuso, limiti di dimensione, honeypot e rate limiting server-side.
-- Timeout, retry limitati, risposte non memorizzabili e log minimizzati.
+- Nessun segreto nel codice client o nel repository.
+- Verifica Turnstile obbligatoria nel Worker tramite Siteverify.
+- Controllo esatto di origine, hostname e azione Turnstile.
+- Limiti server-side su dimensioni e valori del modulo.
+- Risposte non memorizzabili e messaggi di errore non diagnostici.
 - Nessun login o pannello amministrativo pubblico.
-- Contenuti progetto tipizzati e controllati a build time; nessun HTML utente.
-- Analitici assenti prima del consenso esplicito e revocabili.
 
-## Content Security Policy
-
-La meta CSP permette solo risorse locali, i due video dall’host CloudFront indicato, Turnstile e gli endpoint GA4 necessari. Google viene comunque caricato solo dopo consenso. `style-src 'unsafe-inline'` è limitato agli stili perché Motion applica trasformazioni inline; non sono ammessi `unsafe-eval`, wildcard o script inline.
-
-Gli header HSTS, `X-Content-Type-Options`, `Permissions-Policy`, `Referrer-Policy`, `X-Frame-Options` e una CSP di risposta con `frame-ancestors 'none'` devono essere configurati sul proxy Cloudflare e verificati in produzione. GitHub Pages non consente di definirli dal repository.
-
-## Verifica locale
-
-```bash
-npm run check
-```
-
-La validazione controlla route statiche, H1, canonical, CSP, placeholder, riferimenti a segreti o indirizzi privati e unicità del workflow del sito. I test del Worker restano separati ma inclusi nel comando completo.
+Gli header che richiedono una risposta HTTP (HSTS, `X-Content-Type-Options`, `Permissions-Policy`, CSP completa con `frame-ancestors`) devono essere configurati sul proxy Cloudflare; una pagina GitHub Pages non consente di impostarli direttamente.
