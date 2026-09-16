@@ -5,6 +5,10 @@ on:
     branches: [main]
     paths:
       - "public/**"
+      - "content/**"
+      - "scripts/**"
+      - "package.json"
+      - "package-lock.json"
       - ".github/workflows/deploy-pages.yml"
   workflow_dispatch:
 
@@ -23,38 +27,33 @@ jobs:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
-
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
 
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v7
         with:
-          node-version: 22
+          node-version: 24
+          cache: npm
 
-      - name: Validate source
+      - name: Install locked toolchain
+        run: npm ci --ignore-scripts
+
+      - name: Test source and worker
         run: npm test
 
-      - name: Build public artifact
+      - name: Build production artifact
         env:
           TURNSTILE_SITE_KEY: ${{ vars.TURNSTILE_SITE_KEY }}
-        run: |
-          test -n "$TURNSTILE_SITE_KEY"
-          cp -R public _site
-          sed -i "s|__TURNSTILE_SITE_KEY__|$TURNSTILE_SITE_KEY|g" _site/contatti.html
-          ! grep -R "__TURNSTILE_SITE_KEY__" _site
+          MOBILE_PHONE_DISPLAY: ${{ vars.MOBILE_PHONE_DISPLAY }}
+          MOBILE_PHONE_TEL: ${{ vars.MOBILE_PHONE_TEL }}
+        run: npm run build:production
 
-      - name: Verify BIMI file
-        run: |
-          echo "Checking BIMI file..."
-          test -f _site/.well-known/bimi/logo.svg
-          ls -la _site/.well-known/bimi/
+      - name: Validate finished artifact
+        run: npm run validate:dist
 
-      - uses: actions/configure-pages@v5
-
-      - uses: actions/upload-pages-artifact@v3
+      - uses: actions/configure-pages@v6
+      - uses: actions/upload-pages-artifact@v5
         with:
-          path: _site
-          include-hidden-files: true
-
+          path: dist
       - id: deployment
-        uses: actions/deploy-pages@v4
+        uses: actions/deploy-pages@v5
