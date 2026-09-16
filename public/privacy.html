@@ -3,607 +3,150 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-
-  <meta name="description"
-        content="Informativa sul trattamento dei dati personali degli utenti di miniutti.it.">
-
-  <meta http-equiv="Content-Security-Policy"
-        content="default-src 'self'; style-src 'self' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; script-src 'self'; base-uri 'self'; frame-ancestors 'none'; object-src 'none'; upgrade-insecure-requests">
-
-  <title>Privacy | miniutti.it</title>
-
+  <meta name="description" content="Informativa sul trattamento dei dati personali per miniutti.it e per il modulo di contatto.">
+  <meta name="author" content="Tobia Miniutti">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+  <meta name="theme-color" content="#17372f">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="it_IT">
+  <meta property="og:site_name" content="miniutti.it">
+  <meta property="og:title" content="Privacy | Tobia Miniutti">
+  <meta property="og:description" content="Come vengono trattati i dati tecnici di navigazione e i dati inviati dal modulo di contatto.">
+  <meta property="og:url" content="https://miniutti.it/privacy.html">
+  <meta property="og:image" content="https://miniutti.it/assets/images/og-miniutti-garden.webp">
+  <meta property="og:image:alt" content="Un giardino illustrato si apre tra felci, foglie e luce del mattino">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Privacy | Tobia Miniutti">
+  <meta name="twitter:description" content="Informativa privacy di miniutti.it.">
+  <meta name="twitter:image" content="https://miniutti.it/assets/images/og-miniutti-garden.webp">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self'; font-src 'self'; img-src 'self' data:; script-src 'self'; base-uri 'self'; form-action 'self'; object-src 'none'; upgrade-insecure-requests">
+  <title>Privacy | Tobia Miniutti</title>
   <link rel="canonical" href="https://miniutti.it/privacy.html">
-  <link rel="icon" href="assets/images/favicon.png" type="image/png">
-
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600&display=swap"
-        rel="stylesheet">
-
-  <link rel="stylesheet" href="assets/css/site.css">
-  <script src="assets/js/site.js" defer></script>
+  <link rel="icon" href="/assets/images/favicon.png" type="image/png">
+  <link rel="preload" href="/assets/fonts/instrument-serif-latin-400.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/assets/images/garden-distance-desktop.avif" as="image" media="(min-width: 681px)" type="image/avif">
+  <link rel="preload" href="/assets/images/garden-distance-mobile.avif" as="image" media="(max-width: 680px)" type="image/avif">
+  <link rel="stylesheet" href="/assets/css/site.css">
+  <link rel="stylesheet" href="/assets/css/botanical.css">
+  <script src="/assets/js/liquid-glass.js" defer></script>
+  <script src="/assets/js/site.js" defer></script>
 </head>
-
-<body>
+<body class="page-legal">
   <a class="skip-link" href="#contenuto">Vai al contenuto</a>
 
-  <header>
-    <a href="/" aria-label="miniutti.it — Home">
-      <img src="assets/images/favicon.png"
-           alt=""
-           class="logo"
-           width="42"
-           height="42">
-    </a>
-
-    <nav aria-label="Navigazione principale">
-      <a href="/">Home</a>
-      <a href="contatti.html">Contatti</a>
-    </nav>
+  <header class="site-header">
+    <div class="nav-shell">
+      <a class="site-brand" href="/" aria-label="Tobia Miniutti — Homepage">
+        <span class="brand-symbol" aria-hidden="true"><img src="/assets/images/logo-nav.png" alt="" width="96" height="96"></span>
+      </a>
+      <nav class="desktop-nav" aria-label="Navigazione principale"><a href="/#profilo">Profilo</a><a href="/progetti/">Progetti</a><a href="/contatti.html">Contatti</a></nav>
+      <a class="header-contact" href="/contatti.html">Scrivimi</a>
+      <button class="menu-toggle" type="button" aria-label="Apri il menu" aria-haspopup="dialog" aria-controls="mobile-menu"><span></span><span></span></button>
+    </div>
+    <dialog class="mobile-menu" id="mobile-menu" aria-label="Menu di navigazione">
+      <div class="mobile-menu-head"><a class="site-brand" href="/" aria-label="Tobia Miniutti — Homepage"><span class="brand-symbol" aria-hidden="true"><img src="/assets/images/logo-nav.png" alt="" width="96" height="96"></span></a><button class="menu-close" type="button" aria-label="Chiudi il menu">Chiudi</button></div>
+      <nav class="mobile-nav" aria-label="Navigazione mobile"><a href="/">Home</a><a href="/progetti/">Progetti</a><a href="/contatti.html">Contatti</a><a href="/privacy.html" aria-current="page">Privacy</a></nav>
+      <p>Tobia Miniutti · Bologna, Italia</p>
+    </dialog>
   </header>
 
-  <main id="contenuto" class="page-main legal-copy">
-    <h1 class="page-title">Informativa sul trattamento dei dati personali</h1>
-
-    <p><strong>Ultimo aggiornamento:</strong> 16 agosto 2026.</p>
-
-    <p>
-      La presente informativa descrive il trattamento dei dati personali
-      effettuato attraverso il sito
-      <a href="https://miniutti.it/">miniutti.it</a>, con particolare
-      riferimento alla navigazione e all’utilizzo del modulo di contatto,
-      ai sensi degli articoli 12 e 13 del Regolamento (UE) 2016/679
-      (“GDPR”).
-    </p>
-
-    <h2>1. Titolare del trattamento</h2>
-
-    <p>
-      Il titolare del trattamento è <strong>Tobia Miniutti</strong>,
-      Bologna, Italia.
-    </p>
-
-    <p>
-      Per comunicazioni relative alla protezione dei dati personali e per
-      l’esercizio dei diritti descritti nella presente informativa è possibile
-      utilizzare i seguenti recapiti:
-    </p>
-
-    <ul>
-      <li>
-        email:
-        <a href="mailto:privacy@miniutti.it">privacy@miniutti.it</a>;
-      </li>
-      <li>
-        telefono:
-        <a href="tel:+3905119471903">+39 051 1947 1903</a>.
-      </li>
-    </ul>
-
-    <p>
-      Le richieste inviate all’indirizzo dedicato possono ricevere riscontro
-      dall’indirizzo <strong>tobia@miniutti.it</strong>. Eventuali integrazioni
-      o ulteriori documenti relativi alla richiesta devono tuttavia essere
-      trasmessi a
-      <a href="mailto:privacy@miniutti.it">privacy@miniutti.it</a>,
-      indicando nell’oggetto il riferimento alla comunicazione iniziale.
-    </p>
-
-    <p>
-      Non è stato designato un Responsabile della protezione dei dati
-      (“RPD” o “DPO”), non ricorrendone attualmente i presupposti previsti
-      dalla normativa applicabile.
-    </p>
-
-    <h2>2. Ambito di applicazione</h2>
-
-    <p>
-      La presente informativa si applica al sito miniutti.it e ai dati
-      personali trattati attraverso il relativo modulo di contatto.
-      Non si applica ai siti, alle piattaforme o ai servizi di terzi
-      eventualmente raggiungibili mediante collegamenti esterni.
-    </p>
-
-    <h2>3. Categorie di dati trattati</h2>
-
-    <h3>3.1 Dati di navigazione</h3>
-
-    <p>
-      Durante la consultazione del sito, i sistemi informatici e i servizi
-      utilizzati per il suo funzionamento acquisiscono alcuni dati tecnici
-      la cui trasmissione è implicita nell’utilizzo dei protocolli Internet.
-    </p>
-
-    <p>Tali dati possono comprendere:</p>
-
-    <ul>
-      <li>indirizzo IP;</li>
-      <li>data e ora della richiesta;</li>
-      <li>pagina o risorsa richiesta;</li>
-      <li>metodo e protocollo utilizzati;</li>
-      <li>codice di risposta del server;</li>
-      <li>tipo di browser, sistema operativo e dispositivo;</li>
-      <li>informazioni tecniche sulla connessione;</li>
-      <li>identificativi tecnici associati alla richiesta.</li>
-    </ul>
-
-    <p>
-      GitHub Pages, utilizzato per la pubblicazione del sito statico,
-      registra l’indirizzo IP dei visitatori per finalità di sicurezza.
-      Il titolare non utilizza tali dati per identificare direttamente
-      gli utenti o ricostruirne le attività di navigazione.
-    </p>
-
-    <h3>3.2 Dati forniti mediante il modulo di contatto</h3>
-
-    <p>
-      Quando viene utilizzato il modulo di contatto sono raccolti i seguenti
-      dati:
-    </p>
-
-    <ul>
-      <li>nome e cognome;</li>
-      <li>indirizzo email;</li>
-      <li>eventuale organizzazione di appartenenza;</li>
-      <li>categoria della richiesta;</li>
-      <li>contenuto del messaggio;</li>
-      <li>
-        registrazione della dichiarazione di presa visione
-        dell’informativa privacy.
-      </li>
-    </ul>
-
-    <p>
-      I campi contrassegnati come obbligatori sono necessari per inoltrare
-      e gestire correttamente la richiesta. Il loro mancato conferimento
-      impedisce l’utilizzo del modulo.
-    </p>
-
-    <p>
-      La selezione della casella “Ho letto l’informativa privacy” attesta
-      esclusivamente la presa visione della presente informativa e
-      <strong>non costituisce consenso</strong> al trattamento. Il trattamento
-      si fonda sulle basi giuridiche indicate nella sezione successiva.
-    </p>
-
-    <p>
-      Si invita a non inserire nel messaggio dati non necessari o appartenenti
-      a categorie particolari, quali informazioni sulla salute, sull’origine
-      razziale o etnica, sulle opinioni politiche, sulle convinzioni religiose
-      o filosofiche, sulla vita sessuale o sull’orientamento sessuale.
-    </p>
-
-    <h3>3.3 Dati trattati per la sicurezza del modulo</h3>
-
-    <p>
-      Il modulo è protetto mediante Cloudflare Turnstile, un Cloudflare
-      Worker e un sistema di limitazione delle richieste.
-    </p>
-
-    <p>
-      Per verificare la legittimità dell’invio e contrastare spam, richieste
-      automatizzate e altri abusi possono essere trattati:
-    </p>
-
-    <ul>
-      <li>indirizzo IP;</li>
-      <li>data e ora dell’invio;</li>
-      <li>informazioni tecniche sul browser e sul dispositivo;</li>
-      <li>identificativi tecnici della richiesta;</li>
-      <li>esito della verifica Turnstile;</li>
-      <li>esito dell’elaborazione effettuata dal Worker;</li>
-      <li>contatori temporanei utilizzati dal sistema di rate limiting;</li>
-      <li>eventuali codici di errore e dati diagnostici.</li>
-    </ul>
-
-    <p>
-      Il titolare può consultare i log tecnici del Cloudflare Worker per
-      verificare il funzionamento del servizio, individuare errori e
-      contrastare attività anomale. Non è utilizzato Cloudflare Web Analytics.
-    </p>
-
-    <h2>4. Finalità e basi giuridiche</h2>
-
-    <h3>4.1 Erogazione e sicurezza del sito</h3>
-
-    <p>
-      I dati di navigazione e sicurezza sono trattati per rendere disponibile
-      il sito, mantenere operativo il modulo, diagnosticare malfunzionamenti,
-      prevenire spam, attacchi e altri utilizzi abusivi e tutelare l’integrità
-      dei sistemi informatici.
-    </p>
-
-    <p>
-      La base giuridica è il legittimo interesse del titolare alla gestione
-      e alla protezione del sito e dei relativi canali di comunicazione,
-      ai sensi dell’articolo 6, paragrafo 1, lettera f), del GDPR.
-    </p>
-
-    <h3>4.2 Ricezione e gestione delle richieste</h3>
-
-    <p>
-      I dati trasmessi mediante il modulo sono utilizzati per:
-    </p>
-
-    <ul>
-      <li>ricevere e classificare la richiesta;</li>
-      <li>verificarne il contenuto e la pertinenza;</li>
-      <li>inviare una conferma automatica di ricezione;</li>
-      <li>ricontattare l’interessato;</li>
-      <li>fornire le informazioni o il riscontro richiesti;</li>
-      <li>gestire la successiva corrispondenza.</li>
-    </ul>
-
-    <p>
-      Quando la richiesta è diretta alla possibile instaurazione o esecuzione
-      di un rapporto contrattuale, il trattamento è necessario all’esecuzione
-      di misure precontrattuali adottate su richiesta dell’interessato,
-      ai sensi dell’articolo 6, paragrafo 1, lettera b), del GDPR.
-    </p>
-
-    <p>
-      Per le richieste informative, professionali o di altra natura che non
-      rientrano in un’attività precontrattuale, il trattamento si basa sul
-      legittimo interesse del titolare a ricevere e rispondere alle
-      comunicazioni spontaneamente inviate dagli utenti, ai sensi
-      dell’articolo 6, paragrafo 1, lettera f), del GDPR.
-    </p>
-
-    <h3>4.3 Adempimenti legali e tutela dei diritti</h3>
-
-    <p>
-      I dati possono essere ulteriormente trattati quando necessario per
-      adempiere a un obbligo legale, rispondere a richieste delle autorità
-      competenti oppure accertare, esercitare o difendere un diritto.
-    </p>
-
-    <p>
-      Le basi giuridiche sono, rispettivamente, l’articolo 6, paragrafo 1,
-      lettera c), e l’articolo 6, paragrafo 1, lettera f), del GDPR.
-    </p>
-
-    <h2>5. Funzionamento del modulo di contatto</h2>
-
-    <p>
-      L’invio del modulo avviene secondo il seguente flusso:
-    </p>
-
-    <ol>
-      <li>
-        Cloudflare Turnstile verifica che la richiesta non presenti
-        caratteristiche tipiche di un invio automatizzato o abusivo;
-      </li>
-      <li>
-        il Cloudflare Worker riceve la richiesta, applica i controlli di
-        sicurezza e la limitazione degli invii;
-      </li>
-      <li>
-        in caso di esito positivo, il Worker trasmette i dati a Make;
-      </li>
-      <li>
-        Make esegue lo scenario automatizzato e utilizza il server di posta
-        Zoho Mail per inviare le comunicazioni previste;
-      </li>
-      <li>
-        il titolare riceve il contenuto della richiesta;
-      </li>
-      <li>
-        l’utente riceve una conferma automatica contenente esclusivamente
-        l’oggetto della richiesta, il recapito email e il nome indicato.
-      </li>
-    </ol>
-
-    <p>
-      La conferma automatica attesta esclusivamente la ricezione tecnica
-      della comunicazione e non costituisce accettazione di proposte,
-      assunzione di obblighi o definizione della richiesta.
-    </p>
-
-    <h2>6. Modalità del trattamento</h2>
-
-    <p>
-      I dati sono trattati prevalentemente con strumenti informatici e
-      telematici, nel rispetto dei principi di liceità, correttezza,
-      trasparenza, minimizzazione, esattezza, limitazione della conservazione,
-      integrità e riservatezza.
-    </p>
-
-    <p>
-      Sono adottate misure tecniche e organizzative proporzionate ai rischi,
-      comprese la cifratura delle comunicazioni, la limitazione degli accessi,
-      la verifica anti-abuso, il rate limiting e la registrazione degli
-      eventi tecnici necessari alla sicurezza e alla diagnosi degli errori.
-    </p>
-
-    <h2>7. Destinatari e fornitori tecnici</h2>
-
-    <p>
-      I dati possono essere trattati, nei limiti necessari alle rispettive
-      funzioni, dai seguenti fornitori:
-    </p>
-
-    <ul>
-      <li>
-        <strong>Cloudflare</strong>, per Turnstile, il Worker, la limitazione
-        degli invii, i log tecnici e le misure di sicurezza;
-      </li>
-      <li>
-        <strong>GitHub</strong>, per l’hosting e la pubblicazione del sito
-        statico mediante GitHub Pages;
-      </li>
-      <li>
-        <strong>Make</strong>, servizio del gruppo Celonis, per
-        l’automazione e l’inoltro delle richieste;
-      </li>
-      <li>
-        <strong>Zoho Mail</strong>, per l’invio, la ricezione e la
-        conservazione della corrispondenza elettronica;
-      </li>
-      <li>
-        <strong>Google</strong>, per la distribuzione del carattere
-        tipografico Outfit mediante Google Fonts.
-      </li>
-    </ul>
-
-    <p>
-      Quando trattano dati per conto del titolare, i fornitori operano quali
-      responsabili del trattamento ai sensi dell’articolo 28 del GDPR,
-      sulla base delle condizioni contrattuali e degli accordi applicabili.
-      Alcuni fornitori possono trattare determinati dati tecnici anche in
-      qualità di autonomi titolari, secondo le rispettive informative.
-    </p>
-
-    <p>
-      I dati possono inoltre essere comunicati ad autorità pubbliche,
-      autorità giudiziarie, consulenti o altri soggetti quando ciò sia
-      necessario per adempiere a un obbligo di legge o tutelare un diritto.
-    </p>
-
-    <p>
-      I dati non sono venduti, diffusi, utilizzati per newsletter o impiegati
-      per finalità pubblicitarie.
-    </p>
-
-    <h2>8. Trasferimenti verso Paesi terzi</h2>
-
-    <p>
-      L’utilizzo di fornitori internazionali può comportare l’accesso ai dati
-      o il loro trattamento in Paesi esterni allo Spazio economico europeo.
-    </p>
-
-    <p>
-      Quando applicabile, tali trasferimenti avvengono sulla base di una
-      decisione di adeguatezza della Commissione europea, del Data Privacy
-      Framework UE-USA per i soggetti validamente certificati, delle clausole
-      contrattuali standard approvate dalla Commissione europea o di un altro
-      strumento previsto dagli articoli 45 e seguenti del GDPR.
-    </p>
-
-    <p>
-      Cloudflare, Make e Zoho dichiarano di adottare accordi e garanzie
-      contrattuali per disciplinare i trasferimenti internazionali.
-      Ulteriori informazioni sulle garanzie applicabili possono essere
-      richieste scrivendo a
-      <a href="mailto:privacy@miniutti.it">privacy@miniutti.it</a>.
-    </p>
-
-    <h2>9. Periodi di conservazione</h2>
-
-    <p>I dati sono conservati secondo i seguenti criteri:</p>
-
-    <ul>
-      <li>
-        <strong>richieste e corrispondenza:</strong> per il tempo necessario
-        alla gestione della comunicazione e, di norma, per non oltre
-        12 mesi dalla conclusione del contatto;
-      </li>
-      <li>
-        <strong>cronologia delle esecuzioni Make:</strong> per 30 giorni,
-        secondo la configurazione attualmente applicata;
-      </li>
-      <li>
-        <strong>log del Cloudflare Worker:</strong> per il periodo previsto
-        dalla configurazione tecnica del servizio e comunque limitatamente
-        a quanto necessario per sicurezza, diagnosi degli errori e
-        prevenzione degli abusi;
-      </li>
-      <li>
-        <strong>contatori di rate limiting:</strong> per il periodo
-        strettamente necessario all’applicazione del limite temporaneo
-        degli invii;
-      </li>
-      <li>
-        <strong>dati conservati in Zoho Mail:</strong> per il periodo
-        necessario alla gestione della richiesta, nel rispetto del limite
-        ordinario di 12 mesi dalla conclusione del contatto; i messaggi
-        eliminati possono permanere nel cestino o nei sistemi di recupero
-        tecnico per gli ulteriori periodi previsti dal servizio;
-      </li>
-      <li>
-        <strong>dati relativi a obblighi o controversie:</strong> per il
-        periodo richiesto dalla legge o necessario alla tutela dei diritti
-        del titolare.
-      </li>
-    </ul>
-
-    <p>
-      Decorso il periodo applicabile, i dati sono cancellati o resi anonimi,
-      salvo che un obbligo di legge o la necessità di tutelare un diritto ne
-      richiedano l’ulteriore conservazione.
-    </p>
-
-    <h2>10. Google Fonts</h2>
-
-    <p>
-      Il sito utilizza il carattere tipografico Outfit, caricato dai server
-      di Google Fonts. Quando una pagina viene visualizzata, il browser
-
-      stabilisce una connessione con i server di Google per scaricare i file
-      necessari alla corretta rappresentazione grafica del testo.
-    </p>
-
-    <p>
-      Tale collegamento comporta la trasmissione a Google di dati tecnici,
-      tra cui l’indirizzo IP, informazioni sul browser e i dati normalmente
-      inclusi nelle richieste di rete.
-    </p>
-
-    <p>
-      Il trattamento è effettuato per garantire una presentazione coerente
-      e leggibile del sito e si basa sul legittimo interesse del titolare
-      alla corretta rappresentazione grafica delle pagine, ai sensi
-      dell’articolo 6, paragrafo 1, lettera f), del GDPR.
-    </p>
-
-    <h2>11. Cookie e tecnologie analoghe</h2>
-
-    <p>
-      miniutti.it non utilizza direttamente cookie di profilazione,
-      pubblicità comportamentale o piattaforme di analisi delle visite.
-    </p>
-
-    <p>
-      Cloudflare Turnstile e i sistemi di sicurezza possono utilizzare
-      identificativi o tecnologie strettamente necessari per distinguere
-      il traffico legittimo da richieste automatizzate o abusive e per
-      proteggere il modulo.
-    </p>
-
-    <p>
-      Tali strumenti non sono utilizzati dal titolare per tracciare gli
-      utenti a fini commerciali o costruire profili individuali.
-    </p>
-
-    <h2>12. Decisioni automatizzate e profilazione</h2>
-
-    <p>
-      I dati non sono sottoposti a profilazione né utilizzati per decisioni
-      basate unicamente su trattamenti automatizzati che producano effetti
-      giuridici o incidano in modo analogo significativamente sull’interessato.
-    </p>
-
-    <p>
-      I sistemi anti-abuso possono impedire automaticamente l’invio di
-      richieste considerate anomale, ripetute o tecnicamente non valide.
-      Tale controllo riguarda esclusivamente la sicurezza del modulo e non
-      comporta valutazioni personali o commerciali dell’utente.
-    </p>
-
-    <h2>13. Diritti dell’interessato</h2>
-
-    <p>
-      Nei casi previsti dagli articoli 15–22 del GDPR, l’interessato può
-      chiedere:
-    </p>
-
-    <ul>
-      <li>la conferma dell’esistenza di un trattamento dei propri dati;</li>
-      <li>l’accesso ai dati e alle informazioni sul trattamento;</li>
-      <li>la rettifica dei dati inesatti o la loro integrazione;</li>
-      <li>la cancellazione dei dati;</li>
-      <li>la limitazione del trattamento;</li>
-      <li>la portabilità dei dati, quando applicabile;</li>
-      <li>
-        di opporsi, per motivi connessi alla propria situazione particolare,
-        ai trattamenti basati sul legittimo interesse;
-      </li>
-      <li>
-        di non essere sottoposto a decisioni unicamente automatizzate,
-        nei casi previsti dalla legge.
-      </li>
-    </ul>
-
-    <p>
-      I diritti possono essere esercitati gratuitamente scrivendo a
-      <a href="mailto:privacy@miniutti.it">privacy@miniutti.it</a>.
-    </p>
-
-    <p>
-      Il titolare può richiedere le informazioni ragionevolmente necessarie
-      per verificare l’identità del richiedente e impedire comunicazioni o
-      cancellazioni non autorizzate.
-    </p>
-
-    <p>
-      La richiesta viene gestita senza ingiustificato ritardo e, di norma,
-      entro un mese dal ricevimento. Nei casi previsti dal GDPR, il termine
-      può essere prorogato di ulteriori due mesi, tenuto conto della
-      complessità e del numero delle richieste. L’interessato viene informato
-      della proroga e dei relativi motivi entro il termine iniziale di un mese.
-    </p>
-
-    <h2>14. Reclamo all’autorità di controllo</h2>
-
-    <p>
-      L’interessato che ritenga che il trattamento dei propri dati violi la
-      normativa applicabile può proporre reclamo al
-      <a href="https://www.garanteprivacy.it/"
-         target="_blank"
-         rel="noopener noreferrer">
-        Garante per la protezione dei dati personali
-      </a>
-      oppure all’autorità di controllo competente nello Stato membro
-      dell’Unione europea in cui risiede abitualmente, lavora o in cui
-      si sarebbe verificata la presunta violazione.
-    </p>
-
-    <h2>15. Collegamenti esterni</h2>
-
-    <p>
-      Il sito può contenere collegamenti a siti o servizi gestiti da soggetti
-      terzi. Il titolare non controlla i trattamenti effettuati attraverso
-      tali servizi, ai quali si applicano le rispettive informative privacy.
-    </p>
-
-    <h2>16. Modifiche all’informativa</h2>
-
-    <p>
-      La presente informativa può essere aggiornata per riflettere modifiche
-      normative, tecniche o organizzative. La versione vigente è pubblicata
-      in questa pagina con l’indicazione della data dell’ultimo aggiornamento.
-    </p>
+  <main id="contenuto">
+    <header class="legal-hero">
+      <p class="eyebrow">Informativa privacy</p>
+      <h1>Dati essenziali,<br>finalità chiare.</h1>
+      <p>Questa informativa descrive i trattamenti collegati alla visita del sito e all’uso del modulo di contatto. Ultimo aggiornamento: 15 settembre 2026.</p>
+    </header>
+
+    <article class="legal-copy">
+      <div class="legal-summary">
+        <p>Il sito non integra strumenti proprietari di profilazione, pubblicità o analytics. Il modulo raccoglie solo i dati necessari a gestire la richiesta e usa Cloudflare Turnstile per limitare gli invii automatizzati.</p>
+      </div>
+
+      <nav class="legal-index" aria-label="Indice dell’informativa">
+        <a href="#titolare">Titolare</a><a href="#dati">Dati trattati</a><a href="#finalita">Finalità</a><a href="#servizi">Servizi</a><a href="#conservazione">Conservazione</a><a href="#diritti">Diritti</a>
+      </nav>
+
+      <section id="titolare">
+        <h2>1. Titolare e contatti</h2>
+        <p>Il titolare del trattamento è <strong>Tobia Miniutti</strong>, con riferimento operativo a Bologna, Italia.</p>
+        <ul>
+          <li>Email generale: <a href="mailto:tobia@miniutti.it">tobia@miniutti.it</a></li>
+          <li>Richieste privacy: <a href="mailto:privacy@miniutti.it">privacy@miniutti.it</a></li>
+          <li>Telefono: <a href="tel:+3905119471903">+39 051 1947 1903</a></li>
+        </ul>
+      </section>
+
+      <section id="dati">
+        <h2>2. Quali dati vengono trattati</h2>
+        <h3>Navigazione</h3>
+        <p>I sistemi che distribuiscono e proteggono il sito possono trattare indirizzo IP, data e ora, URL richiesto, intestazioni HTTP, identificativi tecnici e informazioni necessarie a sicurezza, instradamento e diagnosi.</p>
+        <h3>Modulo di contatto</h3>
+        <p>Quando invii il modulo vengono trattati nome, email, eventuale organizzazione, argomento, testo del messaggio, conferma di lettura dell’informativa, token anti-spam e metadati tecnici della richiesta. Il campo organizzazione è facoltativo.</p>
+        <p>Non inserire dati particolari o sensibili se non sono strettamente necessari.</p>
+      </section>
+
+      <section id="finalita">
+        <h2>3. Finalità e basi giuridiche</h2>
+        <ul>
+          <li><strong>Rispondere e valutare la richiesta:</strong> esecuzione di misure precontrattuali richieste dall’interessato oppure legittimo interesse a gestire le comunicazioni ricevute, secondo il contenuto del messaggio.</li>
+          <li><strong>Sicurezza e prevenzione degli abusi:</strong> legittimo interesse a proteggere sito, modulo e infrastruttura da invii automatizzati o dannosi.</li>
+          <li><strong>Obblighi e tutela:</strong> adempimento di obblighi di legge ed eventuale accertamento, esercizio o difesa di diritti.</li>
+        </ul>
+        <p>Il conferimento dei campi obbligatori è necessario per inviare e gestire la richiesta; senza quei dati il modulo non può completare l’invio.</p>
+      </section>
+
+      <section id="servizi">
+        <h2>4. Servizi e categorie di destinatari</h2>
+        <p>Il trattamento può coinvolgere fornitori che operano come responsabili o autonomi titolari secondo il servizio reso:</p>
+        <ul>
+          <li><strong>GitHub Pages</strong>, per l’hosting dei file statici del sito;</li>
+          <li><strong>Cloudflare</strong>, per rete, protezione, Turnstile e Worker che valida il modulo;</li>
+          <li><strong>Make</strong>, per automatizzare l’inoltro della richiesta;</li>
+          <li>il fornitore della casella email usata per ricevere e rispondere ai messaggi.</li>
+        </ul>
+        <p>I dati non vengono venduti. Possono essere comunicati ad autorità o consulenti quando necessario per obblighi di legge o tutela di diritti.</p>
+        <h3>Trasferimenti fuori dallo Spazio economico europeo</h3>
+        <p>Alcuni fornitori possono trattare dati anche in Paesi esterni allo Spazio economico europeo. In tali casi il trasferimento avviene secondo le condizioni e le garanzie applicate dal relativo fornitore, come decisioni di adeguatezza o clausole contrattuali standard quando richieste.</p>
+      </section>
+
+      <section id="strumenti">
+        <h2>5. Cookie e memoria del browser</h2>
+        <p>miniutti.it non installa direttamente cookie pubblicitari e non integra analytics proprietari. Cloudflare Turnstile può usare segnali e meccanismi tecnici necessari a distinguere persone e sistemi automatizzati; non riceve il contenuto dei campi del modulo tramite questa integrazione.</p>
+        <p>Dopo un invio accettato, il sito salva in <code>sessionStorage</code> soltanto un timestamp tecnico, senza nome, email o messaggio. Serve a mostrare una conferma prudente, viene rimosso all’apertura della pagina di conferma e comunque termina con la sessione del browser.</p>
+      </section>
+
+      <section id="conservazione">
+        <h2>6. Conservazione</h2>
+        <p>I messaggi vengono conservati per il tempo necessario a rispondere, valutare la richiesta e gestire l’eventuale rapporto che ne deriva. Possono essere mantenuti più a lungo quando necessario per obblighi di legge, contabilità o tutela di diritti. I log tecnici e i dati trattati dai fornitori seguono i rispettivi tempi di conservazione.</p>
+      </section>
+
+      <section id="decisioni">
+        <h2>7. Decisioni automatizzate</h2>
+        <p>Non sono svolte attività di profilazione né decisioni automatizzate con effetti giuridici o analogamente significativi. Turnstile effettua una valutazione automatica di sicurezza che può consentire o rifiutare il singolo invio del modulo.</p>
+      </section>
+
+      <section id="diritti">
+        <h2>8. Diritti e reclamo</h2>
+        <p>Nei casi previsti dal Regolamento (UE) 2016/679 puoi chiedere accesso, rettifica, cancellazione, limitazione, portabilità e opposizione al trattamento, oltre a revocare un consenso senza pregiudicare i trattamenti già effettuati. Scrivi a <a href="mailto:privacy@miniutti.it">privacy@miniutti.it</a>.</p>
+        <p>Puoi inoltre proporre reclamo al <a href="https://www.garanteprivacy.it/home/diritti/come-agire-per-tutelare-i-tuoi-dati-personali">Garante per la protezione dei dati personali</a> o rivolgerti all’autorità giudiziaria.</p>
+      </section>
+
+      <section id="aggiornamenti">
+        <h2>9. Aggiornamenti</h2>
+        <p>L’informativa può essere aggiornata quando cambiano servizi o trattamenti. La data in apertura identifica la versione pubblicata.</p>
+      </section>
+    </article>
   </main>
 
-  <footer>
-    <div class="footer-col footer-identity">
-      <p class="footer-kicker">miniutti.it</p>
-      <h2>Tobia Miniutti</h2>
-      <p>Web Solutions | Digital Media</p>
-      <p>Bologna, Italia</p>
+  <footer class="site-footer">
+    <div class="footer-grid">
+      <div class="footer-brand"><span class="brand-symbol" aria-hidden="true"><img src="/assets/images/logo-nav.png" alt="" width="96" height="96" loading="lazy"></span><h2>Tobia Miniutti</h2><p>Siti web, sistemi digitali e automazioni.</p></div>
+      <nav class="footer-nav" aria-label="Link nel piè di pagina"><span>Indice</span><a href="/">Home</a><a href="/progetti/">Progetti</a><a href="/contatti.html">Contatti</a><a href="/privacy.html" aria-current="page">Privacy</a></nav>
+      <div class="footer-contact"><span>Contatti diretti</span><a href="mailto:tobia@miniutti.it">tobia@miniutti.it</a><a href="tel:+3905119471903">+39 051 1947 1903</a><!-- MOBILE_PHONE_LINK --><p>Bologna, Italia</p></div>
     </div>
-
-    <div class="footer-col">
-      <h2>Link rapidi</h2>
-      <ul>
-        <li><a href="/">Home</a></li>
-        <li><a href="contatti.html">Contatti</a></li>
-        <li><a href="privacy.html" aria-current="page">Privacy</a></li>
-      </ul>
-    </div>
-
-    <div class="footer-col">
-      <h2>Contatti</h2>
-      <ul class="footer-contact-list">
-        <li>
-          <span>Email</span>
-          <a href="mailto:tobia@miniutti.it">tobia@miniutti.it</a>
-        </li>
-        <li>
-          <span>Cellulare</span>
-          <a href="tel:__MOBILE_PHONE_TEL__">__MOBILE_PHONE_DISPLAY__</a>
-        </li>
-        <li>
-          <span>Fisso</span>
-          <a href="tel:+3905119471903">+39 051 1947 1903</a>
-        </li>
-      </ul>
-    </div>
-
-    <div class="footer-bottom">
-      © <span data-current-year>2026</span> Tobia Miniutti ·
-      miniutti.it — Tutti i diritti riservati
-    </div>
+    <div class="footer-bottom"><span>© <span data-current-year>2026</span> Tobia Miniutti</span><span>miniutti.it · Tutti i diritti riservati</span></div>
   </footer>
 </body>
 </html>

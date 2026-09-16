@@ -1,10 +1,23 @@
 {
   "name": "miniutti-it",
-  "version": "3.0.0",
+  "version": "4.1.0",
   "private": true,
   "type": "module",
   "scripts": {
-    "test": "node scripts/validate-site.mjs && node --test cloudflare-worker/test/*.test.js"
+    "generate:projects": "node scripts/render-project-pages.mjs public",
+    "build": "node scripts/build-site.mjs",
+    "build:production": "node scripts/build-site.mjs --production",
+    "validate:source": "node scripts/validate-site.mjs public",
+    "validate:dist": "node scripts/validate-site.mjs dist",
+    "test:unit": "node --test test/*.test.mjs cloudflare-worker/test/*.test.js",
+    "test:syntax": "node --check public/assets/js/site.js && node --check public/assets/js/liquid-glass.js && node --check public/assets/js/contact.js && node --check public/assets/js/confirmation.js && node --check scripts/build-site.mjs && node --check scripts/render-project-pages.mjs && node --check scripts/project-screenshots.mjs && node --check scripts/serve-site.mjs && node --check scripts/validate-site.mjs && node --check scripts/browser-qa.mjs && node --check scripts/capture-refinement-evidence.mjs && node --check scripts/run-lighthouse-matrix.mjs",
+    "test": "node scripts/validate-site.mjs public && node --test test/*.test.mjs cloudflare-worker/test/*.test.js && node --check public/assets/js/site.js && node --check public/assets/js/liquid-glass.js && node --check public/assets/js/contact.js && node --check public/assets/js/confirmation.js && node --check scripts/build-site.mjs && node --check scripts/render-project-pages.mjs && node --check scripts/project-screenshots.mjs && node --check scripts/serve-site.mjs && node --check scripts/validate-site.mjs && node --check scripts/browser-qa.mjs && node --check scripts/capture-refinement-evidence.mjs && node --check scripts/run-lighthouse-matrix.mjs",
+    "check": "node scripts/build-site.mjs && node scripts/validate-site.mjs dist && node --test test/*.test.mjs cloudflare-worker/test/*.test.js && node --check public/assets/js/site.js && node --check public/assets/js/liquid-glass.js && node --check public/assets/js/contact.js && node --check public/assets/js/confirmation.js && node --check scripts/build-site.mjs && node --check scripts/render-project-pages.mjs && node --check scripts/project-screenshots.mjs && node --check scripts/serve-site.mjs && node --check scripts/validate-site.mjs && node --check scripts/browser-qa.mjs && node --check scripts/capture-refinement-evidence.mjs && node --check scripts/run-lighthouse-matrix.mjs",
+    "preview": "node scripts/serve-site.mjs dist",
+    "report:budgets": "node scripts/report-budgets.mjs dist",
+    "browser:qa": "node scripts/browser-qa.mjs",
+    "evidence:capture": "node scripts/capture-refinement-evidence.mjs",
+    "audit:lighthouse": "node scripts/run-lighthouse-matrix.mjs"
   },
   "engines": {
     "node": ">=22"

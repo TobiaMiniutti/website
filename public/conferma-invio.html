@@ -3,33 +3,51 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="robots" content="noindex, nofollow">
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; script-src 'self'; base-uri 'self'; frame-ancestors 'none'; object-src 'none'; upgrade-insecure-requests">
-  <title>Messaggio inviato | miniutti.it</title>
-  <link rel="icon" href="assets/images/favicon.png" type="image/png">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="assets/css/site.css">
-  <script src="assets/js/site.js" defer></script>
+  <meta name="description" content="Stato della richiesta inviata dal modulo di contatto di miniutti.it.">
+  <meta name="robots" content="noindex, follow">
+  <meta name="referrer" content="no-referrer">
+  <meta name="theme-color" content="#17372f">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self'; font-src 'self'; img-src 'self' data:; script-src 'self'; base-uri 'self'; form-action 'self'; object-src 'none'; upgrade-insecure-requests">
+  <title>Stato invio | Tobia Miniutti</title>
+  <link rel="icon" href="/assets/images/favicon.png" type="image/png">
+  <link rel="preload" href="/assets/fonts/instrument-serif-latin-400.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="/assets/css/site.css">
+  <link rel="stylesheet" href="/assets/css/botanical.css">
+  <script src="/assets/js/liquid-glass.js" defer></script>
+  <script src="/assets/js/site.js" defer></script>
+  <script src="/assets/js/confirmation.js" defer></script>
 </head>
-<body>
-  <header>
-    <a href="/" aria-label="miniutti.it — Home"><img src="assets/images/favicon.png" alt="" class="logo" width="42" height="42"></a>
-    <nav aria-label="Navigazione principale"><a href="/">Home</a><a href="contatti.html">Contatti</a></nav>
+<body class="page-status">
+  <a class="skip-link" href="#contenuto">Vai al contenuto</a>
+
+  <header class="site-header">
+    <div class="nav-shell">
+      <a class="site-brand" href="/" aria-label="Tobia Miniutti — Homepage">
+        <span class="brand-symbol" aria-hidden="true"><img src="/assets/images/logo-nav.png" alt="" width="96" height="96"></span>
+      </a>
+      <nav class="desktop-nav" aria-label="Navigazione principale"><a href="/">Home</a><a href="/progetti/">Progetti</a><a href="/contatti.html">Contatti</a></nav>
+      <a class="header-contact" href="mailto:tobia@miniutti.it">Email diretta</a>
+      <button class="menu-toggle" type="button" aria-label="Apri il menu" aria-haspopup="dialog" aria-controls="mobile-menu"><span></span><span></span></button>
+    </div>
+    <dialog class="mobile-menu" id="mobile-menu" aria-label="Menu di navigazione">
+      <div class="mobile-menu-head"><a class="site-brand" href="/" aria-label="Tobia Miniutti — Homepage"><span class="brand-symbol" aria-hidden="true"><img src="/assets/images/logo-nav.png" alt="" width="96" height="96"></span></a><button class="menu-close" type="button" aria-label="Chiudi il menu">Chiudi</button></div>
+      <nav class="mobile-nav" aria-label="Navigazione mobile"><a href="/">Home</a><a href="/progetti/">Progetti</a><a href="/contatti.html">Contatti</a></nav>
+      <p>Tobia Miniutti · Bologna, Italia</p>
+    </dialog>
   </header>
-  <main class="page-main">
-    <section class="section center-card">
-      <h1>Messaggio inviato</h1>
-      <p>La richiesta è stata ricevuta correttamente. Riceverai una risposta all’indirizzo email indicato.</p>
-      <a class="btn" href="/">Torna alla Home</a>
-    </section>
+
+  <main class="status-page" id="contenuto" aria-live="polite">
+    <p class="status-code" id="confirmation-kicker">Stato dell’invio</p>
+    <h1 id="confirmation-title">Nessuna conferma disponibile.</h1>
+    <p id="confirmation-copy">Questa pagina, aperta direttamente, non permette di verificare un invio. Puoi tornare al modulo o scrivere via email.</p>
+    <div class="status-actions">
+      <a class="button button-light" href="/contatti.html">Torna ai contatti</a>
+      <a class="text-link text-link-light" href="mailto:tobia@miniutti.it">tobia@miniutti.it <span aria-hidden="true">↗</span></a>
+    </div>
   </main>
-  <footer>
-    <div class="footer-col footer-identity"><p class="footer-kicker">miniutti.it</p><h2>Tobia Miniutti</h2><p>Web Solutions | Digital Media</p><p>Bologna, Italia</p></div>
-    <div class="footer-col"><h2>Link rapidi</h2><ul><li><a href="/">Home</a></li><li><a href="contatti.html">Contatti</a></li><li><a href="privacy.html">Privacy</a></li></ul></div>
-    <div class="footer-col"><h2>Contatti</h2><ul class="footer-contact-list"><li><span>Email</span><a href="mailto:tobia@miniutti.it">tobia@miniutti.it</a></li><li><span>Cellulare</span><a href="tel:__MOBILE_PHONE_TEL__">__MOBILE_PHONE_DISPLAY__</a></li><li><span>Fisso</span><a href="tel:+3905119471903">+39 051 1947 1903</a></li></ul></div>
-    <div class="footer-bottom">© <span data-current-year>2026</span> Tobia Miniutti · miniutti.it — Tutti i diritti riservati</div>
+
+  <footer class="site-footer status-footer">
+    <div class="footer-bottom"><span>© <span data-current-year>2026</span> Tobia Miniutti</span><span><a href="/privacy.html">Privacy</a></span></div>
   </footer>
 </body>
 </html>
