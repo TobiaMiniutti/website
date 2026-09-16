@@ -1,0 +1,1838 @@
+/* Botanical correction — applied after the original structural stylesheet. */
+:root {
+  --forest: #17372f;
+  --forest-deep: #0c2821;
+  --leaf: #426851;
+  --fern: #6f8966;
+  --meadow: #dce6cf;
+  --sky: #dce8e7;
+  --paper: #f6f4eb;
+  --paper-soft: #edf1e5;
+  --violet-soft: #886b8e;
+  --flower: #d8c4d7;
+  --sun: #e9dca5;
+  --ink: #173027;
+  --muted: #50655c;
+  --graphite: var(--forest);
+  --graphite-deep: var(--forest-deep);
+  --pearl: var(--paper-soft);
+  --pearl-bright: var(--paper);
+  --mineral: var(--fern);
+  --gold: #9a7c45;
+  --gold-bright: var(--sun);
+  --violet: #74237c;
+  --line-dark: rgba(23, 55, 47, 0.18);
+  --line-light: rgba(246, 244, 235, 0.28);
+  --error: #a52828;
+  --success: #23603c;
+  color: var(--ink);
+}
+
+html {
+  background: var(--forest-deep);
+  scroll-padding-top: 88px;
+}
+
+body {
+  background: var(--paper);
+  color: var(--ink);
+}
+
+::selection {
+  background: var(--flower);
+  color: var(--forest-deep);
+}
+
+:focus-visible {
+  outline-color: #6f4d79;
+}
+
+.skip-link {
+  border-radius: 999px;
+  color: var(--paper);
+  background: var(--forest-deep);
+}
+
+.site-header {
+  padding: max(12px, env(safe-area-inset-top)) 16px 0;
+  color: var(--forest-deep);
+}
+
+.nav-shell {
+  position: relative;
+  width: min(760px, calc(100vw - 32px));
+  min-height: 62px;
+  padding: 7px 8px 7px 13px;
+  gap: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.62);
+  border-radius: 999px;
+  background: rgba(243, 247, 238, 0.9);
+  box-shadow:
+    0 14px 34px rgba(25, 54, 43, 0.14),
+    inset 0 1px 0 rgba(255, 255, 255, 0.9),
+    inset 0 -1px 0 rgba(33, 74, 58, 0.08);
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  isolation: isolate;
+  transition: background-color 180ms ease, border-color 180ms ease, box-shadow 180ms ease;
+}
+
+.nav-shell::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  inset: 1px 5% auto;
+  height: 44%;
+  border-radius: inherit;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.34), transparent);
+  pointer-events: none;
+}
+
+.site-header.is-scrolled .nav-shell {
+  border-color: rgba(255, 255, 255, 0.72);
+  background: rgba(240, 246, 237, 0.92);
+  box-shadow:
+    0 16px 42px rgba(18, 48, 37, 0.18),
+    inset 0 1px 0 rgba(255, 255, 255, 0.94);
+}
+
+.nav-shell.has-liquid-glass {
+  background: linear-gradient(180deg, rgba(248, 251, 244, 0.5), rgba(226, 238, 224, 0.44));
+}
+
+.nav-shell.glass-frosted,
+.nav-shell.lg-fallback {
+  background: rgba(239, 246, 235, 0.72);
+}
+
+.nav-shell.glass-opaque {
+  background: #eef3e9 !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+.site-brand {
+  color: var(--forest-deep);
+  font-size: 0.92rem;
+  font-weight: 600;
+}
+
+.brand-symbol {
+  width: 36px;
+  height: 36px;
+  overflow: visible;
+  border-radius: 0;
+  background: transparent;
+}
+
+.brand-symbol img {
+  transform: scale(1.28);
+  filter: drop-shadow(0 2px 3px rgba(23, 48, 39, 0.18));
+}
+
+.desktop-nav {
+  gap: 1px;
+}
+
+.desktop-nav a,
+.header-contact {
+  min-height: 44px;
+  padding-inline: 14px;
+  border-radius: 999px;
+  font-size: 0.84rem;
+}
+
+.desktop-nav a {
+  color: rgba(23, 48, 39, 0.76);
+}
+
+.desktop-nav a:hover,
+.desktop-nav a:focus-visible,
+.desktop-nav a[aria-current="page"] {
+  color: var(--forest-deep);
+  background: rgba(255, 255, 255, 0.55);
+}
+
+.header-contact {
+  min-width: 91px;
+  color: var(--paper);
+  background: rgba(18, 57, 45, 0.94);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.18);
+}
+
+.header-contact:hover,
+.header-contact:focus-visible {
+  color: #fff;
+  background: #0e3026;
+}
+
+.menu-toggle {
+  width: 46px;
+  height: 46px;
+  border-radius: 999px;
+  color: var(--paper);
+  background: var(--forest);
+}
+
+.menu-toggle span {
+  background: currentColor;
+}
+
+.mobile-menu {
+  width: min(94vw, 480px);
+  min-height: auto;
+  max-height: calc(100svh - 28px);
+  margin: 14px;
+  padding: 26px;
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  border-radius: 34px;
+  color: var(--forest-deep);
+  background:
+    linear-gradient(145deg, rgba(248, 250, 241, 0.96), rgba(221, 234, 218, 0.96));
+  box-shadow: 0 32px 90px rgba(12, 40, 33, 0.28);
+}
+
+.mobile-menu::backdrop {
+  background: rgba(15, 43, 35, 0.42);
+  backdrop-filter: blur(6px);
+}
+
+.menu-close {
+  border-radius: 999px;
+  color: var(--paper);
+  background: var(--forest);
+}
+
+.mobile-nav a {
+  border-color: var(--line-dark);
+  color: var(--forest-deep);
+}
+
+.mobile-menu > p {
+  color: var(--muted);
+}
+
+.button,
+.form-submit {
+  min-height: 50px;
+  padding-inline: 22px;
+  border: 1px solid rgba(255, 255, 255, 0.62);
+  border-radius: 999px;
+  box-shadow:
+    0 10px 26px rgba(17, 52, 40, 0.12),
+    inset 0 1px 0 rgba(255, 255, 255, 0.65);
+}
+
+.button-light {
+  color: var(--forest-deep);
+  background: rgba(249, 250, 242, 0.8);
+  backdrop-filter: blur(12px) saturate(110%);
+  -webkit-backdrop-filter: blur(12px) saturate(110%);
+}
+
+.button-light:hover,
+.button-light:focus-visible {
+  color: var(--forest-deep);
+  background: rgba(255, 255, 255, 0.94);
+}
+
+.text-link,
+.project-link {
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  color: var(--forest-deep);
+  font-weight: 500;
+  text-decoration: none;
+}
+
+.text-link span,
+.project-link span {
+  transition: transform 240ms var(--ease-out);
+}
+
+.text-link:hover span,
+.text-link:focus-visible span,
+.project-link:hover span,
+.project-link:focus-visible span {
+  transform: translate(3px, -3px);
+}
+
+.garden-hero {
+  min-height: max(780px, 100svh);
+  overflow: hidden;
+  isolation: isolate;
+  color: var(--forest-deep);
+  background: var(--sky);
+}
+
+.garden-scene {
+  position: absolute;
+  z-index: -2;
+  inset: -28px;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.garden-layer,
+.garden-layer img,
+.garden-light {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.garden-layer {
+  --camera-scale: 1;
+  --camera-x: 0px;
+  --camera-y: 0px;
+  --pointer-x: 0px;
+  --pointer-y: 0px;
+  transform: translate3d(
+    calc(var(--camera-x) + var(--pointer-x)),
+    calc(var(--camera-y) + var(--pointer-y)),
+    0
+  ) scale(var(--camera-scale));
+  transform-origin: var(--vanishing-x, 58%) var(--vanishing-y, 61%);
+  backface-visibility: hidden;
+  contain: paint;
+}
+
+.garden-scene[data-camera-mode="immersive"] .garden-layer {
+  will-change: transform;
+}
+
+.garden-layer img {
+  object-fit: cover;
+  object-position: center center;
+}
+
+.garden-distance { z-index: 0; }
+.garden-midground { z-index: 1; }
+.garden-foreground { z-index: 3; }
+
+.garden-light {
+  z-index: 2;
+  background:
+    linear-gradient(90deg, rgba(247, 247, 235, 0.5) 0%, rgba(247, 247, 235, 0.22) 33%, transparent 62%),
+    linear-gradient(180deg, rgba(255, 250, 226, 0.12), transparent 45%, rgba(20, 55, 43, 0.08));
+}
+
+.garden-hero .hero-layout {
+  min-height: max(780px, 100svh);
+  max-width: 1540px;
+  margin: 0 auto;
+  padding: clamp(132px, 17vh, 188px) clamp(24px, 7vw, 110px) clamp(92px, 12vh, 132px);
+  display: block;
+}
+
+.garden-hero .hero-copy {
+  position: relative;
+  z-index: 1;
+  width: min(690px, 66vw);
+  align-self: auto;
+  text-shadow: 0 1px 16px rgba(245, 247, 233, 0.52);
+}
+
+.garden-hero .hero-context,
+.section-heading > p,
+.projects-heading > p,
+.contact-content > p:first-child {
+  margin: 0;
+  color: #3f6353;
+  font-size: 0.88rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  text-transform: none;
+}
+
+.garden-hero h1 {
+  max-width: 8ch;
+  margin: 20px 0 22px;
+  color: var(--forest-deep);
+  font-size: clamp(6.4rem, 11.6vw, 11.8rem);
+  letter-spacing: -0.066em;
+  line-height: 0.76;
+}
+
+.garden-hero .hero-role {
+  width: fit-content;
+  max-width: 31ch;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  color: var(--forest-deep);
+  background: transparent;
+  box-shadow: none;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  font-size: clamp(1.12rem, 1.7vw, 1.52rem);
+  font-weight: 600;
+  line-height: 1.4;
+  text-shadow:
+    0 1px 2px rgba(246, 244, 235, 0.9),
+    0 3px 14px rgba(246, 244, 235, 0.65);
+}
+
+.garden-hero .hero-actions {
+  margin-top: 31px;
+}
+
+.garden-hero .hero-actions > .text-link {
+  min-height: 50px;
+  padding: 0 22px;
+  border: 1px solid rgba(255, 255, 255, 0.32);
+  border-radius: 999px;
+  color: #fff;
+  background: #17372f;
+  box-shadow:
+    0 12px 28px rgba(12, 40, 33, 0.22),
+    inset 0 1px 0 rgba(255, 255, 255, 0.16);
+  font-weight: 650;
+}
+
+.garden-hero .hero-actions > .text-link:hover,
+.garden-hero .hero-actions > .text-link:focus-visible {
+  color: #fff;
+  background: #0c2821;
+  box-shadow:
+    0 14px 32px rgba(12, 40, 33, 0.26),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.18);
+}
+
+.garden-hero .hero-actions > .text-link:focus-visible {
+  outline: 3px solid #fff;
+  outline-offset: 3px;
+}
+
+.garden-hero .hero-actions > .text-link:active {
+  color: #fff;
+  background: #081f19;
+}
+
+.garden-hero .hero-next {
+  right: clamp(26px, 4vw, 68px);
+  bottom: 28px;
+  color: var(--forest-deep);
+}
+
+.botanical-reading {
+  position: relative;
+  z-index: 4;
+  margin-top: -64px;
+  padding: clamp(116px, 12vw, 178px) clamp(24px, 7vw, 110px) clamp(110px, 12vw, 172px);
+  border-radius: 70px 70px 0 0;
+  background:
+    radial-gradient(circle at 85% 20%, rgba(215, 228, 202, 0.62), transparent 32%),
+    var(--paper);
+  box-shadow: 0 -24px 70px rgba(23, 55, 47, 0.09);
+}
+
+.botanical-reading .profile-body {
+  width: min(1260px, 100%);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: minmax(0, 1.12fr) minmax(300px, 0.72fr);
+  align-items: start;
+  gap: clamp(58px, 10vw, 150px);
+}
+
+.botanical-reading .section-heading {
+  display: block;
+}
+
+.botanical-reading .section-heading h2 {
+  max-width: 12ch;
+  margin: 26px 0 0;
+  color: var(--forest-deep);
+  font-family: var(--display);
+  font-size: clamp(4.15rem, 7vw, 7.2rem);
+  font-weight: 400;
+  letter-spacing: -0.052em;
+  line-height: 0.91;
+}
+
+.botanical-reading .profile-copy {
+  max-width: 570px;
+  padding-top: 66px;
+}
+
+.botanical-reading .profile-copy p {
+  margin: 0;
+  color: var(--muted);
+  font-size: clamp(1.06rem, 1.35vw, 1.24rem);
+  line-height: 1.72;
+}
+
+.botanical-reading .profile-copy p + p {
+  margin-top: 24px;
+}
+
+.botanical-projects {
+  position: relative;
+  padding: clamp(94px, 9vw, 132px) clamp(24px, 6vw, 92px) clamp(104px, 10vw, 146px);
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 10% 0%, rgba(255, 253, 235, 0.8), transparent 30%),
+    radial-gradient(circle at 90% 100%, rgba(112, 142, 102, 0.3), transparent 34%),
+    var(--meadow);
+}
+
+.botanical-projects .projects-heading {
+  width: min(1250px, 100%);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 0.22fr 1fr;
+  gap: 30px;
+  align-items: end;
+}
+
+.botanical-projects .projects-heading > p {
+  grid-column: 1;
+  padding-bottom: 12px;
+}
+
+.botanical-projects .projects-heading h2 {
+  grid-column: 2;
+  margin: 0;
+  max-width: 12ch;
+  color: var(--forest-deep);
+  font-size: clamp(4.6rem, 7.4vw, 7.6rem);
+  letter-spacing: -0.052em;
+  line-height: 0.9;
+}
+
+.project-panels {
+  width: min(1240px, 100%);
+  margin: 58px auto 0;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  align-items: start;
+  gap: 0;
+}
+
+.project-panel {
+  position: relative;
+  min-height: 278px;
+  padding: clamp(26px, 3vw, 38px);
+  display: flex;
+  flex-direction: column;
+  border: 1px solid rgba(255, 255, 255, 0.75);
+  border-radius: 32px;
+  color: var(--forest-deep);
+  background: rgba(250, 249, 241, 0.9);
+  box-shadow:
+    0 24px 56px rgba(33, 68, 53, 0.12),
+    inset 0 1px 0 rgba(255, 255, 255, 0.95);
+  transition: border-color 220ms ease, box-shadow 220ms ease, background-color 220ms ease;
+}
+
+.project-panel:nth-child(1) {
+  z-index: 1;
+  margin-right: -12px;
+  transform: translateY(12px) rotate(-0.6deg);
+}
+
+.project-panel:nth-child(2) {
+  z-index: 3;
+  transform: translateY(-8px);
+}
+
+.project-panel:nth-child(3) {
+  z-index: 2;
+  margin-left: -12px;
+  transform: translateY(10px) rotate(0.6deg);
+}
+
+.project-panel:hover,
+.project-panel:focus-within {
+  border-color: rgba(85, 110, 85, 0.5);
+  background: rgba(255, 254, 247, 0.97);
+  box-shadow:
+    0 30px 62px rgba(31, 66, 51, 0.17),
+    inset 0 1px 0 #fff;
+}
+
+.project-panel h3 {
+  margin: 0;
+  font-family: var(--display);
+  font-size: clamp(2.6rem, 3.8vw, 4.15rem);
+  font-weight: 400;
+  letter-spacing: -0.045em;
+  line-height: 0.96;
+}
+
+.project-panel h3 a {
+  text-decoration: none;
+}
+
+.project-panel > p {
+  margin: 24px 0 25px;
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+.project-panel .project-link {
+  width: fit-content;
+  margin-top: auto;
+  font-size: 0.9rem;
+}
+
+.botanical-projects .all-projects-link {
+  width: min(1240px, 100%);
+  min-height: 62px;
+  margin: 56px auto 0;
+  padding: 0;
+  border-color: rgba(23, 55, 47, 0.22);
+  color: var(--forest-deep);
+}
+
+.botanical-contact {
+  position: relative;
+  min-height: 760px;
+  padding: clamp(100px, 12vw, 170px) clamp(24px, 7vw, 110px);
+  display: grid;
+  align-items: center;
+  overflow: hidden;
+  isolation: isolate;
+  color: var(--forest-deep);
+  background: #cbd9c4;
+}
+
+.contact-garden,
+.contact-foliage,
+.contact-garden img,
+.contact-foliage img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.contact-garden { z-index: -3; }
+.contact-foliage { z-index: -1; opacity: 0.58; transform: translateY(15%); }
+
+.contact-garden img,
+.contact-foliage img {
+  object-fit: cover;
+  object-position: center 63%;
+}
+
+.botanical-contact::before {
+  content: "";
+  position: absolute;
+  z-index: -2;
+  inset: 0;
+  background: linear-gradient(90deg, rgba(239, 243, 225, 0.64), rgba(239, 243, 225, 0.2) 58%, rgba(18, 55, 43, 0.16));
+}
+
+.botanical-contact .contact-content {
+  width: min(680px, 100%);
+  min-height: 0;
+  height: auto;
+  margin: 0;
+  padding: clamp(34px, 5vw, 58px);
+  display: block;
+  align-self: center;
+  justify-self: start;
+  align-items: normal;
+  justify-content: normal;
+  flex-direction: initial;
+  border: 1px solid rgba(255, 255, 255, 0.78);
+  border-radius: 38px;
+  color: var(--forest-deep);
+  background: rgba(247, 247, 237, 0.88);
+  box-shadow:
+    0 28px 70px rgba(20, 55, 43, 0.16),
+    inset 0 1px 0 rgba(255, 255, 255, 0.96);
+}
+
+.botanical-contact .contact-content h2 {
+  margin: 24px 0;
+  color: var(--forest-deep);
+  font-size: clamp(4rem, 6vw, 6.8rem);
+  line-height: 0.88;
+}
+
+.botanical-contact .contact-content > p:not(:first-child) {
+  max-width: 56ch;
+  color: var(--muted);
+  line-height: 1.7;
+}
+
+.botanical-contact .contact-actions {
+  margin-top: 30px;
+}
+
+.site-footer {
+  position: relative;
+  overflow: hidden;
+  color: rgba(246, 244, 235, 0.84);
+  background:
+    linear-gradient(135deg, rgba(12, 40, 33, 0.97), rgba(28, 67, 52, 0.94)),
+    url("../images/garden-foreground-desktop.avif") center 72% / cover no-repeat;
+}
+
+.site-footer::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 82% 0%, rgba(222, 220, 172, 0.14), transparent 34%);
+  pointer-events: none;
+}
+
+.footer-grid,
+.footer-bottom {
+  position: relative;
+}
+
+.footer-brand h2 {
+  color: var(--paper);
+}
+
+.footer-brand p,
+.footer-contact p,
+.footer-nav > span,
+.footer-contact > span {
+  color: rgba(246, 244, 235, 0.62);
+}
+
+.footer-nav a,
+.footer-contact a {
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  color: rgba(255, 255, 255, 0.92);
+}
+
+.footer-bottom {
+  border-color: rgba(246, 244, 235, 0.16);
+}
+
+@supports ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .nav-shell:not(.glass-opaque) {
+    background: rgba(240, 246, 236, 0.66);
+  }
+}
+
+@media (max-width: 1040px) {
+  .botanical-projects .projects-heading {
+    grid-template-columns: 1fr;
+  }
+
+  .botanical-projects .projects-heading > p,
+  .botanical-projects .projects-heading h2 {
+    grid-column: 1;
+  }
+}
+
+@media (max-width: 800px) {
+  .nav-shell {
+    width: min(520px, calc(100vw - 24px));
+    grid-template-columns: 1fr auto;
+  }
+
+  .botanical-reading .profile-body {
+    grid-template-columns: 1fr;
+    gap: 42px;
+  }
+
+  .botanical-reading .profile-copy {
+    max-width: 650px;
+    padding-top: 0;
+  }
+
+  .project-panels {
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+
+  .project-panel {
+    min-height: 0;
+  }
+
+  .project-panel:nth-child(1),
+  .project-panel:nth-child(2),
+  .project-panel:nth-child(3) {
+    margin: 0;
+    transform: none;
+  }
+}
+
+@media (max-width: 680px) {
+  .site-header {
+    padding-inline: 12px;
+  }
+
+  .nav-shell {
+    min-height: 56px;
+    padding: 5px 6px 5px 10px;
+  }
+
+  .brand-symbol {
+    width: 34px;
+    height: 34px;
+  }
+
+  .garden-hero,
+  .garden-hero .hero-layout {
+    min-height: max(760px, 100svh);
+  }
+
+  .garden-scene {
+    inset: -18px;
+  }
+
+  .garden-layer img {
+    object-position: center center;
+  }
+
+  .garden-light {
+    background:
+      linear-gradient(180deg, rgba(249, 248, 231, 0.36), rgba(249, 248, 231, 0.14) 52%, rgba(18, 54, 42, 0.12)),
+      linear-gradient(90deg, rgba(247, 247, 235, 0.32), transparent 74%);
+  }
+
+  .garden-hero .hero-layout {
+    padding: 126px 18px 86px;
+  }
+
+  .garden-hero .hero-copy {
+    width: 100%;
+  }
+
+  .garden-hero h1 {
+    margin-top: 18px;
+    font-size: clamp(4.6rem, 23vw, 7.2rem);
+    line-height: 0.78;
+  }
+
+  .garden-hero .hero-role {
+    max-width: 22ch;
+    font-size: 1.04rem;
+  }
+
+  .garden-hero .hero-actions {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .garden-hero .hero-next {
+    display: none;
+  }
+
+  .botanical-reading {
+    margin-top: -42px;
+    padding: 94px 18px 104px;
+    border-radius: 42px 42px 0 0;
+  }
+
+  .botanical-reading .section-heading h2,
+  .botanical-projects .projects-heading h2 {
+    font-size: clamp(3.5rem, 17vw, 5.2rem);
+  }
+
+  .botanical-reading .profile-copy p {
+    font-size: 1rem;
+  }
+
+  .botanical-projects {
+    padding: 88px 18px 104px;
+  }
+
+  .project-panels {
+    margin-top: 44px;
+  }
+
+  .project-panel {
+    padding: 28px;
+    border-radius: 26px;
+  }
+
+  .project-panel h3 {
+    font-size: clamp(2.8rem, 14vw, 4rem);
+  }
+
+  .botanical-projects .all-projects-link {
+    margin-top: 42px;
+  }
+
+  .botanical-contact {
+    min-height: 720px;
+    padding: 90px 18px;
+  }
+
+  .contact-garden img,
+  .contact-foliage img {
+    object-position: center center;
+  }
+
+  .contact-foliage {
+    opacity: 0.54;
+    transform: translateY(19%);
+  }
+
+  .botanical-contact .contact-content {
+    padding: 30px 24px;
+    border-radius: 30px;
+  }
+
+  .botanical-contact .contact-content h2 {
+    font-size: clamp(3.55rem, 16vw, 5rem);
+  }
+
+  .site-footer {
+    background:
+      linear-gradient(160deg, rgba(12, 40, 33, 0.97), rgba(28, 67, 52, 0.94)),
+      url("../images/garden-foreground-mobile.avif") center bottom / cover no-repeat;
+  }
+}
+
+@media (max-width: 380px) {
+  .garden-hero h1 {
+    font-size: 4.45rem;
+  }
+
+  .project-panel {
+    padding: 24px;
+  }
+}
+
+@media (max-height: 650px) and (orientation: landscape) {
+  .garden-hero,
+  .garden-hero .hero-layout {
+    min-height: 650px;
+  }
+
+  .garden-hero .hero-layout {
+    padding-top: 104px;
+  }
+
+  .garden-hero h1 {
+    font-size: clamp(5rem, 17vh, 7.2rem);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .garden-layer {
+    transform: translate3d(0, 0, 0) scale(1) !important;
+    will-change: auto;
+  }
+}
+
+@media (prefers-reduced-transparency: reduce) {
+  .nav-shell,
+  .button-light,
+  .garden-hero .hero-role,
+  .botanical-contact .contact-content,
+  .project-panel {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+  }
+
+  .nav-shell {
+    background: #eef3e9 !important;
+  }
+
+  .button-light,
+  .garden-hero .hero-role,
+  .botanical-contact .contact-content,
+  .project-panel {
+    background: var(--paper) !important;
+  }
+}
+
+/* Internal pages: the same garden, with quieter surfaces for reading. */
+.page-projects,
+.page-case-study,
+.page-contact,
+.page-legal,
+.page-status {
+  color: var(--ink);
+  background: var(--paper);
+}
+
+.internal-hero,
+.form-intro,
+.legal-hero {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  color: var(--forest-deep);
+  background:
+    linear-gradient(90deg, rgba(244, 246, 231, 0.9) 0%, rgba(244, 246, 231, 0.68) 48%, rgba(221, 232, 213, 0.2) 76%),
+    linear-gradient(180deg, rgba(220, 232, 229, 0.58), rgba(219, 229, 202, 0.36)),
+    url("../images/garden-distance-desktop.webp") center 52% / cover no-repeat;
+}
+
+@supports (background-image: image-set(url("../images/garden-distance-desktop.avif") 1x)) {
+  .internal-hero,
+  .form-intro,
+  .legal-hero {
+    background-image:
+      linear-gradient(90deg, rgba(244, 246, 231, 0.9) 0%, rgba(244, 246, 231, 0.68) 48%, rgba(221, 232, 213, 0.2) 76%),
+      linear-gradient(180deg, rgba(220, 232, 229, 0.58), rgba(219, 229, 202, 0.36)),
+      image-set(
+        url("../images/garden-distance-desktop.avif") type("image/avif") 1x,
+        url("../images/garden-distance-desktop.webp") type("image/webp") 1x
+      );
+  }
+}
+
+.internal-hero::after,
+.form-intro::after,
+.legal-hero::after {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  inset: auto -8% -38% 42%;
+  height: 72%;
+  border-radius: 50%;
+  background: rgba(255, 251, 226, 0.2);
+  filter: blur(32px);
+  pointer-events: none;
+}
+
+.internal-hero {
+  min-height: min(760px, 78svh);
+  padding-top: clamp(164px, 19vh, 218px);
+}
+
+.internal-hero > p:first-child,
+.form-intro > p:first-child,
+.legal-hero > p:first-child,
+.case-hero .eyebrow,
+.case-title > p:first-child,
+.project-category,
+.gallery-heading > p {
+  color: #426553;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  text-transform: none;
+}
+
+.internal-hero h1,
+.form-intro h1,
+.legal-hero h1 {
+  max-width: 12ch;
+  color: var(--forest-deep);
+  font-size: clamp(4.9rem, 9vw, 9.4rem);
+  letter-spacing: -0.058em;
+  line-height: 0.84;
+}
+
+.internal-hero > p:last-child,
+.form-intro > p:last-child,
+.legal-hero > p:last-child {
+  color: #405d50;
+  font-size: clamp(1rem, 1.25vw, 1.16rem);
+}
+
+/* Project archive: deliberately typographic, without invented artwork. */
+.projects-index {
+  padding: clamp(82px, 10vw, 148px) clamp(20px, 6vw, 92px);
+  background:
+    radial-gradient(circle at 94% 8%, rgba(213, 226, 199, 0.74), transparent 30%),
+    radial-gradient(circle at 4% 88%, rgba(218, 231, 230, 0.68), transparent 34%),
+    var(--paper);
+}
+
+.project-row,
+.project-row:nth-child(even) {
+  width: min(100%, 1120px);
+  min-height: 0;
+  margin: 0 auto 20px;
+  padding: clamp(32px, 5vw, 58px);
+  display: block;
+  border: 1px solid rgba(23, 55, 47, 0.13);
+  border-radius: 34px;
+  background: rgba(250, 250, 242, 0.88);
+  box-shadow:
+    0 20px 52px rgba(24, 59, 45, 0.07),
+    inset 0 1px 0 rgba(255, 255, 255, 0.92);
+}
+
+.project-row:first-child {
+  border-top: 1px solid rgba(23, 55, 47, 0.13);
+}
+
+.project-row:nth-child(2) {
+  transform: translateX(clamp(0px, 2.2vw, 26px));
+  background: rgba(239, 244, 229, 0.9);
+}
+
+.project-row:nth-child(3) {
+  background: rgba(241, 244, 238, 0.9);
+}
+
+.project-row .project-copy,
+.project-row:nth-child(even) .project-copy {
+  max-width: 850px;
+  grid-column: auto;
+  grid-row: auto;
+}
+
+.project-category {
+  margin: 0 0 18px;
+  font-size: 0.8rem;
+}
+
+.project-row .project-copy h2 {
+  margin: 0;
+  color: var(--forest-deep);
+  font-size: clamp(3rem, 5.8vw, 6.1rem);
+  line-height: 0.9;
+}
+
+.project-row .project-copy > p:not(.project-category) {
+  max-width: 62ch;
+  margin: 24px 0 22px;
+  color: var(--muted);
+  font-size: clamp(1rem, 1.2vw, 1.12rem);
+  line-height: 1.72;
+}
+
+.projects-index + .next-project,
+.next-project {
+  color: var(--paper);
+  background:
+    radial-gradient(circle at 82% 0%, rgba(141, 166, 119, 0.2), transparent 38%),
+    linear-gradient(135deg, var(--forest-deep), #285541);
+}
+
+.next-project > p {
+  color: #cbd9b8;
+}
+
+.next-project a {
+  border-color: rgba(246, 244, 235, 0.28);
+  color: var(--paper);
+}
+
+/* Case studies: one restrained garden opening, then calm editorial rhythm. */
+.case-study {
+  background: var(--paper);
+}
+
+.case-hero {
+  position: relative;
+  min-height: min(880px, 94svh);
+  padding: clamp(150px, 18vh, 196px) clamp(20px, 7vw, 108px) clamp(78px, 10vh, 112px);
+  display: flex;
+  align-items: flex-end;
+  overflow: hidden;
+  isolation: isolate;
+  color: var(--forest-deep);
+  background: var(--sky);
+}
+
+.case-hero::after {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  background:
+    linear-gradient(90deg, rgba(245, 246, 232, 0.9) 0%, rgba(245, 246, 232, 0.58) 54%, rgba(229, 237, 220, 0.16) 82%),
+    linear-gradient(180deg, rgba(250, 250, 235, 0.06), rgba(26, 65, 50, 0.14));
+  pointer-events: none;
+}
+
+.case-garden,
+.case-garden img {
+  position: absolute;
+  z-index: -2;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.case-garden img {
+  object-fit: cover;
+  object-position: center 58%;
+  transform: scale(1.025);
+}
+
+.case-hero-content {
+  width: min(100%, 1260px);
+  margin: 0 auto;
+}
+
+.case-hero .back-link {
+  margin-bottom: clamp(52px, 8vh, 86px);
+  color: var(--forest-deep);
+}
+
+.case-title {
+  width: min(760px, 74vw);
+}
+
+.case-title h1 {
+  max-width: 11ch;
+  margin: 18px 0 26px;
+  color: var(--forest-deep);
+  font-size: clamp(4.9rem, 9.5vw, 10.2rem);
+  line-height: 0.79;
+  text-shadow: 0 2px 20px rgba(246, 247, 233, 0.45);
+}
+
+.case-title > p:last-child {
+  max-width: 58ch;
+  color: #36584a;
+  font-size: clamp(1.04rem, 1.35vw, 1.22rem);
+  line-height: 1.68;
+}
+
+.case-story {
+  padding: clamp(90px, 11vw, 164px) clamp(20px, 7vw, 108px);
+  background:
+    radial-gradient(circle at 90% 10%, rgba(220, 231, 208, 0.62), transparent 28%),
+    var(--paper);
+}
+
+.case-story > * {
+  width: min(100%, 980px);
+  margin-inline: auto;
+}
+
+.case-section {
+  padding: clamp(56px, 8vw, 104px) 0;
+  border-top: 1px solid rgba(23, 55, 47, 0.15);
+}
+
+.case-section:first-child {
+  padding-top: 0;
+  border-top: 0;
+}
+
+.case-section h2 {
+  max-width: 14ch;
+  margin: 0 0 30px;
+  color: var(--forest-deep);
+  font-family: var(--display);
+  font-size: clamp(3.2rem, 5.5vw, 5.8rem);
+  font-weight: 400;
+  letter-spacing: -0.047em;
+  line-height: 0.92;
+}
+
+.case-section > p,
+.case-section li {
+  max-width: 73ch;
+  color: var(--muted);
+  font-size: clamp(1rem, 1.15vw, 1.1rem);
+  line-height: 1.82;
+}
+
+.case-section > p + p {
+  margin-top: 22px;
+}
+
+.case-actions {
+  padding: clamp(50px, 7vw, 86px) clamp(20px, 7vw, 108px);
+  display: flex;
+  justify-content: center;
+  gap: 14px 26px;
+  flex-wrap: wrap;
+  border-top: 1px solid rgba(23, 55, 47, 0.12);
+  background: var(--paper-soft);
+}
+
+.case-actions .button {
+  border-color: var(--forest);
+  color: var(--paper);
+  background: var(--forest);
+}
+
+.case-actions .button:hover,
+.case-actions .button:focus-visible {
+  background: var(--forest-deep);
+}
+
+/* Screenshot galleries are emitted only when verified files exist. */
+.project-gallery {
+  padding: clamp(88px, 10vw, 146px) clamp(20px, 6vw, 92px);
+  background:
+    radial-gradient(circle at 12% 0%, rgba(255, 252, 226, 0.7), transparent 28%),
+    linear-gradient(150deg, var(--sky), var(--paper-soft));
+}
+
+.gallery-heading,
+.gallery-grid {
+  width: min(100%, 1260px);
+  margin-inline: auto;
+}
+
+.gallery-heading {
+  margin-bottom: clamp(42px, 6vw, 72px);
+}
+
+.gallery-heading h2 {
+  max-width: 12ch;
+  margin: 18px 0 0;
+  color: var(--forest-deep);
+  font-family: var(--display);
+  font-size: clamp(3.8rem, 7vw, 7.1rem);
+  font-weight: 400;
+  letter-spacing: -0.052em;
+  line-height: 0.89;
+}
+
+.gallery-grid {
+  list-style: none;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(22px, 3vw, 38px);
+}
+
+.gallery-item {
+  min-width: 0;
+  padding: 10px 10px 18px;
+  border: 1px solid rgba(23, 55, 47, 0.14);
+  border-radius: 28px;
+  background: rgba(249, 249, 240, 0.88);
+  box-shadow: 0 18px 46px rgba(23, 55, 47, 0.08);
+}
+
+.gallery-open {
+  display: block;
+  overflow: hidden;
+  border-radius: 20px;
+  background: #d6e0d4;
+}
+
+.gallery-open img {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: contain;
+  transition: transform 420ms var(--ease-out), filter 220ms ease;
+}
+
+.gallery-open:hover img,
+.gallery-open:focus-visible img {
+  transform: scale(1.018);
+  filter: saturate(1.04);
+}
+
+.gallery-caption {
+  display: block;
+  margin: 15px 10px 0;
+  color: var(--muted);
+  font-size: 0.82rem;
+  line-height: 1.55;
+}
+
+.gallery-dialog {
+  width: min(94vw, 1440px);
+  max-width: none;
+  max-height: 94svh;
+  margin: auto;
+  padding: 0;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.34);
+  border-radius: 30px;
+  color: var(--paper);
+  background: rgba(12, 40, 33, 0.97);
+  box-shadow: 0 32px 100px rgba(7, 28, 22, 0.42);
+}
+
+.gallery-dialog::backdrop {
+  background: rgba(11, 34, 28, 0.72);
+  backdrop-filter: blur(7px);
+  -webkit-backdrop-filter: blur(7px);
+}
+
+.gallery-dialog-inner {
+  min-height: min(86svh, 900px);
+  padding: 18px;
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr) auto;
+  gap: 14px;
+}
+
+.gallery-close,
+.gallery-controls button,
+.gallery-controls a {
+  min-height: 44px;
+  padding: 0 16px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(246, 244, 235, 0.28);
+  border-radius: 999px;
+  color: var(--paper);
+  background: rgba(246, 244, 235, 0.08);
+  font: inherit;
+  text-decoration: none;
+}
+
+.gallery-close {
+  justify-self: end;
+}
+
+.gallery-stage {
+  min-height: 0;
+  margin: 0;
+  display: grid;
+  grid-template-rows: minmax(0, 1fr) auto;
+  place-items: center;
+  gap: 12px;
+}
+
+.gallery-stage img {
+  width: auto;
+  max-width: 100%;
+  height: auto;
+  max-height: calc(86svh - 150px);
+  object-fit: contain;
+}
+
+.gallery-stage figcaption {
+  color: rgba(246, 244, 235, 0.72);
+  font-size: 0.82rem;
+}
+
+.gallery-controls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.gallery-controls [data-gallery-status] {
+  min-width: 68px;
+  text-align: center;
+  color: rgba(246, 244, 235, 0.66);
+  font-size: 0.78rem;
+}
+
+/* Contact form and privacy: rounded, tactile reading surfaces. */
+.form-intro,
+.legal-hero {
+  min-height: min(700px, 70svh);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding-top: clamp(160px, 19vh, 214px);
+}
+
+.contact-page-layout {
+  position: relative;
+  z-index: 2;
+  margin-top: -42px;
+  padding: clamp(104px, 11vw, 156px) clamp(20px, 7vw, 108px) clamp(92px, 10vw, 148px);
+  border-radius: 52px 52px 0 0;
+  background:
+    radial-gradient(circle at 6% 18%, rgba(219, 232, 205, 0.76), transparent 27%),
+    radial-gradient(circle at 95% 82%, rgba(217, 230, 229, 0.62), transparent 32%),
+    var(--paper);
+  box-shadow: 0 -22px 58px rgba(24, 57, 44, 0.08);
+}
+
+.direct-contact {
+  padding-top: 20px;
+}
+
+.direct-contact h2,
+.contact-form h2 {
+  color: var(--forest-deep);
+}
+
+.direct-contact > p,
+.direct-contact-list span {
+  color: var(--muted);
+}
+
+.direct-contact-list {
+  border-color: rgba(23, 55, 47, 0.18);
+}
+
+.direct-contact-list a,
+.direct-contact-list > p {
+  border-color: rgba(23, 55, 47, 0.15);
+}
+
+.contact-form {
+  padding: clamp(28px, 4vw, 52px);
+  gap: 27px;
+  border: 1px solid rgba(23, 55, 47, 0.15);
+  border-radius: 36px;
+  background: rgba(250, 249, 241, 0.92);
+  box-shadow:
+    0 26px 70px rgba(23, 55, 47, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.94);
+}
+
+input,
+select,
+textarea {
+  border-color: rgba(49, 83, 68, 0.5);
+  border-radius: 15px;
+  color: var(--forest-deep);
+  background: rgba(255, 255, 249, 0.88);
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  border-color: var(--leaf);
+  box-shadow: 0 0 0 4px rgba(90, 126, 90, 0.16);
+  background: #fffef8;
+}
+
+.privacy-check input {
+  accent-color: var(--forest);
+}
+
+.form-submit {
+  border: 1px solid rgba(255, 255, 255, 0.26);
+  color: var(--paper);
+  background: var(--forest);
+}
+
+.form-submit:hover,
+.form-submit:focus-visible {
+  background: var(--forest-deep);
+}
+
+.no-js-note,
+.legal-summary {
+  border-left-color: var(--leaf);
+  background: rgba(111, 137, 102, 0.12);
+}
+
+.legal-copy {
+  max-width: 1060px;
+  padding-top: clamp(88px, 10vw, 138px);
+}
+
+.legal-summary {
+  padding: 28px 30px;
+  border-radius: 0 24px 24px 0;
+  color: var(--muted);
+}
+
+.legal-index {
+  gap: 10px;
+}
+
+.legal-index a {
+  padding-inline: 16px;
+  border-color: rgba(23, 55, 47, 0.2);
+  border-radius: 999px;
+  color: var(--forest-deep);
+  background: var(--paper-soft);
+  text-decoration: none;
+}
+
+.legal-index a:hover,
+.legal-index a:focus-visible {
+  background: var(--meadow);
+}
+
+.legal-copy section {
+  border-color: rgba(23, 55, 47, 0.15);
+}
+
+.legal-copy h2,
+.legal-copy h3 {
+  color: var(--forest-deep);
+}
+
+.legal-copy p,
+.legal-copy li {
+  color: var(--muted);
+}
+
+/* 404 and confirmation share a quiet garden destination. */
+.status-page {
+  position: relative;
+  z-index: 0;
+  overflow: hidden;
+  isolation: isolate;
+  color: var(--forest-deep);
+  background:
+    linear-gradient(180deg, rgba(239, 244, 228, 0.68), rgba(217, 230, 210, 0.48)),
+    url("../images/garden-distance-desktop.webp") center 58% / cover no-repeat;
+}
+
+@supports (background-image: image-set(url("../images/garden-distance-desktop.avif") 1x)) {
+  .status-page {
+    background-image:
+      linear-gradient(180deg, rgba(239, 244, 228, 0.68), rgba(217, 230, 210, 0.48)),
+      image-set(
+        url("../images/garden-distance-desktop.avif") type("image/avif") 1x,
+        url("../images/garden-distance-desktop.webp") type("image/webp") 1x
+      );
+  }
+}
+
+.status-page::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  inset: 13% max(18px, calc(50% - 520px)) 10%;
+  border: 1px solid rgba(255, 255, 255, 0.72);
+  border-radius: 48px;
+  background: rgba(247, 248, 237, 0.78);
+  box-shadow:
+    0 28px 70px rgba(23, 55, 47, 0.12),
+    inset 0 1px 0 rgba(255, 255, 255, 0.92);
+}
+
+.status-code {
+  color: #426553;
+  font-weight: 600;
+}
+
+.status-page h1 {
+  color: var(--forest-deep);
+}
+
+.status-page > p:not(.status-code) {
+  color: var(--muted);
+}
+
+.status-page .text-link-light {
+  color: var(--forest-deep);
+}
+
+.status-page .button-light {
+  border-color: rgba(23, 55, 47, 0.18);
+}
+
+.status-footer {
+  background: var(--forest-deep);
+}
+
+@media (max-width: 1040px) {
+  .project-row:nth-child(2) {
+    transform: none;
+  }
+
+  .case-title {
+    width: min(820px, 86vw);
+  }
+}
+
+@media (max-width: 800px) {
+  .internal-hero,
+  .form-intro,
+  .legal-hero {
+    min-height: min(680px, 72svh);
+  }
+
+  .contact-page-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .direct-contact {
+    max-width: none;
+  }
+
+  .gallery-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 680px) {
+  .internal-hero,
+  .form-intro,
+  .legal-hero {
+    min-height: max(580px, 66svh);
+    padding: 132px 18px 86px;
+    background:
+      linear-gradient(180deg, rgba(244, 246, 231, 0.7), rgba(244, 246, 231, 0.84)),
+      url("../images/garden-distance-mobile.webp") center 55% / cover no-repeat;
+  }
+
+  .internal-hero h1,
+  .form-intro h1,
+  .legal-hero h1 {
+    font-size: clamp(4rem, 19vw, 6rem);
+  }
+
+  .internal-hero > p:last-child {
+    margin-left: 0;
+  }
+
+  .projects-index {
+    padding: 72px 18px 86px;
+  }
+
+  .project-row,
+  .project-row:nth-child(even) {
+    margin-bottom: 14px;
+    padding: 28px 24px;
+    border-radius: 26px;
+  }
+
+  .project-row .project-copy h2 {
+    font-size: clamp(2.9rem, 14vw, 4.4rem);
+  }
+
+  .case-hero {
+    min-height: max(720px, 92svh);
+    padding: 124px 18px 74px;
+  }
+
+  .case-hero::after {
+    background:
+      linear-gradient(180deg, rgba(244, 246, 232, 0.5), rgba(244, 246, 232, 0.84) 62%, rgba(235, 240, 223, 0.92)),
+      linear-gradient(90deg, rgba(245, 246, 232, 0.46), transparent);
+  }
+
+  .case-garden img {
+    object-position: center 52%;
+  }
+
+  .case-hero .back-link {
+    margin-bottom: 52px;
+  }
+
+  .case-title {
+    width: 100%;
+  }
+
+  .case-title h1 {
+    font-size: clamp(4.2rem, 20vw, 6.6rem);
+  }
+
+  .case-story,
+  .project-gallery {
+    padding: 80px 18px;
+  }
+
+  .case-section {
+    padding: 68px 0;
+  }
+
+  .case-section h2,
+  .gallery-heading h2 {
+    font-size: clamp(3.2rem, 15vw, 4.8rem);
+  }
+
+  .gallery-item {
+    padding: 8px 8px 16px;
+    border-radius: 22px;
+  }
+
+  .gallery-open {
+    border-radius: 15px;
+  }
+
+  .gallery-dialog {
+    width: calc(100vw - 16px);
+    max-height: calc(100svh - 16px);
+    border-radius: 22px;
+  }
+
+  .gallery-dialog-inner {
+    min-height: calc(100svh - 18px);
+    padding: 12px;
+  }
+
+  .gallery-stage img {
+    max-height: calc(100svh - 170px);
+  }
+
+  .contact-page-layout {
+    margin-top: -32px;
+    padding: 82px 18px 92px;
+    border-radius: 36px 36px 0 0;
+  }
+
+  .contact-form {
+    padding: 28px 20px;
+    border-radius: 27px;
+  }
+
+  .form-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .field-group-full {
+    grid-column: auto;
+  }
+
+  .direct-contact-list a,
+  .direct-contact-list > p {
+    grid-template-columns: 72px minmax(0, 1fr);
+  }
+
+  .legal-copy {
+    padding: 74px 18px 88px;
+  }
+
+  .legal-summary {
+    padding: 24px 22px;
+  }
+
+  .status-page {
+    padding: 120px 18px 72px;
+    background:
+      linear-gradient(180deg, rgba(239, 244, 228, 0.65), rgba(217, 230, 210, 0.55)),
+      url("../images/garden-distance-mobile.webp") center 56% / cover no-repeat;
+  }
+
+  .status-page::before {
+    inset: 13% 12px 9%;
+    border-radius: 34px;
+  }
+
+  .status-page h1 {
+    font-size: clamp(3.8rem, 19vw, 6rem);
+  }
+}
+
+@media (max-width: 680px) {
+  @supports (background-image: image-set(url("../images/garden-distance-mobile.avif") 1x)) {
+    .internal-hero,
+    .form-intro,
+    .legal-hero {
+      background-image:
+        linear-gradient(180deg, rgba(244, 246, 231, 0.7), rgba(244, 246, 231, 0.84)),
+        image-set(
+          url("../images/garden-distance-mobile.avif") type("image/avif") 1x,
+          url("../images/garden-distance-mobile.webp") type("image/webp") 1x
+        );
+    }
+
+    .status-page {
+      background-image:
+        linear-gradient(180deg, rgba(239, 244, 228, 0.65), rgba(217, 230, 210, 0.55)),
+        image-set(
+          url("../images/garden-distance-mobile.avif") type("image/avif") 1x,
+          url("../images/garden-distance-mobile.webp") type("image/webp") 1x
+        );
+    }
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .gallery-open img,
+  .project-row {
+    transition: none;
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-transparency: reduce) {
+  .project-row,
+  .contact-form,
+  .gallery-item,
+  .status-page::before {
+    background: var(--paper) !important;
+  }
+
+  .gallery-dialog::backdrop {
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+}

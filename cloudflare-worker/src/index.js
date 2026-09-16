@@ -21,29 +21,35 @@ const json = (body, status = 200, extraHeaders = {}) => new Response(JSON.string
   },
 });
 
-const normalized = (value, maxLength) => typeof value === "string" ? value.trim().slice(0, maxLength) : "";
+const normalized = (value) => typeof value === "string" ? value.trim() : "";
+const withinLimit = (value, maxLength) => value.length <= maxLength;
 const isEmail = (value) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value) && value.length <= 254;
 
 export function validatePayload(input) {
   if (!input || typeof input !== "object" || Array.isArray(input)) return null;
 
   const payload = {
-    name: normalized(input.name, 100),
-    email: normalized(input.email, 254).toLowerCase(),
-    organization: normalized(input.organization, 120),
-    subject: normalized(input.subject, 40),
-    message: normalized(input.message, 4000),
+    name: normalized(input.name),
+    email: normalized(input.email).toLowerCase(),
+    organization: normalized(input.organization),
+    subject: normalized(input.subject),
+    message: normalized(input.message),
     privacyAccepted: input.privacyAccepted === true,
-    turnstileToken: normalized(input.turnstileToken, 2048),
+    turnstileToken: normalized(input.turnstileToken),
   };
 
   if (
     payload.name.length < 2 ||
+    !withinLimit(payload.name, 100) ||
     !isEmail(payload.email) ||
+    !withinLimit(payload.organization, 120) ||
+    !withinLimit(payload.subject, 40) ||
     !ALLOWED_SUBJECTS.has(payload.subject) ||
     payload.message.length < 10 ||
+    !withinLimit(payload.message, 4000) ||
     !payload.privacyAccepted ||
-    !payload.turnstileToken
+    !payload.turnstileToken ||
+    !withinLimit(payload.turnstileToken, 2048)
   ) return null;
 
   return payload;
@@ -79,7 +85,11 @@ async function verifyTurnstile(token, request, env) {
   return result.success === true && result.action === "contact" && acceptedHostnames.includes(result.hostname);
 }
 
-async function forwardMessage(payload, request, env) {
+export function isTemporaryForwardFailure(status) {
+  return status === 408 || status === 425 || status === 429 || (status >= 500 && status <= 599);
+}
+
+export async function forwardMessage(payload, request, env) {
   const requestId = request.headers.get("CF-Ray") || crypto.randomUUID();
   const body = JSON.stringify({
     name: payload.name,
@@ -104,7 +114,9 @@ async function forwardMessage(payload, request, env) {
         signal: AbortSignal.timeout(8_000),
       });
       if (response.ok) return true;
-      console.warn("Contact forwarding rejected", { requestId, attempt, status: response.status });
+      const retryable = isTemporaryForwardFailure(response.status);
+      console.warn("Contact forwarding rejected", { requestId, attempt, status: response.status, retryable });
+      if (!retryable) return false;
     } catch (error) {
       console.warn("Contact forwarding failed", {
         requestId,
@@ -155,7 +167,7 @@ export default {
 
     // I bot più semplici compilano il campo invisibile: restituiamo una risposta
     // indistinguibile da un invio valido senza inoltrare alcun dato.
-    if (normalized(input?.website, 200)) return json({ ok: true }, 202);
+    if (normalized(input?.website)) return json({ ok: true }, 202);
 
     const payload = validatePayload(input);
     if (!payload) return json({ error: "Controlla i dati inseriti e riprova." }, 422);

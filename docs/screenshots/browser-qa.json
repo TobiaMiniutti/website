@@ -1,0 +1,2757 @@
+{
+  "recordedAt": "2026-09-16T18:01:35.574Z",
+  "browser": "Chrome 152.0.7977.83",
+  "baseUrl": "http://127.0.0.1:4173",
+  "indexableRouteCount": 7,
+  "layoutChecks": [
+    {
+      "width": 320,
+      "height": 700,
+      "innerWidth": 320,
+      "scrollWidth": 320,
+      "h1Visible": true,
+      "fonts": "loaded",
+      "brokenImages": 0,
+      "projectPanels": 3,
+      "sceneOverflowHidden": true,
+      "layersCoverHero": [
+        true,
+        true,
+        true
+      ],
+      "overflowX": false
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "innerWidth": 390,
+      "scrollWidth": 390,
+      "h1Visible": true,
+      "fonts": "loaded",
+      "brokenImages": 0,
+      "projectPanels": 3,
+      "sceneOverflowHidden": true,
+      "layersCoverHero": [
+        true,
+        true,
+        true
+      ],
+      "overflowX": false
+    },
+    {
+      "width": 430,
+      "height": 932,
+      "innerWidth": 430,
+      "scrollWidth": 430,
+      "h1Visible": true,
+      "fonts": "loaded",
+      "brokenImages": 0,
+      "projectPanels": 3,
+      "sceneOverflowHidden": true,
+      "layersCoverHero": [
+        true,
+        true,
+        true
+      ],
+      "overflowX": false
+    },
+    {
+      "width": 768,
+      "height": 1024,
+      "innerWidth": 768,
+      "scrollWidth": 768,
+      "h1Visible": true,
+      "fonts": "loaded",
+      "brokenImages": 0,
+      "projectPanels": 3,
+      "sceneOverflowHidden": true,
+      "layersCoverHero": [
+        true,
+        true,
+        true
+      ],
+      "overflowX": false
+    },
+    {
+      "width": 1024,
+      "height": 768,
+      "innerWidth": 1024,
+      "scrollWidth": 1024,
+      "h1Visible": true,
+      "fonts": "loaded",
+      "brokenImages": 0,
+      "projectPanels": 3,
+      "sceneOverflowHidden": true,
+      "layersCoverHero": [
+        true,
+        true,
+        true
+      ],
+      "overflowX": false
+    },
+    {
+      "width": 1280,
+      "height": 800,
+      "innerWidth": 1280,
+      "scrollWidth": 1280,
+      "h1Visible": true,
+      "fonts": "loaded",
+      "brokenImages": 0,
+      "projectPanels": 3,
+      "sceneOverflowHidden": true,
+      "layersCoverHero": [
+        true,
+        true,
+        true
+      ],
+      "overflowX": false
+    },
+    {
+      "width": 1440,
+      "height": 900,
+      "innerWidth": 1440,
+      "scrollWidth": 1440,
+      "h1Visible": true,
+      "fonts": "loaded",
+      "brokenImages": 0,
+      "projectPanels": 3,
+      "sceneOverflowHidden": true,
+      "layersCoverHero": [
+        true,
+        true,
+        true
+      ],
+      "overflowX": false
+    },
+    {
+      "width": 1920,
+      "height": 1080,
+      "innerWidth": 1920,
+      "scrollWidth": 1920,
+      "h1Visible": true,
+      "fonts": "loaded",
+      "brokenImages": 0,
+      "projectPanels": 3,
+      "sceneOverflowHidden": true,
+      "layersCoverHero": [
+        true,
+        true,
+        true
+      ],
+      "overflowX": false
+    },
+    {
+      "width": 844,
+      "height": 390,
+      "innerWidth": 844,
+      "scrollWidth": 844,
+      "h1Visible": true,
+      "fonts": "loaded",
+      "brokenImages": 0,
+      "projectPanels": 3,
+      "sceneOverflowHidden": true,
+      "layersCoverHero": [
+        true,
+        true,
+        true
+      ],
+      "overflowX": false
+    }
+  ],
+  "projects": {
+    "home": {
+      "heading": "Alcuni dei miei progetti",
+      "titles": [
+        "MNS Warehouse",
+        "Culina",
+        "Little Printer Revival"
+      ],
+      "links": [
+        "/progetti/mns-warehouse/",
+        "/progetti/culina/",
+        "/progetti/little-printer-revival/"
+      ],
+      "visualElements": 0,
+      "projectAssetsLoaded": [],
+      "containsRemovedProject": false
+    },
+    "index": {
+      "slugs": [
+        "mns-warehouse",
+        "culina",
+        "little-printer-revival"
+      ],
+      "rows": 3,
+      "projectAssetReferences": 0,
+      "containsRemovedProject": false
+    }
+  },
+  "cameraMotion": {
+    "desktop": {
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "pointerExpected": true,
+      "frames": [
+        {
+          "requestedProgress": 0,
+          "mode": "immersive",
+          "progress": 0,
+          "interval": {
+            "start": 0,
+            "end": 900
+          },
+          "layers": [
+            {
+              "scale": 1,
+              "x": 0,
+              "y": 0,
+              "pointerX": 0,
+              "pointerY": 0,
+              "transform": "matrix(1, 0, 0, 1, 0, 0)",
+              "transformOrigin": "867.68px 583.16px",
+              "rect": {
+                "left": -28,
+                "right": 1468,
+                "top": -28,
+                "bottom": 928,
+                "width": 1496,
+                "height": 956
+              }
+            },
+            {
+              "scale": 1,
+              "x": 0,
+              "y": 0,
+              "pointerX": 0,
+              "pointerY": 0,
+              "transform": "matrix(1, 0, 0, 1, 0, 0)",
+              "transformOrigin": "867.68px 583.16px",
+              "rect": {
+                "left": -28,
+                "right": 1468,
+                "top": -28,
+                "bottom": 928,
+                "width": 1496,
+                "height": 956
+              }
+            },
+            {
+              "scale": 1,
+              "x": 0,
+              "y": 0,
+              "pointerX": 0,
+              "pointerY": 0,
+              "transform": "matrix(1, 0, 0, 1, 0, 0)",
+              "transformOrigin": "867.68px 583.16px",
+              "rect": {
+                "left": -28,
+                "right": 1468,
+                "top": -28,
+                "bottom": 928,
+                "width": 1496,
+                "height": 956
+              }
+            }
+          ],
+          "layersCoverHero": [
+            true,
+            true,
+            true
+          ],
+          "introduction": {
+            "exists": true,
+            "onscreen": true,
+            "width": 497.578125,
+            "height": 93.0625,
+            "unobstructed": true,
+            "visible": true,
+            "pointerEvents": "auto",
+            "rect": {
+              "left": 100.796875,
+              "right": 598.375,
+              "top": 466.90625,
+              "bottom": 559.96875
+            }
+          },
+          "contact": {
+            "exists": true,
+            "onscreen": true,
+            "width": 137.734375,
+            "height": 50,
+            "unobstructed": true,
+            "visible": true,
+            "pointerEvents": "auto",
+            "rect": {
+              "left": 257.09375,
+              "right": 394.828125,
+              "top": 590.96875,
+              "bottom": 640.96875
+            }
+          },
+          "overflowX": false,
+          "scrollY": 0
+        },
+        {
+          "requestedProgress": 0.3,
+          "mode": "immersive",
+          "progress": 0.3,
+          "interval": {
+            "start": 0,
+            "end": 900
+          },
+          "layers": [
+            {
+              "scale": 1.009,
+              "x": -0.08,
+              "y": -0.07,
+              "pointerX": 0,
+              "pointerY": 0,
+              "transform": "matrix(1.009, 0, 0, 1.009, -0.08, -0.07)",
+              "transformOrigin": "867.68px 583.16px",
+              "rect": {
+                "left": -35.88909912109375,
+                "right": 1473.5747680664062,
+                "top": -303.31842041015625,
+                "bottom": 661.2855224609375,
+                "width": 1509.4638671875,
+                "height": 964.6039428710938
+              }
+            },
+            {
+              "scale": 1.045,
+              "x": -0.67,
+              "y": -0.58,
+              "pointerX": 0,
+              "pointerY": 0,
+              "transform": "matrix(1.045, 0, 0, 1.045, -0.67, -0.58)",
+              "transformOrigin": "867.68px 583.16px",
+              "rect": {
+                "left": -67.71551513671875,
+                "right": 1495.6045532226562,
+                "top": -324.82220458984375,
+                "bottom": 674.19775390625,
+                "width": 1563.320068359375,
+                "height": 999.0199584960938
+              }
+            },
+            {
+              "scale": 1.138,
+              "x": -2.86,
+              "y": -2.46,
+              "pointerX": 0,
+              "pointerY": 0,
+              "transform": "matrix(1.138, 0, 0, 1.138, -2.86, -2.46)",
+              "transformOrigin": "867.68px 583.16px",
+              "rect": {
+                "left": -150.599853515625,
+                "right": 1551.84814453125,
+                "top": -380.93609619140625,
+                "bottom": 706.9918823242188,
+                "width": 1702.447998046875,
+                "height": 1087.927978515625
+              }
+            }
+          ],
+          "layersCoverHero": [
+            true,
+            true,
+            true
+          ],
+          "introduction": {
+            "exists": true,
+            "onscreen": true,
+            "width": 497.578125,
+            "height": 93.0625,
+            "unobstructed": true,
+            "visible": true,
+            "pointerEvents": "auto",
+            "rect": {
+              "left": 100.796875,
+              "right": 598.375,
+              "top": 196.90625,
+              "bottom": 289.96875
+            }
+          },
+          "contact": {
+            "exists": true,
+            "onscreen": true,
+            "width": 137.734375,
+            "height": 50,
+            "unobstructed": true,
+            "visible": true,
+            "pointerEvents": "auto",
+            "rect": {
+              "left": 257.09375,
+              "right": 394.828125,
+              "top": 320.96875,
+              "bottom": 370.96875
+            }
+          },
+          "overflowX": false,
+          "scrollY": 270
+        },
+        {
+          "requestedProgress": 0.65,
+          "mode": "immersive",
+          "progress": 0.65,
+          "interval": {
+            "start": 0,
+            "end": 900
+          },
+          "layers": [
+            {
+              "scale": 1.0195,
+              "x": -0.18,
+              "y": -0.15,
+              "pointerX": 0,
+              "pointerY": 0,
+              "transform": "matrix(1.0195, 0, 0, 1.0195, -0.18, -0.15)",
+              "transformOrigin": "867.68px 583.16px",
+              "rect": {
+                "left": -45.09979248046875,
+                "right": 1480.0723266601562,
+                "top": -624.5216674804688,
+                "bottom": 350.120361328125,
+                "width": 1525.172119140625,
+                "height": 974.6420288085938
+              }
+            },
+            {
+              "scale": 1.0975,
+              "x": -1.46,
+              "y": -1.25,
+              "pointerX": 0,
+              "pointerY": 0,
+              "transform": "matrix(1.0975, 0, 0, 1.0975, -1.46, -1.25)",
+              "transformOrigin": "867.68px 583.16px",
+              "rect": {
+                "left": -114.05877685546875,
+                "right": 1527.8013305664062,
+                "top": -671.1080932617188,
+                "bottom": 378.10186767578125,
+                "width": 1641.860107421875,
+                "height": 1049.2099609375
+              }
+            },
+            {
+              "scale": 1.299,
+              "x": -6.2,
+              "y": -5.33,
+              "pointerX": 0,
+              "pointerY": 0,
+              "transform": "matrix(1.299, 0, 0, 1.299, -6.2, -5.33)",
+              "transformOrigin": "867.68px 583.16px",
+              "rect": {
+                "left": -293.6363525390625,
+                "right": 1649.667724609375,
+                "top": -792.6948852539062,
+                "bottom": 449.14910888671875,
+                "width": 1943.3040771484375,
+                "height": 1241.843994140625
+              }
+            }
+          ],
+          "layersCoverHero": [
+            true,
+            true,
+            true
+          ],
+          "introduction": {
+            "exists": true,
+            "onscreen": false,
+            "width": 497.578125,
+            "height": 93.0625,
+            "unobstructed": true,
+            "visible": true,
+            "pointerEvents": "auto",
+            "rect": {
+              "left": 100.796875,
+              "right": 598.375,
+              "top": -118.09375,
+              "bottom": -25.03125
+            }
+          },
+          "contact": {
+            "exists": true,
+            "onscreen": false,
+            "width": 137.734375,
+            "height": 50,
+            "unobstructed": true,
+            "visible": true,
+            "pointerEvents": "auto",
+            "rect": {
+              "left": 257.09375,
+              "right": 394.828125,
+              "top": 5.96875,
+              "bottom": 55.96875
+            }
+          },
+          "overflowX": false,
+          "scrollY": 585
+        },
+        {
+          "requestedProgress": 1,
+          "mode": "immersive",
+          "progress": 1,
+          "interval": {
+            "start": 0,
+            "end": 900
+          },
+          "layers": [
+            {
+              "scale": 1.03,
+              "x": -0.28,
+              "y": -0.24,
+              "pointerX": 0,
+              "pointerY": 0,
+              "transform": "matrix(1.03, 0, 0, 1.03, -0.28, -0.24)",
+              "transformOrigin": "867.68px 583.16px",
+              "rect": {
+                "left": -54.3104248046875,
+                "right": 1486.569580078125,
+                "top": -945.7348022460938,
+                "bottom": 38.9451904296875,
+                "width": 1540.8800048828125,
+                "height": 984.6799926757812
+              }
+            },
+            {
+              "scale": 1.15,
+              "x": -2.25,
+              "y": -1.93,
+              "pointerX": 0,
+              "pointerY": 0,
+              "transform": "matrix(1.15, 0, 0, 1.15, -2.25, -1.93)",
+              "transformOrigin": "867.68px 583.16px",
+              "rect": {
+                "left": -160.4019775390625,
+                "right": 1559.998046875,
+                "top": -1017.4039916992188,
+                "bottom": 81.99603271484375,
+                "width": 1720.4000244140625,
+                "height": 1099.4000244140625
+              }
+            },
+            {
+              "scale": 1.46,
+              "x": -9.54,
+              "y": -8.2,
+              "pointerX": 0,
+              "pointerY": 0,
+              "transform": "matrix(1.46, 0, 0, 1.46, -9.54, -8.2)",
+              "transformOrigin": "867.68px 583.16px",
+              "rect": {
+                "left": -436.6728515625,
+                "right": 1747.4873046875,
+                "top": -1204.45361328125,
+                "bottom": 191.306396484375,
+                "width": 2184.16015625,
+                "height": 1395.760009765625
+              }
+            }
+          ],
+          "layersCoverHero": [
+            true,
+            true,
+            true
+          ],
+          "introduction": {
+            "exists": true,
+            "onscreen": false,
+            "width": 497.578125,
+            "height": 93.0625,
+            "unobstructed": true,
+            "visible": true,
+            "pointerEvents": "auto",
+            "rect": {
+              "left": 100.796875,
+              "right": 598.375,
+              "top": -433.09375,
+              "bottom": -340.03125
+            }
+          },
+          "contact": {
+            "exists": true,
+            "onscreen": false,
+            "width": 137.734375,
+            "height": 50,
+            "unobstructed": true,
+            "visible": true,
+            "pointerEvents": "auto",
+            "rect": {
+              "left": 257.09375,
+              "right": 394.828125,
+              "top": -309.03125,
+              "bottom": -259.03125
+            }
+          },
+          "overflowX": false,
+          "scrollY": 900
+        }
+      ],
+      "reverse": {
+        "mode": "immersive",
+        "progress": 0.3,
+        "interval": {
+          "start": 0,
+          "end": 900
+        },
+        "layers": [
+          {
+            "scale": 1.009,
+            "x": -0.08,
+            "y": -0.07,
+            "pointerX": 0,
+            "pointerY": 0,
+            "transform": "matrix(1.009, 0, 0, 1.009, -0.08, -0.07)",
+            "transformOrigin": "867.68px 583.16px",
+            "rect": {
+              "left": -35.88909912109375,
+              "right": 1473.5747680664062,
+              "top": -303.31842041015625,
+              "bottom": 661.2855224609375,
+              "width": 1509.4638671875,
+              "height": 964.6039428710938
+            }
+          },
+          {
+            "scale": 1.045,
+            "x": -0.67,
+            "y": -0.58,
+            "pointerX": 0,
+            "pointerY": 0,
+            "transform": "matrix(1.045, 0, 0, 1.045, -0.67, -0.58)",
+            "transformOrigin": "867.68px 583.16px",
+            "rect": {
+              "left": -67.71551513671875,
+              "right": 1495.6045532226562,
+              "top": -324.82220458984375,
+              "bottom": 674.19775390625,
+              "width": 1563.320068359375,
+              "height": 999.0199584960938
+            }
+          },
+          {
+            "scale": 1.138,
+            "x": -2.86,
+            "y": -2.46,
+            "pointerX": 0,
+            "pointerY": 0,
+            "transform": "matrix(1.138, 0, 0, 1.138, -2.86, -2.46)",
+            "transformOrigin": "867.68px 583.16px",
+            "rect": {
+              "left": -150.599853515625,
+              "right": 1551.84814453125,
+              "top": -380.93609619140625,
+              "bottom": 706.9918823242188,
+              "width": 1702.447998046875,
+              "height": 1087.927978515625
+            }
+          }
+        ],
+        "layersCoverHero": [
+          true,
+          true,
+          true
+        ],
+        "introduction": {
+          "exists": true,
+          "onscreen": true,
+          "width": 497.578125,
+          "height": 93.0625,
+          "unobstructed": true,
+          "visible": true,
+          "pointerEvents": "auto",
+          "rect": {
+            "left": 100.796875,
+            "right": 598.375,
+            "top": 196.90625,
+            "bottom": 289.96875
+          }
+        },
+        "contact": {
+          "exists": true,
+          "onscreen": true,
+          "width": 137.734375,
+          "height": 50,
+          "unobstructed": true,
+          "visible": true,
+          "pointerEvents": "auto",
+          "rect": {
+            "left": 257.09375,
+            "right": 394.828125,
+            "top": 320.96875,
+            "bottom": 370.96875
+          }
+        },
+        "overflowX": false,
+        "scrollY": 270
+      },
+      "pointer": {
+        "mode": "immersive",
+        "progress": 0.3,
+        "interval": {
+          "start": 0,
+          "end": 900
+        },
+        "layers": [
+          {
+            "scale": 1.009,
+            "x": -0.08,
+            "y": -0.07,
+            "pointerX": 0.84,
+            "pointerY": 0.36,
+            "transform": "matrix(1.009, 0, 0, 1.009, 0.76, 0.29)",
+            "transformOrigin": "867.68px 583.16px",
+            "rect": {
+              "left": -35.049072265625,
+              "right": 1474.414794921875,
+              "top": -302.95843505859375,
+              "bottom": 661.6455078125,
+              "width": 1509.4638671875,
+              "height": 964.6039428710938
+            }
+          },
+          {
+            "scale": 1.045,
+            "x": -0.67,
+            "y": -0.58,
+            "pointerX": 1.68,
+            "pointerY": 0.72,
+            "transform": "matrix(1.045, 0, 0, 1.045, 1.01, 0.14)",
+            "transformOrigin": "867.68px 583.16px",
+            "rect": {
+              "left": -66.0355224609375,
+              "right": 1497.284423828125,
+              "top": -324.1021728515625,
+              "bottom": 674.9177856445312,
+              "width": 1563.3199462890625,
+              "height": 999.0199584960938
+            }
+          },
+          {
+            "scale": 1.138,
+            "x": -2.86,
+            "y": -2.46,
+            "pointerX": 2.8,
+            "pointerY": 1.2,
+            "transform": "matrix(1.138, 0, 0, 1.138, -0.06, -1.26)",
+            "transformOrigin": "867.68px 583.16px",
+            "rect": {
+              "left": -147.79986572265625,
+              "right": 1554.6481323242188,
+              "top": -379.736083984375,
+              "bottom": 708.19189453125,
+              "width": 1702.447998046875,
+              "height": 1087.927978515625
+            }
+          }
+        ],
+        "layersCoverHero": [
+          true,
+          true,
+          true
+        ],
+        "introduction": {
+          "exists": true,
+          "onscreen": true,
+          "width": 497.578125,
+          "height": 93.0625,
+          "unobstructed": true,
+          "visible": true,
+          "pointerEvents": "auto",
+          "rect": {
+            "left": 100.796875,
+            "right": 598.375,
+            "top": 196.90625,
+            "bottom": 289.96875
+          }
+        },
+        "contact": {
+          "exists": true,
+          "onscreen": true,
+          "width": 137.734375,
+          "height": 50,
+          "unobstructed": true,
+          "visible": true,
+          "pointerEvents": "auto",
+          "rect": {
+            "left": 257.09375,
+            "right": 394.828125,
+            "top": 320.96875,
+            "bottom": 370.96875
+          }
+        },
+        "overflowX": false,
+        "scrollY": 270
+      },
+      "ctaAccessibility": {
+        "tagName": "A",
+        "href": "/contatti.html",
+        "accessibleName": "Contattami ↗",
+        "width": 137.734375,
+        "height": 50,
+        "focusIndicator": true,
+        "supportingSurface": true
+      }
+    },
+    "mobile": {
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "pointerExpected": false,
+      "frames": [
+        {
+          "requestedProgress": 0,
+          "mode": "immersive",
+          "progress": 0,
+          "interval": {
+            "start": 0,
+            "end": 844
+          },
+          "layers": [
+            {
+              "scale": 1,
+              "x": 0,
+              "y": 0,
+              "pointerX": 0,
+              "pointerY": 0,
+              "transform": "matrix(1, 0, 0, 1, 0, 0)",
+              "transformOrigin": "221.52px 554.4px",
+              "rect": {
+                "left": -18,
+                "right": 408,
+                "top": -18,
+                "bottom": 862,
+                "width": 426,
+                "height": 880
+              }
+            },
+            {
+              "scale": 1,
+              "x": 0,
+              "y": 0,
+              "pointerX": 0,
+              "pointerY": 0,
+              "transform": "matrix(1, 0, 0, 1, 0, 0)",
+              "transformOrigin": "221.52px 554.4px",
+              "rect": {
+                "left": -18,
+                "right": 408,
+                "top": -18,
+                "bottom": 862,
+                "width": 426,
+                "height": 880
+              }
+            },
+            {
+              "scale": 1,
+              "x": 0,
+              "y": 0,
+              "pointerX": 0,
+              "pointerY": 0,
+              "transform": "matrix(1, 0, 0, 1, 0, 0)",
+              "transformOrigin": "221.52px 554.4px",
+              "rect": {
+                "left": -18,
+                "right": 408,
+                "top": -18,
+                "bottom": 862,
+                "width": 426,
+                "height": 880
+              }
+            }
+          ],
+          "layersCoverHero": [
+            true,
+            true,
+            true
+          ],
+          "introduction": {
+            "exists": true,
+            "onscreen": true,
+            "width": 241.609375,
+            "height": 71.59375,
+            "unobstructed": true,
+            "visible": true,
+            "pointerEvents": "auto",
+            "rect": {
+              "left": 18,
+              "right": 259.609375,
+              "top": 323.90625,
+              "bottom": 395.5
+            }
+          },
+          "contact": {
+            "exists": true,
+            "onscreen": true,
+            "width": 137.734375,
+            "height": 50,
+            "unobstructed": true,
+            "visible": true,
+            "pointerEvents": "auto",
+            "rect": {
+              "left": 18,
+              "right": 155.734375,
+              "top": 484.5,
+              "bottom": 534.5
+            }
+          },
+          "overflowX": false,
+          "scrollY": 0
+        },
+        {
+          "requestedProgress": 0.3,
+          "mode": "immersive",
+          "progress": 0.2998,
+          "interval": {
+            "start": 0,
+            "end": 844
+          },
+          "layers": [
+            {
+              "scale": 1.0075,
+              "x": 0,
+              "y": -0.05,
+              "pointerX": 0,
+              "pointerY": 0,
+              "transform": "matrix(1.0075, 0, 0, 1.0075, 0, -0.05)",
+              "transformOrigin": "221.52px 554.4px",
+              "rect": {
+                "left": -19.661407470703125,
+                "right": 409.5335998535156,
+                "top": -275.2080078125,
+                "bottom": 611.3920288085938,
+                "width": 429.19500732421875,
+                "height": 886.6000366210938
+              }
+            },
+            {
+              "scale": 1.03,
+              "x": -0.02,
+              "y": -0.33,
+              "pointerX": 0,
+              "pointerY": 0,
+              "transform": "matrix(1.03, 0, 0, 1.03, -0.02, -0.33)",
+              "transformOrigin": "221.52px 554.4px",
+              "rect": {
+                "left": -24.665603637695312,
+                "right": 414.11436462402344,
+                "top": -287.96197509765625,
+                "bottom": 618.43798828125,
+                "width": 438.77996826171875,
+                "height": 906.3999633789062
+              }
+            },
+            {
+              "scale": 1.1079,
+              "x": -0.12,
+              "y": -1.66,
+              "pointerX": 0,
+              "pointerY": 0,
+              "transform": "matrix(1.1079, 0, 0, 1.1079, -0.12, -1.66)",
+              "transformOrigin": "221.52px 554.4px",
+              "rect": {
+                "left": -42.022003173828125,
+                "right": 429.94342041015625,
+                "top": -332.479736328125,
+                "bottom": 642.4722900390625,
+                "width": 471.9654235839844,
+                "height": 974.9520263671875
+              }
+            }
+          ],
+          "layersCoverHero": [
+            true,
+            true,
+            true
+          ],
+          "introduction": {
+            "exists": true,
+            "onscreen": true,
+            "width": 241.609375,
+            "height": 71.59375,
+            "unobstructed": true,
+            "visible": true,
+            "pointerEvents": "auto",
+            "rect": {
+              "left": 18,
+              "right": 259.609375,
+              "top": 70.90625,
+              "bottom": 142.5
+            }
+          },
+          "contact": {
+            "exists": true,
+            "onscreen": true,
+            "width": 137.734375,
+            "height": 50,
+            "unobstructed": true,
+            "visible": true,
+            "pointerEvents": "auto",
+            "rect": {
+              "left": 18,
+              "right": 155.734375,
+              "top": 231.5,
+              "bottom": 281.5
+            }
+          },
+          "overflowX": false,
+          "scrollY": 253
+        },
+        {
+          "requestedProgress": 0.65,
+          "mode": "immersive",
+          "progress": 0.6505,
+          "interval": {
+            "start": 0,
+            "end": 844
+          },
+          "layers": [
+            {
+              "scale": 1.0163,
+              "x": -0.01,
+              "y": -0.11,
+              "pointerX": 0,
+              "pointerY": 0,
+              "transform": "matrix(1.0163, 0, 0, 1.0163, -0.01, -0.11)",
+              "transformOrigin": "221.52px 554.4px",
+              "rect": {
+                "left": -21.620758056640625,
+                "right": 411.3230285644531,
+                "top": -576.1466674804688,
+                "bottom": 318.19732666015625,
+                "width": 432.94378662109375,
+                "height": 894.343994140625
+              }
+            },
+            {
+              "scale": 1.065,
+              "x": -0.05,
+              "y": -0.71,
+              "pointerX": 0,
+              "pointerY": 0,
+              "transform": "matrix(1.065, 0, 0, 1.065, -0.05, -0.71)",
+              "transformOrigin": "221.52px 554.4px",
+              "rect": {
+                "left": -32.448822021484375,
+                "right": 421.2412109375,
+                "top": -603.7460327148438,
+                "bottom": 333.45404052734375,
+                "width": 453.6900329589844,
+                "height": 937.2000732421875
+              }
+            },
+            {
+              "scale": 1.2342,
+              "x": -0.26,
+              "y": -3.6,
+              "pointerX": 0,
+              "pointerY": 0,
+              "transform": "matrix(1.2342, 0, 0, 1.2342, -0.26, -3.6)",
+              "transformOrigin": "221.52px 554.4px",
+              "rect": {
+                "left": -70.13998413085938,
+                "right": 455.6292419433594,
+                "top": -700.4404907226562,
+                "bottom": 385.65545654296875,
+                "width": 525.7692260742188,
+                "height": 1086.095947265625
+              }
+            }
+          ],
+          "layersCoverHero": [
+            true,
+            true,
+            true
+          ],
+          "introduction": {
+            "exists": true,
+            "onscreen": false,
+            "width": 241.609375,
+            "height": 71.59375,
+            "unobstructed": true,
+            "visible": true,
+            "pointerEvents": "auto",
+            "rect": {
+              "left": 18,
+              "right": 259.609375,
+              "top": -225.09375,
+              "bottom": -153.5
+            }
+          },
+          "contact": {
+            "exists": true,
+            "onscreen": false,
+            "width": 137.734375,
+            "height": 50,
+            "unobstructed": true,
+            "visible": true,
+            "pointerEvents": "auto",
+            "rect": {
+              "left": 18,
+              "right": 155.734375,
+              "top": -64.5,
+              "bottom": -14.5
+            }
+          },
+          "overflowX": false,
+          "scrollY": 549
+        },
+        {
+          "requestedProgress": 1,
+          "mode": "immersive",
+          "progress": 1,
+          "interval": {
+            "start": 0,
+            "end": 844
+          },
+          "layers": [
+            {
+              "scale": 1.025,
+              "x": -0.01,
+              "y": -0.16,
+              "pointerX": 0,
+              "pointerY": 0,
+              "transform": "matrix(1.025, 0, 0, 1.025, -0.01, -0.16)",
+              "transformOrigin": "221.52px 554.4px",
+              "rect": {
+                "left": -23.547988891601562,
+                "right": 413.1019744873047,
+                "top": -876.0199584960938,
+                "bottom": 25.98004150390625,
+                "width": 436.64996337890625,
+                "height": 902
+              }
+            },
+            {
+              "scale": 1.1,
+              "x": -0.08,
+              "y": -1.1,
+              "pointerX": 0,
+              "pointerY": 0,
+              "transform": "matrix(1.1, 0, 0, 1.1, -0.08, -1.1)",
+              "transformOrigin": "221.52px 554.4px",
+              "rect": {
+                "left": -40.23200988769531,
+                "right": 428.3679656982422,
+                "top": -918.5399780273438,
+                "bottom": 49.46002197265625,
+                "width": 468.5999755859375,
+                "height": 968
+              }
+            },
+            {
+              "scale": 1.36,
+              "x": -0.39,
+              "y": -5.53,
+              "pointerX": 0,
+              "pointerY": 0,
+              "transform": "matrix(1.36, 0, 0, 1.36, -0.39, -5.53)",
+              "transformOrigin": "221.52px 554.4px",
+              "rect": {
+                "left": -98.13720703125,
+                "right": 481.2227783203125,
+                "top": -1067.114013671875,
+                "bottom": 129.68603515625,
+                "width": 579.3599853515625,
+                "height": 1196.800048828125
+              }
+            }
+          ],
+          "layersCoverHero": [
+            true,
+            true,
+            true
+          ],
+          "introduction": {
+            "exists": true,
+            "onscreen": false,
+            "width": 241.609375,
+            "height": 71.59375,
+            "unobstructed": true,
+            "visible": true,
+            "pointerEvents": "auto",
+            "rect": {
+              "left": 18,
+              "right": 259.609375,
+              "top": -520.09375,
+              "bottom": -448.5
+            }
+          },
+          "contact": {
+            "exists": true,
+            "onscreen": false,
+            "width": 137.734375,
+            "height": 50,
+            "unobstructed": true,
+            "visible": true,
+            "pointerEvents": "auto",
+            "rect": {
+              "left": 18,
+              "right": 155.734375,
+              "top": -359.5,
+              "bottom": -309.5
+            }
+          },
+          "overflowX": false,
+          "scrollY": 844
+        }
+      ],
+      "reverse": {
+        "mode": "immersive",
+        "progress": 0.2998,
+        "interval": {
+          "start": 0,
+          "end": 844
+        },
+        "layers": [
+          {
+            "scale": 1.0075,
+            "x": 0,
+            "y": -0.05,
+            "pointerX": 0,
+            "pointerY": 0,
+            "transform": "matrix(1.0075, 0, 0, 1.0075, 0, -0.05)",
+            "transformOrigin": "221.52px 554.4px",
+            "rect": {
+              "left": -19.661407470703125,
+              "right": 409.5335998535156,
+              "top": -275.2080078125,
+              "bottom": 611.3920288085938,
+              "width": 429.19500732421875,
+              "height": 886.6000366210938
+            }
+          },
+          {
+            "scale": 1.03,
+            "x": -0.02,
+            "y": -0.33,
+            "pointerX": 0,
+            "pointerY": 0,
+            "transform": "matrix(1.03, 0, 0, 1.03, -0.02, -0.33)",
+            "transformOrigin": "221.52px 554.4px",
+            "rect": {
+              "left": -24.665603637695312,
+              "right": 414.11436462402344,
+              "top": -287.96197509765625,
+              "bottom": 618.43798828125,
+              "width": 438.77996826171875,
+              "height": 906.3999633789062
+            }
+          },
+          {
+            "scale": 1.1079,
+            "x": -0.12,
+            "y": -1.66,
+            "pointerX": 0,
+            "pointerY": 0,
+            "transform": "matrix(1.1079, 0, 0, 1.1079, -0.12, -1.66)",
+            "transformOrigin": "221.52px 554.4px",
+            "rect": {
+              "left": -42.022003173828125,
+              "right": 429.94342041015625,
+              "top": -332.479736328125,
+              "bottom": 642.4722900390625,
+              "width": 471.9654235839844,
+              "height": 974.9520263671875
+            }
+          }
+        ],
+        "layersCoverHero": [
+          true,
+          true,
+          true
+        ],
+        "introduction": {
+          "exists": true,
+          "onscreen": true,
+          "width": 241.609375,
+          "height": 71.59375,
+          "unobstructed": true,
+          "visible": true,
+          "pointerEvents": "auto",
+          "rect": {
+            "left": 18,
+            "right": 259.609375,
+            "top": 70.90625,
+            "bottom": 142.5
+          }
+        },
+        "contact": {
+          "exists": true,
+          "onscreen": true,
+          "width": 137.734375,
+          "height": 50,
+          "unobstructed": true,
+          "visible": true,
+          "pointerEvents": "auto",
+          "rect": {
+            "left": 18,
+            "right": 155.734375,
+            "top": 231.5,
+            "bottom": 281.5
+          }
+        },
+        "overflowX": false,
+        "scrollY": 253
+      },
+      "pointer": {
+        "mode": "immersive",
+        "progress": 0.2998,
+        "interval": {
+          "start": 0,
+          "end": 844
+        },
+        "layers": [
+          {
+            "scale": 1.0075,
+            "x": 0,
+            "y": -0.05,
+            "pointerX": 0,
+            "pointerY": 0,
+            "transform": "matrix(1.0075, 0, 0, 1.0075, 0, -0.05)",
+            "transformOrigin": "221.52px 554.4px",
+            "rect": {
+              "left": -19.661407470703125,
+              "right": 409.5335998535156,
+              "top": -275.2080078125,
+              "bottom": 611.3920288085938,
+              "width": 429.19500732421875,
+              "height": 886.6000366210938
+            }
+          },
+          {
+            "scale": 1.03,
+            "x": -0.02,
+            "y": -0.33,
+            "pointerX": 0,
+            "pointerY": 0,
+            "transform": "matrix(1.03, 0, 0, 1.03, -0.02, -0.33)",
+            "transformOrigin": "221.52px 554.4px",
+            "rect": {
+              "left": -24.665603637695312,
+              "right": 414.11436462402344,
+              "top": -287.96197509765625,
+              "bottom": 618.43798828125,
+              "width": 438.77996826171875,
+              "height": 906.3999633789062
+            }
+          },
+          {
+            "scale": 1.1079,
+            "x": -0.12,
+            "y": -1.66,
+            "pointerX": 0,
+            "pointerY": 0,
+            "transform": "matrix(1.1079, 0, 0, 1.1079, -0.12, -1.66)",
+            "transformOrigin": "221.52px 554.4px",
+            "rect": {
+              "left": -42.022003173828125,
+              "right": 429.94342041015625,
+              "top": -332.479736328125,
+              "bottom": 642.4722900390625,
+              "width": 471.9654235839844,
+              "height": 974.9520263671875
+            }
+          }
+        ],
+        "layersCoverHero": [
+          true,
+          true,
+          true
+        ],
+        "introduction": {
+          "exists": true,
+          "onscreen": true,
+          "width": 241.609375,
+          "height": 71.59375,
+          "unobstructed": true,
+          "visible": true,
+          "pointerEvents": "auto",
+          "rect": {
+            "left": 18,
+            "right": 259.609375,
+            "top": 70.90625,
+            "bottom": 142.5
+          }
+        },
+        "contact": {
+          "exists": true,
+          "onscreen": true,
+          "width": 137.734375,
+          "height": 50,
+          "unobstructed": true,
+          "visible": true,
+          "pointerEvents": "auto",
+          "rect": {
+            "left": 18,
+            "right": 155.734375,
+            "top": 231.5,
+            "bottom": 281.5
+          }
+        },
+        "overflowX": false,
+        "scrollY": 253
+      },
+      "ctaAccessibility": {
+        "tagName": "A",
+        "href": "/contatti.html",
+        "accessibleName": "Contattami ↗",
+        "width": 137.734375,
+        "height": 50,
+        "focusIndicator": true,
+        "supportingSurface": true
+      }
+    }
+  },
+  "routeChecks": [
+    {
+      "route": "/",
+      "status": 200,
+      "title": "Tobia Miniutti | Sviluppo web, sistemi e automazioni",
+      "h1": 1,
+      "noindex": false,
+      "removedProjectText": false,
+      "contributionBoxes": 0,
+      "contributionHeading": false,
+      "brands": [
+        {
+          "text": "",
+          "label": "Tobia Miniutti — Homepage",
+          "href": "/",
+          "imageAlt": "",
+          "symbolBackgroundAlpha": 0
+        },
+        {
+          "text": "",
+          "label": "Tobia Miniutti — Homepage",
+          "href": "/",
+          "imageAlt": "",
+          "symbolBackgroundAlpha": 0
+        }
+      ]
+    },
+    {
+      "route": "/contatti.html",
+      "status": 200,
+      "title": "Contatti | Tobia Miniutti",
+      "h1": 1,
+      "noindex": false,
+      "removedProjectText": false,
+      "contributionBoxes": 0,
+      "contributionHeading": false,
+      "brands": [
+        {
+          "text": "",
+          "label": "Tobia Miniutti — Homepage",
+          "href": "/",
+          "imageAlt": "",
+          "symbolBackgroundAlpha": 0
+        },
+        {
+          "text": "",
+          "label": "Tobia Miniutti — Homepage",
+          "href": "/",
+          "imageAlt": "",
+          "symbolBackgroundAlpha": 0
+        }
+      ]
+    },
+    {
+      "route": "/privacy.html",
+      "status": 200,
+      "title": "Privacy | Tobia Miniutti",
+      "h1": 1,
+      "noindex": false,
+      "removedProjectText": false,
+      "contributionBoxes": 0,
+      "contributionHeading": false,
+      "brands": [
+        {
+          "text": "",
+          "label": "Tobia Miniutti — Homepage",
+          "href": "/",
+          "imageAlt": "",
+          "symbolBackgroundAlpha": 0
+        },
+        {
+          "text": "",
+          "label": "Tobia Miniutti — Homepage",
+          "href": "/",
+          "imageAlt": "",
+          "symbolBackgroundAlpha": 0
+        }
+      ]
+    },
+    {
+      "route": "/progetti/",
+      "status": 200,
+      "title": "Progetti | Tobia Miniutti",
+      "h1": 1,
+      "noindex": false,
+      "removedProjectText": false,
+      "contributionBoxes": 0,
+      "contributionHeading": false,
+      "brands": [
+        {
+          "text": "",
+          "label": "Tobia Miniutti — Homepage",
+          "href": "/",
+          "imageAlt": "",
+          "symbolBackgroundAlpha": 0
+        },
+        {
+          "text": "",
+          "label": "Tobia Miniutti — Homepage",
+          "href": "/",
+          "imageAlt": "",
+          "symbolBackgroundAlpha": 0
+        }
+      ]
+    },
+    {
+      "route": "/progetti/mns-warehouse/",
+      "status": 200,
+      "title": "MNS Warehouse | Progetto di Tobia Miniutti",
+      "h1": 1,
+      "noindex": false,
+      "removedProjectText": false,
+      "contributionBoxes": 0,
+      "contributionHeading": false,
+      "brands": [
+        {
+          "text": "",
+          "label": "Tobia Miniutti — Homepage",
+          "href": "/",
+          "imageAlt": "",
+          "symbolBackgroundAlpha": 0
+        },
+        {
+          "text": "",
+          "label": "Tobia Miniutti — Homepage",
+          "href": "/",
+          "imageAlt": "",
+          "symbolBackgroundAlpha": 0
+        }
+      ]
+    },
+    {
+      "route": "/progetti/culina/",
+      "status": 200,
+      "title": "Culina | Progetto di Tobia Miniutti",
+      "h1": 1,
+      "noindex": false,
+      "removedProjectText": false,
+      "contributionBoxes": 0,
+      "contributionHeading": false,
+      "brands": [
+        {
+          "text": "",
+          "label": "Tobia Miniutti — Homepage",
+          "href": "/",
+          "imageAlt": "",
+          "symbolBackgroundAlpha": 0
+        },
+        {
+          "text": "",
+          "label": "Tobia Miniutti — Homepage",
+          "href": "/",
+          "imageAlt": "",
+          "symbolBackgroundAlpha": 0
+        }
+      ]
+    },
+    {
+      "route": "/progetti/little-printer-revival/",
+      "status": 200,
+      "title": "Little Printer Revival | Progetto di Tobia Miniutti",
+      "h1": 1,
+      "noindex": false,
+      "removedProjectText": false,
+      "contributionBoxes": 0,
+      "contributionHeading": false,
+      "brands": [
+        {
+          "text": "",
+          "label": "Tobia Miniutti — Homepage",
+          "href": "/",
+          "imageAlt": "",
+          "symbolBackgroundAlpha": 0
+        },
+        {
+          "text": "",
+          "label": "Tobia Miniutti — Homepage",
+          "href": "/",
+          "imageAlt": "",
+          "symbolBackgroundAlpha": 0
+        }
+      ]
+    },
+    {
+      "route": "/progetti/secure-garage-access/",
+      "status": 404,
+      "title": "Pagina non trovata | Tobia Miniutti",
+      "h1": 1,
+      "noindex": true,
+      "removedProjectText": false
+    },
+    {
+      "route": "/percorso-inesistente",
+      "status": 404,
+      "title": "Pagina non trovata | Tobia Miniutti",
+      "h1": 1,
+      "noindex": true,
+      "removedProjectText": false
+    }
+  ],
+  "confirmationRoute": {
+    "status": 200,
+    "noindex": true,
+    "h1": 1
+  },
+  "emptyGalleryChecks": [
+    {
+      "slug": "mns-warehouse",
+      "galleryRoots": 0,
+      "galleryDialogs": 0,
+      "galleryItems": 0,
+      "galleryHeading": false,
+      "projectAssetReferences": 0
+    },
+    {
+      "slug": "culina",
+      "galleryRoots": 0,
+      "galleryDialogs": 0,
+      "galleryItems": 0,
+      "galleryHeading": false,
+      "projectAssetReferences": 0
+    },
+    {
+      "slug": "little-printer-revival",
+      "galleryRoots": 0,
+      "galleryDialogs": 0,
+      "galleryItems": 0,
+      "galleryHeading": false,
+      "projectAssetReferences": 0
+    }
+  ],
+  "keyboard": {
+    "firstFocus": {
+      "text": "Vai al contenuto",
+      "href": "#contenuto"
+    },
+    "menuOpen": true,
+    "menuFocusReturned": true
+  },
+  "directContactHash": {
+    "hash": "#contatti",
+    "targetExists": true,
+    "targetTop": 896.296875,
+    "headerBottom": 74,
+    "targetVisible": true
+  },
+  "contactPanels": {
+    "desktop": {
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "textScale": 1,
+      "exists": true,
+      "height": 478.4375,
+      "viewportRatio": 0.5315972222222223,
+      "minHeight": "0px",
+      "cssHeight": "478.438px",
+      "overflowX": "visible",
+      "overflowY": "visible",
+      "scrollHeight": 476,
+      "clientHeight": 476,
+      "contentTop": 313.296875,
+      "contentBottom": 673.734375,
+      "panelTop": 254.296875,
+      "panelBottom": 732.734375,
+      "paddingTop": 58,
+      "paddingBottom": 58,
+      "emptyBefore": 1,
+      "emptyAfter": 1,
+      "contentContained": true,
+      "overflowPageX": false,
+      "overflowElements": [
+        {
+          "tag": "div",
+          "className": "garden-scene",
+          "text": "",
+          "left": -28,
+          "right": 1468,
+          "width": 1496
+        },
+        {
+          "tag": "picture",
+          "className": "garden-layer garden-distance",
+          "text": "",
+          "left": -28,
+          "right": 1468,
+          "width": 1496
+        },
+        {
+          "tag": "source",
+          "className": "",
+          "text": "",
+          "left": -28,
+          "right": -28,
+          "width": 0
+        },
+        {
+          "tag": "source",
+          "className": "",
+          "text": "",
+          "left": -28,
+          "right": -28,
+          "width": 0
+        },
+        {
+          "tag": "source",
+          "className": "",
+          "text": "",
+          "left": -28,
+          "right": -28,
+          "width": 0
+        },
+        {
+          "tag": "img",
+          "className": "",
+          "text": "",
+          "left": -28,
+          "right": 1468,
+          "width": 1496
+        },
+        {
+          "tag": "picture",
+          "className": "garden-layer garden-midground",
+          "text": "",
+          "left": -28,
+          "right": 1468,
+          "width": 1496
+        },
+        {
+          "tag": "source",
+          "className": "",
+          "text": "",
+          "left": -28,
+          "right": -28,
+          "width": 0
+        },
+        {
+          "tag": "source",
+          "className": "",
+          "text": "",
+          "left": -28,
+          "right": -28,
+          "width": 0
+        },
+        {
+          "tag": "source",
+          "className": "",
+          "text": "",
+          "left": -28,
+          "right": -28,
+          "width": 0
+        },
+        {
+          "tag": "img",
+          "className": "",
+          "text": "",
+          "left": -28,
+          "right": 1468,
+          "width": 1496
+        },
+        {
+          "tag": "picture",
+          "className": "garden-layer garden-foreground",
+          "text": "",
+          "left": -28,
+          "right": 1468,
+          "width": 1496
+        },
+        {
+          "tag": "source",
+          "className": "",
+          "text": "",
+          "left": -28,
+          "right": -28,
+          "width": 0
+        },
+        {
+          "tag": "source",
+          "className": "",
+          "text": "",
+          "left": -28,
+          "right": -28,
+          "width": 0
+        },
+        {
+          "tag": "source",
+          "className": "",
+          "text": "",
+          "left": -28,
+          "right": -28,
+          "width": 0
+        },
+        {
+          "tag": "img",
+          "className": "",
+          "text": "",
+          "left": -28,
+          "right": 1468,
+          "width": 1496
+        },
+        {
+          "tag": "div",
+          "className": "garden-light",
+          "text": "",
+          "left": -28,
+          "right": 1468,
+          "width": 1496
+        }
+      ],
+      "decorations": [
+        {
+          "className": "contact-garden",
+          "position": "absolute"
+        },
+        {
+          "className": "contact-foliage",
+          "position": "absolute"
+        }
+      ]
+    },
+    "mobile": {
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "textScale": 1,
+      "exists": true,
+      "height": 545.46875,
+      "viewportRatio": 0.6462899881516587,
+      "minHeight": "0px",
+      "cssHeight": "545.469px",
+      "overflowX": "visible",
+      "overflowY": "visible",
+      "scrollHeight": 543,
+      "clientHeight": 543,
+      "contentTop": 224.5,
+      "contentBottom": 707.96875,
+      "panelTop": 193.5,
+      "panelBottom": 738.96875,
+      "paddingTop": 30,
+      "paddingBottom": 30,
+      "emptyBefore": 1,
+      "emptyAfter": 1,
+      "contentContained": true,
+      "overflowPageX": false,
+      "overflowElements": [
+        {
+          "tag": "div",
+          "className": "garden-scene",
+          "text": "",
+          "left": -18,
+          "right": 408,
+          "width": 426
+        },
+        {
+          "tag": "picture",
+          "className": "garden-layer garden-distance",
+          "text": "",
+          "left": -18,
+          "right": 408,
+          "width": 426
+        },
+        {
+          "tag": "source",
+          "className": "",
+          "text": "",
+          "left": -18,
+          "right": -18,
+          "width": 0
+        },
+        {
+          "tag": "source",
+          "className": "",
+          "text": "",
+          "left": -18,
+          "right": -18,
+          "width": 0
+        },
+        {
+          "tag": "source",
+          "className": "",
+          "text": "",
+          "left": -18,
+          "right": -18,
+          "width": 0
+        },
+        {
+          "tag": "img",
+          "className": "",
+          "text": "",
+          "left": -18,
+          "right": 408,
+          "width": 426
+        },
+        {
+          "tag": "picture",
+          "className": "garden-layer garden-midground",
+          "text": "",
+          "left": -18,
+          "right": 408,
+          "width": 426
+        },
+        {
+          "tag": "source",
+          "className": "",
+          "text": "",
+          "left": -18,
+          "right": -18,
+          "width": 0
+        },
+        {
+          "tag": "source",
+          "className": "",
+          "text": "",
+          "left": -18,
+          "right": -18,
+          "width": 0
+        },
+        {
+          "tag": "source",
+          "className": "",
+          "text": "",
+          "left": -18,
+          "right": -18,
+          "width": 0
+        },
+        {
+          "tag": "img",
+          "className": "",
+          "text": "",
+          "left": -18,
+          "right": 408,
+          "width": 426
+        },
+        {
+          "tag": "picture",
+          "className": "garden-layer garden-foreground",
+          "text": "",
+          "left": -18,
+          "right": 408,
+          "width": 426
+        },
+        {
+          "tag": "source",
+          "className": "",
+          "text": "",
+          "left": -18,
+          "right": -18,
+          "width": 0
+        },
+        {
+          "tag": "source",
+          "className": "",
+          "text": "",
+          "left": -18,
+          "right": -18,
+          "width": 0
+        },
+        {
+          "tag": "source",
+          "className": "",
+          "text": "",
+          "left": -18,
+          "right": -18,
+          "width": 0
+        },
+        {
+          "tag": "img",
+          "className": "",
+          "text": "",
+          "left": -18,
+          "right": 408,
+          "width": 426
+        },
+        {
+          "tag": "div",
+          "className": "garden-light",
+          "text": "",
+          "left": -18,
+          "right": 408,
+          "width": 426
+        }
+      ],
+      "decorations": [
+        {
+          "className": "contact-garden",
+          "position": "absolute"
+        },
+        {
+          "className": "contact-foliage",
+          "position": "absolute"
+        }
+      ]
+    },
+    "shortLandscape": {
+      "viewport": {
+        "width": 844,
+        "height": 390
+      },
+      "textScale": 1,
+      "exists": true,
+      "height": 407.375,
+      "viewportRatio": 1.0445512820512821,
+      "minHeight": "0px",
+      "cssHeight": "407.375px",
+      "overflowX": "visible",
+      "overflowY": "visible",
+      "scrollHeight": 405,
+      "clientHeight": 405,
+      "contentTop": 78.5,
+      "contentBottom": 399.5,
+      "panelTop": 35.3125,
+      "panelBottom": 442.6875,
+      "paddingTop": 42.2,
+      "paddingBottom": 42.2,
+      "emptyBefore": 0.9874999999999972,
+      "emptyAfter": 0.9875000000000114,
+      "contentContained": true,
+      "overflowPageX": false,
+      "overflowElements": [
+        {
+          "tag": "div",
+          "className": "garden-scene",
+          "text": "",
+          "left": -28,
+          "right": 872,
+          "width": 900
+        },
+        {
+          "tag": "picture",
+          "className": "garden-layer garden-distance",
+          "text": "",
+          "left": -28,
+          "right": 872,
+          "width": 900
+        },
+        {
+          "tag": "source",
+          "className": "",
+          "text": "",
+          "left": -28,
+          "right": -28,
+          "width": 0
+        },
+        {
+          "tag": "source",
+          "className": "",
+          "text": "",
+          "left": -28,
+          "right": -28,
+          "width": 0
+        },
+        {
+          "tag": "source",
+          "className": "",
+          "text": "",
+          "left": -28,
+          "right": -28,
+          "width": 0
+        },
+        {
+          "tag": "img",
+          "className": "",
+          "text": "",
+          "left": -28,
+          "right": 872,
+          "width": 900
+        },
+        {
+          "tag": "picture",
+          "className": "garden-layer garden-midground",
+          "text": "",
+          "left": -28,
+          "right": 872,
+          "width": 900
+        },
+        {
+          "tag": "source",
+          "className": "",
+          "text": "",
+          "left": -28,
+          "right": -28,
+          "width": 0
+        },
+        {
+          "tag": "source",
+          "className": "",
+          "text": "",
+          "left": -28,
+          "right": -28,
+          "width": 0
+        },
+        {
+          "tag": "source",
+          "className": "",
+          "text": "",
+          "left": -28,
+          "right": -28,
+          "width": 0
+        },
+        {
+          "tag": "img",
+          "className": "",
+          "text": "",
+          "left": -28,
+          "right": 872,
+          "width": 900
+        },
+        {
+          "tag": "picture",
+          "className": "garden-layer garden-foreground",
+          "text": "",
+          "left": -28,
+          "right": 872,
+          "width": 900
+        },
+        {
+          "tag": "source",
+          "className": "",
+          "text": "",
+          "left": -28,
+          "right": -28,
+          "width": 0
+        },
+        {
+          "tag": "source",
+          "className": "",
+          "text": "",
+          "left": -28,
+          "right": -28,
+          "width": 0
+        },
+        {
+          "tag": "source",
+          "className": "",
+          "text": "",
+          "left": -28,
+          "right": -28,
+          "width": 0
+        },
+        {
+          "tag": "img",
+          "className": "",
+          "text": "",
+          "left": -28,
+          "right": 872,
+          "width": 900
+        },
+        {
+          "tag": "div",
+          "className": "garden-light",
+          "text": "",
+          "left": -28,
+          "right": 872,
+          "width": 900
+        }
+      ],
+      "decorations": [
+        {
+          "className": "contact-garden",
+          "position": "absolute"
+        },
+        {
+          "className": "contact-foliage",
+          "position": "absolute"
+        }
+      ]
+    },
+    "text200Desktop": {
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "textScale": 2,
+      "exists": true,
+      "height": 844.4375,
+      "viewportRatio": 0.9382638888888889,
+      "minHeight": "0px",
+      "cssHeight": "844.438px",
+      "overflowX": "visible",
+      "overflowY": "visible",
+      "scrollHeight": 842,
+      "clientHeight": 842,
+      "contentTop": 130.703125,
+      "contentBottom": 857.140625,
+      "panelTop": 71.703125,
+      "panelBottom": 916.140625,
+      "paddingTop": 58,
+      "paddingBottom": 58,
+      "emptyBefore": 1,
+      "emptyAfter": 1,
+      "contentContained": true,
+      "overflowPageX": false,
+      "overflowElements": [
+        {
+          "tag": "div",
+          "className": "garden-scene",
+          "text": "",
+          "left": -28,
+          "right": 1468,
+          "width": 1496
+        },
+        {
+          "tag": "picture",
+          "className": "garden-layer garden-distance",
+          "text": "",
+          "left": -28,
+          "right": 1468,
+          "width": 1496
+        },
+        {
+          "tag": "source",
+          "className": "",
+          "text": "",
+          "left": -28,
+          "right": -28,
+          "width": 0
+        },
+        {
+          "tag": "source",
+          "className": "",
+          "text": "",
+          "left": -28,
+          "right": -28,
+          "width": 0
+        },
+        {
+          "tag": "source",
+          "className": "",
+          "text": "",
+          "left": -28,
+          "right": -28,
+          "width": 0
+        },
+        {
+          "tag": "img",
+          "className": "",
+          "text": "",
+          "left": -28,
+          "right": 1468,
+          "width": 1496
+        },
+        {
+          "tag": "picture",
+          "className": "garden-layer garden-midground",
+          "text": "",
+          "left": -28,
+          "right": 1468,
+          "width": 1496
+        },
+        {
+          "tag": "source",
+          "className": "",
+          "text": "",
+          "left": -28,
+          "right": -28,
+          "width": 0
+        },
+        {
+          "tag": "source",
+          "className": "",
+          "text": "",
+          "left": -28,
+          "right": -28,
+          "width": 0
+        },
+        {
+          "tag": "source",
+          "className": "",
+          "text": "",
+          "left": -28,
+          "right": -28,
+          "width": 0
+        },
+        {
+          "tag": "img",
+          "className": "",
+          "text": "",
+          "left": -28,
+          "right": 1468,
+          "width": 1496
+        },
+        {
+          "tag": "picture",
+          "className": "garden-layer garden-foreground",
+          "text": "",
+          "left": -28,
+          "right": 1468,
+          "width": 1496
+        },
+        {
+          "tag": "source",
+          "className": "",
+          "text": "",
+          "left": -28,
+          "right": -28,
+          "width": 0
+        },
+        {
+          "tag": "source",
+          "className": "",
+          "text": "",
+          "left": -28,
+          "right": -28,
+          "width": 0
+        },
+        {
+          "tag": "source",
+          "className": "",
+          "text": "",
+          "left": -28,
+          "right": -28,
+          "width": 0
+        },
+        {
+          "tag": "img",
+          "className": "",
+          "text": "",
+          "left": -28,
+          "right": 1468,
+          "width": 1496
+        },
+        {
+          "tag": "div",
+          "className": "garden-light",
+          "text": "",
+          "left": -28,
+          "right": 1468,
+          "width": 1496
+        }
+      ],
+      "decorations": [
+        {
+          "className": "contact-garden",
+          "position": "absolute"
+        },
+        {
+          "className": "contact-foliage",
+          "position": "absolute"
+        }
+      ]
+    },
+    "text200Mobile": {
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "textScale": 2,
+      "exists": true,
+      "height": 915.203125,
+      "viewportRatio": 1.0843638921800949,
+      "minHeight": "0px",
+      "cssHeight": "915.203px",
+      "overflowX": "visible",
+      "overflowY": "visible",
+      "scrollHeight": 913,
+      "clientHeight": 913,
+      "contentTop": 39.390625,
+      "contentBottom": 892.59375,
+      "panelTop": 8.390625,
+      "panelBottom": 923.59375,
+      "paddingTop": 30,
+      "paddingBottom": 30,
+      "emptyBefore": 1,
+      "emptyAfter": 1,
+      "contentContained": true,
+      "overflowPageX": true,
+      "overflowElements": [
+        {
+          "tag": "div",
+          "className": "garden-scene",
+          "text": "",
+          "left": -18,
+          "right": 408,
+          "width": 426
+        },
+        {
+          "tag": "picture",
+          "className": "garden-layer garden-distance",
+          "text": "",
+          "left": -18,
+          "right": 408,
+          "width": 426
+        },
+        {
+          "tag": "source",
+          "className": "",
+          "text": "",
+          "left": -18,
+          "right": -18,
+          "width": 0
+        },
+        {
+          "tag": "source",
+          "className": "",
+          "text": "",
+          "left": -18,
+          "right": -18,
+          "width": 0
+        },
+        {
+          "tag": "source",
+          "className": "",
+          "text": "",
+          "left": -18,
+          "right": -18,
+          "width": 0
+        },
+        {
+          "tag": "img",
+          "className": "",
+          "text": "",
+          "left": -18,
+          "right": 408,
+          "width": 426
+        },
+        {
+          "tag": "picture",
+          "className": "garden-layer garden-midground",
+          "text": "",
+          "left": -18,
+          "right": 408,
+          "width": 426
+        },
+        {
+          "tag": "source",
+          "className": "",
+          "text": "",
+          "left": -18,
+          "right": -18,
+          "width": 0
+        },
+        {
+          "tag": "source",
+          "className": "",
+          "text": "",
+          "left": -18,
+          "right": -18,
+          "width": 0
+        },
+        {
+          "tag": "source",
+          "className": "",
+          "text": "",
+          "left": -18,
+          "right": -18,
+          "width": 0
+        },
+        {
+          "tag": "img",
+          "className": "",
+          "text": "",
+          "left": -18,
+          "right": 408,
+          "width": 426
+        },
+        {
+          "tag": "picture",
+          "className": "garden-layer garden-foreground",
+          "text": "",
+          "left": -18,
+          "right": 408,
+          "width": 426
+        },
+        {
+          "tag": "source",
+          "className": "",
+          "text": "",
+          "left": -18,
+          "right": -18,
+          "width": 0
+        },
+        {
+          "tag": "source",
+          "className": "",
+          "text": "",
+          "left": -18,
+          "right": -18,
+          "width": 0
+        },
+        {
+          "tag": "source",
+          "className": "",
+          "text": "",
+          "left": -18,
+          "right": -18,
+          "width": 0
+        },
+        {
+          "tag": "img",
+          "className": "",
+          "text": "",
+          "left": -18,
+          "right": 408,
+          "width": 426
+        },
+        {
+          "tag": "div",
+          "className": "garden-light",
+          "text": "",
+          "left": -18,
+          "right": 408,
+          "width": 426
+        },
+        {
+          "tag": "div",
+          "className": "section-heading",
+          "text": "",
+          "left": 18,
+          "right": 392.640625,
+          "width": 374.640625
+        },
+        {
+          "tag": "p",
+          "className": "",
+          "text": "Profilo",
+          "left": 18,
+          "right": 392.640625,
+          "width": 374.640625
+        },
+        {
+          "tag": "h2",
+          "className": "",
+          "text": "Lavoro tra ciò che si usa e ciò che lo fa funzionare.",
+          "left": 18,
+          "right": 392.640625,
+          "width": 374.640625
+        }
+      ],
+      "decorations": [
+        {
+          "className": "contact-garden",
+          "position": "absolute"
+        },
+        {
+          "className": "contact-foliage",
+          "position": "absolute"
+        }
+      ]
+    }
+  },
+  "compactFormViewport": {
+    "focusedField": "message",
+    "visible": true,
+    "fullyVisible": false,
+    "rect": {
+      "top": 331.421875,
+      "bottom": 501.421875,
+      "height": 170
+    },
+    "overflowX": false
+  },
+  "glass": {
+    "actual": {
+      "state": "has-liquid-glass",
+      "liquidFunctionAvailable": true,
+      "backdropFilter": "url(\"#lg-filter-1\") blur(5px) saturate(1.12)",
+      "filter": "none"
+    },
+    "reducedTransparency": {
+      "mediaMatches": true,
+      "opaque": true,
+      "enhanced": false
+    },
+    "failureFallback": {
+      "opaque": true,
+      "enhanced": false
+    }
+  },
+  "reducedMotion": {
+    "mediaMatches": true,
+    "cameraMode": "static",
+    "cameraProgress": 0,
+    "cameraLayers": [
+      {
+        "scale": 1,
+        "x": 0,
+        "y": 0,
+        "pointerX": 0,
+        "pointerY": 0
+      },
+      {
+        "scale": 1,
+        "x": 0,
+        "y": 0,
+        "pointerX": 0,
+        "pointerY": 0
+      },
+      {
+        "scale": 1,
+        "x": 0,
+        "y": 0,
+        "pointerX": 0,
+        "pointerY": 0
+      }
+    ],
+    "revealAnimations": 0,
+    "overflowX": false
+  },
+  "syntheticGallery": {
+    "initialModal": {
+      "urlUnchanged": true,
+      "dialogOpen": true,
+      "status": "Schermata 1 di 2",
+      "caption": "Dettaglio sintetico uno",
+      "widthAttribute": "1536",
+      "heightAttribute": "1024",
+      "renderedWidth": 1204,
+      "alt": "Schermata sintetica uno di MNS Warehouse"
+    },
+    "nextModal": {
+      "status": "Schermata 2 di 2",
+      "caption": "Dettaglio sintetico due",
+      "alt": "Schermata sintetica due di MNS Warehouse"
+    },
+    "focusRestored": true,
+    "singleItem": {
+      "status": "Schermata 1 di 1",
+      "previousHidden": true,
+      "nextHidden": true
+    },
+    "failureHandling": {
+      "galleryRemoved": true,
+      "focusOutsideRemovedGallery": true
+    }
+  },
+  "contactMocks": {
+    "invalidForm": {
+      "invalidFields": 5,
+      "focusedField": "name",
+      "buttonLabel": "Invia il messaggio"
+    },
+    "failurePath": {
+      "status": "Il servizio è temporaneamente non disponibile. Riprova più tardi o usa l’email diretta.",
+      "messagePreserved": true,
+      "submitEnabled": true,
+      "challengeReset": true
+    },
+    "successPath": {
+      "title": "Richiesta accettata.",
+      "copy": "Il sistema ha accettato i dati del modulo per l’inoltro. Se vuoi aggiungere un dettaglio, puoi scrivere direttamente via email."
+    },
+    "realDeliveryAttempted": false
+  },
+  "engineAvailability": [
+    {
+      "engine": "chromium",
+      "executable": "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe",
+      "available": true,
+      "smokePassed": true,
+      "version": "152.0.7977.83"
+    },
+    {
+      "engine": "firefox",
+      "executable": "C:\\Users\\tobia\\AppData\\Local\\ms-playwright\\firefox-1538\\firefox\\firefox.exe",
+      "available": false,
+      "smokePassed": false,
+      "reason": "runtime non installato"
+    },
+    {
+      "engine": "webkit",
+      "executable": "C:\\Users\\tobia\\AppData\\Local\\ms-playwright\\webkit-2336\\Playwright.exe",
+      "available": false,
+      "smokePassed": false,
+      "reason": "runtime non installato"
+    }
+  ],
+  "expectedConsoleSignals": [
+    {
+      "page": "main",
+      "message": "Failed to load resource: net::ERR_BLOCKED_BY_CLIENT.Inspector"
+    },
+    {
+      "page": "main",
+      "message": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+    },
+    {
+      "page": "main",
+      "message": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+    },
+    {
+      "page": "main",
+      "message": "Failed to load resource: net::ERR_BLOCKED_BY_CLIENT.Inspector"
+    },
+    {
+      "page": "main",
+      "message": "Failed to load resource: net::ERR_BLOCKED_BY_CLIENT.Inspector"
+    },
+    {
+      "page": "main",
+      "message": "Failed to load resource: the server responded with a status of 503 (Service Unavailable)"
+    },
+    {
+      "page": "main",
+      "message": "Failed to load resource: net::ERR_BLOCKED_BY_CLIENT.Inspector"
+    }
+  ],
+  "consoleErrors": [],
+  "screenshots": [
+    {
+      "file": "home-desktop-1440.jpg",
+      "route": "/",
+      "width": 1440,
+      "height": 900,
+      "fullPage": true
+    },
+    {
+      "file": "home-mobile-390.jpg",
+      "route": "/",
+      "width": 390,
+      "height": 844,
+      "fullPage": true
+    },
+    {
+      "file": "projects-desktop-1440.jpg",
+      "route": "/progetti/",
+      "width": 1440,
+      "height": 900,
+      "fullPage": true
+    },
+    {
+      "file": "case-study-desktop-1440.jpg",
+      "route": "/progetti/mns-warehouse/",
+      "width": 1440,
+      "height": 900,
+      "fullPage": true
+    },
+    {
+      "file": "case-study-mobile-390.jpg",
+      "route": "/progetti/mns-warehouse/",
+      "width": 390,
+      "height": 844,
+      "fullPage": true
+    },
+    {
+      "file": "contact-mobile-390.jpg",
+      "route": "/contatti.html",
+      "width": 390,
+      "height": 844,
+      "fullPage": true
+    }
+  ],
+  "failedReasons": [
+    "pannello contatti text200Mobile vincolato, tagliato o in overflow"
+  ]
+}
