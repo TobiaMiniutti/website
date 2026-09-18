@@ -26,11 +26,15 @@ jobs:
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v6
 
-      - uses: actions/setup-node@v7
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v7
         with:
           node-version: 24
           cache: npm
@@ -41,6 +45,11 @@ jobs:
       - name: Test source and worker
         run: npm test
 
+      # Evita che file già presenti/tracciati in dist sopravvivano
+      # a un nuovo build e vengano pubblicati al posto di public/.
+      - name: Clean production artifact
+        run: rm -rf dist
+
       - name: Build production artifact
         env:
           TURNSTILE_SITE_KEY: ${{ vars.TURNSTILE_SITE_KEY }}
@@ -48,12 +57,32 @@ jobs:
           MOBILE_PHONE_TEL: ${{ vars.MOBILE_PHONE_TEL }}
         run: npm run build:production
 
+      - name: Verify public pages were rebuilt
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          while IFS= read -r -d '' source_file; do
+            relative_path="${source_file#public/}"
+            built_file="dist/$relative_path"
+
+            if [ ! -f "$built_file" ]; then
+              echo "::error file=$source_file::Missing from production artifact: $built_file"
+              exit 1
+            fi
+          done < <(find public -type f -print0)
+
       - name: Validate finished artifact
         run: npm run validate:dist
 
-      - uses: actions/configure-pages@v6
-      - uses: actions/upload-pages-artifact@v5
+      - name: Configure GitHub Pages
+        uses: actions/configure-pages@v6
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v5
         with:
           path: dist
-      - id: deployment
+
+      - name: Deploy GitHub Pages
+        id: deployment
         uses: actions/deploy-pages@v5
