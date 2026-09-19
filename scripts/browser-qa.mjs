@@ -15,7 +15,7 @@ await mkdir(outputDirectory, { recursive: true });
 
 const expectedProjects = [
   { slug: "mns-warehouse", title: "MNS Warehouse" },
-  { slug: "ricettario-ai", title: "Ricettario AI" },
+  { slug: "culina", title: "Culina" },
   { slug: "little-printer-revival", title: "Little Printer Revival" },
 ];
 const indexableRoutes = [

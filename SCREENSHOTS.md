@@ -7,7 +7,7 @@ Le gallerie dei casi studio sono generate automaticamente durante la build. Non 
 Usa esclusivamente queste directory:
 
 - `public/assets/projects/mns-warehouse/`
-- `public/assets/projects/ricettario-ai/`
+- `public/assets/projects/culina/`
 - `public/assets/projects/little-printer-revival/`
 
 I file devono chiamarsi `screenshot-N.ext`, dove `N` è un intero positivo e `ext` è `png`, `jpg`, `jpeg`, `webp` oppure `avif`.
@@ -15,9 +15,9 @@ I file devono chiamarsi `screenshot-N.ext`, dove `N` è un intero positivo e `ex
 Esempi validi:
 
 ```text
-public/assets/projects/ricettario-ai/screenshot-1.webp
-public/assets/projects/ricettario-ai/screenshot-2.png
-public/assets/projects/ricettario-ai/screenshot-10.avif
+public/assets/projects/culina/screenshot-1.webp
+public/assets/projects/culina/screenshot-2.png
+public/assets/projects/culina/screenshot-10.avif
 ```
 
 I numeri possono avere intervalli e vengono ordinati numericamente. Non usare due file che rappresentano lo stesso numero, per esempio `screenshot-01.png` e `screenshot-1.webp`: la build li considera un duplicato e si interrompe.
@@ -29,7 +29,7 @@ Le didascalie si configurano in `content/project-screenshot-captions.json`, usan
 ```json
 {
   "mns-warehouse": {},
-  "ricettario-ai": {
+  "culina": {
     "2": "Raccolta personale delle ricette"
   },
   "little-printer-revival": {}

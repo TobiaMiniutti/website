@@ -17,7 +17,7 @@ const ROUTES = Object.freeze([
   { id: "privacy", path: "/privacy.html" },
   { id: "progetti", path: "/progetti/" },
   { id: "mns-warehouse", path: "/progetti/mns-warehouse/" },
-  { id: "ricettario-ai", path: "/progetti/ricettario-ai/" },
+  { id: "culina", path: "/progetti/culina/" },
   { id: "little-printer-revival", path: "/progetti/little-printer-revival/" },
 ]);
 const PROFILES = Object.freeze([

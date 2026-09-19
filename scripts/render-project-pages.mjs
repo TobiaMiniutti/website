@@ -23,22 +23,18 @@ const serializeJsonLd = (value) => JSON.stringify(value)
 
 const projectUrl = (project) => `${siteOrigin}/progetti/${project.slug}/`;
 
-const renderDirectionIcon = (direction) => `<svg class="direction-icon direction-icon--${direction}" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M3.5 10h13m0 0-5-5m5 5-5 5" vector-effect="non-scaling-stroke"></path></svg>`;
-
-const renderMenuIcon = () => `<svg class="menu-icon" viewBox="0 0 24 16" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" aria-hidden="true" focusable="false"><path d="M2 4h20M2 12h20" vector-effect="non-scaling-stroke"></path></svg>`;
-
 const renderHeader = () => `
   <a class="skip-link" href="#contenuto">Vai al contenuto</a>
   <header class="site-header">
     <div class="nav-shell">
       <a class="site-brand" href="/" aria-label="Tobia Miniutti — Homepage"><span class="brand-symbol" aria-hidden="true"><img src="/assets/images/logo-nav.png" alt="" width="96" height="96"></span></a>
-      <nav class="desktop-nav" aria-label="Navigazione principale"><a href="/#profilo">Profilo</a><a href="/#competenze">Competenze</a><a href="/progetti/" aria-current="page">Progetti</a><a href="/contatti.html">Contatti</a></nav>
+      <nav class="desktop-nav" aria-label="Navigazione principale"><a href="/#profilo">Profilo</a><a href="/progetti/" aria-current="page">Progetti</a><a href="/contatti.html">Contatti</a></nav>
       <a class="header-contact" href="/contatti.html">Scrivimi</a>
-      <button class="menu-toggle" type="button" aria-label="Apri il menu" aria-haspopup="dialog" aria-controls="mobile-menu" aria-expanded="false">${renderMenuIcon()}</button>
+      <button class="menu-toggle" type="button" aria-label="Apri il menu" aria-haspopup="dialog" aria-controls="mobile-menu"><span></span><span></span></button>
     </div>
     <dialog class="mobile-menu" id="mobile-menu" aria-label="Menu di navigazione">
       <div class="mobile-menu-head"><a class="site-brand" href="/" aria-label="Tobia Miniutti — Homepage"><span class="brand-symbol" aria-hidden="true"><img src="/assets/images/logo-nav.png" alt="" width="96" height="96"></span></a><button class="menu-close" type="button" aria-label="Chiudi il menu">Chiudi</button></div>
-      <nav class="mobile-nav" aria-label="Navigazione mobile"><a href="/">Home</a><a href="/#profilo">Profilo</a><a href="/#competenze">Competenze</a><a href="/progetti/" aria-current="page">Progetti</a><a href="/contatti.html">Contatti</a></nav>
+      <nav class="mobile-nav" aria-label="Navigazione mobile"><a href="/">Home</a><a href="/#profilo">Profilo</a><a href="/progetti/" aria-current="page">Progetti</a><a href="/contatti.html">Contatti</a></nav>
       <p>Tobia Miniutti · Bologna, Italia</p>
     </dialog>
   </header>`;
@@ -95,9 +91,9 @@ export function renderGallery(project, screenshots = []) {
               <figcaption data-gallery-caption>${escapeHtml(first.caption || `Schermata 1 di ${project.title}`)}</figcaption>
             </figure>
             <div class="gallery-controls">
-              <button type="button" data-gallery-prev aria-label="Schermata precedente"${oneImageOnly}>${renderDirectionIcon("left")}<span>Precedente</span></button>
+              <button type="button" data-gallery-prev aria-label="Schermata precedente"${oneImageOnly}>Precedente</button>
               <p data-gallery-status aria-live="polite">Schermata 1 di ${screenshots.length}</p>
-              <button type="button" data-gallery-next aria-label="Schermata successiva"${oneImageOnly}><span>Successiva</span>${renderDirectionIcon("right")}</button>
+              <button type="button" data-gallery-next aria-label="Schermata successiva"${oneImageOnly}>Successiva</button>
               <a href="${escapeHtml(first.url)}" data-gallery-original>Apri l’immagine originale</a>
             </div>
           </div>
@@ -127,8 +123,8 @@ const renderProjectPage = (project, index, screenshots) => {
     ...(screenshots.length ? { image: screenshots.map((screenshot) => `${siteOrigin}${screenshot.url}`) } : {}),
   };
 
-  const story = project.sections.map((section, sectionIndex) => `
-        <section class="case-section" data-reveal${sectionIndex === 0 ? " data-bird-stop" : ""}>
+  const story = project.sections.map((section) => `
+        <section class="case-section" data-reveal>
           <h2>${escapeHtml(section.title)}</h2>
           ${section.paragraphs.map((paragraph) => `<p>${escapeHtml(paragraph)}</p>`).join("\n          ")}
         </section>`).join("");
@@ -175,7 +171,7 @@ ${renderHeader()}
       <header class="case-hero">
 ${renderGardenPicture()}
         <div class="case-hero-content">
-          <a class="back-link" href="/progetti/">${renderDirectionIcon("left")} Tutti i progetti</a>
+          <a class="back-link" href="/progetti/"><span aria-hidden="true">←</span> Tutti i progetti</a>
           <div class="case-title">
             <p class="eyebrow">${escapeHtml(project.category)}</p>
             <h1>${escapeHtml(project.title)}</h1>
@@ -184,18 +180,18 @@ ${renderGardenPicture()}
         </div>
       </header>
 
-      <div class="case-story" data-leaf-zone>${story}
+      <div class="case-story">${story}
       </div>
 ${renderGallery(project, screenshots)}
       <nav class="case-actions" aria-label="Azioni del progetto">
-        <a class="text-link" href="/progetti/">${renderDirectionIcon("left")} Torna ai progetti</a>
+        <a class="text-link" href="/progetti/"><span aria-hidden="true">←</span> Torna ai progetti</a>
         <a class="button" href="/contatti.html">Parliamone</a>
       </nav>
     </article>
 
     <section class="next-project" aria-labelledby="next-project-title">
       <p>Progetto successivo</p>
-      <a href="/progetti/${escapeHtml(nextProject.slug)}/"><span>Continua la visita</span><strong id="next-project-title">${escapeHtml(nextProject.title)} ${renderDirectionIcon("up-right")}</strong></a>
+      <a href="/progetti/${escapeHtml(nextProject.slug)}/"><span>Continua la visita</span><strong id="next-project-title">${escapeHtml(nextProject.title)} <span aria-hidden="true">↗</span></strong></a>
     </section>
   </main>
 ${renderFooter()}
