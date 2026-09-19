@@ -316,11 +316,11 @@ body {
   position: relative;
   z-index: 1;
   width: min(740px, 68vw);
+  padding-top: clamp(36px, 5vh, 56px);
   align-self: auto;
   text-shadow: 0 1px 16px rgba(245, 247, 233, 0.52);
 }
 
-.garden-hero .hero-context,
 .section-heading > p,
 .projects-heading > p,
 .contact-content > p:first-child {
@@ -332,37 +332,16 @@ body {
   text-transform: none;
 }
 
-.garden-hero .hero-context {
-  width: fit-content;
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  color: #2f5747;
-  font-size: 0.8rem;
-  font-weight: 650;
-  letter-spacing: 0.055em;
-  text-transform: uppercase;
-}
-
-.garden-hero .hero-context::before {
-  content: "";
-  width: 34px;
-  height: 1px;
-  flex: 0 0 auto;
-  background: currentColor;
-  opacity: 0.58;
-}
-
 .garden-hero h1 {
   width: min(7.4ch, 100%);
   max-width: none;
-  margin: 22px 0 28px;
+  margin: 0 0 26px;
   display: grid;
   justify-items: start;
   color: var(--forest-deep);
   font-size: clamp(6rem, 10.5vw, 10.9rem);
   letter-spacing: -0.07em;
-  line-height: 0.72;
+  line-height: 0.78;
 }
 
 .garden-hero .hero-name-first,
@@ -371,26 +350,36 @@ body {
 }
 
 .garden-hero .hero-name-last {
-  margin-left: clamp(0.16em, 1.7vw, 0.34em);
+  margin-left: clamp(0.26em, 2vw, 0.4em);
+  transform: translateX(0);
+  transform-origin: left center;
+  transition: transform 320ms cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .garden-hero h1:hover .hero-name-last {
+    transform: translateX(0.06em);
+  }
 }
 
 .garden-hero .hero-role {
   width: fit-content;
-  max-width: 32ch;
+  max-width: 29ch;
   margin: 0;
-  padding: 10px 16px 11px 18px;
-  border: 1px solid rgba(255, 255, 255, 0.46);
-  border-left: 2px solid rgba(23, 55, 47, 0.62);
-  border-radius: 0 16px 16px 0;
+  padding: 8px 12px 9px 14px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-left: 1px solid rgba(23, 55, 47, 0.42);
+  border-radius: 0 13px 13px 0;
   color: var(--forest-deep);
-  background: linear-gradient(90deg, rgba(247, 247, 235, 0.72), rgba(247, 247, 235, 0.34));
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.44);
-  backdrop-filter: blur(8px) saturate(105%);
-  -webkit-backdrop-filter: blur(8px) saturate(105%);
-  font-size: clamp(1.08rem, 1.55vw, 1.44rem);
+  background: linear-gradient(90deg, rgba(247, 247, 235, 0.54), rgba(247, 247, 235, 0.18));
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.28);
+  backdrop-filter: blur(6px) saturate(103%);
+  -webkit-backdrop-filter: blur(6px) saturate(103%);
+  font-size: clamp(1.03rem, 1.35vw, 1.32rem);
   font-weight: 600;
   line-height: 1.36;
-  text-shadow: 0 1px 10px rgba(246, 244, 235, 0.72);
+  text-shadow: 0 1px 7px rgba(246, 244, 235, 0.5);
 }
 
 .garden-hero .hero-actions {
@@ -419,6 +408,7 @@ body {
   background: var(--forest);
   border-color: rgba(12, 40, 33, 0.84);
   box-shadow: 0 12px 28px rgba(12, 40, 33, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.15);
+  text-shadow: none;
 }
 
 .garden-hero .hero-action-secondary {
@@ -435,6 +425,11 @@ body {
   background: #081f19;
   border-color: #081f19;
   box-shadow: 0 14px 30px rgba(12, 40, 33, 0.26), inset 0 1px 0 rgba(255, 255, 255, 0.12);
+  text-shadow: none;
+}
+
+.garden-hero .hero-action-primary:active {
+  text-shadow: none;
 }
 
 .garden-hero .hero-action-secondary:hover,
@@ -606,21 +601,8 @@ body {
   padding-right: 0;
 }
 
-.skill-group-wide {
-  grid-column: 1 / -1;
-}
-
 .skill-group-heading {
-  display: grid;
-  grid-template-columns: 34px minmax(0, 1fr);
-  align-items: baseline;
-  gap: 14px;
-}
-
-.skill-group-heading > span {
-  color: rgba(23, 55, 47, 0.5);
-  font-size: 0.7rem;
-  letter-spacing: 0.08em;
+  display: block;
 }
 
 .skill-group h3 {
@@ -632,33 +614,30 @@ body {
   line-height: 1;
 }
 
-.skill-list {
-  margin: 28px 0 0 48px;
-  padding: 0;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 11px 0;
-  list-style: none;
-  color: #4e6258;
+.skill-description {
+  max-width: 52ch;
+  margin: 25px 0 0;
+  color: #3f574c;
+  font-size: 1rem;
+  line-height: 1.66;
 }
 
-.skill-list li {
-  position: relative;
-  padding: 0 15px 0 14px;
-  font-size: 0.9rem;
-  line-height: 1.45;
+.skill-evidence {
+  max-width: 58ch;
+  margin: 22px 0 0;
+  color: #5b6f65;
+  font-size: 0.86rem;
+  line-height: 1.62;
 }
 
-.skill-list li::before {
-  content: "";
-  position: absolute;
-  top: 0.62em;
-  left: 0;
-  width: 4px;
-  height: 4px;
-  border-radius: 50%;
-  background: var(--leaf);
-  opacity: 0.58;
+.skill-evidence span {
+  display: block;
+  margin-bottom: 7px;
+  color: #315344;
+  font-size: 0.72rem;
+  font-weight: 650;
+  letter-spacing: 0.055em;
+  text-transform: uppercase;
 }
 
 .botanical-projects {
@@ -700,8 +679,8 @@ body {
   margin: 58px auto 0;
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  align-items: start;
-  gap: 0;
+  align-items: stretch;
+  gap: clamp(16px, 2vw, 26px);
 }
 
 .project-panel {
@@ -717,33 +696,28 @@ body {
   box-shadow:
     0 24px 56px rgba(33, 68, 53, 0.12),
     inset 0 1px 0 rgba(255, 255, 255, 0.95);
-  transition: border-color 220ms ease, box-shadow 220ms ease, background-color 220ms ease;
+  transform: translateY(0);
+  transition: transform 220ms ease, border-color 220ms ease, box-shadow 220ms ease, background-color 220ms ease;
 }
 
-.project-panel:nth-child(1) {
-  z-index: 1;
-  margin-right: -12px;
-  transform: translateY(12px) rotate(-0.6deg);
-}
-
-.project-panel:nth-child(2) {
-  z-index: 3;
-  transform: translateY(-8px);
-}
-
-.project-panel:nth-child(3) {
-  z-index: 2;
-  margin-left: -12px;
-  transform: translateY(10px) rotate(0.6deg);
-}
-
-.project-panel:hover,
 .project-panel:focus-within {
+  transform: translateY(-4px);
   border-color: rgba(85, 110, 85, 0.5);
   background: rgba(255, 254, 247, 0.97);
   box-shadow:
     0 30px 62px rgba(31, 66, 51, 0.17),
     inset 0 1px 0 #fff;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .project-panel:hover {
+    transform: translateY(-4px);
+    border-color: rgba(85, 110, 85, 0.5);
+    background: rgba(255, 254, 247, 0.97);
+    box-shadow:
+      0 30px 62px rgba(31, 66, 51, 0.17),
+      inset 0 1px 0 #fff;
+  }
 }
 
 .project-panel h3 {
@@ -927,9 +901,8 @@ body {
   background-size: 200% 200%;
   background-position: 100% 0;
   filter: drop-shadow(0 8px 12px rgba(12, 40, 33, 0.2));
-  transform: translate3d(var(--bird-x, 110vw), var(--bird-y, 18vh), 0) translate(-50%, -50%) rotate(var(--bird-rotation, 0deg)) scaleX(-1) scale(var(--bird-scale, 1));
+  transform: translate3d(var(--bird-x, -16vw), var(--bird-y, -16vh), 0) translate(-50%, -50%) rotate(var(--bird-rotation, 0deg)) scaleX(var(--bird-direction, 1)) scale(var(--bird-scale, 1));
   transform-origin: center;
-  transition: opacity 120ms linear;
   will-change: transform, opacity;
 }
 
@@ -939,8 +912,9 @@ body {
 .ambient-bird[data-pose="perched"] { background-position: 0 100%; }
 
 .ambient-leaf {
-  width: clamp(42px, 4.8vw, 68px);
+  width: clamp(30px, 3.2vw, 46px);
   aspect-ratio: 1;
+  opacity: 0;
   background-image: image-set(
     url("../images/ambient/falling-leaf-atlas.avif") type("image/avif"),
     url("../images/ambient/falling-leaf-atlas.webp") type("image/webp")
@@ -948,11 +922,15 @@ body {
   background-size: 300% 200%;
   background-position: 0 0;
   filter: drop-shadow(0 6px 8px rgba(12, 40, 33, 0.16));
+  transform: translate3d(-18vw, -18vh, 0);
   will-change: transform, opacity;
 }
 
 .ambient-leaf[data-leaf-variant="1"] { background-position: 50% 0; }
 .ambient-leaf[data-leaf-variant="2"] { background-position: 100% 0; }
+.ambient-leaf[data-leaf-variant="3"] { background-position: 0 100%; }
+.ambient-leaf[data-leaf-variant="4"] { background-position: 50% 100%; }
+.ambient-leaf[data-leaf-variant="5"] { background-position: 100% 100%; }
 
 @supports ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
   .nav-shell:not(.glass-opaque) {
@@ -981,6 +959,10 @@ body {
   .skills-intro > p:last-child {
     max-width: 60ch;
   }
+
+  .project-panels {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
 }
 
 @media (max-width: 920px) {
@@ -1006,7 +988,7 @@ body {
   }
 
   .project-panels {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 18px;
   }
 
@@ -1062,17 +1044,18 @@ body {
 
   .garden-hero .hero-copy {
     width: 100%;
+    padding-top: 26px;
   }
 
   .garden-hero h1 {
     width: min(7.15ch, 100%);
-    margin: 20px 0 24px;
+    margin: 0 0 22px;
     font-size: clamp(4.35rem, 21.5vw, 6.9rem);
-    line-height: 0.75;
+    line-height: 0.8;
   }
 
   .garden-hero .hero-name-last {
-    margin-left: 0.22em;
+    margin-left: 0.3em;
   }
 
   .garden-hero .hero-role {
@@ -1145,13 +1128,13 @@ body {
     font-size: clamp(2.35rem, 11vw, 3.4rem);
   }
 
-  .skill-list {
-    margin-top: 24px;
-    margin-left: 0;
+  .skill-description {
+    margin-top: 22px;
   }
 
   .project-panels {
     margin-top: 44px;
+    grid-template-columns: 1fr;
   }
 
   .project-panel {
@@ -1344,6 +1327,10 @@ body {
 /* Project archive: deliberately typographic, without invented artwork. */
 .projects-index {
   padding: clamp(82px, 10vw, 148px) clamp(20px, 6vw, 92px);
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  align-items: stretch;
+  gap: clamp(16px, 2vw, 24px);
   background:
     radial-gradient(circle at 94% 8%, rgba(213, 226, 199, 0.74), transparent 30%),
     radial-gradient(circle at 4% 88%, rgba(218, 231, 230, 0.68), transparent 34%),
@@ -1352,37 +1339,53 @@ body {
 
 .project-row,
 .project-row:nth-child(even) {
-  width: min(100%, 1120px);
-  min-height: 0;
-  margin: 0 auto 20px;
-  padding: clamp(32px, 5vw, 58px);
-  display: block;
+  width: 100%;
+  min-height: 340px;
+  margin: 0;
+  padding: clamp(30px, 3.4vw, 46px);
+  display: flex;
   border: 1px solid rgba(23, 55, 47, 0.13);
   border-radius: 34px;
   background: rgba(250, 250, 242, 0.88);
   box-shadow:
     0 20px 52px rgba(24, 59, 45, 0.07),
     inset 0 1px 0 rgba(255, 255, 255, 0.92);
+  transform: translateY(0);
+  transition: transform 220ms ease, border-color 220ms ease, box-shadow 220ms ease, background-color 220ms ease;
 }
 
 .project-row:first-child {
   border-top: 1px solid rgba(23, 55, 47, 0.13);
 }
 
-.project-row:nth-child(2) {
-  transform: translateX(clamp(0px, 2.2vw, 26px));
-  background: rgba(239, 244, 229, 0.9);
-}
-
-.project-row:nth-child(3) {
-  background: rgba(241, 244, 238, 0.9);
-}
-
 .project-row .project-copy,
 .project-row:nth-child(even) .project-copy {
-  max-width: 850px;
+  width: 100%;
+  max-width: none;
+  display: flex;
+  flex-direction: column;
   grid-column: auto;
   grid-row: auto;
+}
+
+.project-row:focus-within {
+  transform: translateY(-4px);
+  border-color: rgba(85, 110, 85, 0.42);
+  background: rgba(255, 254, 247, 0.97);
+  box-shadow:
+    0 28px 60px rgba(31, 66, 51, 0.13),
+    inset 0 1px 0 #fff;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .project-row:hover {
+    transform: translateY(-4px);
+    border-color: rgba(85, 110, 85, 0.42);
+    background: rgba(255, 254, 247, 0.97);
+    box-shadow:
+      0 28px 60px rgba(31, 66, 51, 0.13),
+      inset 0 1px 0 #fff;
+  }
 }
 
 .project-category {
@@ -1393,8 +1396,8 @@ body {
 .project-row .project-copy h2 {
   margin: 0;
   color: var(--forest-deep);
-  font-size: clamp(3rem, 5.8vw, 6.1rem);
-  line-height: 0.9;
+  font-size: clamp(2.7rem, 3.8vw, 4.4rem);
+  line-height: 0.94;
 }
 
 .project-row .project-copy > p:not(.project-category) {
@@ -1403,6 +1406,11 @@ body {
   color: var(--muted);
   font-size: clamp(1rem, 1.2vw, 1.12rem);
   line-height: 1.72;
+}
+
+.project-row .text-link {
+  width: fit-content;
+  margin-top: auto;
 }
 
 .projects-index + .next-project,
@@ -1737,6 +1745,7 @@ body {
   z-index: 2;
   margin-top: -42px;
   padding: clamp(104px, 11vw, 156px) clamp(20px, 7vw, 108px) clamp(92px, 10vw, 148px);
+  grid-template-areas: "direct form";
   border-radius: 52px 52px 0 0;
   background:
     radial-gradient(circle at 6% 18%, rgba(219, 232, 205, 0.76), transparent 27%),
@@ -1745,7 +1754,12 @@ body {
   box-shadow: 0 -22px 58px rgba(24, 57, 44, 0.08);
 }
 
+.contact-form-panel {
+  grid-area: form;
+}
+
 .direct-contact {
+  grid-area: direct;
   padding-top: 20px;
 }
 
@@ -1922,8 +1936,14 @@ textarea:focus {
 }
 
 @media (max-width: 1040px) {
-  .project-row:nth-child(2) {
-    transform: none;
+  .projects-index {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .contact-page-layout {
+    grid-template-areas:
+      "form"
+      "direct";
   }
 
   .case-title {
@@ -1974,11 +1994,13 @@ textarea:focus {
 
   .projects-index {
     padding: 72px 18px 86px;
+    grid-template-columns: 1fr;
   }
 
   .project-row,
   .project-row:nth-child(even) {
-    margin-bottom: 14px;
+    min-height: 0;
+    margin: 0;
     padding: 28px 24px;
     border-radius: 26px;
   }

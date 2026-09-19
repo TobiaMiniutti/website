@@ -249,272 +249,211 @@ if (garden instanceof HTMLElement) {
 const createAmbientGarden = () => {
   const birdStops = [...document.querySelectorAll("[data-bird-stop]")]
     .filter((element) => element instanceof HTMLElement);
-  const leafZones = [...document.querySelectorAll("[data-leaf-zone]")]
-    .filter((element) => element instanceof HTMLElement);
-  if (!birdStops.length && !leafZones.length) return null;
-
-  const supportsLeafMotion = typeof Element.prototype.animate === "function";
-  const leafPaths = [
-    {
-      x: [1, 4, 1, 6],
-      rotation: [-18, 42, 94, 156],
-      duration: 7200,
-      delay: 0,
-    },
-    {
-      x: [99, 96, 99, 94],
-      rotation: [14, -36, -88, -142],
-      duration: 7900,
-      delay: 280,
-    },
-    {
-      x: [94, 89, 96, 91],
-      rotation: [34, 86, 138, 206],
-      duration: 8400,
-      delay: 620,
-    },
+  const finePointer = window.matchMedia("(hover: hover) and (pointer: fine)");
+  const leafConfigs = [
+    { x: 7, drift: 5.5, phase: 0.04, duration: 17100, scale: 0.72, opacity: 0.42, rotation: -28, turns: 1.35 },
+    { x: 22, drift: -7, phase: 0.71, duration: 19400, scale: 0.9, opacity: 0.48, rotation: 18, turns: -1.1 },
+    { x: 39, drift: 8.5, phase: 0.37, duration: 15800, scale: 0.66, opacity: 0.38, rotation: 54, turns: 1.55 },
+    { x: 56, drift: -6, phase: 0.86, duration: 20900, scale: 0.82, opacity: 0.44, rotation: -16, turns: -1.4 },
+    { x: 70, drift: 7.5, phase: 0.2, duration: 18300, scale: 0.74, opacity: 0.4, rotation: 32, turns: 1.2 },
+    { x: 84, drift: -5, phase: 0.55, duration: 22500, scale: 0.92, opacity: 0.46, rotation: -42, turns: -1.6 },
+    { x: 95, drift: -8, phase: 0.94, duration: 16600, scale: 0.62, opacity: 0.36, rotation: 12, turns: 1.45 },
   ];
-  const activeLeafZones = new Set();
-  const runningAnimations = new Set();
-  const leafAnimations = new WeakMap();
-  const timers = new Set();
-  let root = null;
+  const root = document.createElement("div");
   let bird = null;
   let leaves = [];
-  let leafObserver = null;
   let ambientFrame = 0;
-  let burstIndex = 0;
-  let lastBurstAt = -Infinity;
+  let startedAt = 0;
+  let lastFrameAt = 0;
+  let birdY = null;
+  let wingPhase = 0;
   let destroyed = false;
+  const pointer = { active: false, x: -1000, y: -1000 };
 
-  const ensureRoot = () => {
-    if (destroyed || root) return root;
-    root = document.createElement("div");
-    root.className = "ambient-garden";
-    root.setAttribute("aria-hidden", "true");
-    root.setAttribute("inert", "");
-    root.inert = true;
-    root.style.pointerEvents = "none";
+  root.className = "ambient-garden";
+  root.setAttribute("aria-hidden", "true");
+  root.setAttribute("inert", "");
+  root.inert = true;
+  root.style.pointerEvents = "none";
 
-    if (birdStops.length) {
-      bird = document.createElement("span");
-      bird.className = "ambient-bird";
-      bird.dataset.state = "hidden";
-      bird.dataset.pose = "glide";
-      bird.style.setProperty("--bird-opacity", "0");
-      root.append(bird);
-    }
+  if (birdStops.length) {
+    bird = document.createElement("span");
+    bird.className = "ambient-bird";
+    bird.dataset.state = "hidden";
+    bird.dataset.pose = "glide";
+    bird.style.setProperty("--bird-opacity", "0");
+    bird.style.setProperty("--bird-x", "-16vw");
+    bird.style.setProperty("--bird-y", "-16vh");
+    bird.style.setProperty("--bird-direction", "1");
+    root.append(bird);
+  }
 
-    if (leafZones.length && supportsLeafMotion) {
-      leaves = leafPaths.map((_, index) => {
-        const leaf = document.createElement("span");
-        leaf.className = "ambient-leaf";
-        leaf.dataset.leafVariant = String(index);
-        leaf.hidden = true;
-        root.append(leaf);
-        return leaf;
-      });
-    }
+  leaves = leafConfigs.map((config, index) => {
+    const element = document.createElement("span");
+    element.className = "ambient-leaf";
+    element.dataset.leafVariant = String(index % 6);
+    root.append(element);
+    return { ...config, element, gustX: 0, gustY: 0 };
+  });
 
-    document.body.append(root);
-    return root;
-  };
-
-  const finishLeafAnimation = (animation, leaf) => {
-    runningAnimations.delete(animation);
-    if (leaf instanceof HTMLElement && leafAnimations.get(leaf) === animation) {
-      leafAnimations.delete(leaf);
-      leaf.hidden = true;
-    }
-  };
-
-  const animateLeaf = (leaf, path, index) => {
-    if (destroyed || document.hidden || !activeLeafZones.size || !ensureRoot()) return;
-    leafAnimations.get(leaf)?.cancel();
-    leaf.hidden = false;
-    leaf.dataset.leafVariant = String((index + burstIndex) % leafPaths.length);
-    const animation = leaf.animate([
-      {
-        opacity: 0,
-        transform: `translate3d(${path.x[0]}vw, -14vh, 0) rotate(${path.rotation[0]}deg)`,
-      },
-      {
-        opacity: 0.72,
-        transform: `translate3d(${path.x[1]}vw, 20vh, 0) rotate(${path.rotation[1]}deg)`,
-        offset: 0.24,
-      },
-      {
-        opacity: 0.66,
-        transform: `translate3d(${path.x[2]}vw, 67vh, 0) rotate(${path.rotation[2]}deg)`,
-        offset: 0.7,
-      },
-      {
-        opacity: 0,
-        transform: `translate3d(${path.x[3]}vw, 112vh, 0) rotate(${path.rotation[3]}deg)`,
-      },
-    ], {
-      duration: path.duration,
-      easing: "cubic-bezier(0.42, 0, 0.3, 1)",
-      fill: "none",
-    });
-    leafAnimations.set(leaf, animation);
-    runningAnimations.add(animation);
-    animation.finished
-      .then(() => finishLeafAnimation(animation, leaf))
-      .catch(() => finishLeafAnimation(animation, leaf));
-  };
-
-  const runLeafBurst = () => {
-    if (destroyed || document.hidden || !activeLeafZones.size || !supportsLeafMotion) return;
-    const now = performance.now();
-    if (now - lastBurstAt < 3600) return;
-    lastBurstAt = now;
-    burstIndex += 1;
-    ensureRoot();
-    leaves.forEach((leaf, index) => {
-      const path = leafPaths[index];
-      const timer = window.setTimeout(() => {
-        timers.delete(timer);
-        animateLeaf(leaf, path, index);
-      }, path.delay);
-      timers.add(timer);
-    });
-  };
+  document.body.append(root);
 
   const clamp = (value, minimum, maximum) => Math.min(maximum, Math.max(minimum, value));
   const mix = (start, end, progress) => start + (end - start) * progress;
+  const easeInOut = (progress) => 0.5 - Math.cos(Math.PI * progress) / 2;
+  const fadeEdge = (progress, edge = 0.1) => clamp(Math.min(progress / edge, (1 - progress) / edge), 0, 1);
 
-  const birdPresentation = () => {
+  const handlePointerMove = (event) => {
+    if (!finePointer.matches || event.pointerType === "touch") return;
+    pointer.active = true;
+    pointer.x = event.clientX;
+    pointer.y = event.clientY;
+  };
+
+  const clearPointer = () => {
+    pointer.active = false;
+  };
+
+  const renderLeaves = (elapsed) => {
+    const viewportWidth = Math.max(window.innerWidth, 1);
+    const viewportHeight = Math.max(window.innerHeight, 1);
+    leaves.forEach((leaf, index) => {
+      const progress = ((elapsed / leaf.duration) + leaf.phase) % 1;
+      const sway = Math.sin(progress * Math.PI * 2 + index * 0.82) * leaf.drift;
+      const bow = Math.sin(progress * Math.PI) * leaf.drift * 0.72;
+      const x = (leaf.x + sway + bow) / 100 * viewportWidth;
+      const y = mix(-0.14 * viewportHeight, 1.14 * viewportHeight, progress);
+      const distanceX = x - pointer.x;
+      const distanceY = y - pointer.y;
+      const distance = Math.hypot(distanceX, distanceY);
+      let targetGustX = 0;
+      let targetGustY = 0;
+
+      if (pointer.active && distance > 0 && distance < 138) {
+        const strength = (1 - distance / 138) ** 2;
+        targetGustX = distanceX / distance * strength * 24;
+        targetGustY = distanceY / distance * strength * 14;
+      }
+
+      leaf.gustX += (targetGustX - leaf.gustX) * 0.11;
+      leaf.gustY += (targetGustY - leaf.gustY) * 0.11;
+      const rotation = leaf.rotation + progress * 360 * leaf.turns
+        + Math.sin(progress * Math.PI * 4 + index) * 15;
+      const scale = leaf.scale * (0.96 + Math.sin(progress * Math.PI) * 0.08);
+      leaf.element.style.opacity = String(leaf.opacity * fadeEdge(progress, 0.11));
+      leaf.element.style.transform = `translate3d(${(x + leaf.gustX).toFixed(2)}px, ${(y + leaf.gustY).toFixed(2)}px, 0) translate(-50%, -50%) rotate(${rotation.toFixed(2)}deg) scale(${scale.toFixed(3)})`;
+    });
+  };
+
+  const birdTargetY = () => {
     const viewportHeight = Math.max(window.innerHeight, 1);
     let candidate = null;
 
     birdStops.forEach((stop, index) => {
-      const bounds = stop.getBoundingClientRect();
-      const anchorY = bounds.top + Math.min(Math.max(bounds.height * 0.3, 18), 84);
-      const relative = anchorY / viewportHeight - 0.5;
-      if (relative < -0.88 || relative > 1.18) return;
-      const score = Math.abs(relative - 0.04);
+      const heading = stop.matches("h1, h2") ? stop : stop.querySelector("h1, h2");
+      const bounds = (heading instanceof HTMLElement ? heading : stop).getBoundingClientRect();
+      if (bounds.bottom < 96 || bounds.top > viewportHeight - 96) return;
+      const anchorY = bounds.top > 150 ? bounds.top - 54 : bounds.bottom + 48;
+      const score = Math.abs(anchorY - viewportHeight * 0.42);
       if (!candidate || score < candidate.score) {
-        candidate = { index, anchorY, relative, score };
+        candidate = { index, anchorY, score };
       }
     });
 
-    if (!candidate) return { state: "hidden", pose: "glide", opacity: 0 };
-
-    const perchX = window.innerWidth <= 680 ? 94 : 92;
-    const perchY = clamp(candidate.anchorY / viewportHeight * 100, 16, 76);
-    const presentation = {
-      state: "perched",
-      pose: "perched",
-      opacity: 1,
-      x: perchX,
-      y: perchY,
-      rotation: 0,
-      scale: 1,
+    if (!candidate || candidate.score > viewportHeight * 1.25) return null;
+    return {
       stop: candidate.index,
+      y: clamp(candidate.anchorY, 112, viewportHeight - 104),
     };
-
-    if (candidate.relative > 0.62) {
-      const progress = clamp((1.18 - candidate.relative) / 0.56, 0, 1);
-      presentation.state = "flying";
-      presentation.pose = Math.floor(progress * 6) % 2 === 0 ? "wing-up" : "wing-down";
-      presentation.opacity = clamp(progress * 1.6, 0, 1);
-      presentation.x = mix(108, perchX + 5, progress);
-      presentation.y = mix(18, perchY - 8, progress);
-      presentation.rotation = mix(-8, -3, progress);
-      presentation.scale = mix(0.82, 0.96, progress);
-    } else if (candidate.relative > 0.2) {
-      const progress = clamp((0.62 - candidate.relative) / 0.42, 0, 1);
-      presentation.state = "approaching";
-      presentation.pose = progress < 0.48 ? "wing-down" : "glide";
-      presentation.x = mix(perchX + 5, perchX, progress);
-      presentation.y = mix(perchY - 8, perchY, progress);
-      presentation.rotation = mix(-3, 0, progress);
-      presentation.scale = mix(0.96, 1, progress);
-    } else if (candidate.relative < -0.25) {
-      const progress = clamp((-0.25 - candidate.relative) / 0.63, 0, 1);
-      presentation.state = "leaving";
-      presentation.pose = progress < 0.34 ? "glide" : (Math.floor(progress * 6) % 2 ? "wing-up" : "wing-down");
-      presentation.opacity = clamp((1 - progress) * 1.8, 0, 1);
-      presentation.x = mix(perchX, 110, progress);
-      presentation.y = mix(perchY, 8, progress);
-      presentation.rotation = mix(0, -9, progress);
-      presentation.scale = mix(1, 0.82, progress);
-    }
-
-    return presentation;
   };
 
-  const renderBird = () => {
-    ambientFrame = 0;
-    if (destroyed || document.hidden || !birdStops.length) return;
-    const presentation = birdPresentation();
-    if (presentation.state === "hidden" && !root) return;
-    ensureRoot();
+  const renderBird = (elapsed, delta) => {
     if (!(bird instanceof HTMLElement)) return;
-    bird.dataset.state = presentation.state;
-    bird.dataset.pose = presentation.pose;
-    if (Number.isInteger(presentation.stop)) bird.dataset.stopIndex = String(presentation.stop);
-    else delete bird.dataset.stopIndex;
-    bird.style.setProperty("--bird-opacity", String(presentation.opacity));
-    if (typeof presentation.x === "number") bird.style.setProperty("--bird-x", `${presentation.x.toFixed(2)}vw`);
-    if (typeof presentation.y === "number") bird.style.setProperty("--bird-y", `${presentation.y.toFixed(2)}vh`);
-    if (typeof presentation.rotation === "number") {
-      bird.style.setProperty("--bird-rotation", `${presentation.rotation.toFixed(2)}deg`);
+    const target = birdTargetY();
+    if (!target) {
+      bird.dataset.state = "hidden";
+      bird.style.setProperty("--bird-opacity", "0");
+      return;
     }
-    if (typeof presentation.scale === "number") bird.style.setProperty("--bird-scale", presentation.scale.toFixed(3));
+
+    birdY ??= target.y;
+    birdY += (target.y - birdY) * Math.min(1, delta / 420);
+    const cycle = (elapsed % 24000) / 24000;
+    let progress = 0;
+    let x = -12;
+    let curve = 0;
+    let direction = 1;
+    let opacity = 0;
+    let speed = 0;
+    let state = "turning";
+
+    if (cycle < 0.46) {
+      progress = cycle / 0.46;
+      const eased = easeInOut(progress);
+      x = mix(-12, 112, eased);
+      curve = -34 * Math.sin(Math.PI * progress) + 7 * Math.sin(Math.PI * progress * 2);
+      opacity = fadeEdge(progress, 0.075);
+      speed = Math.sin(Math.PI * progress);
+      state = "flying-forward";
+    } else if (cycle < 0.5) {
+      x = 112;
+      direction = -1;
+    } else if (cycle < 0.96) {
+      progress = (cycle - 0.5) / 0.46;
+      const eased = easeInOut(progress);
+      x = mix(112, -12, eased);
+      curve = 28 * Math.sin(Math.PI * progress) - 6 * Math.sin(Math.PI * progress * 2);
+      direction = -1;
+      opacity = fadeEdge(progress, 0.075);
+      speed = Math.sin(Math.PI * progress);
+      state = "flying-return";
+    }
+
+    wingPhase += delta / 1000 * (4 + speed * 8);
+    const pose = speed < 0.24 ? "glide" : (Math.sin(wingPhase) >= 0 ? "wing-up" : "wing-down");
+    const rotation = direction * (-3.5 * Math.cos(Math.PI * progress) + 1.5 * Math.cos(Math.PI * progress * 2));
+    bird.dataset.state = state;
+    bird.dataset.pose = pose;
+    bird.dataset.stopIndex = String(target.stop);
+    bird.style.setProperty("--bird-opacity", opacity.toFixed(3));
+    bird.style.setProperty("--bird-x", `${x.toFixed(2)}vw`);
+    bird.style.setProperty("--bird-y", `${(birdY + curve).toFixed(2)}px`);
+    bird.style.setProperty("--bird-rotation", `${rotation.toFixed(2)}deg`);
+    bird.style.setProperty("--bird-direction", String(direction));
+    bird.style.setProperty("--bird-scale", (0.88 + speed * 0.08).toFixed(3));
   };
 
-  const requestAmbientRender = () => {
-    if (!ambientFrame && !destroyed) ambientFrame = requestAnimationFrame(renderBird);
+  const renderAmbient = (now) => {
+    if (destroyed) return;
+    startedAt ||= now;
+    lastFrameAt ||= now;
+    const delta = Math.min(64, now - lastFrameAt);
+    const elapsed = now - startedAt;
+    lastFrameAt = now;
+    renderLeaves(elapsed);
+    renderBird(elapsed, delta);
+    ambientFrame = requestAnimationFrame(renderAmbient);
   };
 
   const handleVisibility = () => {
-    runningAnimations.forEach((animation) => {
-      if (document.hidden) animation.pause();
-      else animation.play();
-    });
-    if (!document.hidden) {
-      requestAmbientRender();
-      if (activeLeafZones.size) runLeafBurst();
-    }
+    if (!document.hidden) lastFrameAt = performance.now();
   };
 
-  if (leafZones.length && supportsLeafMotion && "IntersectionObserver" in window) {
-    leafObserver = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          const wasActive = activeLeafZones.has(entry.target);
-          activeLeafZones.add(entry.target);
-          if (!wasActive) runLeafBurst();
-        } else {
-          activeLeafZones.delete(entry.target);
-        }
-      });
-    }, { rootMargin: "-8% 0px -14%", threshold: 0.08 });
-    leafZones.forEach((zone) => leafObserver.observe(zone));
+  if (finePointer.matches) {
+    window.addEventListener("pointermove", handlePointerMove, { passive: true });
+    document.documentElement.addEventListener("pointerleave", clearPointer);
   }
-
-  window.addEventListener("scroll", requestAmbientRender, { passive: true });
-  window.addEventListener("resize", requestAmbientRender, { passive: true });
-  window.addEventListener("orientationchange", requestAmbientRender, { passive: true });
   document.addEventListener("visibilitychange", handleVisibility);
-  requestAmbientRender();
+  ambientFrame = requestAnimationFrame(renderAmbient);
 
   return {
     destroy() {
       destroyed = true;
-      leafObserver?.disconnect();
       if (ambientFrame) cancelAnimationFrame(ambientFrame);
-      timers.forEach((timer) => clearTimeout(timer));
-      timers.clear();
-      runningAnimations.forEach((animation) => animation.cancel());
-      runningAnimations.clear();
-      window.removeEventListener("scroll", requestAmbientRender);
-      window.removeEventListener("resize", requestAmbientRender);
-      window.removeEventListener("orientationchange", requestAmbientRender);
+      window.removeEventListener("pointermove", handlePointerMove);
+      document.documentElement.removeEventListener("pointerleave", clearPointer);
       document.removeEventListener("visibilitychange", handleVisibility);
-      root?.remove();
+      root.remove();
     },
   };
 };
