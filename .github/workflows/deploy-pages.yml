@@ -5,6 +5,10 @@ on:
     branches: [main]
     paths:
       - "public/**"
+      - "content/**"
+      - "scripts/**"
+      - "package.json"
+      - "package-lock.json"
       - ".github/workflows/deploy-pages.yml"
   workflow_dispatch:
 
@@ -18,25 +22,38 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  deploy:
+  validate-and-deploy:
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
-
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v6
+      - uses: actions/checkout@v6
 
-      - name: Configure GitHub Pages
-        uses: actions/configure-pages@v6
-
-      - name: Upload public directory
-        uses: actions/upload-pages-artifact@v5
+      - uses: actions/setup-node@v7
         with:
-          path: public
+          node-version: 24
+          cache: npm
 
-      - name: Deploy GitHub Pages
-        id: deployment
+      - name: Install locked toolchain
+        run: npm ci --ignore-scripts
+
+      - name: Test source and worker
+        run: npm test
+
+      - name: Build production artifact
+        env:
+          TURNSTILE_SITE_KEY: ${{ vars.TURNSTILE_SITE_KEY }}
+          MOBILE_PHONE_DISPLAY: ${{ vars.MOBILE_PHONE_DISPLAY }}
+          MOBILE_PHONE_TEL: ${{ vars.MOBILE_PHONE_TEL }}
+        run: npm run build:production
+
+      - name: Validate finished artifact
+        run: npm run validate:dist
+
+      - uses: actions/configure-pages@v6
+      - uses: actions/upload-pages-artifact@v5
+        with:
+          path: dist
+      - id: deployment
         uses: actions/deploy-pages@v5
