@@ -6,7 +6,7 @@ Aggiornato il 15 settembre 2026.
 
 - Home trasformata in un giardino illustrato stratificato, con composizioni dedicate desktop/mobile, copy HTML vivo e parallax contenuto.
 - Navigazione compatta liquid-glass con fallback progressivo, modalità opaca per trasparenza ridotta e licenza MIT conservata.
-- Sezione “Alcuni dei miei progetti” con esattamente MNS Warehouse, Ricettario AI e Little Printer Revival, nell’ordine richiesto e senza visual fabbricati.
+- Sezione “Alcuni dei miei progetti” con esattamente MNS Warehouse, Culina e Little Printer Revival, nell’ordine richiesto e senza visual fabbricati.
 - Archivio e tre casi studio generati da `content/projects.mjs`, con testi prudenti e naturali.
 - Gallerie automatiche basate su file: zero screenshot significa zero interfaccia; nomi, formato reale, dimensioni e duplicati vengono validati prima di sostituire `dist/`.
 - Secure Garage Access rimosso da navigazione, dati, metadati, sitemap e output pubblico; la vecchia route restituisce 404.

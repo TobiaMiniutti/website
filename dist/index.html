@@ -68,13 +68,12 @@
       </a>
       <nav class="desktop-nav" aria-label="Navigazione principale">
         <a href="#profilo">Profilo</a>
-        <a href="#competenze">Competenze</a>
         <a href="#progetti">Progetti</a>
         <a href="#contatti">Contatti</a>
       </nav>
       <a class="header-contact" href="/contatti.html">Scrivimi</a>
-      <button class="menu-toggle" type="button" aria-label="Apri il menu" aria-haspopup="dialog" aria-controls="mobile-menu" aria-expanded="false">
-        <svg class="menu-icon" viewBox="0 0 24 16" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" aria-hidden="true" focusable="false"><path d="M2 4h20M2 12h20" vector-effect="non-scaling-stroke"></path></svg>
+      <button class="menu-toggle" type="button" aria-label="Apri il menu" aria-haspopup="dialog" aria-controls="mobile-menu">
+        <span></span><span></span>
       </button>
     </div>
     <dialog class="mobile-menu" id="mobile-menu" aria-label="Menu di navigazione">
@@ -85,7 +84,6 @@
       <nav class="mobile-nav" aria-label="Navigazione mobile">
         <a href="/">Home</a>
         <a href="/#profilo">Profilo</a>
-        <a href="/#competenze">Competenze</a>
         <a href="/#progetti">Progetti</a>
         <a href="/contatti.html">Contatti</a>
       </nav>
@@ -120,20 +118,20 @@
       <div class="hero-layout">
         <div class="hero-copy">
           <p class="hero-context">Bologna · Sviluppo digitale</p>
-          <h1 id="hero-title"><span class="hero-name-first">Tobia</span><span class="hero-name-last">Miniutti</span></h1>
+          <h1 id="hero-title">Tobia<br>Miniutti</h1>
           <p class="hero-role">Sviluppo web, sistemi digitali e automazioni.</p>
           <div class="hero-actions">
-            <a class="hero-action hero-action-primary" href="#progetti">Vedi i progetti <svg class="direction-icon direction-icon--right" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M3.5 10h13m0 0-5-5m5 5-5 5" vector-effect="non-scaling-stroke"></path></svg></a>
-            <a class="hero-action hero-action-secondary" href="/contatti.html">Contattami</a>
+            <a class="button button-light" href="#progetti">Vedi i progetti</a>
+            <a class="text-link" href="/contatti.html">Contattami <span aria-hidden="true">↗</span></a>
           </div>
         </div>
       </div>
-      <a class="hero-next" href="#profilo" aria-label="Continua al profilo">Continua <svg class="direction-icon direction-icon--down" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M3.5 10h13m0 0-5-5m5 5-5 5" vector-effect="non-scaling-stroke"></path></svg></a>
+      <a class="hero-next" href="#profilo">Continua <span aria-hidden="true">↓</span></a>
     </section>
 
     <section class="profile-section botanical-reading" id="profilo" aria-labelledby="profile-title">
       <div class="profile-body" data-reveal>
-        <div class="section-heading" data-bird-stop>
+        <div class="section-heading">
           <p>Profilo</p>
           <h2 id="profile-title">Lavoro tra ciò che si usa e ciò che lo fa funzionare.</h2>
         </div>
@@ -144,49 +142,8 @@
       </div>
     </section>
 
-    <section class="skills-section botanical-skills" id="competenze" aria-labelledby="skills-title" data-leaf-zone>
-      <header class="skills-intro" data-reveal>
-        <p>Competenze</p>
-        <h2 id="skills-title">Strumenti diversi, un unico processo</h2>
-        <p>Dall’interfaccia all’infrastruttura, unisco sviluppo, sistemi e strumenti tecnici per seguire ogni progetto nelle sue parti essenziali.</p>
-      </header>
-
-      <div class="skills-matrix">
-        <article class="skill-group" data-reveal>
-          <div class="skill-group-heading"><span aria-hidden="true">01</span><h3>Sviluppo web</h3></div>
-          <ul class="skill-list">
-            <li>HTML</li><li>CSS</li><li>JavaScript</li><li>TypeScript</li><li>React</li><li>Vite</li><li>Tailwind CSS</li><li>Responsive design</li><li>Accessibilità web</li>
-          </ul>
-        </article>
-        <article class="skill-group" data-reveal data-reveal-delay="50">
-          <div class="skill-group-heading"><span aria-hidden="true">02</span><h3>Backend e dati</h3></div>
-          <ul class="skill-list">
-            <li>Python</li><li>FastAPI</li><li>API REST</li><li>SQL</li><li>PostgreSQL</li><li>Redis</li><li>Modellazione dei dati</li><li>Integrazione di servizi</li>
-          </ul>
-        </article>
-        <article class="skill-group" data-reveal>
-          <div class="skill-group-heading"><span aria-hidden="true">03</span><h3>Sistemi e infrastrutture</h3></div>
-          <ul class="skill-list">
-            <li>Linux</li><li>Ubuntu Server</li><li>Docker</li><li>Docker Compose</li><li>Proxmox</li><li>Cloudflare</li><li>Cloudflare Tunnel</li><li>Tailscale</li><li>Git</li><li>GitHub</li><li>GitHub Actions</li><li>GitHub Pages</li><li>SSH</li><li>UFW</li><li>Reti e servizi self-hosted</li>
-          </ul>
-        </article>
-        <article class="skill-group" data-reveal data-reveal-delay="50">
-          <div class="skill-group-heading"><span aria-hidden="true">04</span><h3>Hardware e automazione</h3></div>
-          <ul class="skill-list">
-            <li>Arduino</li><li>Automazione</li><li>IoT</li><li>Elettronica</li><li>Reti</li><li>Domotica</li><li>Integrazione hardware-software</li><li>Controllo di relè e attuatori</li><li>Diagnostica tecnica</li><li>Prototipazione</li>
-          </ul>
-        </article>
-        <article class="skill-group skill-group-wide" data-reveal>
-          <div class="skill-group-heading"><span aria-hidden="true">05</span><h3>Design e contenuti digitali</h3></div>
-          <ul class="skill-list">
-            <li>Figma</li><li>Blender</li><li>AutoCAD</li><li>DaVinci Resolve</li><li>UI design</li><li>Modellazione 3D</li><li>Video editing</li><li>Fotografia e contenuti digitali</li>
-          </ul>
-        </article>
-      </div>
-    </section>
-
     <section class="projects-section botanical-projects" id="progetti" aria-labelledby="projects-title">
-      <div class="projects-heading" data-reveal data-bird-stop>
+      <div class="projects-heading" data-reveal>
         <p>Progetti</p>
         <h2 id="projects-title">Alcuni dei miei progetti</h2>
       </div>
@@ -195,24 +152,24 @@
         <article class="project-panel" data-reveal>
           <h3><a href="/progetti/mns-warehouse/">MNS Warehouse</a></h3>
           <p>Una piattaforma per organizzare articoli, scatole e movimenti di magazzino, con attenzione alla gestione degli accessi.</p>
-          <a class="project-link" href="/progetti/mns-warehouse/">Leggi il progetto <svg class="direction-icon direction-icon--up-right" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M3.5 10h13m0 0-5-5m5 5-5 5" vector-effect="non-scaling-stroke"></path></svg></a>
+          <a class="project-link" href="/progetti/mns-warehouse/">Leggi il progetto <span aria-hidden="true">↗</span></a>
         </article>
         <article class="project-panel" data-reveal data-reveal-delay="70">
-          <h3><a href="/progetti/ricettario-ai/">Ricettario AI</a></h3>
-          <p>Un prodotto per raccogliere e condividere ricette, con importazione intelligente da link, foto, screenshot, PDF o testo.</p>
-          <a class="project-link" href="/progetti/ricettario-ai/">Leggi il progetto <svg class="direction-icon direction-icon--up-right" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M3.5 10h13m0 0-5-5m5 5-5 5" vector-effect="non-scaling-stroke"></path></svg></a>
+          <h3><a href="/progetti/culina/">Culina</a></h3>
+          <p>Un ricettario digitale che unisce l’organizzazione delle ricette alla condivisione e alle conversazioni sulla cucina.</p>
+          <a class="project-link" href="/progetti/culina/">Leggi il progetto <span aria-hidden="true">↗</span></a>
         </article>
         <article class="project-panel" data-reveal data-reveal-delay="140">
           <h3><a href="/progetti/little-printer-revival/">Little Printer Revival</a></h3>
           <p>Un progetto di recupero della BERG Little Printer, per riportare in uso il dispositivo con una nuova piattaforma di servizio.</p>
-          <a class="project-link" href="/progetti/little-printer-revival/">Leggi il progetto <svg class="direction-icon direction-icon--up-right" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M3.5 10h13m0 0-5-5m5 5-5 5" vector-effect="non-scaling-stroke"></path></svg></a>
+          <a class="project-link" href="/progetti/little-printer-revival/">Leggi il progetto <span aria-hidden="true">↗</span></a>
         </article>
       </div>
 
-      <a class="all-projects-link" href="/progetti/"><span>Progetti</span><span>Vai all’indice <svg class="direction-icon direction-icon--up-right" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M3.5 10h13m0 0-5-5m5 5-5 5" vector-effect="non-scaling-stroke"></path></svg></span></a>
+      <a class="all-projects-link" href="/progetti/"><span>Progetti</span><span aria-hidden="true">Vai all’indice ↗</span></a>
     </section>
 
-    <section class="contact-section botanical-contact" id="contatti" aria-labelledby="contact-title" data-leaf-zone>
+    <section class="contact-section botanical-contact" id="contatti" aria-labelledby="contact-title">
       <picture class="contact-garden" aria-hidden="true">
         <source media="(max-width: 680px)" srcset="/assets/images/garden-distance-mobile.avif" type="image/avif" width="1024" height="1536">
         <source media="(max-width: 680px)" srcset="/assets/images/garden-distance-mobile.webp" type="image/webp" width="1024" height="1536">
@@ -231,7 +188,7 @@
         <p>Puoi partire dal contesto, dalle persone coinvolte e dai vincoli che contano. Se preferisci, puoi anche scrivermi direttamente via email.</p>
         <div class="contact-actions">
           <a class="button button-light" href="/contatti.html">Apri il modulo</a>
-          <a class="text-link" href="mailto:tobia@miniutti.it">tobia@miniutti.it <svg class="direction-icon direction-icon--up-right" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M3.5 10h13m0 0-5-5m5 5-5 5" vector-effect="non-scaling-stroke"></path></svg></a>
+          <a class="text-link" href="mailto:tobia@miniutti.it">tobia@miniutti.it <span aria-hidden="true">↗</span></a>
         </div>
       </div>
     </section>
@@ -240,7 +197,7 @@
   <footer class="site-footer">
     <div class="footer-grid">
       <div class="footer-brand"><span class="brand-symbol" aria-hidden="true"><img src="/assets/images/logo-nav.png" alt="" width="96" height="96" loading="lazy"></span><h2>Tobia Miniutti</h2><p>Sviluppo web, sistemi digitali e automazioni.</p></div>
-      <nav class="footer-nav" aria-label="Link nel piè di pagina"><span>Indice</span><a href="/#profilo">Profilo</a><a href="/#competenze">Competenze</a><a href="/progetti/">Progetti</a><a href="/contatti.html">Contatti</a><a href="/privacy.html">Privacy</a></nav>
+      <nav class="footer-nav" aria-label="Link nel piè di pagina"><span>Indice</span><a href="/#profilo">Profilo</a><a href="/progetti/">Progetti</a><a href="/contatti.html">Contatti</a><a href="/privacy.html">Privacy</a></nav>
       <div class="footer-contact"><span>Contatti diretti</span><a href="mailto:tobia@miniutti.it">tobia@miniutti.it</a><a href="tel:+3905119471903">+39 051 1947 1903</a><p>Bologna, Italia</p></div>
     </div>
     <div class="footer-bottom"><span>© <span data-current-year>2026</span> Tobia Miniutti</span><span>miniutti.it · Tutti i diritti riservati</span></div>

@@ -163,12 +163,12 @@
       "heading": "Alcuni dei miei progetti",
       "titles": [
         "MNS Warehouse",
-        "Ricettario AI",
+        "Culina",
         "Little Printer Revival"
       ],
       "links": [
         "/progetti/mns-warehouse/",
-        "/progetti/ricettario-ai/",
+        "/progetti/culina/",
         "/progetti/little-printer-revival/"
       ],
       "visualElements": 0,
@@ -178,7 +178,7 @@
     "index": {
       "slugs": [
         "mns-warehouse",
-        "ricettario-ai",
+        "culina",
         "little-printer-revival"
       ],
       "rows": 3,
@@ -1540,9 +1540,9 @@
       ]
     },
     {
-      "route": "/progetti/ricettario-ai/",
+      "route": "/progetti/culina/",
       "status": 200,
-      "title": "Ricettario AI | Progetto di Tobia Miniutti",
+      "title": "Culina | Progetto di Tobia Miniutti",
       "h1": 1,
       "noindex": false,
       "removedProjectText": false,
@@ -1623,7 +1623,7 @@
       "projectAssetReferences": 0
     },
     {
-      "slug": "ricettario-ai",
+      "slug": "culina",
       "galleryRoots": 0,
       "galleryDialogs": 0,
       "galleryItems": 0,

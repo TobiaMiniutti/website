@@ -78,7 +78,7 @@ Il dialog mobile conserva apertura, chiusura con Escape, ritorno del focus e tar
 I tre progetti pubblici, nello stesso ordine in home e archivio, sono:
 
 1. MNS Warehouse;
-2. Ricettario AI;
+2. Culina;
 3. Little Printer Revival.
 
 Le pagine sono editoriali e non mostrano liste tecnologiche artificiali. La paternità documentata è espressa direttamente nel racconto. Per Little Printer Revival la Little Printer e il progetto originale sono attribuiti a BERG; Tobia descrive il lavoro di analisi, recupero e sviluppo della piattaforma sostitutiva senza appropriarsi del prodotto originale.
@@ -92,7 +92,7 @@ La galleria è generata solo quando esistono file validi `screenshot-N.ext` nell
 | `/` | Home botanica, profilo, tre progetti e contatto | Sì |
 | `/progetti/` | Archivio dei tre progetti | Sì |
 | `/progetti/mns-warehouse/` | Caso studio MNS Warehouse | Sì |
-| `/progetti/ricettario-ai/` | Caso studio Ricettario AI | Sì |
+| `/progetti/culina/` | Caso studio Culina | Sì |
 | `/progetti/little-printer-revival/` | Caso studio Little Printer Revival | Sì |
 | `/contatti.html` | Modulo e contatti diretti | Sì |
 | `/privacy.html` | Informativa privacy | Sì |

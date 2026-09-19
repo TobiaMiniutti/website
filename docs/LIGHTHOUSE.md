@@ -13,7 +13,7 @@ The matrix audits these seven indexable routes, separately on the standard Light
 - `/privacy.html`
 - `/progetti/`
 - `/progetti/mns-warehouse/`
-- `/progetti/ricettario-ai/`
+- `/progetti/culina/`
 - `/progetti/little-printer-revival/`
 
 For every URL/profile pair, the runner performs three sequential clean-navigation CLI invocations. It does not retry failures or rerun unchanged code. Acceptance requires:
