@@ -134,8 +134,21 @@ for (const file of htmlFiles) {
   if (!source.includes('src="/assets/js/liquid-glass.js"')) errors.push(`${label}: script liquid glass mancante`);
   if (!source.includes('src="/assets/js/site.js"')) errors.push(`${label}: script principale mancante`);
   if (/maximum-scale\s*=|user-scalable\s*=\s*no/i.test(source)) errors.push(`${label}: zoom del browser limitato`);
-  if (/fonts\.(?:googleapis|gstatic)\.com|porta-brandeburgo|login\.html|379\s*112\s*8232|hook\.[a-z0-9-]*\.make\.com/i.test(source)) {
-    errors.push(`${label}: riferimento esterno, legacy o segreto non consentito`);
+
+  const forbiddenReference = source.match(
+  /fonts\.(?:googleapis|gstatic)\.com|porta-brandeburgo|login\.html|hook\.[a-z0-9-]*\.make\.com/i
+  );
+
+  if (forbiddenReference) {
+    errors.push(
+      `${label}: riferimento esterno o legacy non consentito: ${forbiddenReference[0]}`
+    );
+  }
+
+  if (!builtArtifact && /379\s*112\s*8232/i.test(source)) {
+    errors.push(
+      `${label}: numero mobile inserito direttamente; usare MOBILE_PHONE_DISPLAY e MOBILE_PHONE_TEL`
+    );
   }
 
   const brandLinks = [...source.matchAll(/<a\b([^>]*)>([\s\S]*?)<\/a>/gi)]
