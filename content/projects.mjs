@@ -24,28 +24,28 @@ export const projects = [
     seoDescription: "MNS Warehouse è una piattaforma web per organizzare articoli, scatole, posizioni e movimenti di magazzino.",
   },
   {
-    slug: "culina",
-    title: "Culina",
+    slug: "ricettario-ai",
+    title: "Ricettario AI",
     category: "Ricette e condivisione",
-    homeDescription: "Un ricettario digitale che unisce l’organizzazione delle ricette alla condivisione e alle conversazioni sulla cucina.",
-    lead: "Culina è un progetto dedicato alle ricette e a ciò che succede intorno a esse: raccoglierle, ritrovarle e condividerle. Affianca al ricettario personale una parte sociale, pensata per lo scambio tra chi cucina.",
+    homeDescription: "Un ricettario digitale avanzato per raccogliere, importare e condividere ricette da link, foto, screenshot, PDF o testo.",
+    lead: "Ricettario AI riunisce raccolta personale e dimensione sociale in un unico prodotto. L’importazione intelligente da link, foto, screenshot, PDF o testo riduce il lavoro di trascrizione; ricette, raccolte e conversazioni restano poi facili da ritrovare e condividere.",
     sections: [
       {
-        title: "Le ricette, in ordine",
+        title: "Raccogliere senza ricopiare",
         paragraphs: [
-          "Una ricetta non è soltanto un titolo. Ingredienti, quantità, passaggi e note devono rimanere facili da leggere quando si cucina, ma anche semplici da ritrovare in seguito. Culina organizza queste informazioni in uno spazio personale, senza trasformare la consultazione in una lunga sequenza di impostazioni.",
-          "Il progetto considera raccolte e profili come modi diversi di orientarsi tra i contenuti. La struttura serve a conservare il dettaglio di ogni preparazione e, allo stesso tempo, a dare continuità al proprio ricettario.",
+          "Una ricetta non è soltanto un titolo. Ingredienti, quantità, passaggi e note devono rimanere facili da leggere mentre si cucina, ma anche semplici da ritrovare in seguito. La struttura conserva il dettaglio di ogni preparazione e dà continuità al proprio ricettario.",
+          "Da un link, una foto, uno screenshot, un PDF o un testo, il flusso di importazione interpreta le informazioni disponibili e le porta nella struttura del ricettario. L’obiettivo è rendere più rapido l’inserimento senza perdere il controllo sul contenuto.",
         ],
       },
       {
-        title: "Condividerle",
+        title: "Dal ricettario allo scambio",
         paragraphs: [
-          "Accanto all’organizzazione personale c’è una dimensione di condivisione. Una ricetta può diventare il punto di partenza per uno scambio: mostrarla, parlarne e scoprire come altre persone affrontano una preparazione.",
-          "Ho ideato, progettato e sviluppato l’esperienza digitale mantenendo questa parte sociale legata alla cucina, senza imitare ogni funzione di una piattaforma generalista. Al centro rimangono le ricette, la loro lettura e le conversazioni che possono nascere intorno a esse.",
+          "Accanto all’organizzazione personale c’è una dimensione sociale. Una ricetta può diventare il punto di partenza per uno scambio: mostrarla, parlarne e scoprire come altre persone affrontano una preparazione.",
+          "Ho ideato, progettato e sviluppato l’esperienza mantenendo la parte sociale legata alla cucina, senza imitare ogni funzione di una piattaforma generalista. Al centro rimangono le ricette, la loro lettura e le conversazioni che possono nascere intorno a esse.",
         ],
       },
     ],
-    seoDescription: "Culina è un ricettario digitale per organizzare ricette e condividerle con altre persone interessate alla cucina.",
+    seoDescription: "Ricettario AI è un prodotto digitale per raccogliere, importare e condividere ricette da link, foto, screenshot, PDF o testo.",
   },
   {
     slug: "little-printer-revival",
