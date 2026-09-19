@@ -9,7 +9,7 @@ const builtArtifact = path.basename(root).toLowerCase() === "dist";
 const errors = [];
 const expectedProjects = [
   { slug: "mns-warehouse", title: "MNS Warehouse" },
-  { slug: "culina", title: "Culina" },
+  { slug: "ricettario-ai", title: "Ricettario AI" },
   { slug: "little-printer-revival", title: "Little Printer Revival" },
 ];
 const expectedIndexableRoutes = [
@@ -72,7 +72,7 @@ const visibleText = (markup) => markup
   .trim();
 
 if (!sameList(projects.map(({ slug }) => slug), expectedProjects.map(({ slug }) => slug))) {
-  errors.push("content/projects.mjs: devono esistere esattamente i tre progetti richiesti, nell’ordine MNS Warehouse, Culina, Little Printer Revival");
+  errors.push("content/projects.mjs: devono esistere esattamente i tre progetti richiesti, nell’ordine MNS Warehouse, Ricettario AI, Little Printer Revival");
 }
 for (const [index, expected] of expectedProjects.entries()) {
   if (projects[index]?.title !== expected.title) errors.push(`content/projects.mjs: titolo inatteso in posizione ${index + 1}`);
@@ -134,7 +134,7 @@ for (const file of htmlFiles) {
   if (!source.includes('src="/assets/js/liquid-glass.js"')) errors.push(`${label}: script liquid glass mancante`);
   if (!source.includes('src="/assets/js/site.js"')) errors.push(`${label}: script principale mancante`);
   if (/maximum-scale\s*=|user-scalable\s*=\s*no/i.test(source)) errors.push(`${label}: zoom del browser limitato`);
-  if (/fonts\.(?:googleapis|gstatic)\.com|porta-brandeburgo|login\.html|hook\.[a-z0-9-]*\.make\.com/i.test(source)) {
+  if (/fonts\.(?:googleapis|gstatic)\.com|porta-brandeburgo|login\.html|379\s*112\s*8232|hook\.[a-z0-9-]*\.make\.com/i.test(source)) {
     errors.push(`${label}: riferimento esterno, legacy o segreto non consentito`);
   }
 
@@ -225,7 +225,7 @@ const panelSource = panelStart >= 0 && panelEnd > panelStart ? homePage.slice(pa
 if (!panelSource) errors.push("index.html: contenitore project-panels mancante");
 if ((panelSource.match(/<article\b[^>]*class="[^"]*\bproject-panel\b/gi) || []).length !== 3) errors.push("index.html: servono esattamente tre pannelli progetto");
 if (!sameList(orderedUniqueProjectSlugs(panelSource), expectedProjects.map(({ slug }) => slug))) {
-  errors.push("index.html: ordine progetti inatteso; atteso MNS Warehouse, Culina, Little Printer Revival");
+  errors.push("index.html: ordine progetti inatteso; atteso MNS Warehouse, Ricettario AI, Little Printer Revival");
 }
 if (/<(?:img|picture|source)\b|\/assets\/projects\//i.test(panelSource)) errors.push("index.html: i pannelli progetto devono essere solo testuali");
 if (!homePage.includes("Alcuni dei miei progetti")) errors.push("index.html: titolo progetti richiesto mancante");
