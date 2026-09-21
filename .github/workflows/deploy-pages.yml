@@ -38,10 +38,14 @@ jobs:
       - name: Install locked toolchain
         run: npm ci --ignore-scripts
 
+      - name: Generate project pages
+        run: npm run generate:projects
+
       - name: Test source and worker
         run: npm test
 
       - name: Build production artifact
+
         env:
           TURNSTILE_SITE_KEY: ${{ vars.TURNSTILE_SITE_KEY }}
           MOBILE_PHONE_DISPLAY: ${{ vars.MOBILE_PHONE_DISPLAY }}
